@@ -1,0 +1,19 @@
+{
+  "name": "blog-affiliate-pipeline",
+  "private": true,
+  "description": "格安SIM×光回線アフィリエイトの記事生成・WordPress投稿パイプライン",
+  "type": "module",
+  "workspaces": [
+    "packages/publisher"
+  ],
+  "scripts": {
+    "wp:ping": "npm run wp:ping -w @blog-affiliate/publisher",
+    "wp:post": "npm run wp:post -w @blog-affiliate/publisher",
+    "test": "npm run test -w @blog-affiliate/publisher",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3"
+  }
+}

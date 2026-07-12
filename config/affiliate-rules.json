@@ -1,0 +1,34 @@
+{
+  "carriers": {
+    "rakuten-mobile": {
+      "label": "楽天モバイル",
+      "asp": "a8",
+      "linkTemplate": "https://example.a8.net/rakuten-mobile"
+    },
+    "linemo": {
+      "label": "LINEMO",
+      "asp": "moshimo",
+      "linkTemplate": "https://example.moshimo.com/linemo"
+    },
+    "ahamo": {
+      "label": "ahamo",
+      "asp": "a8",
+      "linkTemplate": "https://example.a8.net/ahamo"
+    }
+  },
+  "articleTypes": {
+    "comparison": {
+      "minLinks": 3,
+      "requiredCarriers": ["rakuten-mobile", "linemo", "ahamo"]
+    },
+    "howto": {
+      "minLinks": 2,
+      "requiredCarriers": ["rakuten-mobile", "linemo"]
+    },
+    "troubleshoot": {
+      "minLinks": 1,
+      "requiredCarriers": []
+    }
+  },
+  "forbiddenPhrases": ["絶対お得", "必ず儲かる", "公式より安い保証"]
+}

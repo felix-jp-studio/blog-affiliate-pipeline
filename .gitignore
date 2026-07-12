@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+data/keywords.db
+drafts/*
+!drafts/.gitkeep
+state/generation-cache/*
+!state/.gitkeep
+__pycache__/
+.venv/
+*.pyc
+.pytest_cache/
+.DS_Store

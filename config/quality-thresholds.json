@@ -1,0 +1,9 @@
+{
+  "minChars": 4000,
+  "maxChars": 8000,
+  "minQualityScore": 70,
+  "maxDuplicateRate": 0.15,
+  "minAffiliateLinks": 2,
+  "maxAffiliateLinks": 5,
+  "requireOfficialDateNote": true
+}

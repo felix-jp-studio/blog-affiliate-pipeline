@@ -1,0 +1,8 @@
+[project]
+name = "blog-affiliate-pipeline"
+version = "0.1.0"
+description = "格安SIM×光回線アフィリエイト自動化パイプライン"
+requires-python = ">=3.11"
+
+[tool.uv.workspace]
+members = ["packages/generator", "packages/keyword-cli"]
