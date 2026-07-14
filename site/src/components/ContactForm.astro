@@ -1,0 +1,94 @@
+---
+const formAction = import.meta.env.PUBLIC_CONTACT_FORM_ACTION;
+const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
+---
+
+<section class="contact-form">
+  {
+    formAction ? (
+      <form method="post" action={formAction}>
+        <div class="field">
+          <label for="name">お名前</label>
+          <input id="name" name="name" type="text" required maxlength="100" />
+        </div>
+        <div class="field">
+          <label for="email">メールアドレス</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            maxlength="254"
+          />
+        </div>
+        <div class="field">
+          <label for="message">お問い合わせ内容</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="6"
+            required
+            maxlength="2000"
+          />
+        </div>
+        <button type="submit">送信する</button>
+      </form>
+    ) : (
+      <p class="notice">
+        フォーム送信先の設定が完了次第、こちらからお問い合わせいただけます。
+        {contactEmail && (
+          <>
+            {" "}
+            それまでのご連絡は{" "}
+            <a href={`mailto:${contactEmail}`}>{contactEmail}</a>{" "}
+            までお願いします。
+          </>
+        )}
+      </p>
+    )
+  }
+</section>
+
+<style>
+  .contact-form {
+    margin-top: 1.5rem;
+  }
+
+  .field {
+    margin-bottom: 1rem;
+  }
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    max-width: 560px;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font: inherit;
+  }
+
+  button {
+    background: var(--accent);
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    padding: 0.65rem 1.25rem;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  button:hover {
+    opacity: 0.92;
+  }
+
+  .notice {
+    color: var(--muted);
+  }
+</style>
