@@ -1,0 +1,39 @@
+---
+description: blog-affiliate 作業完了時に次のロードマップ指示を必ず提示する
+alwaysApply: true
+---
+
+# 次のロードマップ指示（毎回）
+
+**適用範囲**: `blog-affiliate-auto` または `blog-affiliate-pipeline` に関する作業のみ。他プロジェクトでは本ルールを適用しない。
+
+作業に区切りがついたら、応答の**末尾**に必ず `## 次のロードマップ指示` セクションを付ける。
+
+## 手順
+
+1. `blog-affiliate-auto/config/roadmap-progress.json` を読む（進捗・次タスクの正本）
+2. 必要なら `blog-affiliate-auto/docs/plans/roadmap-20260712.md` の該当週/月を参照
+3. 今回完了したタスクがあれば `completed` に追記し、`next` から除去（`updatedAt` も更新）
+4. ユーザー向けに **優先度上位 1〜3 件** を具体的に提示
+
+## 出力フォーマット
+
+```markdown
+## 次のロードマップ指示
+
+**現在**: Phase {phase} / Month {month} / Week {week}
+
+### 次にやること（優先順）
+
+1. **{label}**（目安 {estimate}）
+   - {instructions}
+
+**進捗**: {completed.length} 件完了 / 残り {next.length} 件
+```
+
+## ルール
+
+- 抽象的な「続きをやりましょう」だけで終わらない。具体的なコマンド・ファイル・成果物を書く
+- インフラ方針は progress.json の `infra` を正とする（Vercel + Markdown Git 公開。初期 WP は見送り）
+- パイプラインのファイルパスは `blog-affiliate-pipeline/` 配下を明示する
+- ユーザーが「次はやらない」と言った場合のみ、指示セクションを省略可
