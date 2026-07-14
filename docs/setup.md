@@ -1,6 +1,25 @@
 # セットアップ
 
-## WordPress Application Password
+## サイト（Vercel）
+
+```bash
+cd site
+npm install
+npm run dev
+npm run build
+```
+
+Vercel プロジェクト設定:
+
+| 項目           | 値              |
+| -------------- | --------------- |
+| Root Directory | `site`          |
+| Framework      | Astro           |
+| Build Command  | `npm run build` |
+
+本番ドメイン: `sim-hikari-guide.com`
+
+## WordPress Application Password（WP 移行時のみ）
 
 1. WordPress 管理画面 → ユーザー → プロフィール
 2. 「アプリケーションパスワード」で新規作成（例: `blog-affiliate-pipeline`）
