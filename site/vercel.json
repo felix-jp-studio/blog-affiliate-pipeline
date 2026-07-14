@@ -2,6 +2,17 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.sim-hikari-guide.com"
+        }
+      ],
+      "destination": "https://sim-hikari-guide.com/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
