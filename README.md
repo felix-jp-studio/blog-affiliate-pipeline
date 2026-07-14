@@ -17,10 +17,10 @@
 
 ## サイト（Vercel）
 
-**設定はコードで管理**: リポジトリルートの [`vercel.json`](vercel.json)  
+**設定はコードで管理**: [`site/vercel.json`](site/vercel.json)（www リダイレクト等）  
 **手順書**: [`docs/vercel-deploy.md`](docs/vercel-deploy.md)
 
-ダッシュボードの Root Directory / Framework Preset は**不要**（`vercel.json` が `site/` をビルド）。
+Vercel プロジェクト `sim-hikari-guide-site`（Root Directory: `site`）。Astro ビルドは自動検出。
 
 ```bash
 # ローカル開発
