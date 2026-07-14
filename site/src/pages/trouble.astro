@@ -1,14 +1,32 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const articles = (await getCollection("articles", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const troubleArticles = articles.filter((a) => a.data.category === "trouble");
 ---
 
-<BaseLayout
-  title="お困り系"
-  description="通信のトラブル・速度・開通に関する対処法"
->
+<BaseLayout title="お困り系" description="速度・開通などお困りごとの対処記事一覧">
   <h1>お困り系</h1>
-  <p class="lead">
-    速度が遅い、開通が遅いなど、通信まわりのお困りごとへの対処法を掲載します。
-  </p>
-  <p>現在、サイト準備中です。記事公開後に一覧を表示します。</p>
+  <p class="lead">速度が遅い、開通が遅いなど、よくある悩みへの対処法です。</p>
+
+  {
+    troubleArticles.length > 0 ? (
+      <ul>
+        {troubleArticles.map((article) => {
+          const slug = article.id;
+          return (
+            <li>
+              <a href={`/articles/${slug}`}>{article.data.title}</a>
+            </li>
+          );
+        })}
+      </ul>
+    ) : (
+      <p>記事を準備中です。</p>
+    )
+  }
 </BaseLayout>

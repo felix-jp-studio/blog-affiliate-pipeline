@@ -1,0 +1,35 @@
+{
+  "description": "初回テストバッチ（もしも審査・A8 否認対策用）",
+  "items": [
+    {
+      "keyword": "格安SIM 20GB おすすめ",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 1
+    },
+    {
+      "keyword": "楽天モバイル 乗り換え 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 2
+    },
+    {
+      "keyword": "MNP 予約番号 取得方法",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 3
+    },
+    {
+      "keyword": "格安SIM 速度 遅い 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 4
+    },
+    {
+      "keyword": "LINEMO 評判 デメリット",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 5
+    }
+  ]
+}

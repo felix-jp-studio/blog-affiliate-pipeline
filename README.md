@@ -38,6 +38,17 @@ vercel deploy --prod
 ## Phase 0（publisher）
 
 - `packages/publisher` — WordPress REST 投稿（`wp:ping` / `wp:post`）
+
+## 記事自動生成（テストバッチ）
+
+```bash
+npm run generate:test       # Groq or template
+npm run generate:template   # offline template mode
+```
+
+設計: [`docs/article-generation-design.md`](docs/article-generation-design.md)  
+出力: `site/src/content/articles/*.md` → `/articles/{slug}`
+
 - 静的サイト運用時は `site/content/articles/` への Markdown 公開に移行予定
 
 ## セットアップ（ルート）

@@ -1,11 +1,25 @@
-# generator（Phase 1）
+# generator
 
-構成・本文生成・品質チェック（Python）。
+KW → 構成 JSON → Markdown 本文 → Astro 公開用ファイル。
+
+設計: [`docs/article-generation-design.md`](../../docs/article-generation-design.md)
+
+## 使い方
 
 ```bash
-# Phase 1 で実装予定
-uv run generate-outline --keyword-id 1
-uv run generate-article --outline drafts/outline-001.json
+# リポジトリルートで実行
+npm run generate:test      # GROQ_API_KEY があれば Groq、なければ template
+npm run generate:template  # オフライン・CI 用テンプレート生成
 ```
 
-設計: [blog-affiliate-auto/docs/plans/blog-affiliate-pipeline-design.md](https://github.com/felix-jp-studio/blog-affiliate-auto/blob/main/docs/plans/blog-affiliate-pipeline-design.md)
+## 出力
+
+- `site/src/content/articles/YYYY-MM-DD-slug.md`
+- 状態: `state/generate-state.json`
+
+## テスト
+
+```bash
+cd packages/generator
+PYTHONPATH=. python3 -m unittest discover -s tests -q
+```

@@ -1,9 +1,32 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const articles = (await getCollection("articles", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const simArticles = articles.filter((a) => a.data.category === "sim");
 ---
 
-<BaseLayout title="格安SIM" description="格安SIMの比較・乗り換え・MNP手順">
+<BaseLayout title="格安SIM" description="格安SIMの比較・乗り換え・お困り解決記事一覧">
   <h1>格安SIM</h1>
-  <p class="lead">格安SIMに関する比較記事・手順記事を順次公開します。</p>
-  <p>現在、サイト準備中です。記事公開後に一覧を表示します。</p>
+  <p class="lead">乗り換え・MNP・料金比較など、格安SIMに関する記事です。</p>
+
+  {
+    simArticles.length > 0 ? (
+      <ul>
+        {simArticles.map((article) => {
+          const slug = article.id;
+          return (
+            <li>
+              <a href={`/articles/${slug}`}>{article.data.title}</a>
+            </li>
+          );
+        })}
+      </ul>
+    ) : (
+      <p>記事を準備中です。</p>
+    )
+  }
 </BaseLayout>
