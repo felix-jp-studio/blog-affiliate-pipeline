@@ -1,23 +1,54 @@
 # blog-affiliate-pipeline
 
-格安 SIM × 光回線 × お困り系アフィリエイトの記事生成・WordPress 投稿パイプライン。
+格安 SIM × 光回線 × お困り系アフィリエイトの記事生成・公開パイプライン。
 
 ## 設計書
 
 [blog-affiliate-auto/docs/plans/blog-affiliate-pipeline-design.md](https://github.com/felix-jp-studio/blog-affiliate-auto/blob/main/docs/plans/blog-affiliate-pipeline-design.md)
 
-## Phase 0（現在）
+## 構成
+
+| パス                     | 用途                                              |
+| ------------------------ | ------------------------------------------------- |
+| `site/`                  | Astro 静的サイト（Vercel デプロイ先）             |
+| `packages/publisher`     | 記事公開 CLI（Phase 0: WP / 将来: Markdown 公開） |
+| `config/`                | プロンプト・アフィリエイトルール・品質閾値        |
+| `data/keywords.seed.csv` | KW サンプル                                       |
+
+## サイト（Vercel）
+
+**リポジトリ**: `felix-jp-studio/blog-affiliate-pipeline`  
+**Root Directory**: `site`  
+**本番ドメイン**: `sim-hikari-guide.com`
+
+```bash
+cd site
+npm install
+npm run dev      # ローカル開発 http://localhost:4321
+npm run build    # ビルド確認
+```
+
+### Vercel 設定
+
+| 項目             | 値              |
+| ---------------- | --------------- |
+| Framework Preset | Astro           |
+| Root Directory   | `site`          |
+| Build Command    | `npm run build` |
+| Output Directory | `dist`          |
+| Install Command  | `npm install`   |
+
+## Phase 0（publisher）
 
 - `packages/publisher` — WordPress REST 投稿（`wp:ping` / `wp:post`）
-- `config/` — プロンプト・アフィリエイトルール・品質閾値
-- `data/keywords.seed.csv` — KW サンプル
+- 静的サイト運用時は `site/content/articles/` への Markdown 公開に移行予定
 
-## セットアップ
+## セットアップ（ルート）
 
 ```bash
 npm install
 cp .env.example .env
-# .env に WP_URL / WP_USER / WP_APP_PASSWORD を設定
+# WP 利用時のみ: WP_URL / WP_USER / WP_APP_PASSWORD を設定
 npm run wp:ping
 ```
 
