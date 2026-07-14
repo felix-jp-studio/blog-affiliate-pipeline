@@ -17,26 +17,23 @@
 
 ## サイト（Vercel）
 
-**リポジトリ**: `felix-jp-studio/blog-affiliate-pipeline`  
-**Root Directory**: `site`  
-**本番ドメイン**: `sim-hikari-guide.com`
+**設定はコードで管理**: リポジトリルートの [`vercel.json`](vercel.json)  
+**手順書**: [`docs/vercel-deploy.md`](docs/vercel-deploy.md)
+
+ダッシュボードの Root Directory / Framework Preset は**不要**（`vercel.json` が `site/` をビルド）。
 
 ```bash
-cd site
-npm install
-npm run dev      # ローカル開発 http://localhost:4321
-npm run build    # ビルド確認
+# ローカル開発
+cd site && npm install && npm run dev
+
+# CLI デプロイ（初回: vercel login && vercel link）
+vercel deploy --prod
 ```
 
-### Vercel 設定
-
-| 項目             | 値              |
-| ---------------- | --------------- |
-| Framework Preset | Astro           |
-| Root Directory   | `site`          |
-| Build Command    | `npm run build` |
-| Output Directory | `dist`          |
-| Install Command  | `npm install`   |
+| 項目         | 値                     |
+| ------------ | ---------------------- |
+| 本番ドメイン | `sim-hikari-guide.com` |
+| ビルド出力   | `site/dist`            |
 
 ## Phase 0（publisher）
 
