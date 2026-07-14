@@ -4,22 +4,15 @@
 
 ## 前提
 
-| 項目         | 値                                        |
-| ------------ | ----------------------------------------- |
-| リポジトリ   | `felix-jp-studio/blog-affiliate-pipeline` |
-| サイト       | `site/`（Astro）                          |
-| 本番ドメイン | `sim-hikari-guide.com`                    |
-| 設定ファイル | リポジトリルートの `vercel.json`          |
+| 項目               | 値                                        |
+| ------------------ | ----------------------------------------- |
+| リポジトリ         | `felix-jp-studio/blog-affiliate-pipeline` |
+| サイト             | `site/`（Astro）                          |
+| Vercel プロジェクト | `sim-hikari-guide-site`（Root Directory: `site`） |
+| 本番ドメイン       | `sim-hikari-guide.com`                    |
+| 設定ファイル       | `site/vercel.json`（リダイレクト等）      |
 
-`vercel.json` がビルドを指定するため、**Vercel ダッシュボードで Root Directory を空のまま**で問題ありません。
-
-```json
-{
-  "installCommand": "npm ci --prefix site",
-  "buildCommand": "npm run build --prefix site",
-  "outputDirectory": "site/dist"
-}
-```
+Vercel プロジェクトの **Root Directory = `site`** のとき、ビルドは Astro プリセットが自動検出する。`site/vercel.json` で www → apex リダイレクト等を定義する。
 
 ---
 
@@ -38,7 +31,7 @@ vercel login
 
 ```bash
 cd /path/to/blog-affiliate-pipeline
-vercel link
+vercel link --yes --project sim-hikari-guide-site --scope sim-hikari-guide
 ```
 
 対話で選択:
@@ -47,8 +40,8 @@ vercel link
 | ------------------------- | -------------------------------------------------- |
 | Set up and deploy?        | **Y**（または既存プロジェクトなら link のみ）      |
 | Which scope?              | 自分の Team / Hobby アカウント                     |
-| Link to existing project? | **Y**（既に `blog-affiliate-pipeline` がある場合） |
-| Project name              | `blog-affiliate-pipeline`                          |
+| Link to existing project? | **Y**（既に `sim-hikari-guide-site` がある場合） |
+| Project name              | `sim-hikari-guide-site`                          |
 
 `.vercel/project.json` が生成されます（gitignore 済み）。
 
@@ -77,11 +70,8 @@ vercel deploy --prod
 ## 5. カスタムドメイン（CLI）
 
 ```bash
-# apex
-vercel domains add sim-hikari-guide.com blog-affiliate-pipeline
-
-# www（vercel.json で apex へリダイレクト）
-vercel domains add www.sim-hikari-guide.com blog-affiliate-pipeline
+vercel domains add sim-hikari-guide.com
+vercel domains add www.sim-hikari-guide.com
 ```
 
 DNS レコードを確認:
@@ -107,9 +97,8 @@ gcloud dns managed-zones list --filter="dnsName:sim-hikari-guide.com."
 
 ```bash
 # 変数（例: Vercel が表示した値に差し替え）
-ZONE="sim-hikari-guide-com"          # 実際のゾーン名
-APEX_IP="76.76.21.21"                 # vercel domains inspect の A レコード
-WWW_CNAME="cname.vercel-dns.com."    # 末尾の . を含む
+ZONE="sim-hikari-guide-com"
+APEX_IP="76.76.21.21"
 
 # apex
 gcloud dns record-sets create sim-hikari-guide.com. \
@@ -118,12 +107,12 @@ gcloud dns record-sets create sim-hikari-guide.com. \
   --ttl=300 \
   --rrdatas="${APEX_IP}"
 
-# www
+# www（Vercel 推奨: A レコード。inspect の指示に従う）
 gcloud dns record-sets create www.sim-hikari-guide.com. \
   --zone="${ZONE}" \
-  --type=CNAME \
+  --type=A \
   --ttl=300 \
-  --rrdatas="${WWW_CNAME}"
+  --rrdatas="${APEX_IP}"
 ```
 
 反映確認:
