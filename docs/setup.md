@@ -2,20 +2,14 @@
 
 ## サイト（Vercel）
 
+[`docs/vercel-deploy.md`](vercel-deploy.md) を参照。`vercel.json` + CLI でデプロイ。
+
 ```bash
 cd site
 npm install
 npm run dev
 npm run build
 ```
-
-Vercel プロジェクト設定:
-
-| 項目           | 値              |
-| -------------- | --------------- |
-| Root Directory | `site`          |
-| Framework      | Astro           |
-| Build Command  | `npm run build` |
 
 本番ドメイン: `sim-hikari-guide.com`
 
