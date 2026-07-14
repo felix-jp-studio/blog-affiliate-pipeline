@@ -9,9 +9,12 @@
   "scripts": {
     "wp:ping": "npm run wp:ping -w @blog-affiliate/publisher",
     "wp:post": "npm run wp:post -w @blog-affiliate/publisher",
-    "test": "npm run test -w @blog-affiliate/publisher",
+    "test": "npm run test -w @blog-affiliate/publisher && npm run test:generator",
+    "test:generator": "cd packages/generator && PYTHONPATH=. python3 -m unittest discover -s tests -q",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "generate:test": "PYTHONPATH=packages/generator python3 -m generator --mode auto",
+    "generate:template": "PYTHONPATH=packages/generator python3 -m generator --mode template"
   },
   "devDependencies": {
     "prettier": "^3.5.3"

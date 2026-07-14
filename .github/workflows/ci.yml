@@ -21,6 +21,9 @@ jobs:
       - run: npm run format:check
       - run: npm test
 
+      - name: Generator tests
+        run: npm run test:generator
+
       - name: Build site
         working-directory: site
         run: |

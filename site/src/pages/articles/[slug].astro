@@ -1,0 +1,60 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("articles", ({ data }) => !data.draft);
+  return entries.map((entry) => {
+    const slug = entry.id;
+    return {
+      params: { slug },
+      props: { entry },
+    };
+  });
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const slug = entry.id;
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description}>
+  <article>
+    <p class="badge">{entry.data.category} / {entry.data.articleType}</p>
+    <h1>{entry.data.title}</h1>
+    <p class="lead">
+      キーワード: {entry.data.keyword} ／ 公開日:
+      {entry.data.pubDate.toLocaleDateString("ja-JP")}
+    </p>
+    <div class="article-body">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article-body :global(h2) {
+    margin-top: 2rem;
+  }
+
+  .article-body :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+  }
+
+  .article-body :global(th),
+  .article-body :global(td) {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+  }
+
+  .article-body :global(blockquote) {
+    border-left: 3px solid var(--accent);
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,35 @@
+{
+  "mode": "template",
+  "results": [
+    {
+      "keyword": "格安SIM 20GB おすすめ",
+      "ok": true,
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-20gb-osusume.md",
+      "error": null
+    },
+    {
+      "keyword": "楽天モバイル 乗り換え 手順",
+      "ok": true,
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/rakuten-mobile-switch.md",
+      "error": null
+    },
+    {
+      "keyword": "MNP 予約番号 取得方法",
+      "ok": true,
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/mnp-reservation-number.md",
+      "error": null
+    },
+    {
+      "keyword": "格安SIM 速度 遅い 対処",
+      "ok": true,
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-speed-slow-fix.md",
+      "error": null
+    },
+    {
+      "keyword": "LINEMO 評判 デメリット",
+      "ok": true,
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/linemo-hyoban-demerit.md",
+      "error": null
+    }
+  ]
+}

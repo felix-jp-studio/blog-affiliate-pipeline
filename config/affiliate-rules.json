@@ -14,6 +14,16 @@
       "label": "ahamo",
       "asp": "a8",
       "linkTemplate": "https://example.a8.net/ahamo"
+    },
+    "povo": {
+      "label": "povo",
+      "asp": "a8",
+      "linkTemplate": "https://example.a8.net/povo"
+    },
+    "uq-mobile": {
+      "label": "UQ mobile",
+      "asp": "a8",
+      "linkTemplate": "https://example.a8.net/uq-mobile"
     }
   },
   "articleTypes": {
