@@ -1,0 +1,35 @@
+---
+description: PR作成前に Bugbot で実装レビューを必須化
+alwaysApply: true
+---
+
+# PR 作成前の実装レビュー
+
+`gh pr create` を実行する**前**に、必ず Bugbot でブランチ差分の実装レビューを行う。
+
+## 手順
+
+1. `npm run format:check` / `npm test` / ビルド（リポジトリに存在する場合）を実行
+2. Bugbot サブエージェントを起動
+   - `readonly: true`
+   - `Diff: branch changes`
+   - `Full Repository Path`: リポジトリの絶対パス
+3. レビュー結果をユーザーに報告（重大度順の表）
+4. **Critical / High** は修正してから PR 作成。修正不能なら PR 本文に理由を明記
+5. PR 本文を用意（下記テンプレートにレビューサマリーを含める）
+6. `gh pr create --body "$(cat <<'EOF' ... EOF)"` で PR 作成（本文にレビュー結果を含めた状態で公開）
+
+## PR 本文に含めるテンプレート
+
+```markdown
+## Implementation review (Bugbot)
+- Findings: {critical} critical, {high} high, {medium/low} medium/low
+- Status: {all resolved / noted below}
+- Notes: {未修正の Medium/Low や判断理由}
+```
+
+## 禁止
+
+- Bugbot 未実施のまま PR を作成しない
+- Critical/High を無言で放置しない
+- レビューサマリーなしで PR を公開しない

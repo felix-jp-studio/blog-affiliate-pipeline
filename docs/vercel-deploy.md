@@ -4,13 +4,13 @@
 
 ## 前提
 
-| 項目               | 値                                        |
-| ------------------ | ----------------------------------------- |
-| リポジトリ         | `felix-jp-studio/blog-affiliate-pipeline` |
-| サイト             | `site/`（Astro）                          |
+| 項目                | 値                                                |
+| ------------------- | ------------------------------------------------- |
+| リポジトリ          | `felix-jp-studio/blog-affiliate-pipeline`         |
+| サイト              | `site/`（Astro）                                  |
 | Vercel プロジェクト | `sim-hikari-guide-site`（Root Directory: `site`） |
-| 本番ドメイン       | `sim-hikari-guide.com`                    |
-| 設定ファイル       | `site/vercel.json`（リダイレクト等）      |
+| 本番ドメイン        | `sim-hikari-guide.com`                            |
+| 設定ファイル        | `site/vercel.json`（リダイレクト等）              |
 
 Vercel プロジェクトの **Root Directory = `site`** のとき、ビルドは Astro プリセットが自動検出する。`site/vercel.json` で www → apex リダイレクト等を定義する。
 
@@ -36,10 +36,10 @@ vercel link --yes --project sim-hikari-guide-site --scope sim-hikari-guide
 
 対話で選択:
 
-| 質問                      | 回答                                               |
-| ------------------------- | -------------------------------------------------- |
-| Set up and deploy?        | **Y**（または既存プロジェクトなら link のみ）      |
-| Which scope?              | 自分の Team / Hobby アカウント                     |
+| 質問                      | 回答                                             |
+| ------------------------- | ------------------------------------------------ |
+| Set up and deploy?        | **Y**（または既存プロジェクトなら link のみ）    |
+| Which scope?              | 自分の Team / Hobby アカウント                   |
 | Link to existing project? | **Y**（既に `sim-hikari-guide-site` がある場合） |
 | Project name              | `sim-hikari-guide-site`                          |
 
