@@ -3,27 +3,42 @@
     "rakuten-mobile": {
       "label": "楽天モバイル",
       "asp": "a8",
-      "linkTemplate": "https://example.a8.net/rakuten-mobile"
+      "linkTemplate": "https://px.a8.net/svt/ejp?a8mat=4B8097+2XZ6GI+424K+NTJWY"
     },
     "linemo": {
       "label": "LINEMO",
-      "asp": "moshimo",
-      "linkTemplate": "https://example.moshimo.com/linemo"
+      "asp": "pending",
+      "linkTemplate": "https://www.linemo.jp/"
     },
     "ahamo": {
       "label": "ahamo",
-      "asp": "a8",
-      "linkTemplate": "https://example.a8.net/ahamo"
+      "asp": "pending",
+      "linkTemplate": "https://www.docomo.ne.jp/ahamo/"
     },
     "povo": {
       "label": "povo",
-      "asp": "a8",
-      "linkTemplate": "https://example.a8.net/povo"
+      "asp": "pending",
+      "linkTemplate": "https://povo.jp/"
     },
     "uq-mobile": {
       "label": "UQ mobile",
+      "asp": "pending",
+      "linkTemplate": "https://www.uqwimax.jp/mobile/"
+    },
+    "au-hikari": {
+      "label": "auひかり",
       "asp": "a8",
-      "linkTemplate": "https://example.a8.net/uq-mobile"
+      "linkTemplate": "https://px.a8.net/svt/ejp?a8mat=4B8097+1WGVCI+3HKU+1THW9E"
+    },
+    "softbank-hikari": {
+      "label": "ソフトバンク光",
+      "asp": "a8",
+      "linkTemplate": "https://px.a8.net/svt/ejp?a8mat=4B8097+230N02+3HKU+25EKCY"
+    },
+    "wimax": {
+      "label": "WiMAX",
+      "asp": "a8",
+      "linkTemplate": "https://px.a8.net/svt/ejp?a8mat=4B8097+2PN3ZM+2JMM+1BN3TU"
     }
   },
   "articleTypes": {
