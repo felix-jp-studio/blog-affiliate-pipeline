@@ -1,7 +1,7 @@
 ---
 title: "格安SIM 20GBの選び方と比較ポイント【2026年7月版】"
 description: "格安SIM 20GB おすすめについて、公式情報を参照しながら中立に解説します。料金・条件は各公式サイトでご確認ください。"
-pubDate: 2026-07-15
+pubDate: 2026-07-17
 category: sim
 articleType: comparison
 keyword: "格安SIM 20GB おすすめ"
@@ -55,7 +55,7 @@ draft: false
 
 LINEMOはオンライン手続き中心で、プラン構成がシンプルな一方、通話の使い方に慣れが必要な場合があります。20GB前後で足りるかは、テザリングや動画視聴の頻度次第です。
 
-[LINEMOの公式を見る](https://www.linemo.jp/)
+[LINEMOの公式を見る](https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3776193&pid=892660854)
 
 ### ahamo
 
