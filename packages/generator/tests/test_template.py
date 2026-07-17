@@ -24,7 +24,10 @@ class TemplateGenerationTest(unittest.TestCase):
     def test_affiliate_injection_replaces_url_only(self):
         body = "[LINEMOの公式を見る]({AFFILIATE:linemo})"
         injected = inject_affiliates(body, ROOT)
-        self.assertIn("https://www.linemo.jp/", injected)
+        self.assertIn(
+            "https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3776193&pid=892660854",
+            injected,
+        )
         self.assertNotIn("AFFILIATE", injected)
 
     def test_batch_has_five_items(self):

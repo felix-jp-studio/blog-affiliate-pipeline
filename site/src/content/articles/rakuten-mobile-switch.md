@@ -1,7 +1,7 @@
 ---
 title: "楽天モバイルへの乗り換え手順をわかりやすく解説"
 description: "楽天モバイル 乗り換え 手順について、公式情報を参照しながら中立に解説します。料金・条件は各公式サイトでご確認ください。"
-pubDate: 2026-07-15
+pubDate: 2026-07-17
 category: sim
 articleType: howto
 keyword: "楽天モバイル 乗り換え 手順"

@@ -1,7 +1,7 @@
 ---
 title: "MNP予約番号の取得方法と注意点をまとめて解説"
 description: "MNP 予約番号 取得方法について、公式情報を参照しながら中立に解説します。料金・条件は各公式サイトでご確認ください。"
-pubDate: 2026-07-15
+pubDate: 2026-07-17
 category: sim
 articleType: howto
 keyword: "MNP 予約番号 取得方法"

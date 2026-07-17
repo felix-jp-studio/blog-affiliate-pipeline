@@ -1,7 +1,7 @@
 ---
 title: "LINEMOの評判とデメリットを中立に整理"
 description: "LINEMO 評判 デメリットについて、公式情報を参照しながら中立に解説します。料金・条件は各公式サイトでご確認ください。"
-pubDate: 2026-07-15
+pubDate: 2026-07-17
 category: sim
 articleType: comparison
 keyword: "LINEMO 評判 デメリット"
@@ -16,7 +16,7 @@ LINEMO 評判 デメリットを調べる際は、単純な口コミだけでな
 
 LINEMOはソフトバンク系のオンライン中心ブランドとして案内されています。料金・オプション・キャンペーンは公式サイト記載（2026年7月時点）を正とし、本記事では中立的に整理します。
 
-[LINEMOの公式を見る](https://www.linemo.jp/)
+[LINEMOの公式を見る](https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3776193&pid=892660854)
 
 ## メリットになりやすい点
 
