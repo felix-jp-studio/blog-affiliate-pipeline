@@ -1,0 +1,127 @@
+---
+import type { TocItem } from "../utils/article-meta";
+
+interface Props {
+  items: TocItem[];
+}
+
+const { items } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <>
+      <nav class="article-toc article-toc--desktop" aria-label="目次">
+        <p class="article-toc__label">目次</p>
+        <ol class="article-toc__list">
+          {items.map((item) => (
+            <li
+              class={item.level === 3 ? "article-toc__item--nested" : undefined}
+            >
+              <a href={`#${item.id}`}>{item.text}</a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+
+      <details class="article-toc article-toc--mobile">
+        <summary class="article-toc__summary">目次を表示</summary>
+        <nav aria-label="目次">
+          <ol class="article-toc__list article-toc__list--mobile">
+            {items.map((item) => (
+              <li
+                class={
+                  item.level === 3 ? "article-toc__item--nested" : undefined
+                }
+              >
+                <a href={`#${item.id}`}>{item.text}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      </details>
+    </>
+  )
+}
+
+<style>
+  .article-toc__label {
+    margin: 0 0 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+  }
+
+  .article-toc__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .article-toc__list a {
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    padding-left: 0.65rem;
+  }
+
+  .article-toc__list a:hover {
+    color: var(--accent);
+    border-left-color: var(--accent-soft);
+    text-decoration: none;
+  }
+
+  .article-toc__item--nested a {
+    padding-left: 1.25rem;
+    font-size: 0.8125rem;
+  }
+
+  .article-toc--desktop {
+    display: none;
+  }
+
+  .article-toc--mobile {
+    margin-bottom: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: #f8fafc;
+    padding: 0.75rem 1rem;
+  }
+
+  .article-toc__summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-primary);
+    list-style: none;
+  }
+
+  .article-toc__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .article-toc--mobile[open] .article-toc__list--mobile {
+    margin-top: 0.75rem;
+  }
+
+  @media (min-width: 1024px) {
+    .article-toc--desktop {
+      display: block;
+      position: sticky;
+      top: 5rem;
+      max-height: calc(100vh - 6rem);
+      overflow-y: auto;
+      padding-right: 0.5rem;
+    }
+
+    .article-toc--mobile {
+      display: none;
+    }
+  }
+</style>

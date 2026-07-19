@@ -1,0 +1,86 @@
+---
+
+---
+
+<aside class="publisher-box" aria-label="運営者情報">
+  <div class="publisher-box__icon" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+    >
+      <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+      <path d="M8 7h8M8 11h8M8 15h5"></path>
+    </svg>
+  </div>
+  <div class="publisher-box__content">
+    <p class="publisher-box__title">SIM・光回線ガイド編集部（運営者情報）</p>
+    <p class="publisher-box__note">
+      公式情報を参照した中立ガイドです。料金・キャンペーンは各公式サイトで最新情報をご確認ください。
+    </p>
+    <a class="publisher-box__link" href="/about">運営者情報を見る</a>
+  </div>
+</aside>
+
+<style>
+  .publisher-box {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    margin: 2rem 2.25rem 0;
+    padding: 1.25rem 1.35rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: #f8fafc;
+  }
+
+  .publisher-box__icon {
+    flex: 0 0 auto;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .publisher-box__icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .publisher-box__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  .publisher-box__title {
+    margin: 0;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+  }
+
+  .publisher-box__note {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+  }
+
+  .publisher-box__link {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  @media (max-width: 640px) {
+    .publisher-box {
+      margin-inline: 1.25rem;
+    }
+  }
+</style>

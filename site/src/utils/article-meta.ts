@@ -1,6 +1,46 @@
 import type { CollectionEntry } from "astro:content";
+import { nextHeadingId } from "./heading-slug";
 
 const CHARS_PER_MINUTE = 400;
+
+export type TocItem = {
+  id: string;
+  text: string;
+  level: 2 | 3;
+};
+
+function stripInlineMarkdown(text: string): string {
+  return text
+    .replace(/\*\*|__/g, "")
+    .replace(/\*|_/g, "")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .trim();
+}
+
+export function extractHeadings(body: string): TocItem[] {
+  const items: TocItem[] = [];
+  const slugCounts = new Map<string, number>();
+
+  for (const line of body.split("\n")) {
+    const match = line.match(/^(#{2,3})\s+(.+)$/);
+    if (!match) {
+      continue;
+    }
+
+    const level = match[1].length;
+    if (level !== 2 && level !== 3) {
+      continue;
+    }
+
+    const text = stripInlineMarkdown(match[2]);
+    const id = nextHeadingId(text, slugCounts);
+
+    items.push({ id, text, level: level as 2 | 3 });
+  }
+
+  return items;
+}
 
 function stripMarkdown(body: string): string {
   return body

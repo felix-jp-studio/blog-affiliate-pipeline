@@ -1,31 +1,96 @@
 ---
+import { getCollection } from "astro:content";
+import ArticleCard from "../components/ArticleCard.astro";
+import { defaultOgImage } from "../data/category-meta";
+import { getReadingTimeForEntry } from "../utils/article-meta";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const latestArticles = (
+  await getCollection("articles", ({ data }) => !data.draft)
+)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 6);
 ---
 
-<BaseLayout title="SIM・光回線ガイド">
+<BaseLayout title="SIM・光回線ガイド" ogImage={defaultOgImage}>
   <p class="badge">記事公開中</p>
   <h1>格安SIM・光回線の比較とお困り解決</h1>
   <p class="lead">
     乗り換え手順、料金比較、速度トラブルの対処法など、通信まわりの情報をわかりやすくまとめます。
   </p>
 
-  <div class="card-grid">
-    <section class="card">
-      <h2>格安SIM</h2>
-      <p>乗り換え・MNP・料金比較など、格安SIMに関する記事を掲載しています。</p>
-      <a href="/sim">カテゴリを見る</a>
-    </section>
-    <section class="card">
-      <h2>光回線</h2>
-      <p>NURO光・auひかりなど、光回線の比較とセット割情報を掲載予定です。</p>
-      <a href="/hikari">カテゴリを見る</a>
-    </section>
-    <section class="card">
-      <h2>お困り系</h2>
-      <p>
-        速度が遅い、開通が遅いなど、よくある悩みへの対処法を掲載しています。
-      </p>
-      <a href="/trouble">カテゴリを見る</a>
-    </section>
-  </div>
+  <section class="latest-articles">
+    <h2>最新記事</h2>
+    <div class="latest-articles__grid">
+      {
+        latestArticles.map((article) => (
+          <ArticleCard
+            slug={article.id}
+            title={article.data.title}
+            description={article.data.description}
+            pubDate={article.data.pubDate}
+            category={article.data.category}
+            articleType={article.data.articleType}
+            readingTimeMinutes={getReadingTimeForEntry(article)}
+            excerpt={article.data.excerpt}
+            eyecatch={article.data.eyecatch}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="category-section">
+    <h2>カテゴリから探す</h2>
+    <div class="card-grid">
+      <section class="card">
+        <h2>格安SIM</h2>
+        <p>
+          乗り換え・MNP・料金比較など、格安SIMに関する記事を掲載しています。
+        </p>
+        <a href="/sim">カテゴリを見る</a>
+      </section>
+      <section class="card">
+        <h2>光回線</h2>
+        <p>NURO光・auひかりなど、光回線の比較とセット割情報を掲載予定です。</p>
+        <a href="/hikari">カテゴリを見る</a>
+      </section>
+      <section class="card">
+        <h2>お困り系</h2>
+        <p>
+          速度が遅い、開通が遅いなど、よくある悩みへの対処法を掲載しています。
+        </p>
+        <a href="/trouble">カテゴリを見る</a>
+      </section>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .latest-articles {
+    margin-top: 2.5rem;
+  }
+
+  .latest-articles h2,
+  .category-section h2 {
+    margin-top: 0;
+    font-size: 1.35rem;
+  }
+
+  .latest-articles__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+  }
+
+  .category-section {
+    margin-top: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .latest-articles__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

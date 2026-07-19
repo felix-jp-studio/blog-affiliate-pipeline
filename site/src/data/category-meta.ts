@@ -7,7 +7,10 @@ export type CategoryMeta = {
   heroLead: string;
   themeColor: string;
   gradient: string;
+  ogImage: string;
 };
+
+export const defaultOgImage = "/og/og-default.svg";
 
 export const categoryMeta: Record<CategorySlug, CategoryMeta> = {
   sim: {
@@ -17,6 +20,7 @@ export const categoryMeta: Record<CategorySlug, CategoryMeta> = {
     heroLead: "乗り換え・MNP・料金比較など、格安SIMに関する記事です。",
     themeColor: "#0b6bcb",
     gradient: "linear-gradient(135deg, #dbeafe 0%, #93c5fd 100%)",
+    ogImage: "/og/og-sim.svg",
   },
   hikari: {
     label: "光回線",
@@ -25,6 +29,7 @@ export const categoryMeta: Record<CategorySlug, CategoryMeta> = {
     heroLead: "乗り換え・セット割・キャンペーンなど、光回線に関する記事です。",
     themeColor: "#059669",
     gradient: "linear-gradient(135deg, #d1fae5 0%, #6ee7b7 100%)",
+    ogImage: "/og/og-hikari.svg",
   },
   trouble: {
     label: "お困り系",
@@ -33,5 +38,6 @@ export const categoryMeta: Record<CategorySlug, CategoryMeta> = {
     heroLead: "速度低下・開通遅延など、よくあるお困りごとの対処記事です。",
     themeColor: "#d97706",
     gradient: "linear-gradient(135deg, #ffedd5 0%, #fdba74 100%)",
+    ogImage: "/og/og-trouble.svg",
   },
 };
