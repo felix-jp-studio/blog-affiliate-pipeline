@@ -14,7 +14,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "generate:test": "PYTHONPATH=packages/generator python3 -m generator --mode auto",
-    "generate:template": "PYTHONPATH=packages/generator python3 -m generator --mode template"
+    "generate:template": "PYTHONPATH=packages/generator python3 -m generator --mode template",
+    "generate:batch": "PYTHONPATH=packages/generator python3 -m generator --batch config/batch-priority-6-15.json --mode auto"
   },
   "devDependencies": {
     "prettier": "^3.5.3"
