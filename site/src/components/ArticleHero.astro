@@ -1,6 +1,7 @@
 ---
 import type { ArticleType } from "../data/article-type-labels";
 import { articleTypeLabels } from "../data/article-type-labels";
+import CategoryEyecatchPlaceholder from "./CategoryEyecatchPlaceholder.astro";
 import type { CategorySlug } from "../data/category-meta";
 import { categoryMeta } from "../data/category-meta";
 import { formatArticleDate, formatReadingTime } from "../utils/article-meta";
@@ -13,6 +14,7 @@ interface Props {
   pubDate: Date;
   readingTimeMinutes: number;
   eyecatch?: string;
+  showPlaceholderEyecatch?: boolean;
 }
 
 const {
@@ -23,6 +25,7 @@ const {
   pubDate,
   readingTimeMinutes,
   eyecatch,
+  showPlaceholderEyecatch = true,
 } = Astro.props;
 
 const categoryInfo = categoryMeta[category];
@@ -45,10 +48,16 @@ const readingLabel = formatReadingTime(readingTimeMinutes);
       <span>{readingLabel}</span>
     </p>
     {
-      eyecatch && (
+      eyecatch ? (
         <div class="article-hero__eyecatch">
           <img src={eyecatch} alt="" loading="eager" decoding="async" />
         </div>
+      ) : (
+        showPlaceholderEyecatch && (
+          <div class="article-hero__eyecatch">
+            <CategoryEyecatchPlaceholder category={category} />
+          </div>
+        )
       )
     }
   </div>
@@ -128,6 +137,7 @@ const readingLabel = formatReadingTime(readingTimeMinutes);
     border-radius: var(--radius-sm);
     overflow: hidden;
     max-height: 280px;
+    aspect-ratio: 16 / 9;
   }
 
   .article-hero__eyecatch img {

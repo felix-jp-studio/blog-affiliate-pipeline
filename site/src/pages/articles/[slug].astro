@@ -12,6 +12,7 @@ import { hasAffiliateLinks } from "../../utils/affiliate-links";
 import {
   extractHeadings,
   getReadingTimeForEntry,
+  resolveOgImageUrl,
 } from "../../utils/article-meta";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
@@ -34,7 +35,7 @@ const category = categoryMeta[entry.data.category];
 const readingTimeMinutes = getReadingTimeForEntry(entry);
 const toc = await extractHeadings(entry.body ?? "");
 const articleUrl = new URL(`/articles/${slug}`, Astro.site).href;
-const ogImage = entry.data.eyecatch ?? category.ogImage;
+const ogImage = resolveOgImageUrl(entry.data.eyecatch, entry.data.category);
 const publishedTime = entry.data.pubDate.toISOString();
 
 const allArticles = (
