@@ -1,14 +1,18 @@
 ---
 import Analytics from "../components/Analytics.astro";
+import "../styles/tokens.css";
+import "../styles/prose.css";
 
 interface Props {
   title: string;
   description?: string;
+  layout?: "default" | "article" | "hub";
 }
 
 const {
   title,
   description = "格安SIM・光回線の比較・乗り換え・お困り解決ガイド",
+  layout = "default",
 } = Astro.props;
 
 const pageTitle =
@@ -18,6 +22,14 @@ const canonical =
     ? Astro.site!
     : new URL(Astro.url.pathname, Astro.site).href;
 const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION;
+
+const mainClass = [
+  "container",
+  layout === "article" && "layout-article",
+  layout === "hub" && "layout-hub",
+]
+  .filter(Boolean)
+  .join(" ");
 ---
 
 <!doctype html>
@@ -55,7 +67,7 @@ const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION;
         </nav>
       </div>
     </header>
-    <main class="container">
+    <main class={mainClass}>
       <slot />
     </main>
     <footer>
@@ -78,27 +90,16 @@ const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION;
 </html>
 
 <style is:global>
-  :root {
-    color-scheme: light;
-    --text: #1a1a1a;
-    --muted: #5c5c5c;
-    --border: #e5e5e5;
-    --accent: #0b6bcb;
-    --bg: #ffffff;
-    --surface: #f7f9fc;
-  }
-
   * {
     box-sizing: border-box;
   }
 
   body {
     margin: 0;
-    font-family:
-      "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
-    color: var(--text);
-    background: var(--bg);
-    line-height: 1.7;
+    font-family: var(--font-sans);
+    color: var(--text-primary);
+    background: #fafafa;
+    line-height: var(--line-body);
   }
 
   a {
@@ -113,6 +114,14 @@ const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION;
   .container {
     width: min(960px, calc(100% - 2rem));
     margin-inline: auto;
+  }
+
+  .layout-article {
+    width: min(var(--width-page), calc(100% - 2rem));
+  }
+
+  .layout-hub {
+    width: min(var(--width-hub), calc(100% - 2rem));
   }
 
   header {
@@ -131,7 +140,7 @@ const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION;
 
   .logo {
     font-weight: 700;
-    color: var(--text);
+    color: var(--text-primary);
     font-size: 1.1rem;
   }
 
@@ -149,7 +158,7 @@ const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION;
     border-top: 1px solid var(--border);
     background: var(--surface);
     padding: 1.5rem 0;
-    color: var(--muted);
+    color: var(--text-secondary);
     font-size: 0.9rem;
   }
 
@@ -171,7 +180,7 @@ const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION;
 
   h1 {
     font-size: clamp(1.6rem, 4vw, 2rem);
-    line-height: 1.3;
+    line-height: var(--line-heading);
     margin: 0 0 1rem;
   }
 
@@ -186,8 +195,8 @@ const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION;
   }
 
   .lead {
-    color: var(--muted);
-    font-size: 1.05rem;
+    color: var(--text-secondary);
+    font-size: var(--text-lead);
   }
 
   .card-grid {
@@ -199,9 +208,9 @@ const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION;
 
   .card {
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     padding: 1rem;
-    background: var(--bg);
+    background: var(--bg-article);
   }
 
   .card h2 {
@@ -213,7 +222,7 @@ const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION;
     display: inline-block;
     padding: 0.2rem 0.5rem;
     border-radius: 999px;
-    background: #e8f2ff;
+    background: var(--accent-soft);
     color: var(--accent);
     font-size: 0.8rem;
     margin-bottom: 0.75rem;

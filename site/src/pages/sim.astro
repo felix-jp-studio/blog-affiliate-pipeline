@@ -1,39 +1,18 @@
 ---
 import { getCollection } from "astro:content";
-import Breadcrumbs from "../components/Breadcrumbs.astro";
+import CategoryHub from "../components/CategoryHub.astro";
 import { categoryMeta } from "../data/category-meta";
-import { buildBreadcrumbs } from "../data/site-nav";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const meta = categoryMeta.sim;
 
 const articles = (
   await getCollection("articles", ({ data }) => !data.draft)
-).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-const simArticles = articles.filter((a) => a.data.category === "sim");
-const breadcrumbs = buildBreadcrumbs([{ label: meta.label }]);
+)
+  .filter((a) => a.data.category === "sim")
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<BaseLayout title={meta.label} description={meta.description}>
-  <Breadcrumbs items={breadcrumbs} />
-  <h1>{meta.label}</h1>
-  <p class="lead">乗り換え・MNP・料金比較など、格安SIMに関する記事です。</p>
-
-  {
-    simArticles.length > 0 ? (
-      <ul>
-        {simArticles.map((article) => {
-          const slug = article.id;
-          return (
-            <li>
-              <a href={`/articles/${slug}`}>{article.data.title}</a>
-            </li>
-          );
-        })}
-      </ul>
-    ) : (
-      <p>記事を準備中です。</p>
-    )
-  }
+<BaseLayout title={meta.label} description={meta.description} layout="hub">
+  <CategoryHub category="sim" articles={articles} />
 </BaseLayout>

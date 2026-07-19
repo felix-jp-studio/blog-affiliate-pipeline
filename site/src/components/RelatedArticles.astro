@@ -1,5 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import ArticleCard from "./ArticleCard.astro";
+import { getReadingTimeForEntry } from "../utils/article-meta";
 
 interface Props {
   articles: CollectionEntry<"articles">[];
@@ -17,16 +19,22 @@ const related = articles
   related.length > 0 && (
     <aside class="related-articles" aria-labelledby="related-heading">
       <h2 id="related-heading">関連記事</h2>
-      <ul>
+      <div class="related-articles__grid">
         {related.map((article) => (
-          <li>
-            <a href={`/articles/${article.id}`}>{article.data.title}</a>
-            <time datetime={article.data.pubDate.toISOString()}>
-              {article.data.pubDate.toLocaleDateString("ja-JP")}
-            </time>
-          </li>
+          <ArticleCard
+            slug={article.id}
+            title={article.data.title}
+            description={article.data.description}
+            pubDate={article.data.pubDate}
+            category={article.data.category}
+            articleType={article.data.articleType}
+            readingTimeMinutes={getReadingTimeForEntry(article)}
+            excerpt={article.data.excerpt}
+            eyecatch={article.data.eyecatch}
+            variant="compact"
+          />
         ))}
-      </ul>
+      </div>
     </aside>
   )
 }
@@ -40,26 +48,18 @@ const related = articles
 
   .related-articles h2 {
     font-size: 1.1rem;
-    margin: 0 0 1rem;
+    margin: 0 0 1.25rem;
   }
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
+  .related-articles__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
-  li {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-  }
-
-  time {
-    font-size: 0.8rem;
-    color: var(--muted);
+  @media (min-width: 640px) {
+    .related-articles__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 </style>
