@@ -1,0 +1,65 @@
+{
+  "description": "記事量産バッチ1 — keywords.seed.csv priority 6-15",
+  "items": [
+    {
+      "keyword": "格安SIM 通話かけ放題 安い",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 6
+    },
+    {
+      "keyword": "家族 2 回線 安い",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 7
+    },
+    {
+      "keyword": "NURO 光 料金 キャンペーン",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 8
+    },
+    {
+      "keyword": "光回線 乗り換え おすすめ",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 9
+    },
+    {
+      "keyword": "スマホ セット割 比較",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 10
+    },
+    {
+      "keyword": "ホームルーター おすすめ 一人暮らし",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 11
+    },
+    {
+      "keyword": "WiMAX 料金 比較 2026",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 12
+    },
+    {
+      "keyword": "格安SIM 学生 おすすめ",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 13
+    },
+    {
+      "keyword": "データ無制限 格安SIM",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 14
+    },
+    {
+      "keyword": "テザリング 格安SIM おすすめ",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 15
+    }
+  ]
+}

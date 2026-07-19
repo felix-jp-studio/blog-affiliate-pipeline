@@ -30,6 +30,19 @@ class TemplateGenerationTest(unittest.TestCase):
         )
         self.assertNotIn("AFFILIATE", injected)
 
+    def test_hikari_comparison_passes_quality(self):
+        item = {
+            "keyword": "NURO 光 料金 キャンペーン",
+            "articleType": "comparison",
+            "category": "hikari",
+        }
+        outline = build_outline(item)
+        body = inject_affiliates(build_body(outline), ROOT)
+        result = check_article(body, "comparison", ROOT, test_mode=True)
+        self.assertTrue(result.ok, result.errors)
+        self.assertIn("auひかり", body)
+        self.assertNotIn("valuecommerce.com", body)
+
     def test_batch_has_five_items(self):
         import json
 
