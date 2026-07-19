@@ -27,6 +27,11 @@
       "source": "/articles/article-p16",
       "destination": "/articles/hikari-mansion-osusume",
       "permanent": true
+    },
+    {
+      "source": "/articles/article-p16/",
+      "destination": "/articles/hikari-mansion-osusume",
+      "permanent": true
     }
   ]
 }
