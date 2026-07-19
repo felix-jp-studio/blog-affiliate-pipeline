@@ -32,7 +32,7 @@ const slug = entry.id;
 
 const category = categoryMeta[entry.data.category];
 const readingTimeMinutes = getReadingTimeForEntry(entry);
-const toc = extractHeadings(entry.body ?? "");
+const toc = await extractHeadings(entry.body ?? "");
 const articleUrl = new URL(`/articles/${slug}`, Astro.site).href;
 const ogImage = entry.data.eyecatch ?? category.ogImage;
 const publishedTime = entry.data.pubDate.toISOString();

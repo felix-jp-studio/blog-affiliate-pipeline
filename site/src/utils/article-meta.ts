@@ -1,5 +1,6 @@
+import { createMarkdownProcessor } from "@astrojs/markdown-remark";
 import type { CollectionEntry } from "astro:content";
-import { nextHeadingId } from "./heading-slug";
+import { markdownRehypePlugins } from "../markdown-plugins";
 
 const CHARS_PER_MINUTE = 400;
 
@@ -9,47 +10,31 @@ export type TocItem = {
   level: 2 | 3;
 };
 
-function stripInlineMarkdown(text: string): string {
-  return text
-    .replace(/\*\*|__/g, "")
-    .replace(/\*|_/g, "")
-    .replace(/`([^`]+)`/g, "$1")
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .trim();
-}
+let processorPromise: ReturnType<typeof createMarkdownProcessor> | null = null;
 
-export function extractHeadings(body: string): TocItem[] {
-  const items: TocItem[] = [];
-  const slugCounts = new Map<string, number>();
-  let inCodeBlock = false;
-
-  for (const line of body.split("\n")) {
-    if (line.trimStart().startsWith("```")) {
-      inCodeBlock = !inCodeBlock;
-      continue;
-    }
-
-    if (inCodeBlock) {
-      continue;
-    }
-
-    const match = line.match(/^(#{2,3})\s+(.+)$/);
-    if (!match) {
-      continue;
-    }
-
-    const level = match[1].length;
-    if (level !== 2 && level !== 3) {
-      continue;
-    }
-
-    const text = stripInlineMarkdown(match[2]);
-    const id = nextHeadingId(text, slugCounts);
-
-    items.push({ id, text, level: level as 2 | 3 });
+async function getMarkdownProcessor() {
+  if (!processorPromise) {
+    processorPromise = createMarkdownProcessor({
+      markdown: {
+        rehypePlugins: markdownRehypePlugins,
+      },
+    });
   }
 
-  return items;
+  return processorPromise;
+}
+
+export async function extractHeadings(body: string): Promise<TocItem[]> {
+  const processor = await getMarkdownProcessor();
+  const { metadata } = await processor.render(body);
+
+  return metadata.headings
+    .filter((heading) => heading.depth === 2 || heading.depth === 3)
+    .map((heading) => ({
+      id: heading.slug,
+      text: heading.text,
+      level: heading.depth as 2 | 3,
+    }));
 }
 
 function stripMarkdown(body: string): string {

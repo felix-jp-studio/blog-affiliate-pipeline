@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="SIM???????">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="SIM・光回線ガイド">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#f0f6ff" />
@@ -6,6 +6,6 @@
     </linearGradient>
   </defs>
   <rect width="1200" height="630" fill="url(#bg)" />
-  <text x="600" y="290" text-anchor="middle" font-family="sans-serif" font-size="52" font-weight="700" fill="#0b6bcb">SIM???????</text>
-  <text x="600" y="360" text-anchor="middle" font-family="sans-serif" font-size="30" fill="#5c5c5c">??SIM??????????</text>
+  <text x="600" y="290" text-anchor="middle" font-family="sans-serif" font-size="52" font-weight="700" fill="#0b6bcb">SIM・光回線ガイド</text>
+  <text x="600" y="360" text-anchor="middle" font-family="sans-serif" font-size="30" fill="#5c5c5c">格安SIM・光回線比較ガイド</text>
 </svg>
