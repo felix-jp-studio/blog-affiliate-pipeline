@@ -5,7 +5,12 @@ on:
     branches: [main]
     paths:
       - "site/**"
+      - "scripts/e2e/post-visual-pr-comment.mjs"
       - ".github/workflows/pull-request.yml"
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   playwright-visual:
@@ -33,30 +38,43 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run Playwright visual regression
+        id: visual
         working-directory: site
+        continue-on-error: true
         run: npm run test:e2e:visual
         env:
           CI: true
           PUBLIC_CONTACT_FORM_ACTION: ""
 
+      - name: Build visual regression PR comment
+        if: github.event_name == 'pull_request'
+        run: node scripts/e2e/post-visual-pr-comment.mjs
+        env:
+          VISUAL_REPORT_PATH: site/test-results/visual-report.json
+          VISUAL_COMMENT_OUTPUT: site/test-results/visual-pr-comment.md
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+
+      - name: Post visual regression comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body-path: site/test-results/visual-pr-comment.md
+          edit-mode: replace
+          body-includes: "<!-- playwright-visual-report -->"
+
       - name: Visual regression summary
-        if: failure()
+        if: steps.visual.outcome == 'failure'
         run: |
           cat >> "$GITHUB_STEP_SUMMARY" <<'EOF'
           ## Visual regression failed
 
-          | Spec | Type | Snapshot |
-          | --- | --- | --- |
-          | contact.visual.spec.ts | screenshot / text | contact-main |
-          | sim-hub.visual.spec.ts | screenshot / text | sim-hub |
-          | article-template.visual.spec.ts | screenshot / text | article-sim-20gb |
-
-          Download **playwright-visual-diff** artifact for PNG diffs.
-          Text diff: see job log or run `npm run test:e2e:visual` locally.
+          PR コメントの表と **playwright-visual-diff** artifact を確認してください。
           EOF
 
       - name: Upload visual diff artifacts
-        if: failure()
+        if: steps.visual.outcome == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: playwright-visual-diff
@@ -64,3 +82,7 @@ jobs:
             site/tests/visual/**/*-snapshots/**/*
             site/test-results/
           retention-days: 14
+
+      - name: Fail job when visual regression failed
+        if: steps.visual.outcome == 'failure'
+        run: exit 1

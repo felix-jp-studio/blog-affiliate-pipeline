@@ -8,7 +8,12 @@ export default defineConfig({
   forbidOnly: isCI,
   retries: isCI ? 1 : 0,
   workers: isCI ? 1 : 2,
-  reporter: isCI ? "github" : "list",
+  reporter: isCI
+    ? [
+        ["github"],
+        ["json", { outputFile: "test-results/visual-report.json" }],
+      ]
+    : "list",
   snapshotPathTemplate:
     "{testDir}/{testFilePath}-snapshots/{arg}{-projectName}{ext}",
   expect: {
