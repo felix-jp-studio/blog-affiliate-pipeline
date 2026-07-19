@@ -1,0 +1,66 @@
+name: Pull Request
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "site/**"
+      - ".github/workflows/pull-request.yml"
+
+jobs:
+  playwright-visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            site/package-lock.json
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install site dependencies
+        working-directory: site
+        run: npm ci
+
+      - name: Install Playwright browsers
+        working-directory: site
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright visual regression
+        working-directory: site
+        run: npm run test:e2e:visual
+        env:
+          CI: true
+          PUBLIC_CONTACT_FORM_ACTION: ""
+
+      - name: Visual regression summary
+        if: failure()
+        run: |
+          cat >> "$GITHUB_STEP_SUMMARY" <<'EOF'
+          ## Visual regression failed
+
+          | Spec | Type | Snapshot |
+          | --- | --- | --- |
+          | contact.visual.spec.ts | screenshot / text | contact-main |
+          | sim-hub.visual.spec.ts | screenshot / text | sim-hub |
+          | article-template.visual.spec.ts | screenshot / text | article-sim-20gb |
+
+          Download **playwright-visual-diff** artifact for PNG diffs.
+          Text diff: see job log or run `npm run test:e2e:visual` locally.
+          EOF
+
+      - name: Upload visual diff artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-visual-diff
+          path: |
+            site/tests/visual/**/*-snapshots/**/*
+            site/test-results/
+          retention-days: 14

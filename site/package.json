@@ -8,7 +8,10 @@
     "preview": "astro preview",
     "generate:og": "node scripts/generate-og-png.mjs",
     "format:check": "prettier --check .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test:e2e:visual": "playwright test",
+    "test:e2e:visual:update": "playwright test --update-snapshots",
+    "test:e2e:visual:ui": "playwright test --ui"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -16,6 +19,7 @@
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.1",
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
     "sharp": "^0.35.3"
