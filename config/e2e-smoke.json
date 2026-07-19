@@ -1,0 +1,19 @@
+{
+  "productionUrl": "https://sim-hikari-guide.com",
+  "staticPages": [
+    { "path": "/", "label": "home" },
+    { "path": "/contact", "label": "contact" },
+    {
+      "path": "/sitemap-index.xml",
+      "label": "sitemap-index",
+      "checks": ["sitemapXml"]
+    }
+  ],
+  "smokeSlugs": ["hikari-mansion-osusume", "kouji-fuyou-hikari"],
+  "requiredOgTags": ["og:title", "og:description", "og:image", "og:url"],
+  "retry": {
+    "maxAttempts": 5,
+    "initialDelayMs": 15000,
+    "maxDelayMs": 60000
+  }
+}

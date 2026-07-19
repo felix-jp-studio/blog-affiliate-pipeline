@@ -1,0 +1,38 @@
+name: Post-deploy smoke
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "scripts/e2e/smoke-production.mjs"
+      - "config/e2e-smoke.json"
+      - ".github/workflows/post-deploy-smoke.yml"
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Production smoke test
+        run: npm run test:e2e:smoke
+
+      - name: Write job summary
+        if: always()
+        run: |
+          {
+            echo "## Post-deploy smoke"
+            echo ""
+            echo "- target: https://sim-hikari-guide.com"
+            echo "- script: \`npm run test:e2e:smoke\`"
+            echo "- config: \`config/e2e-smoke.json\`"
+            echo "- retry: exponential backoff (max 5 attempts, CDN delay)"
+          } >> "$GITHUB_STEP_SUMMARY"
