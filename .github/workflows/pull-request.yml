@@ -51,14 +51,22 @@ jobs:
 
       - name: Collect visual diff images for PR comment
         if: steps.visual.outcome == 'failure'
-        run: node scripts/e2e/collect-visual-diffs.mjs
+        id: collect_diffs
+        run: |
+          node scripts/e2e/collect-visual-diffs.mjs
+          if [ -n "$(find .github/pr-visual-diffs -maxdepth 1 -name '*.png' -print -quit)" ]; then
+            echo "has_png=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_png=false" >> "$GITHUB_OUTPUT"
+          fi
         env:
           VISUAL_TEST_RESULTS_DIR: site/test-results
           VISUAL_DIFF_OUTPUT_DIR: .github/pr-visual-diffs
 
       - name: Push visual diff images to PR branch
         id: diff_push
-        if: steps.visual.outcome == 'failure'
+        if: steps.visual.outcome == 'failure' && steps.collect_diffs.outputs.has_png == 'true'
+        continue-on-error: true
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore(ci): upload visual diff artifacts for PR comment"
@@ -69,7 +77,7 @@ jobs:
         id: diff_sha
         if: github.event_name == 'pull_request'
         run: |
-          if [ "${{ steps.diff_push.outputs.sha }}" != "" ]; then
+          if [ "${{ steps.diff_push.outcome }}" = "success" ] && [ -n "${{ steps.diff_push.outputs.sha }}" ]; then
             echo "sha=${{ steps.diff_push.outputs.sha }}" >> "$GITHUB_OUTPUT"
           else
             echo "sha=${{ github.event.pull_request.head.sha }}" >> "$GITHUB_OUTPUT"
