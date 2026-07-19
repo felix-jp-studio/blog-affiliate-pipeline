@@ -1,0 +1,59 @@
+{
+  "description": "記事量産バッチ2 — keywords.seed.csv priority 17-25",
+  "items": [
+    {
+      "keyword": "工事 不要 光回線",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 17
+    },
+    {
+      "keyword": "格安SIM 法人 おすすめ",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 18
+    },
+    {
+      "keyword": "光回線 プロバイダ 違い",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 19
+    },
+    {
+      "keyword": "格安SIM おすすめ 比較 2026",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 20
+    },
+    {
+      "keyword": "格安SIM キャリア 比較",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 21
+    },
+    {
+      "keyword": "楽天モバイル UQモバイル 比較",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 22
+    },
+    {
+      "keyword": "ahamo povo 比較",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 23
+    },
+    {
+      "keyword": "LINEMO ahamo 比較",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 24
+    },
+    {
+      "keyword": "IIJmio 評判 料金",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 25
+    }
+  ]
+}
