@@ -1,7 +1,13 @@
 {
-  "last_run": null,
-  "next_scheduled": null,
-  "week_id": null,
-  "runs_this_week": 0,
-  "history": []
+  "last_run": "2026-07-19",
+  "next_scheduled": "2026-07-20",
+  "week_id": "2026-W29",
+  "runs_this_week": 1,
+  "history": [
+    {
+      "date": "2026-07-19",
+      "keywords": ["光回線 マンション おすすめ"],
+      "ok_count": 1
+    }
+  ]
 }
