@@ -5,11 +5,11 @@ on:
     branches: [main]
     paths:
       - "site/**"
-      - "scripts/e2e/post-visual-pr-comment.mjs"
+      - "scripts/e2e/**"
       - ".github/workflows/pull-request.yml"
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 jobs:
@@ -17,6 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
 
       - uses: actions/setup-node@v6
         with:
@@ -46,12 +49,40 @@ jobs:
           CI: true
           PUBLIC_CONTACT_FORM_ACTION: ""
 
+      - name: Collect visual diff images for PR comment
+        if: steps.visual.outcome == 'failure'
+        run: node scripts/e2e/collect-visual-diffs.mjs
+        env:
+          VISUAL_TEST_RESULTS_DIR: site/test-results
+          VISUAL_DIFF_OUTPUT_DIR: .github/pr-visual-diffs
+
+      - name: Push visual diff images to PR branch
+        id: diff_push
+        if: steps.visual.outcome == 'failure'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(ci): upload visual diff artifacts for PR comment"
+          file_pattern: ".github/pr-visual-diffs/*.png"
+          skip_dirty_check: true
+
+      - name: Resolve diff image commit SHA
+        id: diff_sha
+        if: github.event_name == 'pull_request'
+        run: |
+          if [ "${{ steps.diff_push.outputs.sha }}" != "" ]; then
+            echo "sha=${{ steps.diff_push.outputs.sha }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "sha=${{ github.event.pull_request.head.sha }}" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build visual regression PR comment
         if: github.event_name == 'pull_request'
         run: node scripts/e2e/post-visual-pr-comment.mjs
         env:
           VISUAL_REPORT_PATH: site/test-results/visual-report.json
           VISUAL_COMMENT_OUTPUT: site/test-results/visual-pr-comment.md
+          VISUAL_DIFF_OUTPUT_DIR: .github/pr-visual-diffs
+          VISUAL_DIFF_SHA: ${{ steps.diff_sha.outputs.sha }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_RUN_ID: ${{ github.run_id }}
 
@@ -70,7 +101,7 @@ jobs:
           cat >> "$GITHUB_STEP_SUMMARY" <<'EOF'
           ## Visual regression failed
 
-          PR コメントの表と **playwright-visual-diff** artifact を確認してください。
+          PR コメントの表（Diff 列に PNG プレビュー）と **playwright-visual-diff** artifact を確認してください。
           EOF
 
       - name: Upload visual diff artifacts
@@ -81,6 +112,7 @@ jobs:
           path: |
             site/tests/visual/**/*-snapshots/**/*
             site/test-results/
+            .github/pr-visual-diffs/
           retention-days: 14
 
       - name: Fail job when visual regression failed

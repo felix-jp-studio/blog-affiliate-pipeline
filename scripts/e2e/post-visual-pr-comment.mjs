@@ -6,45 +6,23 @@
  *   node scripts/e2e/post-visual-pr-comment.mjs [--dry-run] [--output path]
  *
  * Env:
- *   VISUAL_REPORT_PATH  - Playwright JSON report (default: site/test-results/visual-report.json)
- *   GITHUB_REPOSITORY   - owner/repo (optional, for artifact links)
- *   GITHUB_RUN_ID       - Actions run id (optional, for artifact links)
- *   VISUAL_ARTIFACT_NAME - artifact name (default: playwright-visual-diff)
+ *   VISUAL_REPORT_PATH     - Playwright JSON report (default: site/test-results/visual-report.json)
+ *   VISUAL_DIFF_OUTPUT_DIR - local diff PNG dir (default: .github/pr-visual-diffs)
+ *   VISUAL_DIFF_SHA        - commit SHA for raw.githubusercontent.com URLs (default: GITHUB_SHA)
+ *   GITHUB_REPOSITORY      - owner/repo (optional, for artifact / raw image links)
+ *   GITHUB_RUN_ID          - Actions run id (optional, for artifact links)
+ *   VISUAL_ARTIFACT_NAME   - artifact name (default: playwright-visual-diff)
  */
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { VISUAL_PAGES } from "./visual-pages.mjs";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const repoRoot = join(scriptDir, "../..");
 
 const COMMENT_MARKER = "<!-- playwright-visual-report -->";
-
-/** @type {ReadonlyArray<{ spec: string; path: string; label: string; visualSnapshot: string; textSnapshot: string }>} */
-const VISUAL_PAGES = [
-  {
-    spec: "contact.visual.spec.ts",
-    path: "/contact",
-    label: "contact",
-    visualSnapshot: "contact-main.png",
-    textSnapshot: "contact-main.txt",
-  },
-  {
-    spec: "sim-hub.visual.spec.ts",
-    path: "/sim",
-    label: "sim-hub",
-    visualSnapshot: "sim-hub.png",
-    textSnapshot: "sim-hub-head.txt",
-  },
-  {
-    spec: "article-template.visual.spec.ts",
-    path: "/articles/sim-20gb-osusume",
-    label: "article-sim-20gb",
-    visualSnapshot: "article-sim-20gb.png",
-    textSnapshot: "article-sim-20gb-head.txt",
-  },
-];
 
 const PASS = "✅";
 const FAIL = "❌";
@@ -171,43 +149,123 @@ function statusCell(passed, failed, skipped) {
   return FAIL;
 }
 
+/**
+ * @param {string | null} repository
+ * @param {string | null} sha
+ * @param {string} diffBasePath
+ * @param {string} fileName
+ */
+function rawImageUrl(repository, sha, diffBasePath, fileName) {
+  if (!repository || !sha) {
+    return null;
+  }
+  const basePath = diffBasePath.replace(/^\/+|\/+$/g, "");
+  return `https://raw.githubusercontent.com/${repository}/${sha}/${basePath}/${fileName}`;
+}
+
+/**
+ * @param {string} label
+ * @param {string | null} repository
+ * @param {string | null} sha
+ * @param {string} diffBasePath
+ * @param {string} diffOutputDir
+ * @returns {{ preview: string | null; details: string | null }}
+ */
+function buildDiffContent(label, repository, sha, diffBasePath, diffOutputDir) {
+  const diffFile = `${label}-diff.png`;
+  const expectedFile = `${label}-expected.png`;
+  const actualFile = `${label}-actual.png`;
+
+  const diffPath = join(diffOutputDir, diffFile);
+  if (!existsSync(diffPath)) {
+    return { preview: null, details: null };
+  }
+
+  const diffUrl = rawImageUrl(repository, sha, diffBasePath, diffFile);
+  if (!diffUrl) {
+    return { preview: `\`${diffFile}\`（ローカルのみ）`, details: null };
+  }
+
+  const expectedUrl = rawImageUrl(repository, sha, diffBasePath, expectedFile);
+  const actualUrl = rawImageUrl(repository, sha, diffBasePath, actualFile);
+  const hasExpectedActual =
+    existsSync(join(diffOutputDir, expectedFile)) &&
+    existsSync(join(diffOutputDir, actualFile)) &&
+    expectedUrl &&
+    actualUrl;
+
+  const preview = `![${label} diff](${diffUrl})`;
+  if (!hasExpectedActual) {
+    return { preview, details: null };
+  }
+
+  const details = [
+    `<details>`,
+    `<summary><code>${label}</code> expected / actual</summary>`,
+    "",
+    `![${label} expected](${expectedUrl})`,
+    "",
+    `![${label} actual](${actualUrl})`,
+    "",
+    `</details>`,
+  ].join("\n");
+
+  return { preview, details };
+}
+
 /** @param {{ ok: boolean; kind: string | null; diffRatio: number | null; snapshot: string | null }} result @param {string | null} artifactUrl */
-function buildDetail(result, artifactUrl) {
+function buildTextDetail(result, artifactUrl) {
   if (result.ok) {
     return "一致";
   }
 
   const parts = [];
 
-  if (result.kind === "visual") {
-    if (result.diffRatio != null) {
-      parts.push(`PNG diff ${(result.diffRatio * 100).toFixed(1)}%`);
-    } else {
-      parts.push("PNG 不一致");
-    }
-    if (result.snapshot) {
-      parts.push(`\`${result.snapshot}\``);
-    }
-  } else if (result.kind === "text") {
+  if (result.kind === "text") {
     parts.push("text snapshot 不一致");
     if (result.snapshot) {
       parts.push(`\`${result.snapshot}\``);
     }
   } else if (result.kind === "missing") {
     parts.push("結果未取得");
-  } else {
+  } else if (result.kind !== "visual") {
     parts.push("テスト失敗");
   }
 
-  if (artifactUrl && result.kind === "visual") {
+  if (artifactUrl && result.kind === "text") {
     parts.push(`[artifact](${artifactUrl})`);
   }
 
+  return parts.length > 0 ? parts.join(" / ") : "—";
+}
+
+/** @param {{ ok: boolean; kind: string | null; diffRatio: number | null; snapshot: string | null }} result */
+function buildVisualDetail(result) {
+  if (result.ok || result.kind === "text") {
+    return "—";
+  }
+
+  const parts = [];
+  if (result.diffRatio != null) {
+    parts.push(`${(result.diffRatio * 100).toFixed(1)}%`);
+  } else {
+    parts.push("不一致");
+  }
+  if (result.snapshot) {
+    parts.push(`\`${result.snapshot}\``);
+  }
   return parts.join(" / ");
 }
 
-/** @param {Record<string, Record<string, unknown>>} specByFile @param {string | null} artifactUrl */
-function buildMarkdown(specByFile, artifactUrl) {
+/**
+ * @param {Record<string, Record<string, unknown>>} specByFile
+ * @param {string | null} artifactUrl
+ * @param {{ repository: string | null; sha: string | null; diffBasePath: string; diffOutputDir: string }} imageContext
+ */
+function buildMarkdown(specByFile, artifactUrl, imageContext) {
+  /** @type {string[]} */
+  const detailSections = [];
+
   const rows = VISUAL_PAGES.map((page) => {
     const result = getSpecResult(specByFile[page.spec]);
     const visualPassed = result.ok || result.kind === "text";
@@ -217,11 +275,34 @@ function buildMarkdown(specByFile, artifactUrl) {
     const textFailed = !result.ok && result.kind === "text";
     const textSkipped = !result.ok && result.kind === "visual";
 
+    let diffCell = "一致";
+    if (visualFailed) {
+      const { preview, details } = buildDiffContent(
+        page.label,
+        imageContext.repository,
+        imageContext.sha,
+        imageContext.diffBasePath,
+        imageContext.diffOutputDir,
+      );
+      if (preview) {
+        diffCell = preview;
+        if (details) {
+          detailSections.push(details);
+        }
+      } else if (artifactUrl) {
+        diffCell = `[artifact で確認](${artifactUrl})`;
+      } else {
+        diffCell = buildVisualDetail(result);
+      }
+    } else if (!result.ok) {
+      diffCell = buildTextDetail(result, artifactUrl);
+    }
+
     return {
       path: `\`${page.path}\``,
       visual: statusCell(visualPassed, visualFailed, false),
       text: statusCell(textPassed, textFailed, textSkipped),
-      detail: buildDetail(result, artifactUrl),
+      diff: diffCell,
     };
   });
 
@@ -237,17 +318,29 @@ function buildMarkdown(specByFile, artifactUrl) {
     COMMENT_MARKER,
     `## ${headline}`,
     "",
-    "| ページ | Visual (PNG) | Text | 詳細 |",
+    "| ページ | Visual | Text | Diff |",
     "| --- | --- | --- | --- |",
-    ...rows.map((row) => `| ${row.path} | ${row.visual} | ${row.text} | ${row.detail} |`),
+    ...rows.map((row) => `| ${row.path} | ${row.visual} | ${row.text} | ${row.diff} |`),
     "",
     "_Playwright hybrid visual regression (`pull-request.yml`)_",
   ];
 
-  if (artifactUrl && failedCount > 0) {
+  if (detailSections.length > 0) {
+    lines.push("", "### expected / actual", "", ...detailSections);
+  }
+
+  const hasVisualFail = rows.some((row) => row.visual === FAIL);
+  if (artifactUrl && hasVisualFail) {
     lines.push(
       "",
-      `PNG の expected / actual / diff は [Actions run の artifact \`${process.env.VISUAL_ARTIFACT_NAME ?? "playwright-visual-diff"}\`](${artifactUrl}) からダウンロードできます。`,
+      `PNG の expected / actual / diff は [Actions run の artifact \`${process.env.VISUAL_ARTIFACT_NAME ?? "playwright-visual-diff"}\`](${artifactUrl}) からもダウンロードできます。`,
+    );
+  }
+
+  if (imageContext.sha && imageContext.repository && hasVisualFail) {
+    lines.push(
+      "",
+      `Diff プレビュー画像: \`raw.githubusercontent.com/${imageContext.repository}/${imageContext.sha.slice(0, 7)}/${imageContext.diffBasePath}/\``,
     );
   }
 
@@ -271,9 +364,13 @@ function main() {
     args.output ??
     process.env.VISUAL_COMMENT_OUTPUT ??
     join(repoRoot, "site/test-results/visual-pr-comment.md");
+  const diffOutputDir =
+    process.env.VISUAL_DIFF_OUTPUT_DIR ?? join(repoRoot, ".github/pr-visual-diffs");
+  const diffBasePath = process.env.VISUAL_DIFF_BASE_PATH ?? ".github/pr-visual-diffs";
 
-  const repository = process.env.GITHUB_REPOSITORY;
-  const runId = process.env.GITHUB_RUN_ID;
+  const repository = process.env.GITHUB_REPOSITORY ?? null;
+  const runId = process.env.GITHUB_RUN_ID ?? null;
+  const sha = process.env.VISUAL_DIFF_SHA ?? process.env.GITHUB_SHA ?? null;
   const artifactName = process.env.VISUAL_ARTIFACT_NAME ?? "playwright-visual-diff";
 
   const artifactUrl =
@@ -294,6 +391,13 @@ function main() {
     }
   }
 
+  const imageContext = {
+    repository,
+    sha,
+    diffBasePath,
+    diffOutputDir,
+  };
+
   const markdown =
     report == null
       ? [
@@ -305,7 +409,7 @@ function main() {
           "Playwright の実行ログと artifact を確認してください。",
           "",
         ].join("\n")
-      : buildMarkdown(specByFile, artifactUrl);
+      : buildMarkdown(specByFile, artifactUrl, imageContext);
 
   if (args.dryRun) {
     process.stdout.write(markdown);

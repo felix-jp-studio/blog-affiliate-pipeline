@@ -1,0 +1,2 @@
+# CI uploads Playwright screenshot diffs here for PR comment embedding.
+# PNG files are committed to the PR branch by pull-request.yml (not main).
