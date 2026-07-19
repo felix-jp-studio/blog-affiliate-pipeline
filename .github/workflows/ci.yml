@@ -26,9 +26,15 @@ jobs:
       - name: Generator tests
         run: npm run test:generator
 
+      - name: Validate article markdown
+        run: node scripts/e2e/validate-articles.mjs
+
       - name: Build site
         working-directory: site
         run: |
           npm ci
           npm run format:check
           npm run build
+
+      - name: Validate build output
+        run: node scripts/e2e/validate-dist.mjs

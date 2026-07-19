@@ -33,6 +33,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Dry-run scheduled publish
+        run: |
+          BEFORE="$(git status --porcelain)"
+          PYTHONPATH=packages/generator python3 -m generator publish-scheduled --dry-run --force
+          AFTER="$(git status --porcelain)"
+          if [ "$BEFORE" != "$AFTER" ]; then
+            echo "Dry-run modified working tree unexpectedly"
+            git status --short
+            exit 1
+          fi
+
       - name: Check for open scheduled PR
         id: open_pr
         env:
@@ -69,7 +80,9 @@ jobs:
           npm run format:check
           npm test
           npm run test:generator
+          node scripts/e2e/validate-articles.mjs
           cd site && npm ci && npm run format:check && npm run build
+          node ../scripts/e2e/validate-dist.mjs
 
       - name: Check for changes
         id: changes
