@@ -21,8 +21,18 @@ function stripInlineMarkdown(text: string): string {
 export function extractHeadings(body: string): TocItem[] {
   const items: TocItem[] = [];
   const slugCounts = new Map<string, number>();
+  let inCodeBlock = false;
 
   for (const line of body.split("\n")) {
+    if (line.trimStart().startsWith("```")) {
+      inCodeBlock = !inCodeBlock;
+      continue;
+    }
+
+    if (inCodeBlock) {
+      continue;
+    }
+
     const match = line.match(/^(#{2,3})\s+(.+)$/);
     if (!match) {
       continue;

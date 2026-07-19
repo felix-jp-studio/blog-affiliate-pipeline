@@ -16,6 +16,7 @@ const articles = (await getCollection("articles", ({ data }) => !data.draft))
   description={meta.description}
   layout="hub"
   activeNav="hikari"
+  ogImage={meta.ogImage}
 >
   <CategoryHub category="hikari" articles={articles} />
 </BaseLayout>
