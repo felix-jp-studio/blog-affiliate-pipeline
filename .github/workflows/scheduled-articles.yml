@@ -1,0 +1,122 @@
+name: Scheduled articles
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Run even when not a scheduled day"
+        type: boolean
+        default: false
+  schedule:
+    # Mon/Thu 09:00 JST = UTC Mon/Thu 00:00
+    - cron: "0 0 * * 1,4"
+
+jobs:
+  publish-scheduled:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: scheduled-articles
+      cancel-in-progress: false
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check for open scheduled PR
+        id: open_pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          COUNT=$(gh pr list --state open --json headRefName --jq '[.[] | select(.headRefName | startswith("scheduled/articles-"))] | length')
+          echo "count=${COUNT}" >> "$GITHUB_OUTPUT"
+          if [ "${COUNT}" -gt 0 ]; then
+            echo "Open scheduled PR exists; skipping generation unless forced."
+          fi
+
+      - name: Generate scheduled articles
+        if: steps.open_pr.outputs.count == '0' || (github.event_name == 'workflow_dispatch' && inputs.force == true)
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: |
+          FORCE_FLAG=""
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force }}" = "true" ]; then
+            FORCE_FLAG="--force"
+          fi
+          npm run publish:scheduled -- $FORCE_FLAG
+
+      - name: Skip message
+        if: steps.open_pr.outputs.count != '0' && (github.event_name != 'workflow_dispatch' || inputs.force != true)
+        run: echo "[SKIP] Open scheduled PR exists. Merge or close it before the next run."
+
+      - name: Format
+        if: success()
+        run: npm run format
+
+      - name: Validate
+        if: success()
+        run: |
+          npm run format:check
+          npm test
+          npm run test:generator
+          cd site && npm ci && npm run format:check && npm run build
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create pull request
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          RUN_DATE=$(TZ=Asia/Tokyo date +%Y-%m-%d)
+          BRANCH="scheduled/articles-${RUN_DATE}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add site/src/content/articles state/publish-queue.json
+          git commit -m "chore: scheduled articles ${RUN_DATE}"
+          git push -u origin "$BRANCH"
+          {
+            echo "## Summary"
+            echo "- 公開スケジュール（月・木 JST）に従い記事を自動生成"
+            echo "- state/publish-queue.json を更新"
+            echo ""
+            echo "## Test plan"
+            echo "- [ ] 生成記事の料金・リンク・AI 開示を目視確認"
+            echo "- [ ] CI green を確認"
+            echo "- [ ] マージ後 Vercel 本番反映を確認"
+            echo ""
+            echo "## Note"
+            echo "自動 main マージは行いません。レビュー後にマージしてください。"
+          } > /tmp/pr-body.md
+          gh pr create \
+            --title "chore: 定期記事生成 ${RUN_DATE}" \
+            --body-file /tmp/pr-body.md
+
+      - name: Write job summary
+        if: always()
+        run: |
+          {
+            echo "## Scheduled articles"
+            echo ""
+            echo "- changed: ${{ steps.changes.outputs.changed }}"
+            echo "- schedule: Mon/Thu 09:00 JST"
+            echo "- docs: docs/article-publish-schedule.md"
+          } >> "$GITHUB_STEP_SUMMARY"

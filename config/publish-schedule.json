@@ -1,0 +1,10 @@
+{
+  "mode": "weekly",
+  "days": ["monday", "thursday"],
+  "articles_per_run": 1,
+  "timezone": "Asia/Tokyo",
+  "max_per_week": 2,
+  "generation_mode": "auto",
+  "keywords_seed": "data/keywords.seed.csv",
+  "output_dir": "site/src/content/articles"
+}

@@ -6,7 +6,7 @@ import re
 import unicodedata
 
 
-def slugify(keyword: str) -> str:
+def slugify(keyword: str, *, priority: int | None = None) -> str:
     mapping = {
         "格安SIM 20GB おすすめ": "sim-20gb-osusume",
         "楽天モバイル 乗り換え 手順": "rakuten-mobile-switch",
@@ -27,7 +27,12 @@ def slugify(keyword: str) -> str:
     if keyword in mapping:
         return mapping[keyword]
     base = re.sub(r"[^a-zA-Z0-9]+", "-", unicodedata.normalize("NFKC", keyword)).strip("-")
-    return base.lower()[:60] or "article"
+    slug = base.lower()[:60]
+    if slug:
+        return slug
+    if priority is not None:
+        return f"article-p{priority}"
+    return "article"
 
 
 def build_outline(item: dict) -> dict:
@@ -45,7 +50,7 @@ def build_outline(item: dict) -> dict:
 
     return {
         "title": titles.get(keyword, f"{keyword}の完全ガイド"),
-        "slug": slugify(keyword),
+        "slug": slugify(keyword, priority=item.get("priority")),
         "metaDescription": f"{keyword}について、公式情報を参照しながら中立に解説します。料金・条件は各公式サイトでご確認ください。",
         "category": category,
         "articleType": article_type,
