@@ -1,6 +1,7 @@
 ---
 import type { ArticleType } from "../data/article-type-labels";
 import { articleTypeLabels } from "../data/article-type-labels";
+import CategoryEyecatchPlaceholder from "./CategoryEyecatchPlaceholder.astro";
 import type { CategorySlug } from "../data/category-meta";
 import { categoryMeta } from "../data/category-meta";
 import {
@@ -59,40 +60,7 @@ const readingLabel =
       eyecatch ? (
         <img src={eyecatch} alt="" loading="lazy" decoding="async" />
       ) : (
-        <div class="article-card__placeholder" aria-hidden="true">
-          {category === "sim" && (
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-            >
-              <rect x="7" y="2" width="10" height="20" rx="2" />
-              <circle cx="12" cy="18" r="1" fill="currentColor" stroke="none" />
-            </svg>
-          )}
-          {category === "hikari" && (
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-            >
-              <path d="M4 14h16M6 10l6-6 6 6M8 14v6h8v-6" />
-            </svg>
-          )}
-          {category === "trouble" && (
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-            >
-              <circle cx="12" cy="12" r="9" />
-              <path d="M12 8v5M12 16h.01" />
-            </svg>
-          )}
-        </div>
+        <CategoryEyecatchPlaceholder category={category} />
       )
     }
   </div>
@@ -143,35 +111,6 @@ const readingLabel =
     height: 100%;
     object-fit: cover;
     display: block;
-  }
-
-  .article-card__placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255, 255, 255, 0.92);
-  }
-
-  .article-card__placeholder svg {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-
-  .article-card--sim .article-card__placeholder {
-    background: var(--gradient-sim);
-    color: var(--color-sim);
-  }
-
-  .article-card--hikari .article-card__placeholder {
-    background: var(--gradient-hikari);
-    color: var(--color-hikari);
-  }
-
-  .article-card--trouble .article-card__placeholder {
-    background: var(--gradient-trouble);
-    color: var(--color-trouble);
   }
 
   .article-card__body {

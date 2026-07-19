@@ -4,8 +4,9 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/generate-og-png.mjs && astro build",
     "preview": "astro preview",
+    "generate:og": "node scripts/generate-og-png.mjs",
     "format:check": "prettier --check .",
     "format": "prettier --write ."
   },
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "prettier": "^3.5.3",
-    "prettier-plugin-astro": "^0.14.1"
+    "prettier-plugin-astro": "^0.14.1",
+    "sharp": "^0.35.3"
   }
 }

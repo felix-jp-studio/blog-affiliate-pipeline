@@ -1,0 +1,41 @@
+---
+import type { CategorySlug } from "../data/category-meta";
+import { categoryMeta } from "../data/category-meta";
+
+interface Props {
+  category: CategorySlug;
+}
+
+const { category } = Astro.props;
+const meta = categoryMeta[category];
+---
+
+<aside class="category-guide-box" aria-label={`${meta.label}の選び方`}>
+  <h2 class="category-guide-box__title">{meta.label}の選び方</h2>
+  <p class="category-guide-box__text">{meta.guideText}</p>
+</aside>
+
+<style>
+  .category-guide-box {
+    margin-top: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-article);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-md);
+  }
+
+  .category-guide-box__title {
+    margin: 0 0 0.65rem;
+    font-size: 1.05rem;
+    line-height: var(--line-heading);
+    color: var(--text-primary);
+  }
+
+  .category-guide-box__text {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+</style>

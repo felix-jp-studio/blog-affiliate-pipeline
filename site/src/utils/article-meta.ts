@@ -1,5 +1,7 @@
 import { createMarkdownProcessor } from "@astrojs/markdown-remark";
 import type { CollectionEntry } from "astro:content";
+import type { CategorySlug } from "../data/category-meta";
+import { categoryMeta } from "../data/category-meta";
 import { markdownRehypePlugins } from "../markdown-plugins";
 
 const CHARS_PER_MINUTE = 400;
@@ -84,4 +86,18 @@ export function getReadingTimeForEntry(
   entry: CollectionEntry<"articles">,
 ): number {
   return calculateReadingTime(entry.body ?? "", entry.data.readingTime);
+}
+
+export function resolveEyecatchUrl(
+  eyecatch: string | undefined,
+  category: CategorySlug,
+): string | undefined {
+  return eyecatch;
+}
+
+export function resolveOgImageUrl(
+  eyecatch: string | undefined,
+  category: CategorySlug,
+): string {
+  return eyecatch ?? categoryMeta[category].ogImage;
 }
