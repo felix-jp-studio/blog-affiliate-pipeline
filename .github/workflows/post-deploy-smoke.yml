@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - "site/**"
+      - "scripts/e2e/changed-slugs.mjs"
       - "scripts/e2e/smoke-production.mjs"
       - "config/e2e-smoke.json"
       - ".github/workflows/post-deploy-smoke.yml"
@@ -16,13 +17,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
           node-version: 22
 
+      - name: Resolve smoke slugs from changed articles
+        id: slugs
+        run: |
+          SLUGS="$(node scripts/e2e/changed-slugs.mjs --format=comma)"
+          echo "slugs=$SLUGS" >> "$GITHUB_OUTPUT"
+          echo "Smoke slugs: $SLUGS"
+
       - name: Production smoke test
+        env:
+          E2E_SMOKE_SLUGS: ${{ steps.slugs.outputs.slugs }}
         run: npm run test:e2e:smoke
 
       - name: Write job summary

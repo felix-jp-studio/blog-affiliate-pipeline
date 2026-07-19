@@ -6,12 +6,16 @@
  *   PRODUCTION_URL=https://example.com npm run test:e2e:smoke
  *   E2E_SMOKE_SLUGS=slug-a,slug-b npm run test:e2e:smoke
  */
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
-import { repoRoot, fail, pass } from "./e2e-utils.mjs";
+import {
+  articleRequiresAffiliate,
+  fail,
+  loadE2eConfig,
+  loadPublishedArticles,
+  missingAffiliatePatterns,
+  pass,
+} from "./e2e-utils.mjs";
 
-const configPath = join(repoRoot, "config/e2e-smoke.json");
-const config = JSON.parse(readFileSync(configPath, "utf8"));
+const config = loadE2eConfig();
 
 const baseUrl = (process.env.PRODUCTION_URL ?? config.productionUrl).replace(/\/$/, "");
 const smokeSlugs = process.env.E2E_SMOKE_SLUGS
@@ -149,6 +153,16 @@ async function checkArticles() {
     const missing = missingOgTags(body, requiredOgTags);
     if (missing.length > 0) {
       errors.push(`${label}: missing og tags: ${missing.join(", ")}`);
+    }
+
+    const articleMeta = loadPublishedArticles().find((article) => article.slug === slug);
+    if (articleMeta && articleRequiresAffiliate(articleMeta)) {
+      const missingPatterns = missingAffiliatePatterns(body);
+      if (missingPatterns.length > 0) {
+        errors.push(
+          `${label}: missing affiliate link patterns: ${missingPatterns.join(", ")}`,
+        );
+      }
     }
   }
 }

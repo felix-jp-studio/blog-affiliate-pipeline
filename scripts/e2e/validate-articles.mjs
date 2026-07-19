@@ -5,8 +5,10 @@ import {
   SLUG_PATTERN,
   VALID_ARTICLE_TYPES,
   VALID_CATEGORIES,
+  articleRequiresAffiliate,
   fail,
   listArticleFiles,
+  missingAffiliatePatterns,
   parseFrontmatter,
   pass,
 } from "./e2e-utils.mjs";
@@ -52,6 +54,16 @@ for (const filePath of listArticleFiles()) {
   }
   if (!fields.pubDate || Number.isNaN(Date.parse(fields.pubDate))) {
     errors.push(`${slug}: invalid pubDate "${fields.pubDate ?? ""}"`);
+  }
+
+  const article = { slug, fields, draft: fields.draft === "true" };
+  if (!article.draft && articleRequiresAffiliate(article)) {
+    const missingPatterns = missingAffiliatePatterns(content);
+    if (missingPatterns.length > 0) {
+      errors.push(
+        `${slug}: missing affiliate link patterns: ${missingPatterns.join(", ")}`,
+      );
+    }
   }
 }
 

@@ -29,6 +29,10 @@ jobs:
       - name: Validate article markdown
         run: node scripts/e2e/validate-articles.mjs
 
+      - name: List changed article slugs (PR diff)
+        if: github.event_name == 'pull_request'
+        run: node scripts/e2e/changed-slugs.mjs
+
       - name: Build site
         working-directory: site
         run: |

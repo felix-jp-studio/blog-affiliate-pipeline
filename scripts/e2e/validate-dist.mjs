@@ -1,6 +1,13 @@
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
-import { distDir, fail, loadPublishedArticles, pass } from "./e2e-utils.mjs";
+import {
+  articleRequiresAffiliate,
+  distDir,
+  fail,
+  loadPublishedArticles,
+  missingAffiliatePatterns,
+  pass,
+} from "./e2e-utils.mjs";
 
 const errors = [];
 const published = loadPublishedArticles().filter(
@@ -41,6 +48,15 @@ for (const article of published) {
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/);
   if (!canonical || !canonical[1].endsWith(`/articles/${article.slug}`)) {
     errors.push(`${article.slug}: canonical URL mismatch`);
+  }
+
+  if (articleRequiresAffiliate(article)) {
+    const missingPatterns = missingAffiliatePatterns(html);
+    if (missingPatterns.length > 0) {
+      errors.push(
+        `${article.slug}: missing affiliate link patterns in dist HTML: ${missingPatterns.join(", ")}`,
+      );
+    }
   }
 }
 
