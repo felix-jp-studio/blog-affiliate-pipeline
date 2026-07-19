@@ -1,0 +1,143 @@
+---
+import type { CollectionEntry } from "astro:content";
+import ArticleCard from "./ArticleCard.astro";
+import Breadcrumbs from "./Breadcrumbs.astro";
+import type { CategorySlug } from "../data/category-meta";
+import { categoryMeta } from "../data/category-meta";
+import { buildBreadcrumbs } from "../data/site-nav";
+import { getReadingTimeForEntry } from "../utils/article-meta";
+
+interface Props {
+  category: CategorySlug;
+  articles: CollectionEntry<"articles">[];
+}
+
+const { category, articles } = Astro.props;
+
+const meta = categoryMeta[category];
+const breadcrumbs = buildBreadcrumbs([{ label: meta.label }]);
+---
+
+<div class="category-hub">
+  <Breadcrumbs items={breadcrumbs} />
+
+  <header class="category-hero" style={`--category-gradient: ${meta.gradient}`}>
+    <div class="category-hero__content">
+      <h1 class="category-hero__title">{meta.label}</h1>
+      <p class="category-hero__lead">{meta.heroLead}</p>
+    </div>
+    <span class="category-hero__count">全{articles.length}件</span>
+  </header>
+
+  {
+    articles.length > 0 ? (
+      <div class="category-hub__grid">
+        {articles.map((article) => (
+          <ArticleCard
+            slug={article.id}
+            title={article.data.title}
+            description={article.data.description}
+            pubDate={article.data.pubDate}
+            category={article.data.category}
+            articleType={article.data.articleType}
+            readingTimeMinutes={getReadingTimeForEntry(article)}
+            excerpt={article.data.excerpt}
+            eyecatch={article.data.eyecatch}
+            variant="grid"
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="category-hub__empty">記事を準備中です。</p>
+    )
+  }
+</div>
+
+<style>
+  .category-hub {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .category-hero {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 2rem 2.25rem;
+    border-radius: var(--radius-md);
+    background: var(--category-gradient);
+    border: 1px solid var(--border);
+  }
+
+  .category-hero__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .category-hero__title {
+    margin: 0 0 0.65rem;
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 3.5vw, 2rem);
+    line-height: var(--line-heading);
+    color: var(--text-primary);
+  }
+
+  .category-hero__lead {
+    margin: 0;
+    font-size: var(--text-lead);
+    line-height: 1.75;
+    color: var(--text-secondary);
+    max-width: 36rem;
+  }
+
+  .category-hero__count {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid var(--border);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .category-hub__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .category-hub__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 960px) {
+    .category-hub__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .category-hub__empty {
+    margin: 0;
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+    background: var(--bg-article);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-md);
+  }
+
+  @media (max-width: 640px) {
+    .category-hero {
+      flex-direction: column;
+      padding: 1.5rem 1.25rem;
+    }
+  }
+</style>

@@ -11,6 +11,9 @@ const articles = defineCollection({
     articleType: z.enum(["comparison", "howto", "troubleshoot"]),
     keyword: z.string(),
     draft: z.boolean().default(false),
+    readingTime: z.number().optional(),
+    excerpt: z.string().max(160).optional(),
+    eyecatch: z.string().optional(),
   }),
 });
 
