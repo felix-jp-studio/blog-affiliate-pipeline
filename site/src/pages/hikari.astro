@@ -6,9 +6,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const meta = categoryMeta.hikari;
 
-const articles = (
-  await getCollection("articles", ({ data }) => !data.draft)
-)
+const articles = (await getCollection("articles", ({ data }) => !data.draft))
   .filter((a) => a.data.category === "hikari")
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---

@@ -47,7 +47,11 @@ const readingLabel =
 
 <a
   href={`/articles/${slug}`}
-  class:list={["article-card", `article-card--${variant}`, `article-card--${category}`]}
+  class:list={[
+    "article-card",
+    `article-card--${variant}`,
+    `article-card--${category}`,
+  ]}
   aria-label={`${title} の記事を読む`}
 >
   <div class="article-card__media">
@@ -56,29 +60,38 @@ const readingLabel =
         <img src={eyecatch} alt="" loading="lazy" decoding="async" />
       ) : (
         <div class="article-card__placeholder" aria-hidden="true">
-          {
-            category === "sim" && (
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <rect x="7" y="2" width="10" height="20" rx="2" />
-                <circle cx="12" cy="18" r="1" fill="currentColor" stroke="none" />
-              </svg>
-            )
-          }
-          {
-            category === "hikari" && (
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M4 14h16M6 10l6-6 6 6M8 14v6h8v-6" />
-              </svg>
-            )
-          }
-          {
-            category === "trouble" && (
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <circle cx="12" cy="12" r="9" />
-                <path d="M12 8v5M12 16h.01" />
-              </svg>
-            )
-          }
+          {category === "sim" && (
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <rect x="7" y="2" width="10" height="20" rx="2" />
+              <circle cx="12" cy="18" r="1" fill="currentColor" stroke="none" />
+            </svg>
+          )}
+          {category === "hikari" && (
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <path d="M4 14h16M6 10l6-6 6 6M8 14v6h8v-6" />
+            </svg>
+          )}
+          {category === "trouble" && (
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 8v5M12 16h.01" />
+            </svg>
+          )}
         </div>
       )
     }
