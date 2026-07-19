@@ -14,11 +14,11 @@
 
 ### 本番 HTML（2026/7/19 時点）
 
-| ページ | 現状 |
-|--------|------|
-| `/sim` | H1 + lead + **素の `<ul><li><a>` 11件**。サムネ・日付・抜粋なし |
+| ページ                        | 現状                                                                        |
+| ----------------------------- | --------------------------------------------------------------------------- |
+| `/sim`                        | H1 + lead + **素の `<ul><li><a>` 11件**。サムネ・日付・抜粋なし             |
 | `/articles/sim-20gb-osusume/` | バッジ3つ + H1 + 開示 + **960px 全幅の本文**。ヒーロー・TOC・サイドバーなし |
-| `/` | 3 カテゴリカードのみ。最新記事セクションなし |
+| `/`                           | 3 カテゴリカードのみ。最新記事セクションなし                                |
 
 ### ソースで確認できた実装
 
@@ -30,20 +30,20 @@
 
 ### note / Qiita と比較して **欠けているもの**
 
-| 要素 | note | Qiita | 当サイト |
-|------|------|-------|----------|
-| 記事ヒーロー / カバー | ○ | △（グラデ背景） | ✗ |
-| 本文 max-width 絞り込み | ○（~680px） | ○ | ✗（960px 全幅） |
-| 目次（TOC） | ○ | ○（sticky） | ✗ |
-| カード型一覧 | ○ | ○ | ✗ |
-| サムネ / アイキャッチ | ○ | △ | ✗ |
-| 著者 / 運営者ボックス | ○ | ○ | ✗ |
-| タグ / カテゴリチップ | ○ | ○ | △（バッジのみ） |
-| 読了時間 | △ | ○ | ✗ |
-| 表のリッチスタイル | △ | ○ | △（枠線のみ） |
-| 関連記事カード | ○ | ○ | △（テキストリンク） |
-| OG 画像 | ○ | ○ | ✗（`summary` のみ） |
-| ページ背景のレイヤー | ○（#fafafa 系） | ○ | ✗（真っ白） |
+| 要素                    | note            | Qiita           | 当サイト            |
+| ----------------------- | --------------- | --------------- | ------------------- |
+| 記事ヒーロー / カバー   | ○               | △（グラデ背景） | ✗                   |
+| 本文 max-width 絞り込み | ○（~680px）     | ○               | ✗（960px 全幅）     |
+| 目次（TOC）             | ○               | ○（sticky）     | ✗                   |
+| カード型一覧            | ○               | ○               | ✗                   |
+| サムネ / アイキャッチ   | ○               | △               | ✗                   |
+| 著者 / 運営者ボックス   | ○               | ○               | ✗                   |
+| タグ / カテゴリチップ   | ○               | ○               | △（バッジのみ）     |
+| 読了時間                | △               | ○               | ✗                   |
+| 表のリッチスタイル      | △               | ○               | △（枠線のみ）       |
+| 関連記事カード          | ○               | ○               | △（テキストリンク） |
+| OG 画像                 | ○               | ○               | ✗（`summary` のみ） |
+| ページ背景のレイヤー    | ○（#fafafa 系） | ○               | ✗（真っ白）         |
 
 ---
 
@@ -51,12 +51,12 @@
 
 ### 1.1 視覚的課題（ユーザー指摘の具体化）
 
-| 画面 | 現状 | ユーザー体感 |
-|------|------|-------------|
-| **記事詳細** | 960px 幅の白背景に h1 → 本文がそのまま流れる | 「Word の印刷プレビュー」 |
-| **カテゴリ一覧** (`/sim` 等) | `<ul><li><a>タイトル</a></li>` のみ | 「リンク集」 |
-| **ホーム** | 3枚のテキストカードのみ、最新記事なし | 「ランディングページの下書き」 |
-| **関連記事** | タイトル + 日付の縦リスト | 視覚的区切りが弱い |
+| 画面                         | 現状                                         | ユーザー体感                   |
+| ---------------------------- | -------------------------------------------- | ------------------------------ |
+| **記事詳細**                 | 960px 幅の白背景に h1 → 本文がそのまま流れる | 「Word の印刷プレビュー」      |
+| **カテゴリ一覧** (`/sim` 等) | `<ul><li><a>タイトル</a></li>` のみ          | 「リンク集」                   |
+| **ホーム**                   | 3枚のテキストカードのみ、最新記事なし        | 「ランディングページの下書き」 |
+| **関連記事**                 | タイトル + 日付の縦リスト                    | 視覚的区切りが弱い             |
 
 **具体的に足りない要素**
 
@@ -77,12 +77,12 @@
 
 **推奨: note 系エディトリアル × Qiita 系構造化のハイブリッド（note 寄り 60% / Qiita 寄り 40%）**
 
-| 観点 | 理由 |
-|------|------|
-| note 寄り | 一般消費者向け SIM/光回線ガイド。読みやすさ・余白・信頼感が CV に直結 |
-| Qiita 寄り | 比較表・手順・FAQ など **構造化コンテンツ** が多い。TOC・表スタイル・メタ情報の明確化を借用 |
-| note 純粋模倣は避ける | いいね/フォロー/著者プロフィール演出は不要。アフィリエイト媒体として虚偽著者を作らない |
-| Qiita 純粋模倣は避ける | エンジニア向けダークモード・コードハイライトは本ニッチに過剰 |
+| 観点                   | 理由                                                                                        |
+| ---------------------- | ------------------------------------------------------------------------------------------- |
+| note 寄り              | 一般消費者向け SIM/光回線ガイド。読みやすさ・余白・信頼感が CV に直結                       |
+| Qiita 寄り             | 比較表・手順・FAQ など **構造化コンテンツ** が多い。TOC・表スタイル・メタ情報の明確化を借用 |
+| note 純粋模倣は避ける  | いいね/フォロー/著者プロフィール演出は不要。アフィリエイト媒体として虚偽著者を作らない      |
+| Qiita 純粋模倣は避ける | エンジニア向けダークモード・コードハイライトは本ニッチに過剰                                |
 
 **キーワード**: 「読みやすい比較メディア」「公式確認を促す中立ガイド」
 
@@ -94,41 +94,41 @@
 
 ```css
 /* カラー */
---bg-page:        #fafafa;      /* ページ背景（note 的な off-white） */
---bg-article:     #ffffff;      /* 記事カード / 本文エリア */
---bg-hero:        linear-gradient(135deg, #f0f6ff 0%, #fafafa 100%);
---text-primary:   #1a1a1a;
+--bg-page: #fafafa; /* ページ背景（note 的な off-white） */
+--bg-article: #ffffff; /* 記事カード / 本文エリア */
+--bg-hero: linear-gradient(135deg, #f0f6ff 0%, #fafafa 100%);
+--text-primary: #1a1a1a;
 --text-secondary: #5c5c5c;
---text-tertiary:  #8a8a8a;
---accent:         #0b6bcb;      /* 既存維持 */
---accent-soft:    #e8f2ff;
---border:         #e8e8e8;
---border-strong:  #d0d0d0;
---shadow-sm:      0 1px 3px rgba(0,0,0,.06);
---shadow-md:      0 4px 12px rgba(0,0,0,.08);
---radius-sm:      6px;
---radius-md:      12px;
---radius-lg:      16px;
+--text-tertiary: #8a8a8a;
+--accent: #0b6bcb; /* 既存維持 */
+--accent-soft: #e8f2ff;
+--border: #e8e8e8;
+--border-strong: #d0d0d0;
+--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+--radius-sm: 6px;
+--radius-md: 12px;
+--radius-lg: 16px;
 
 /* カテゴリ色（サムネ placeholder 用） */
---color-sim:      #0b6bcb;
---color-hikari:   #059669;
---color-trouble:  #d97706;
+--color-sim: #0b6bcb;
+--color-hikari: #059669;
+--color-trouble: #d97706;
 
 /* タイポグラフィ */
---font-sans:  "Noto Sans JP", "Hiragino Sans", sans-serif;
+--font-sans: "Noto Sans JP", "Hiragino Sans", sans-serif;
 --font-serif: "Noto Serif JP", "Hiragino Mincho ProN", serif; /* H1 のみ */
---text-body:    1.0625rem;   /* 17px */
---text-lead:    1.125rem;    /* 18px */
---line-body:    1.85;
+--text-body: 1.0625rem; /* 17px */
+--text-lead: 1.125rem; /* 18px */
+--line-body: 1.85;
 --line-heading: 1.4;
 
 /* レイアウト */
---width-page:    1120px;      /* 外枠（サイドバー込み） */
---width-body:    680px;       /* 本文カラム（note 相当） */
+--width-page: 1120px; /* 外枠（サイドバー込み） */
+--width-body: 680px; /* 本文カラム（note 相当） */
 --width-sidebar: 240px;
 --space-section: 3rem;
---space-block:   1.5rem;
+--space-block: 1.5rem;
 ```
 
 **ページ構造の変更**
@@ -176,7 +176,7 @@ type ArticleDetailLayoutProps = {
   breadcrumbs: BreadcrumbItem[];
   showAffiliateDisclosure: boolean;
   readingTimeMinutes: number;
-  toc: TocItem[];           // h2/h3 から生成
+  toc: TocItem[]; // h2/h3 から生成
   relatedArticles: CollectionEntry<"articles">[];
 };
 ```
@@ -189,18 +189,18 @@ type ArticleDetailLayoutProps = {
 
 #### CSS 要点
 
-| 要素 | 指定 |
-|------|------|
-| 外枠 | `max-width: 1120px; margin: 0 auto; padding: 0 1rem` |
-| 本文 | `max-width: 680px; font-size: 17px; line-height: 1.85` |
-| H2 | `font-size: 1.375rem; margin-top: 3rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-soft)` |
-| H3 | `font-size: 1.125rem; margin-top: 2rem; color: var(--text-primary)` |
-| 段落 | `margin-bottom: 1.25rem` |
-| リスト | `padding-left: 1.25rem; li { margin-bottom: 0.5rem }` |
-| blockquote | 既存 + `background: #f8fafc; padding: 1rem 1.25rem; border-radius: var(--radius-sm)` |
-| 表 thead | `background: var(--accent-soft); font-weight: 600` |
-| 表 zebra | `tbody tr:nth-child(even) { background: #fafafa }` |
-| 表 hover | `tbody tr:hover { background: #f0f6ff }` |
+| 要素       | 指定                                                                                                         |
+| ---------- | ------------------------------------------------------------------------------------------------------------ |
+| 外枠       | `max-width: 1120px; margin: 0 auto; padding: 0 1rem`                                                         |
+| 本文       | `max-width: 680px; font-size: 17px; line-height: 1.85`                                                       |
+| H2         | `font-size: 1.375rem; margin-top: 3rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-soft)` |
+| H3         | `font-size: 1.125rem; margin-top: 2rem; color: var(--text-primary)`                                          |
+| 段落       | `margin-bottom: 1.25rem`                                                                                     |
+| リスト     | `padding-left: 1.25rem; li { margin-bottom: 0.5rem }`                                                        |
+| blockquote | 既存 + `background: #f8fafc; padding: 1rem 1.25rem; border-radius: var(--radius-sm)`                         |
+| 表 thead   | `background: var(--accent-soft); font-weight: 600`                                                           |
+| 表 zebra   | `tbody tr:nth-child(even) { background: #fafafa }`                                                           |
+| 表 hover   | `tbody tr:hover { background: #f0f6ff }`                                                                     |
 
 ---
 
@@ -273,7 +273,7 @@ type ArticleCardProps = {
   category: CategorySlug;
   articleType: ArticleType;
   readingTimeMinutes?: number;
-  eyecatch?: string;          // optional URL
+  eyecatch?: string; // optional URL
   variant?: "grid" | "compact" | "horizontal"; // 関連記事は compact/horizontal
 };
 ```
@@ -361,12 +361,12 @@ type CategoryHubProps = {
 
 #### `BaseLayout` / `SiteHeader` / `SiteFooter` 改修
 
-| 変更 | 内容 |
-|------|------|
-| Header | 高さ固定 `64px`、`position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px)` |
-| Nav active | 現在カテゴリに下線 or 背景ハイライト |
-| Main | 記事ページのみ `class="layout-article"` で幅 1120px、それ以外 960px |
-| Footer | 2 カラム（desktop）: 左=リード、右=ナビリンク |
+| 変更       | 内容                                                                                  |
+| ---------- | ------------------------------------------------------------------------------------- |
+| Header     | 高さ固定 `64px`、`position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px)` |
+| Nav active | 現在カテゴリに下線 or 背景ハイライト                                                  |
+| Main       | 記事ページのみ `class="layout-article"` で幅 1120px、それ以外 960px                   |
+| Footer     | 2 カラム（desktop）: 左=リード、右=ナビリンク                                         |
 
 ---
 
@@ -394,11 +394,11 @@ featured: z.boolean().default(false),   // ホーム注目（P2）
 // toc: remark/rehype で h2/h3 抽出 → { id, text, level }[]
 ```
 
-| 派生値 | 算出方法 |
-|--------|----------|
-| `readingMinutes` | 本文文字数 ÷ 400（日本語目安） |
-| `headings[]` | rehype プラグインで h2/h3 の id + text を抽出 |
-| `eyecatchFallback` | category → グラデーション CSS class |
+| 派生値             | 算出方法                                      |
+| ------------------ | --------------------------------------------- |
+| `readingMinutes`   | 本文文字数 ÷ 400（日本語目安）                |
+| `headings[]`       | rehype プラグインで h2/h3 の id + text を抽出 |
+| `eyecatchFallback` | category → グラデーション CSS class           |
 
 ### 3.3 `category-meta.ts` 拡張
 
@@ -406,12 +406,12 @@ featured: z.boolean().default(false),   // ホーム注目（P2）
 type CategoryMeta = {
   label: string;
   href: string;
-  description: string;        // 既存
-  heroLead: string;           // 新規: カテゴリページ lead 文
-  icon: string;               // SVG パス or emoji key
-  themeColor: string;         // placeholder グラデ用 "#0b6bcb"
-  gradient: string;           // "linear-gradient(135deg, #e8f2ff, #dbeafe)"
-  articleCount?: number;      // ビルド時算出
+  description: string; // 既存
+  heroLead: string; // 新規: カテゴリページ lead 文
+  icon: string; // SVG パス or emoji key
+  themeColor: string; // placeholder グラデ用 "#0b6bcb"
+  gradient: string; // "linear-gradient(135deg, #e8f2ff, #dbeafe)"
+  articleCount?: number; // ビルド時算出
 };
 ```
 
@@ -426,22 +426,22 @@ type CategoryMeta = {
 
 ## 4. Concerns（懸念事項）
 
-| 領域 | 懸念 | 対策 |
-|------|------|------|
-| **Performance** | Noto Serif JP 追加で FOIT/FOUT | `font-display: swap`、H1 のみ serif、subset woff2 |
-| **Performance** | カード hover transform | `will-change` 乱用せず、GPU 負荷は軽微 |
-| **Performance** | 外部フォント | CSS サムネのみ、JS は TOC の `<details>` 程度 |
-| **a11y** | カード全体がリンク | `<a>` に `aria-label="{title} の記事を読む"`、chip は span |
-| **a11y** | TOC | `<nav aria-label="目次">`、見出し id と連携 |
-| **a11y** | 色コントラスト | accent on white は WCAG AA 確認（#0b6bcb は OK） |
+| 領域                           | 懸念                           | 対策                                                                 |
+| ------------------------------ | ------------------------------ | -------------------------------------------------------------------- |
+| **Performance**                | Noto Serif JP 追加で FOIT/FOUT | `font-display: swap`、H1 のみ serif、subset woff2                    |
+| **Performance**                | カード hover transform         | `will-change` 乱用せず、GPU 負荷は軽微                               |
+| **Performance**                | 外部フォント                   | CSS サムネのみ、JS は TOC の `<details>` 程度                        |
+| **a11y**                       | カード全体がリンク             | `<a>` に `aria-label="{title} の記事を読む"`、chip は span           |
+| **a11y**                       | TOC                            | `<nav aria-label="目次">`、見出し id と連携                          |
+| **a11y**                       | 色コントラスト                 | accent on white は WCAG AA 確認（#0b6bcb は OK）                     |
 | **Affiliate コンプライアンス** | CTA カード化で宣伝色が強くなる | 開示を hero 直下に維持、sponsored 属性維持、CTA 文言は「公式で確認」 |
-| **著者表示** | note 的著者ヘッダーの誘惑 | **SitePublisherBox のみ**。個人名・顔写真・架空編集者は作らない |
-| **Mobile** | 2 列グリッド | `<768px` で 1 列、TOC は折りたたみ、表スクロールは既存維持 |
-| **Mobile** | sticky TOC | モバイルでは sticky を使わず `<details>` で折りたたみ |
-| **コンテンツ負債** | eyecatch 未整備 | カテゴリ placeholder で統一、後から差し替え可能に |
-| **ビルド** | TOC 生成 | ビルド時静的。JS 不要（Astro 純 CSS） |
-| **長いタイトル** | カード崩れ | `-webkit-line-clamp: 2` |
-| **記事量増加** | 一覧の filter | カテゴリ filter は P1。P0 は sort by pubDate のみ |
+| **著者表示**                   | note 的著者ヘッダーの誘惑      | **SitePublisherBox のみ**。個人名・顔写真・架空編集者は作らない      |
+| **Mobile**                     | 2 列グリッド                   | `<768px` で 1 列、TOC は折りたたみ、表スクロールは既存維持           |
+| **Mobile**                     | sticky TOC                     | モバイルでは sticky を使わず `<details>` で折りたたみ                |
+| **コンテンツ負債**             | eyecatch 未整備                | カテゴリ placeholder で統一、後から差し替え可能に                    |
+| **ビルド**                     | TOC 生成                       | ビルド時静的。JS 不要（Astro 純 CSS）                                |
+| **長いタイトル**               | カード崩れ                     | `-webkit-line-clamp: 2`                                              |
+| **記事量増加**                 | 一覧の filter                  | カテゴリ filter は P1。P0 は sort by pubDate のみ                    |
 
 ---
 
@@ -449,41 +449,41 @@ type CategoryMeta = {
 
 ### P0 — 一覧・記事の「白紙感」解消（目安 **2–3 日**）
 
-| # | 項目 | 内容 |
-|---|------|------|
-| P0-1 | Design tokens + ページ背景 | `tokens.css`、`body bg #fafafa` |
-| P0-2 | `ArticleCard` + CategoryHub グリッド | `/sim` `/hikari` `/trouble` を 2 列カード化 |
-| P0-3 | `ArticleHero` + 本文 typography | 680px 本文、H1 serif、H2 下線、段落リズム |
-| P0-4 | 記事白カード化 | padding + shadow + radius |
-| P0-5 | `readingTime` 自動計算 | frontmatter optional、表示のみ |
-| P0-6 | 関連記事カード化 | `RelatedArticles` → `ArticleCard variant="compact"` × 3 |
-| P0-7 | 表スタイル強化 | thead 背景、zebra、角丸 wrapper |
+| #    | 項目                                 | 内容                                                    |
+| ---- | ------------------------------------ | ------------------------------------------------------- |
+| P0-1 | Design tokens + ページ背景           | `tokens.css`、`body bg #fafafa`                         |
+| P0-2 | `ArticleCard` + CategoryHub グリッド | `/sim` `/hikari` `/trouble` を 2 列カード化             |
+| P0-3 | `ArticleHero` + 本文 typography      | 680px 本文、H1 serif、H2 下線、段落リズム               |
+| P0-4 | 記事白カード化                       | padding + shadow + radius                               |
+| P0-5 | `readingTime` 自動計算               | frontmatter optional、表示のみ                          |
+| P0-6 | 関連記事カード化                     | `RelatedArticles` → `ArticleCard variant="compact"` × 3 |
+| P0-7 | 表スタイル強化                       | thead 背景、zebra、角丸 wrapper                         |
 
 ### P1 — 構造化・信頼 UI（目安 **2 日**）
 
-| # | 項目 | 内容 |
-|---|------|------|
+| #    | 項目                                     | 内容                                |
+| ---- | ---------------------------------------- | ----------------------------------- |
 | P1-1 | TOC（desktop sticky + mobile accordion） | remark プラグイン or ビルド時パース |
-| P1-2 | `SitePublisherBox` | /about リンク、AI 注記統一 |
-| P1-3 | Home 最新記事セクション | ArticleCard × 6 |
-| P1-4 | Header sticky + nav active | |
-| P1-5 | OG `article` + placeholder og:image | カテゴリ別 1 枚 |
-| P1-6 | JSON-LD（Article, BreadcrumbList） | |
-| P1-7 | CategoryHero band + 記事数表示 | |
-| P1-8 | `SiteHeader` / `SiteFooter` 分離・強化 | |
+| P1-2 | `SitePublisherBox`                       | /about リンク、AI 注記統一          |
+| P1-3 | Home 最新記事セクション                  | ArticleCard × 6                     |
+| P1-4 | Header sticky + nav active               |                                     |
+| P1-5 | OG `article` + placeholder og:image      | カテゴリ別 1 枚                     |
+| P1-6 | JSON-LD（Article, BreadcrumbList）       |                                     |
+| P1-7 | CategoryHero band + 記事数表示           |                                     |
+| P1-8 | `SiteHeader` / `SiteFooter` 分離・強化   |                                     |
 
 ### P2 — 仕上げ・拡張（目安 **2–3 日**）
 
-| # | 項目 | 内容 |
-|---|------|------|
-| P2-1 | eyecatch 画像パイプライン | frontmatter + `/public/images/eyecatch/` |
-| P2-2 | `AffiliateCtaBlock` カード化 | rehype または Markdown コンポーネント |
-| P2-3 | CategoryGuideBox | カテゴリ固定ガイド文 |
-| P2-4 | 結論サマリ Callout | 先頭 H2 を `.callout-summary` で囲む rehype |
-| P2-5 | 動的 OG 画像生成 | `@vercel/og` or satori（Vercel デプロイ時） |
-| P2-6 | Noto Serif JP self-host | Google Fonts or npm package |
-| P2-7 | カテゴリ filter chips | 比較/手順/トラブル |
-| P2-8 | ダークモード | 需要があれば |
+| #    | 項目                         | 内容                                        |
+| ---- | ---------------------------- | ------------------------------------------- |
+| P2-1 | eyecatch 画像パイプライン    | frontmatter + `/public/images/eyecatch/`    |
+| P2-2 | `AffiliateCtaBlock` カード化 | rehype または Markdown コンポーネント       |
+| P2-3 | CategoryGuideBox             | カテゴリ固定ガイド文                        |
+| P2-4 | 結論サマリ Callout           | 先頭 H2 を `.callout-summary` で囲む rehype |
+| P2-5 | 動的 OG 画像生成             | `@vercel/og` or satori（Vercel デプロイ時） |
+| P2-6 | Noto Serif JP self-host      | Google Fonts or npm package                 |
+| P2-7 | カテゴリ filter chips        | 比較/手順/トラブル                          |
+| P2-8 | ダークモード                 | 需要があれば                                |
 
 ---
 
@@ -688,20 +688,20 @@ site/src/
 
 ### Q1. サムネイル: CSS グラデーション vs OG 画像テンプレート
 
-| 選択肢 | メリット | デメリット |
-|--------|----------|------------|
+| 選択肢                                                 | メリット                             | デメリット                            |
+| ------------------------------------------------------ | ------------------------------------ | ------------------------------------- |
 | **A. P0 は CSS グラデーション + アイコンのみ**（推奨） | 実装が早い、著作権リスクなし、一貫性 | SNS シェア時の OG は別途 P1/P2 で対応 |
-| **B. P0 から OG 画像テンプレートも用意** | SNS 見た目が早く改善 | 工数増、デプロイ環境依存（satori 等） |
+| **B. P0 から OG 画像テンプレートも用意**               | SNS 見た目が早く改善                 | 工数増、デプロイ環境依存（satori 等） |
 
 **暫定推奨**: A（CSS placeholder）→ P1 でカテゴリ別静的 OG 1 枚 → P2 で動的生成
 
 ### Q2. TOC: sticky サイドバー vs 折りたたみ配置
 
-| デバイス | 推奨方針 |
-|----------|----------|
-| Desktop（≥1024px） | 左または右サイドバーに **sticky TOC**（`top: 5rem`） |
-| Tablet（768–1023px） | 本文直上に `<details>` 折りたたみ（sticky なし） |
-| Mobile（<768px） | 本文直上に `<details open>` 折りたたみ |
+| デバイス             | 推奨方針                                             |
+| -------------------- | ---------------------------------------------------- |
+| Desktop（≥1024px）   | 左または右サイドバーに **sticky TOC**（`top: 5rem`） |
+| Tablet（768–1023px） | 本文直上に `<details>` 折りたたみ（sticky なし）     |
+| Mobile（<768px）     | 本文直上に `<details open>` 折りたたみ               |
 
 **確認事項**: Desktop で TOC を左サイドバー vs 右サイドバーのどちらに置くか（Qiita は左、note は目次なし or 上部が多い）。**暫定推奨**: 左サイドバー（本文右寄せで note 的な読み幅を確保）。
 
