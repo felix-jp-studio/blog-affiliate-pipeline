@@ -14,7 +14,7 @@ from generator.publish_schedule import (
     run_publish_scheduled,
     seed_row_to_item,
 )
-from generator.template_articles import slugify
+from generator.template_articles import assert_seo_slug, slugify
 
 ROOT = Path(__file__).resolve().parents[3]
 SCHEDULE = {
@@ -79,8 +79,19 @@ class PublishScheduleTest(unittest.TestCase):
         self.assertEqual(item["articleType"], "howto")
         self.assertEqual(item["category"], "sim")
 
-    def test_slugify_uses_priority_fallback(self):
-        self.assertEqual(slugify("光回線 マンション おすすめ", priority=16), "article-p16")
+    def test_slugify_romanizes_japanese_keyword(self):
+        self.assertEqual(slugify("光回線 マンション おすすめ", priority=16), "hikari-mansion-osusume")
+
+    def test_slugify_rejects_generic_priority_fallback(self):
+        with self.assertRaises(ValueError):
+            slugify("", priority=99)
+
+    def test_slugify_future_keyword_from_tokens(self):
+        self.assertEqual(slugify("工事 不要 光回線", priority=17), "kouji-fuyou-hikari")
+
+    def test_slugify_raises_for_unmapped_tokens(self):
+        with self.assertRaises(ValueError):
+            slugify("未登録語 テスト キーワード", priority=99)
 
     def test_force_still_respects_same_day_guard(self):
         monday = datetime(2026, 7, 20, 9, 0, tzinfo=ZoneInfo("Asia/Tokyo"))

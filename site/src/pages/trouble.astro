@@ -3,12 +3,13 @@ import { getCollection } from "astro:content";
 import CategoryHub from "../components/CategoryHub.astro";
 import { categoryMeta } from "../data/category-meta";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { compareArticlesByRecency } from "../utils/sort-articles";
 
 const meta = categoryMeta.trouble;
 
 const articles = (await getCollection("articles", ({ data }) => !data.draft))
   .filter((a) => a.data.category === "trouble")
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  .sort(compareArticlesByRecency);
 ---
 
 <BaseLayout

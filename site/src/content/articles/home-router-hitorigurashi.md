@@ -5,6 +5,7 @@ pubDate: 2026-07-19
 category: sim
 articleType: comparison
 keyword: "ホームルーター おすすめ 一人暮らし"
+priority: 11
 draft: false
 ---
 

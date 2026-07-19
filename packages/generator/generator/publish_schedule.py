@@ -11,7 +11,7 @@ from zoneinfo import ZoneInfo
 
 from generator.config import load_json
 from generator.pipeline import RunResult, generate_one, resolve_mode
-from generator.template_articles import slugify
+from generator.template_articles import assert_seo_slug, slugify
 
 DAY_NAMES = {
     "monday": 0,
@@ -103,6 +103,7 @@ def pick_next_keywords(
     picked: list[dict] = []
     for row in seed_rows:
         slug = slugify(row["keyword"], priority=row["priority"])
+        assert_seo_slug(slug, keyword=row["keyword"])
         if slug in published_slugs:
             continue
         picked.append(seed_row_to_item(row))

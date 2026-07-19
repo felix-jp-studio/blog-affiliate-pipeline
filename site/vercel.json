@@ -22,6 +22,11 @@
       ],
       "destination": "https://sim-hikari-guide.com/:path*",
       "permanent": true
+    },
+    {
+      "source": "/articles/article-p16",
+      "destination": "/articles/hikari-mansion-osusume",
+      "permanent": true
     }
   ]
 }

@@ -5,6 +5,7 @@ pubDate: 2026-07-19
 category: hikari
 articleType: comparison
 keyword: "WiMAX 料金 比較 2026"
+priority: 12
 draft: false
 ---
 

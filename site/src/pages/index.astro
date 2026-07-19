@@ -3,12 +3,13 @@ import { getCollection } from "astro:content";
 import ArticleCard from "../components/ArticleCard.astro";
 import { defaultOgImage } from "../data/category-meta";
 import { getReadingTimeForEntry } from "../utils/article-meta";
+import { compareArticlesByRecency } from "../utils/sort-articles";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const latestArticles = (
   await getCollection("articles", ({ data }) => !data.draft)
 )
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .sort(compareArticlesByRecency)
   .slice(0, 6);
 ---
 

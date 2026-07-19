@@ -6,33 +6,206 @@ import re
 import unicodedata
 
 
+_KEYWORD_SLUGS: dict[str, str] = {
+    "格安SIM 20GB おすすめ": "sim-20gb-osusume",
+    "楽天モバイル 乗り換え 手順": "rakuten-mobile-switch",
+    "MNP 予約番号 取得方法": "mnp-reservation-number",
+    "格安SIM 速度 遅い 対処": "sim-speed-slow-fix",
+    "LINEMO 評判 デメリット": "linemo-hyoban-demerit",
+    "格安SIM 通話かけ放題 安い": "sim-kakehoudai-yasui",
+    "家族 2 回線 安い": "family-2-lines-cheap",
+    "NURO 光 料金 キャンペーン": "nuro-hikari-campaign",
+    "光回線 乗り換え おすすめ": "hikari-switch-osusume",
+    "スマホ セット割 比較": "smartphone-setwari-hikaku",
+    "ホームルーター おすすめ 一人暮らし": "home-router-hitorigurashi",
+    "WiMAX 料金 比較 2026": "wimax-fee-hikaku-2026",
+    "格安SIM 学生 おすすめ": "sim-gakusei-osusume",
+    "データ無制限 格安SIM": "sim-unlimited-data",
+    "テザリング 格安SIM おすすめ": "sim-tethering-osusume",
+    "光回線 マンション おすすめ": "hikari-mansion-osusume",
+}
+
+_TOKEN_ROMAN: dict[str, str] = {
+    "格安SIM": "sim",
+    "おすすめ": "osusume",
+    "比較": "hikaku",
+    "光回線": "hikari",
+    "マンション": "mansion",
+    "戸建て": "kodate",
+    "乗り換え": "norikae",
+    "手順": "tejun",
+    "速度": "speed",
+    "遅い": "slow",
+    "対処": "fix",
+    "評判": "hyoban",
+    "デメリット": "demerit",
+    "通話かけ放題": "kakehoudai",
+    "かけ放題": "kakehoudai",
+    "通話定額": "tuuwa-teigaku",
+    "安い": "yasui",
+    "家族": "family",
+    "回線": "lines",
+    "料金": "fee",
+    "キャンペーン": "campaign",
+    "セット割": "setwari",
+    "スマホ": "smartphone",
+    "ホームルーター": "home-router",
+    "一人暮らし": "hitorigurashi",
+    "学生": "gakusei",
+    "シニア": "senior",
+    "子供": "kodomo",
+    "法人": "houjin",
+    "データ無制限": "unlimited-data",
+    "テザリング": "tethering",
+    "工事": "kouji",
+    "不要": "fuyou",
+    "プロバイダ": "provider",
+    "違い": "chigai",
+    "キャリア": "carrier",
+    "解約": "kaiyaku",
+    "解約金": "kaiyaku-kin",
+    "方法": "houhou",
+    "設定": "settei",
+    "開通": "kaituu",
+    "申し込み": "moushikomi",
+    "変更": "henkou",
+    "確認": "kakunin",
+    "取得": "shutoku",
+    "取得方法": "shutoku-houhou",
+    "予約番号": "yoyaku-bangou",
+    "有効期限": "yukokigen",
+    "エラー": "error",
+    "原因": "genin",
+    "改善": "kaizen",
+    "障害": "shogai",
+    "繋がらない": "tsunagaranai",
+    "圏外": "kengai",
+    "代替": "daigae",
+    "契約": "keiyaku",
+    "必要書類": "hitsuyo-shorui",
+    "準備": "junbi",
+    "流れ": "nagare",
+    "違約金": "iyakukin",
+    "反映": "hanei",
+    "削除": "sakujo",
+    "即日": "sokujitsu",
+    "初心者": "shoshinsha",
+    "使い方": "tsukaikata",
+    "追加": "tsuika",
+    "加入": "kanyuu",
+    "引っ越し": "hikkoshi",
+    "引越し": "hikkoshi",
+    "楽天モバイル": "rakuten-mobile",
+    "UQモバイル": "uq-mobile",
+    "LINEMO": "linemo",
+    "ahamo": "ahamo",
+    "povo": "povo",
+    "mineo": "mineo",
+    "IIJmio": "iijmio",
+    "日本通信SIM": "nihon-tsushin-sim",
+    "NURO": "nuro",
+    "NURO 光": "nuro-hikari",
+    "au": "au",
+    "au ひかり": "au-hikari",
+    "auひかり": "au-hikari",
+    "ひかり": "hikari",
+    "WiMAX": "wimax",
+    "Wi-Fi": "wifi",
+    "MNP": "mnp",
+    "eSIM": "esim",
+    "iPhone": "iphone",
+    "Android": "android",
+    "SIM": "sim",
+    "光": "hikari",
+    "1Gbps": "1gbps",
+    "ドコモ光": "docomo-hikari",
+    "光コラボ": "hikari-collab",
+    "ビッグローブ光": "biglobe-hikari",
+    "ソフトバンク光": "softbank-hikari",
+    "モバレコAir": "mobareco-air",
+    "そのまま": "sono-mama",
+    "大盛り": "oomori",
+    "オプション": "option",
+    "不要": "fuyou",
+    "とは": "towa",
+    "わかりやすく": "wakariyasuku",
+    "即日": "sokujitsu",
+    "副回線": "fukukaisen",
+    "無制限": "museigen",
+    "対応": "taiou",
+    "5G": "5g",
+    "手続き": "tetsuzuki",
+    "差し替え": "sashikae",
+    "ワンストップ": "one-stop",
+    "家族割": "kazokuwari",
+    "プロファイル": "profile",
+    "いつ": "itsu",
+    "音声通話": "onsei-tuwa",
+    "できない": "dekinai",
+    "遅延": "chien",
+    "着信": "chakushin",
+    "されない": "sarenai",
+    "後": "ato",
+    "使えない": "tsukaenai",
+}
+
+
+def _ascii_token_slug(token: str) -> str:
+    parts = re.findall(r"[a-zA-Z0-9]+", unicodedata.normalize("NFKC", token))
+    return "-".join(part.lower() for part in parts)
+
+
+def _token_to_slug_part(token: str) -> str:
+    normalized = unicodedata.normalize("NFKC", token).strip()
+    if not normalized:
+        return ""
+    if normalized in _TOKEN_ROMAN:
+        return _TOKEN_ROMAN[normalized]
+    return _ascii_token_slug(normalized)
+
+
+def _keyword_tokens_to_slug(keyword: str) -> str:
+    parts: list[str] = []
+    unmapped: list[str] = []
+    for token in keyword.split():
+        normalized = unicodedata.normalize("NFKC", token).strip()
+        if not normalized:
+            continue
+        part = _token_to_slug_part(normalized)
+        if part:
+            parts.append(part)
+            continue
+        if re.fullmatch(r"[a-zA-Z0-9]+", normalized):
+            parts.append(normalized.lower())
+            continue
+        unmapped.append(normalized)
+
+    if unmapped:
+        raise ValueError(
+            f"Unmapped keyword tokens for SEO slug {unmapped!r} in {keyword!r}"
+        )
+
+    slug = "-".join(parts)
+    slug = re.sub(r"-+", "-", slug).strip("-").lower()[:60]
+    return slug
+
+
+def assert_seo_slug(slug: str, *, keyword: str) -> None:
+    if re.fullmatch(r"article-p\d+", slug):
+        raise ValueError(
+            f"SEO slug fallback is not allowed for keyword {keyword!r}: {slug!r}"
+        )
+
+
 def slugify(keyword: str, *, priority: int | None = None) -> str:
-    mapping = {
-        "格安SIM 20GB おすすめ": "sim-20gb-osusume",
-        "楽天モバイル 乗り換え 手順": "rakuten-mobile-switch",
-        "MNP 予約番号 取得方法": "mnp-reservation-number",
-        "格安SIM 速度 遅い 対処": "sim-speed-slow-fix",
-        "LINEMO 評判 デメリット": "linemo-hyoban-demerit",
-        "格安SIM 通話かけ放題 安い": "sim-kakehoudai-yasui",
-        "家族 2 回線 安い": "family-2-lines-cheap",
-        "NURO 光 料金 キャンペーン": "nuro-hikari-campaign",
-        "光回線 乗り換え おすすめ": "hikari-switch-osusume",
-        "スマホ セット割 比較": "smartphone-setwari-hikaku",
-        "ホームルーター おすすめ 一人暮らし": "home-router-hitorigurashi",
-        "WiMAX 料金 比較 2026": "wimax-fee-hikaku-2026",
-        "格安SIM 学生 おすすめ": "sim-gakusei-osusume",
-        "データ無制限 格安SIM": "sim-unlimited-data",
-        "テザリング 格安SIM おすすめ": "sim-tethering-osusume",
-    }
-    if keyword in mapping:
-        return mapping[keyword]
-    base = re.sub(r"[^a-zA-Z0-9]+", "-", unicodedata.normalize("NFKC", keyword)).strip("-")
-    slug = base.lower()[:60]
+    del priority  # kept for call-site compatibility; generic slugs must not use priority
+    if keyword in _KEYWORD_SLUGS:
+        return _KEYWORD_SLUGS[keyword]
+    slug = _keyword_tokens_to_slug(keyword)
     if slug:
+        assert_seo_slug(slug, keyword=keyword)
         return slug
-    if priority is not None:
-        return f"article-p{priority}"
-    return "article"
+    raise ValueError(f"Could not derive SEO slug for keyword: {keyword!r}")
 
 
 def build_outline(item: dict) -> dict:
@@ -48,13 +221,17 @@ def build_outline(item: dict) -> dict:
         "LINEMO 評判 デメリット": "LINEMOの評判とデメリットを中立に整理",
     }
 
+    slug = slugify(keyword, priority=item.get("priority"))
+    assert_seo_slug(slug, keyword=keyword)
+
     return {
         "title": titles.get(keyword, f"{keyword}の完全ガイド"),
-        "slug": slugify(keyword, priority=item.get("priority")),
+        "slug": slug,
         "metaDescription": f"{keyword}について、公式情報を参照しながら中立に解説します。料金・条件は各公式サイトでご確認ください。",
         "category": category,
         "articleType": article_type,
         "keyword": keyword,
+        "priority": item.get("priority"),
         "ctaCarriers": ["rakuten-mobile", "linemo", "ahamo", "povo", "uq-mobile"],
     }
 

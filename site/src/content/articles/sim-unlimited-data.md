@@ -5,6 +5,7 @@ pubDate: 2026-07-19
 category: sim
 articleType: comparison
 keyword: "データ無制限 格安SIM"
+priority: 14
 draft: false
 ---
 

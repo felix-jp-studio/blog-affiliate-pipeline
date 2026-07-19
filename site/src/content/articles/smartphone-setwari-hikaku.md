@@ -5,6 +5,7 @@ pubDate: 2026-07-19
 category: sim
 articleType: comparison
 keyword: "スマホ セット割 比較"
+priority: 10
 draft: false
 ---
 

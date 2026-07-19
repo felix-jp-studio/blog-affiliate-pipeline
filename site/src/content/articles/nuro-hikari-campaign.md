@@ -5,6 +5,7 @@ pubDate: 2026-07-19
 category: hikari
 articleType: comparison
 keyword: "NURO 光 料金 キャンペーン"
+priority: 8
 draft: false
 ---
 

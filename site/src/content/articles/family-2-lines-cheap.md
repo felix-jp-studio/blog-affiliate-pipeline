@@ -5,6 +5,7 @@ pubDate: 2026-07-19
 category: sim
 articleType: comparison
 keyword: "家族 2 回線 安い"
+priority: 7
 draft: false
 ---
 

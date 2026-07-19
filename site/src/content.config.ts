@@ -10,6 +10,7 @@ const articles = defineCollection({
     category: z.enum(["sim", "hikari", "trouble"]),
     articleType: z.enum(["comparison", "howto", "troubleshoot"]),
     keyword: z.string(),
+    priority: z.number().int().positive().optional(),
     draft: z.boolean().default(false),
     readingTime: z.number().optional(),
     excerpt: z.string().max(160).optional(),

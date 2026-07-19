@@ -5,6 +5,7 @@ pubDate: 2026-07-17
 category: sim
 articleType: comparison
 keyword: "LINEMO 評判 デメリット"
+priority: 5
 draft: false
 ---
 
