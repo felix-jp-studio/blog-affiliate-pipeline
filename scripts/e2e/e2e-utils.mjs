@@ -4,6 +4,8 @@ import { fileURLToPath } from "node:url";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 export const repoRoot = join(scriptDir, "../..");
+export const e2eConfigPath = join(repoRoot, "config/e2e-smoke.json");
+export const articlesPathPrefix = "site/src/content/articles/";
 export const articlesDir =
   process.env.E2E_ARTICLES_DIR ?? join(repoRoot, "site/src/content/articles");
 export const distDir = join(repoRoot, "site/dist");
@@ -88,4 +90,64 @@ export function fail(errors) {
 
 export function pass(label, count) {
   console.log(`[OK] ${label}: ${count} checked`);
+}
+
+let cachedE2eConfig;
+
+export function loadE2eConfig() {
+  if (cachedE2eConfig) {
+    return cachedE2eConfig;
+  }
+  if (!existsSync(e2eConfigPath)) {
+    cachedE2eConfig = {};
+    return cachedE2eConfig;
+  }
+  cachedE2eConfig = JSON.parse(readFileSync(e2eConfigPath, "utf8"));
+  return cachedE2eConfig;
+}
+
+export function affiliatePatternsFromConfig(config = loadE2eConfig()) {
+  return (config.affiliatePatterns ?? ["px\\.a8\\.net", "valuecommerce\\.com"]).map(
+    (pattern) => new RegExp(pattern, "i"),
+  );
+}
+
+export function articleRequiresAffiliate(article, config = loadE2eConfig()) {
+  const exemptSlugs = new Set(config.affiliateExemptSlugs ?? []);
+  if (exemptSlugs.has(article.slug)) {
+    return false;
+  }
+
+  const requiredSlugs = new Set(config.articlesRequiringAffiliate ?? []);
+  if (requiredSlugs.has(article.slug)) {
+    return true;
+  }
+
+  const category = article.fields?.category;
+  const articleType = article.fields?.articleType;
+  return (category === "sim" || category === "hikari") && articleType === "comparison";
+}
+
+export function missingAffiliatePatterns(content, config = loadE2eConfig()) {
+  const patterns = affiliatePatternsFromConfig(config);
+  const hasAny = patterns.some((pattern) => pattern.test(content));
+  if (hasAny) {
+    return [];
+  }
+  return patterns.map((pattern) => pattern.source);
+}
+
+export function slugFromArticlePath(filePath) {
+  const normalized = filePath.replace(/\\/g, "/");
+  const name = normalized.split("/").pop() ?? "";
+  return name.replace(/\.md$/, "");
+}
+
+export function isArticleMarkdownPath(filePath) {
+  const normalized = filePath.replace(/\\/g, "/");
+  return (
+    normalized.startsWith(articlesPathPrefix) &&
+    normalized.endsWith(".md") &&
+    !normalized.endsWith("/README.md")
+  );
 }
