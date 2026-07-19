@@ -1,0 +1,38 @@
+---
+interface Props {
+  href: string;
+  label: string;
+}
+
+const { href, label } = Astro.props;
+---
+
+<a
+  class="affiliate-button"
+  href={href}
+  rel="sponsored noopener noreferrer"
+  target="_blank"
+>
+  {label}
+</a>
+
+<style>
+  .affiliate-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem 1.25rem;
+    border-radius: 6px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+
+  .affiliate-button:hover {
+    background: #095aa8;
+    text-decoration: none;
+  }
+</style>

@@ -1,19 +1,23 @@
 ---
 import { getCollection } from "astro:content";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { categoryMeta } from "../data/category-meta";
+import { buildBreadcrumbs } from "../data/site-nav";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const meta = categoryMeta.sim;
 
 const articles = (
   await getCollection("articles", ({ data }) => !data.draft)
 ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const simArticles = articles.filter((a) => a.data.category === "sim");
+const breadcrumbs = buildBreadcrumbs([{ label: meta.label }]);
 ---
 
-<BaseLayout
-  title="格安SIM"
-  description="格安SIMの比較・乗り換え・お困り解決記事一覧"
->
-  <h1>格安SIM</h1>
+<BaseLayout title={meta.label} description={meta.description}>
+  <Breadcrumbs items={breadcrumbs} />
+  <h1>{meta.label}</h1>
   <p class="lead">乗り換え・MNP・料金比較など、格安SIMに関する記事です。</p>
 
   {

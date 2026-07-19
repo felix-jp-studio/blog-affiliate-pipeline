@@ -1,5 +1,12 @@
 ---
 import { getCollection, render } from "astro:content";
+import AffiliateDisclosure from "../../components/AffiliateDisclosure.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import RelatedArticles from "../../components/RelatedArticles.astro";
+import { articleTypeLabels } from "../../data/article-type-labels";
+import { categoryMeta } from "../../data/category-meta";
+import { buildBreadcrumbs } from "../../data/site-nav";
+import { hasAffiliateLinks } from "../../utils/affiliate-links";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
@@ -16,31 +23,95 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const slug = entry.id;
+
+const category = categoryMeta[entry.data.category];
+const typeLabel = articleTypeLabels[entry.data.articleType];
+
+const allArticles = (
+  await getCollection("articles", ({ data }) => !data.draft)
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const sameCategoryArticles = allArticles.filter(
+  (article) => article.data.category === entry.data.category,
+);
+
+const breadcrumbs = buildBreadcrumbs([
+  { label: category.label, href: category.href },
+  { label: entry.data.title },
+]);
+
+const showAffiliateDisclosure = hasAffiliateLinks(entry.body ?? "");
 ---
 
 <BaseLayout title={entry.data.title} description={entry.data.description}>
+  <Breadcrumbs items={breadcrumbs} />
   <article>
-    <p class="badge">{entry.data.category} / {entry.data.articleType}</p>
+    <div class="article-meta">
+      <span class="badge badge-category">{category.label}</span>
+      <span class="badge badge-type">{typeLabel}</span>
+      <time datetime={entry.data.pubDate.toISOString()}>
+        {entry.data.pubDate.toLocaleDateString("ja-JP")}
+      </time>
+    </div>
     <h1>{entry.data.title}</h1>
-    <p class="lead">
-      キーワード: {entry.data.keyword} ／ 公開日:
-      {entry.data.pubDate.toLocaleDateString("ja-JP")}
-    </p>
+    {showAffiliateDisclosure && <AffiliateDisclosure />}
     <div class="article-body">
       <Content />
     </div>
+    <RelatedArticles articles={sameCategoryArticles} currentSlug={slug} />
   </article>
 </BaseLayout>
 
 <style>
+  .article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  .badge-category {
+    background: #e8f2ff;
+    color: var(--accent);
+  }
+
+  .badge-type {
+    background: #f0f4f8;
+    color: var(--muted);
+  }
+
   .article-body :global(h2) {
     margin-top: 2rem;
   }
 
+  .article-body :global(.table-scroll) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 1rem 0;
+  }
+
+  .article-body :global(.table-scroll)::after {
+    content: "← 横にスクロールできます →";
+    display: block;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+    padding: 0.35rem 0 0;
+  }
+
+  @media (min-width: 641px) {
+    .article-body :global(.table-scroll)::after {
+      display: none;
+    }
+  }
+
   .article-body :global(table) {
     width: 100%;
+    min-width: 480px;
     border-collapse: collapse;
-    margin: 1rem 0;
     font-size: 0.95rem;
   }
 
@@ -56,5 +127,23 @@ const slug = entry.id;
     margin: 1.5rem 0;
     padding-left: 1rem;
     color: var(--muted);
+  }
+
+  .article-body :global(a.affiliate-link) {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.85rem;
+    margin: 0.25rem 0;
+    border-radius: 6px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  .article-body :global(a.affiliate-link:hover) {
+    background: #095aa8;
+    text-decoration: none;
   }
 </style>
