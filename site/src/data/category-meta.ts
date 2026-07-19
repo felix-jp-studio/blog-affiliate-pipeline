@@ -15,14 +15,14 @@ export const defaultOgImage = "/og/og-default.png";
 
 export const categoryMeta: Record<CategorySlug, CategoryMeta> = {
   sim: {
-    label: "格安SIM",
+    label: "格安SIMガイド",
     href: "/sim",
     description: "格安SIMの比較・乗り換え・お困り解決記事一覧",
     heroLead: "乗り換え・MNP・料金比較など、格安SIMに関する記事です。",
     guideText:
       "月間データ量・通話の使い方・セット割の条件を先に整理しましょう。料金だけでなくエリアと速度の安定性も公式情報で確認し、キャンペーンは適用条件まで必ず照合してください。",
-    themeColor: "#0b6bcb",
-    gradient: "linear-gradient(135deg, #dbeafe 0%, #93c5fd 100%)",
+    themeColor: "#dc2626",
+    gradient: "linear-gradient(135deg, #fee2e2 0%, #fca5a5 100%)",
     ogImage: "/og/og-sim.png",
   },
   hikari: {
