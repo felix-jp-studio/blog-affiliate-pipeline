@@ -20,7 +20,8 @@
     "test:e2e:local": "bash scripts/e2e/run-local-e2e.sh --mode template",
     "test:e2e": "node scripts/e2e/validate-articles.mjs && npm run build --prefix site && node scripts/e2e/validate-dist.mjs",
     "test:e2e:articles": "node scripts/e2e/validate-articles.mjs",
-    "test:e2e:dist": "node scripts/e2e/validate-dist.mjs"
+    "test:e2e:dist": "node scripts/e2e/validate-dist.mjs",
+    "test:e2e:smoke": "node scripts/e2e/smoke-production.mjs"
   },
   "devDependencies": {
     "prettier": "^3.5.3"
