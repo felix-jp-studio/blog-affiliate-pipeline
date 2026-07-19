@@ -1,0 +1,65 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  articles: CollectionEntry<"articles">[];
+  currentSlug: string;
+}
+
+const { articles, currentSlug } = Astro.props;
+
+const related = articles
+  .filter((article) => article.id !== currentSlug)
+  .slice(0, 3);
+---
+
+{
+  related.length > 0 && (
+    <aside class="related-articles" aria-labelledby="related-heading">
+      <h2 id="related-heading">関連記事</h2>
+      <ul>
+        {related.map((article) => (
+          <li>
+            <a href={`/articles/${article.id}`}>{article.data.title}</a>
+            <time datetime={article.data.pubDate.toISOString()}>
+              {article.data.pubDate.toLocaleDateString("ja-JP")}
+            </time>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  )
+}
+
+<style>
+  .related-articles {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .related-articles h2 {
+    font-size: 1.1rem;
+    margin: 0 0 1rem;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  time {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+</style>

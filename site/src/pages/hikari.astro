@@ -1,11 +1,41 @@
 ---
+import { getCollection } from "astro:content";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { categoryMeta } from "../data/category-meta";
+import { buildBreadcrumbs } from "../data/site-nav";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const meta = categoryMeta.hikari;
+
+const articles = (
+  await getCollection("articles", ({ data }) => !data.draft)
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const hikariArticles = articles.filter((a) => a.data.category === "hikari");
+const breadcrumbs = buildBreadcrumbs([{ label: meta.label }]);
 ---
 
-<BaseLayout title="光回線" description="光回線の比較・乗り換え・セット割">
-  <h1>光回線</h1>
+<BaseLayout title={meta.label} description={meta.description}>
+  <Breadcrumbs items={breadcrumbs} />
+  <h1>{meta.label}</h1>
   <p class="lead">
-    光回線の料金比較、乗り換え、セット割に関する記事を順次公開します。
+    光回線の料金比較、乗り換え、セット割に関する記事です。
   </p>
-  <p>現在、サイト準備中です。記事公開後に一覧を表示します。</p>
+
+  {
+    hikariArticles.length > 0 ? (
+      <ul>
+        {hikariArticles.map((article) => {
+          const slug = article.id;
+          return (
+            <li>
+              <a href={`/articles/${slug}`}>{article.data.title}</a>
+            </li>
+          );
+        })}
+      </ul>
+    ) : (
+      <p>記事を準備中です。</p>
+    )
+  }
 </BaseLayout>
