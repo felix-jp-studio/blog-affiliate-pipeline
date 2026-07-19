@@ -2,12 +2,17 @@
 import { getCollection, render } from "astro:content";
 import AffiliateDisclosure from "../../components/AffiliateDisclosure.astro";
 import ArticleHero from "../../components/ArticleHero.astro";
+import ArticleToc from "../../components/ArticleToc.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import RelatedArticles from "../../components/RelatedArticles.astro";
+import SitePublisherBox from "../../components/SitePublisherBox.astro";
 import { categoryMeta } from "../../data/category-meta";
 import { buildBreadcrumbs } from "../../data/site-nav";
 import { hasAffiliateLinks } from "../../utils/affiliate-links";
-import { getReadingTimeForEntry } from "../../utils/article-meta";
+import {
+  extractHeadings,
+  getReadingTimeForEntry,
+} from "../../utils/article-meta";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
@@ -27,6 +32,10 @@ const slug = entry.id;
 
 const category = categoryMeta[entry.data.category];
 const readingTimeMinutes = getReadingTimeForEntry(entry);
+const toc = await extractHeadings(entry.body ?? "");
+const articleUrl = new URL(`/articles/${slug}`, Astro.site).href;
+const ogImage = entry.data.eyecatch ?? category.ogImage;
+const publishedTime = entry.data.pubDate.toISOString();
 
 const allArticles = (
   await getCollection("articles", ({ data }) => !data.draft)
@@ -42,12 +51,48 @@ const breadcrumbs = buildBreadcrumbs([
 ]);
 
 const showAffiliateDisclosure = hasAffiliateLinks(entry.body ?? "");
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: breadcrumbs.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.label,
+    ...(item.href ? { item: new URL(item.href, Astro.site).href } : {}),
+  })),
+};
+
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: entry.data.title,
+  description: entry.data.description,
+  datePublished: publishedTime,
+  image: new URL(ogImage, Astro.site).href,
+  mainEntityOfPage: articleUrl,
+  author: {
+    "@type": "Organization",
+    name: "SIM・光回線ガイド",
+    url: Astro.site,
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "SIM・光回線ガイド",
+    url: Astro.site,
+  },
+};
 ---
 
 <BaseLayout
   title={entry.data.title}
   description={entry.data.description}
   layout="article"
+  activeNav={entry.data.category}
+  ogType="article"
+  ogImage={ogImage}
+  publishedTime={publishedTime}
+  jsonLd={[articleJsonLd, breadcrumbJsonLd]}
 >
   <Breadcrumbs items={breadcrumbs} />
   <article class="article-shell">
@@ -61,9 +106,13 @@ const showAffiliateDisclosure = hasAffiliateLinks(entry.body ?? "");
       eyecatch={entry.data.eyecatch}
     />
     {showAffiliateDisclosure && <AffiliateDisclosure />}
-    <div class="article-body prose">
-      <Content />
+    <div class="article-content">
+      <ArticleToc items={toc} />
+      <div class="article-body prose">
+        <Content />
+      </div>
     </div>
+    <SitePublisherBox />
     <RelatedArticles articles={sameCategoryArticles} currentSlug={slug} />
   </article>
 </BaseLayout>
@@ -83,22 +132,36 @@ const showAffiliateDisclosure = hasAffiliateLinks(entry.body ?? "");
     margin-bottom: 0;
   }
 
-  .article-shell :global(.affiliate-disclosure),
-  .article-body {
+  .article-shell :global(.affiliate-disclosure) {
     padding-inline: 2.25rem;
   }
 
-  .article-body {
+  .article-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0 2rem;
+    padding-inline: 2.25rem;
     padding-top: 1.5rem;
+    align-items: start;
+  }
+
+  .article-body {
+    min-width: 0;
   }
 
   .article-shell :global(.related-articles) {
     margin-inline: 2.25rem;
   }
 
+  @media (min-width: 1024px) {
+    .article-content {
+      grid-template-columns: 220px minmax(0, 1fr);
+    }
+  }
+
   @media (max-width: 640px) {
     .article-shell :global(.affiliate-disclosure),
-    .article-body,
+    .article-content,
     .article-shell :global(.related-articles) {
       padding-inline: 1.25rem;
     }

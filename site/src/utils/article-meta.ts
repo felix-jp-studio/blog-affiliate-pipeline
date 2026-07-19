@@ -1,6 +1,41 @@
+import { createMarkdownProcessor } from "@astrojs/markdown-remark";
 import type { CollectionEntry } from "astro:content";
+import { markdownRehypePlugins } from "../markdown-plugins";
 
 const CHARS_PER_MINUTE = 400;
+
+export type TocItem = {
+  id: string;
+  text: string;
+  level: 2 | 3;
+};
+
+let processorPromise: ReturnType<typeof createMarkdownProcessor> | null = null;
+
+async function getMarkdownProcessor() {
+  if (!processorPromise) {
+    processorPromise = createMarkdownProcessor({
+      markdown: {
+        rehypePlugins: markdownRehypePlugins,
+      },
+    });
+  }
+
+  return processorPromise;
+}
+
+export async function extractHeadings(body: string): Promise<TocItem[]> {
+  const processor = await getMarkdownProcessor();
+  const { metadata } = await processor.render(body);
+
+  return metadata.headings
+    .filter((heading) => heading.depth === 2 || heading.depth === 3)
+    .map((heading) => ({
+      id: heading.slug,
+      text: heading.text,
+      level: heading.depth as 2 | 3,
+    }));
+}
 
 function stripMarkdown(body: string): string {
   return body
