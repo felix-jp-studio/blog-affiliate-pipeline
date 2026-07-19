@@ -21,7 +21,8 @@ test.describe("sim hub page", () => {
     );
     const titleSelectors = Array.from(
       { length: titleCount },
-      (_, index) => `.category-hub__item:nth-of-type(${index + 1}) .article-card__title`,
+      (_, index) =>
+        `.category-hub__item:nth-of-type(${index + 1}) .article-card__title`,
     );
 
     const text = await snapshotText(page, [
