@@ -5,6 +5,7 @@ pubDate: 2026-07-19
 category: sim
 articleType: comparison
 keyword: "格安SIM 学生 おすすめ"
+priority: 13
 draft: false
 ---
 

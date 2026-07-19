@@ -5,6 +5,7 @@ pubDate: 2026-07-17
 category: sim
 articleType: comparison
 keyword: "格安SIM 20GB おすすめ"
+priority: 1
 draft: false
 ---
 

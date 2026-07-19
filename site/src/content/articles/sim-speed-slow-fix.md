@@ -5,6 +5,7 @@ pubDate: 2026-07-17
 category: trouble
 articleType: troubleshoot
 keyword: "格安SIM 速度 遅い 対処"
+priority: 4
 draft: false
 ---
 

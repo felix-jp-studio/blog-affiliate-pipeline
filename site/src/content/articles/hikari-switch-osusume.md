@@ -5,6 +5,7 @@ pubDate: 2026-07-19
 category: hikari
 articleType: comparison
 keyword: "光回線 乗り換え おすすめ"
+priority: 9
 draft: false
 ---
 

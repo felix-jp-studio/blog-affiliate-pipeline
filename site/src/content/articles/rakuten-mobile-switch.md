@@ -5,6 +5,7 @@ pubDate: 2026-07-17
 category: sim
 articleType: howto
 keyword: "楽天モバイル 乗り換え 手順"
+priority: 2
 draft: false
 ---
 

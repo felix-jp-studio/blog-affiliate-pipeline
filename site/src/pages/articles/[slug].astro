@@ -14,6 +14,7 @@ import {
   getReadingTimeForEntry,
   resolveOgImageUrl,
 } from "../../utils/article-meta";
+import { compareArticlesByRecency } from "../../utils/sort-articles";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
@@ -40,7 +41,7 @@ const publishedTime = entry.data.pubDate.toISOString();
 
 const allArticles = (
   await getCollection("articles", ({ data }) => !data.draft)
-).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+).sort(compareArticlesByRecency);
 
 const sameCategoryArticles = allArticles.filter(
   (article) => article.data.category === entry.data.category,

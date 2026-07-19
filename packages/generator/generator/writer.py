@@ -17,6 +17,10 @@ def write_article(
     slug = outline["slug"]
     path = out_dir / f"{slug}.md"
 
+    priority_line = ""
+    if outline.get("priority") is not None:
+        priority_line = f"priority: {outline['priority']}\n"
+
     frontmatter = f"""---
 title: "{outline["title"]}"
 description: "{outline["metaDescription"]}"
@@ -24,7 +28,7 @@ pubDate: {date.today().isoformat()}
 category: {outline["category"]}
 articleType: {outline["articleType"]}
 keyword: "{outline["keyword"]}"
-draft: {"true" if draft else "false"}
+{priority_line}draft: {"true" if draft else "false"}
 ---
 
 """

@@ -5,6 +5,7 @@ pubDate: 2026-07-17
 category: sim
 articleType: howto
 keyword: "MNP 予約番号 取得方法"
+priority: 3
 draft: false
 ---
 

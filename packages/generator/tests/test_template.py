@@ -43,7 +43,16 @@ class TemplateGenerationTest(unittest.TestCase):
         self.assertIn("auひかり", body)
         self.assertNotIn("valuecommerce.com", body)
 
-    def test_batch_has_five_items(self):
+    def test_hikari_mansion_slug_is_seo_friendly(self):
+        item = {
+            "keyword": "光回線 マンション おすすめ",
+            "articleType": "comparison",
+            "category": "hikari",
+            "priority": 16,
+        }
+        outline = build_outline(item)
+        self.assertEqual(outline["slug"], "hikari-mansion-osusume")
+        self.assertEqual(outline["priority"], 16)
         import json
 
         batch = json.loads((ROOT / "config/test-batch.json").read_text(encoding="utf-8"))

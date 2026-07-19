@@ -5,6 +5,7 @@ pubDate: 2026-07-19
 category: sim
 articleType: comparison
 keyword: "格安SIM 通話かけ放題 安い"
+priority: 6
 draft: false
 ---
 

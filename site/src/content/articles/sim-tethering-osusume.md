@@ -5,6 +5,7 @@ pubDate: 2026-07-19
 category: sim
 articleType: comparison
 keyword: "テザリング 格安SIM おすすめ"
+priority: 15
 draft: false
 ---
 
