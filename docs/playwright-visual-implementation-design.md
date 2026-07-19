@@ -302,9 +302,26 @@ Text diff: see job log / `git diff` locally after `npm run test:e2e:visual`.
 | **Text**     | Actions log の `Expected` / `Received` またはローカル `git diff` on `.txt` | GitHub PR Files タブで行 diff 可能（baseline commit 時） |
 | **両方失敗** | text 先に確認 → 意図的コピー変更なら txt 更新、レイアウトのみなら PNG 更新 | 原因切り分け                                             |
 
-### 7.4 Optional: PR コメント bot（Phase 2）
+### 7.4 PR コメント bot（実装済み — PR #34）
 
-`actions/github-script` で artifact URL を PR コメント。初回は artifact + step summary のみで十分。
+`pull-request.yml` が Playwright 実行後に以下を行う:
+
+1. 失敗時、`site/test-results/**/*-{diff,expected,actual}.png` を `.github/pr-visual-diffs/{label}-*.png` に収集（`scripts/e2e/collect-visual-diffs.mjs`）
+2. PR ブランチへ commit & push（`git-auto-commit-action`）し `raw.githubusercontent.com` で参照可能にする
+3. `scripts/e2e/post-visual-pr-comment.mjs` が Markdown 表を生成し、Diff 列に PNG を embed
+
+| 列     | 内容                                                                      |
+| ------ | ------------------------------------------------------------------------- |
+| ページ | 対象 URL                                                                  |
+| Visual | PNG snapshot の ✅ / ❌                                                   |
+| Text   | text snapshot の ✅ / ❌ / ➖（visual のみ失敗時）                        |
+| Diff   | PASS 時「一致」、visual FAIL 時 diff PNG + `<details>` で expected/actual |
+
+**制限事項**:
+
+- GitHub PR コメント内の画像は外部 CDN 経由のため、大きな PNG は読み込みが遅い場合がある
+- fork 由来 PR では `GITHUB_TOKEN` の write 権限が無く、画像 push が失敗する可能性がある（その場合 artifact リンクにフォールバック）
+- diff PNG は PR ブランチに commit されるため、マージ前に不要なら rebase で除去可能
 
 ---
 

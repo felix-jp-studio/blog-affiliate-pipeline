@@ -5,13 +5,21 @@ on:
     branches: [main]
     paths:
       - "site/**"
+      - "scripts/e2e/**"
       - ".github/workflows/pull-request.yml"
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   playwright-visual:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
 
       - uses: actions/setup-node@v6
         with:
@@ -33,34 +41,88 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run Playwright visual regression
+        id: visual
         working-directory: site
+        continue-on-error: true
         run: npm run test:e2e:visual
         env:
           CI: true
           PUBLIC_CONTACT_FORM_ACTION: ""
 
+      - name: Collect visual diff images for PR comment
+        if: steps.visual.outcome == 'failure'
+        id: collect_diffs
+        run: |
+          node scripts/e2e/collect-visual-diffs.mjs
+          if [ -n "$(find .github/pr-visual-diffs -maxdepth 1 -name '*.png' -print -quit)" ]; then
+            echo "has_png=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_png=false" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          VISUAL_TEST_RESULTS_DIR: site/test-results
+          VISUAL_DIFF_OUTPUT_DIR: .github/pr-visual-diffs
+
+      - name: Push visual diff images to PR branch
+        id: diff_push
+        if: steps.visual.outcome == 'failure' && steps.collect_diffs.outputs.has_png == 'true'
+        continue-on-error: true
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(ci): upload visual diff artifacts for PR comment"
+          file_pattern: ".github/pr-visual-diffs/*.png"
+          skip_dirty_check: true
+
+      - name: Resolve diff image commit SHA
+        id: diff_sha
+        if: github.event_name == 'pull_request'
+        run: |
+          if [ "${{ steps.diff_push.outcome }}" = "success" ] && [ -n "${{ steps.diff_push.outputs.sha }}" ]; then
+            echo "sha=${{ steps.diff_push.outputs.sha }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "sha=${{ github.event.pull_request.head.sha }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build visual regression PR comment
+        if: github.event_name == 'pull_request'
+        run: node scripts/e2e/post-visual-pr-comment.mjs
+        env:
+          VISUAL_REPORT_PATH: site/test-results/visual-report.json
+          VISUAL_COMMENT_OUTPUT: site/test-results/visual-pr-comment.md
+          VISUAL_DIFF_OUTPUT_DIR: .github/pr-visual-diffs
+          VISUAL_DIFF_SHA: ${{ steps.diff_sha.outputs.sha }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+
+      - name: Post visual regression comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body-path: site/test-results/visual-pr-comment.md
+          edit-mode: replace
+          body-includes: "<!-- playwright-visual-report -->"
+
       - name: Visual regression summary
-        if: failure()
+        if: steps.visual.outcome == 'failure'
         run: |
           cat >> "$GITHUB_STEP_SUMMARY" <<'EOF'
           ## Visual regression failed
 
-          | Spec | Type | Snapshot |
-          | --- | --- | --- |
-          | contact.visual.spec.ts | screenshot / text | contact-main |
-          | sim-hub.visual.spec.ts | screenshot / text | sim-hub |
-          | article-template.visual.spec.ts | screenshot / text | article-sim-20gb |
-
-          Download **playwright-visual-diff** artifact for PNG diffs.
-          Text diff: see job log or run `npm run test:e2e:visual` locally.
+          PR コメントの表（Diff 列に PNG プレビュー）と **playwright-visual-diff** artifact を確認してください。
           EOF
 
       - name: Upload visual diff artifacts
-        if: failure()
+        if: steps.visual.outcome == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: playwright-visual-diff
           path: |
             site/tests/visual/**/*-snapshots/**/*
             site/test-results/
+            .github/pr-visual-diffs/
           retention-days: 14
+
+      - name: Fail job when visual regression failed
+        if: steps.visual.outcome == 'failure'
+        run: exit 1
