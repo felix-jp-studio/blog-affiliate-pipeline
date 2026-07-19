@@ -9,6 +9,8 @@ alwaysApply: true
 
 作業に区切りがついたら、応答の**末尾**に必ず `## 次のロードマップ指示` セクションを付ける。
 
+ユーザーが「次の作業を提示して」等と**明示的に依頼**した場合は、本ルールではなく `roadmap-next-tasks.mdc` の**表形式**に従う。
+
 ## 手順
 
 1. `blog-affiliate-auto/config/roadmap-progress.json` を読む（進捗・次タスクの正本）
