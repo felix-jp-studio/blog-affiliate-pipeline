@@ -17,7 +17,7 @@ alwaysApply: true
 3. レビュー結果をユーザーに報告（重大度順の表）
 4. **Critical / High** は修正してから PR 作成。修正不能なら PR 本文に理由を明記
 5. PR 本文を用意（下記テンプレートにレビューサマリーを含める）
-6. `gh pr create --body "$(cat <<'EOF' ... EOF)"` で PR 作成（本文にレビュー結果を含めた状態で公開）
+6. `./scripts/gh-bot.sh pr create --body "$(cat <<'EOF' ... EOF)"` で PR 作成（bot アカウント・`cursor-agent` ラベル付き推奨）
 
 ## PR 本文に含めるテンプレート
 
