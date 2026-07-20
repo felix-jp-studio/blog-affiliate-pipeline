@@ -267,6 +267,36 @@ def is_due_today(
     return ScheduleDecision(True, "due", today)
 
 
+def reconstruct_week_type_counts(
+    *,
+    queue_state: dict,
+    seed_rows: list[dict],
+    week_id: str,
+) -> dict[str, int]:
+    """Best-effort rebuild of this week's per-type counts from history.
+
+    Migrates a queue state written by an older version that tracked
+    ``runs_this_week`` without ``type_counts`` so the interleaved rotation keeps its
+    place instead of restarting from the first type mid-week.
+    """
+    type_by_keyword = {row["keyword"]: row["articleType"] for row in seed_rows}
+    counts: dict[str, int] = {}
+    for entry in queue_state.get("history", []):
+        if entry.get("ok_count", 0) <= 0:
+            continue
+        try:
+            entry_date = date.fromisoformat(entry.get("date", ""))
+        except ValueError:
+            continue
+        if iso_week_id(entry_date) != week_id:
+            continue
+        for keyword in entry.get("keywords", []):
+            article_type = type_by_keyword.get(keyword)
+            if article_type:
+                counts[article_type] = counts.get(article_type, 0) + 1
+    return counts
+
+
 def load_queue_state(path: Path) -> dict:
     if not path.exists():
         return {
@@ -367,7 +397,11 @@ def run_publish_scheduled(
 
     week_id = iso_week_id(decision.run_date)
     if queue_state.get("week_id") == week_id:
-        type_counts = dict(queue_state.get("type_counts", {}))
+        type_counts = dict(queue_state.get("type_counts") or {})
+        if not type_counts and queue_state.get("runs_this_week", 0) > 0:
+            type_counts = reconstruct_week_type_counts(
+                queue_state=queue_state, seed_rows=seed_rows, week_id=week_id
+            )
     else:
         type_counts = {}
 

@@ -13,6 +13,7 @@ from generator.publish_schedule import (
     load_keywords_seed,
     next_needed_type,
     pick_next_keywords,
+    reconstruct_week_type_counts,
     run_publish_scheduled,
     seed_row_to_item,
     update_queue_after_run,
@@ -242,6 +243,25 @@ class PublishScheduleTest(unittest.TestCase):
         self.assertEqual(state["week_id"], "2026-W30")
         self.assertEqual(state["runs_this_week"], 1)
         self.assertEqual(state["type_counts"], {"comparison": 1})
+
+    def test_reconstruct_week_type_counts_from_history(self):
+        seed_rows = load_keywords_seed(ROOT / "data/keywords.seed.csv")
+        # Old-format state: runs_this_week set, but no type_counts field.
+        queue_state = {
+            "week_id": "2026-W30",
+            "runs_this_week": 2,
+            "history": [
+                {"date": "2026-07-20", "keywords": ["格安SIM 20GB おすすめ"], "ok_count": 1},
+                {"date": "2026-07-21", "keywords": ["楽天モバイル 乗り換え 手順"], "ok_count": 1},
+                {"date": "2026-07-13", "keywords": ["MNP 予約番号 取得方法"], "ok_count": 1},
+                {"date": "2026-07-22", "keywords": ["格安SIM 速度 遅い 対処"], "ok_count": 0},
+            ],
+        }
+        counts = reconstruct_week_type_counts(
+            queue_state=queue_state, seed_rows=seed_rows, week_id="2026-W30"
+        )
+        # Only in-week, ok_count>0 entries are counted.
+        self.assertEqual(counts, {"comparison": 1, "howto": 1})
 
     def test_run_publish_scheduled_dry_run(self):
         with tempfile.TemporaryDirectory() as tmp:
