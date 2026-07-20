@@ -1,0 +1,105 @@
+name: Articles auto-merge
+
+# 記事公開 PR のみ: CI 通過後に squash merge。
+# 識別: ブランチ名 / ラベル / タイトル + 変更ファイルが記事関連のみ。
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    concurrency:
+      group: articles-auto-merge-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Check eligibility
+        id: eligibility
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_NUM="${{ github.event.pull_request.number }}"
+          HEAD_REF="${{ github.head_ref }}"
+          TITLE="${{ github.event.pull_request.title }}"
+
+          FILES=$(gh pr diff "$PR_NUM" --name-only)
+          if [ -z "$FILES" ]; then
+            echo "eligible=false" >> "$GITHUB_OUTPUT"
+            echo "No changed files; skipping."
+            exit 0
+          fi
+
+          HAS_LABEL=$(
+            gh pr view "$PR_NUM" --json labels --jq '[.labels[].name] | any(. == "article-publish")'
+          )
+
+          BRANCH_MATCH=false
+          case "$HEAD_REF" in
+            scheduled/articles-*|article/*|articles/*)
+              BRANCH_MATCH=true
+              ;;
+          esac
+
+          TITLE_MATCH=false
+          case "$TITLE" in
+            "chore: 定期記事生成"*|"chore: scheduled articles"*)
+              TITLE_MATCH=true
+              ;;
+          esac
+
+          if [ "$HAS_LABEL" != "true" ] && [ "$BRANCH_MATCH" != "true" ] && [ "$TITLE_MATCH" != "true" ]; then
+            echo "eligible=false" >> "$GITHUB_OUTPUT"
+            echo "Not an article-publish PR (branch=${HEAD_REF}, label=${HAS_LABEL}, title=${TITLE})."
+            exit 0
+          fi
+
+          ARTICLES_ONLY=true
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            case "$file" in
+              site/src/content/articles/*) ;;
+              state/publish-queue.json|state/generate-state.json) ;;
+              *)
+                ARTICLES_ONLY=false
+                echo "Disallowed file: $file"
+                break
+                ;;
+            esac
+          done <<< "$FILES"
+
+          if [ "$ARTICLES_ONLY" != "true" ]; then
+            echo "eligible=false" >> "$GITHUB_OUTPUT"
+            echo "Changed files include non-article paths; skipping auto-merge."
+            exit 0
+          fi
+
+          echo "eligible=true" >> "$GITHUB_OUTPUT"
+          echo "Eligible for article auto-merge (branch=${HEAD_REF}, label=${HAS_LABEL}, title=${TITLE})."
+
+      - name: Enable auto-merge
+        if: steps.eligibility.outputs.eligible == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_NUM="${{ github.event.pull_request.number }}"
+          gh pr merge "$PR_NUM" --auto --squash --delete-branch || \
+            gh pr merge "$PR_NUM" --squash --delete-branch
+
+      - name: Write job summary
+        if: always() && steps.eligibility.outputs.eligible == 'true'
+        run: |
+          {
+            echo "## Articles auto-merge"
+            echo ""
+            echo "- PR: #${{ github.event.pull_request.number }}"
+            echo "- Squash merge enabled (falls back to immediate merge when auto-merge is unavailable)."
+          } >> "$GITHUB_STEP_SUMMARY"

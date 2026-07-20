@@ -89,16 +89,17 @@ flowchart LR
 
 ## 現状（2026-07-19 時点）
 
-| 項目              | 状態                                                                                 |
-| ----------------- | ------------------------------------------------------------------------------------ |
-| `gh auth status`  | アクティブ: `felix-jp-studio`（scopes: `repo`, `workflow`, `read:org` 等）           |
-| bot アカウント    | `felix-jp-studio-bot` 作成済み（Org Member）。PAT はローカル未設定の場合あり         |
-| デュアル運用      | `scripts/gh-bot.sh` / `scripts/gh-user.sh` で切替（下記「環境構築」）                |
-| 直近 PR 作成者    | エージェント PR は `./scripts/gh-user.sh` + `cursor-agent` ラベル（推奨）            |
-| Cursor 公式 App   | 未確認（Org 管理者権限が必要。Dashboard で Connect 要）                              |
-| Branch Protection | **未設定**（Private リポジトリは GitHub Pro が必要）                                 |
-| 設計書 PR         | `docs/` のみ変更 → 自動 squash merge（`design-docs-auto-merge.yml`）                 |
-| PR 作成ルール     | `.cursor/rules/pr-review.mdc` — Bugbot レビュー後に `./scripts/gh-user.sh pr create` |
+| 項目              | 状態                                                                                                       |
+| ----------------- | ---------------------------------------------------------------------------------------------------------- |
+| `gh auth status`  | アクティブ: `felix-jp-studio`（scopes: `repo`, `workflow`, `read:org` 等）                                 |
+| bot アカウント    | `felix-jp-studio-bot` 作成済み（Org Member）。PAT はローカル未設定の場合あり                               |
+| デュアル運用      | `scripts/gh-bot.sh` / `scripts/gh-user.sh` で切替（下記「環境構築」）                                      |
+| 直近 PR 作成者    | エージェント PR は `./scripts/gh-user.sh` + `cursor-agent` ラベル（推奨）                                  |
+| Cursor 公式 App   | 未確認（Org 管理者権限が必要。Dashboard で Connect 要）                                                    |
+| Branch Protection | **未設定**（Private リポジトリは GitHub Pro が必要）                                                       |
+| 設計書 PR         | `docs/` のみ変更 → 自動 squash merge（`design-docs-auto-merge.yml`）                                       |
+| 記事公開 PR       | `article-publish` ラベル / `scheduled/articles-*` ブランチ → CI 後 auto-merge（`articles-auto-merge.yml`） |
+| PR 作成ルール     | `.cursor/rules/pr-review.mdc` — Bugbot レビュー後に `./scripts/gh-user.sh pr create`                       |
 
 ---
 

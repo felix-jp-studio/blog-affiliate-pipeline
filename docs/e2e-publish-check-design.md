@@ -138,9 +138,10 @@ blog-affiliate-pipeline/
 | steps  | checkout → `node scripts/e2e/smoke-production.mjs`                                    |
 | 失敗時 | GitHub Actions summary + optional issue comment                                       |
 
-**D. 既存 `design-docs-auto-merge.yml`**
+**D. 既存 auto-merge ワークフロー**
 
-- 本設計ドキュメント PR は `docs/**` only → 自動 squash merge 対象
+- 設計書 PR: `docs/**` only → `design-docs-auto-merge.yml`
+- 記事公開 PR: `article-publish` ラベル / `scheduled/articles-*` → `articles-auto-merge.yml`
 
 #### 2.5 npm scripts（提案）
 
