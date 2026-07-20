@@ -1,37 +1,43 @@
 ---
-description: Cursor エージェントは GitHub 操作に bot アカウントを使う
+description: Cursor エージェントは GitHub 操作に人間 gh をデフォルト使用（bot PAT は任意）
 alwaysApply: true
 ---
 
-# GitHub bot アカウント（Cursor エージェント用）
+# GitHub 認証（Cursor エージェント用）
 
-通常の開発・レビューは **`felix-jp-studio`**（人間アカウント）。Cursor エージェントが GitHub API / `gh` CLI で **Issue・PR を作成・更新**するときだけ **`felix-jp-studio-bot`** を使う。
+通常の開発・レビューは **`felix-jp-studio`**（人間アカウント）。Cursor エージェントが GitHub API / `gh` CLI で **Issue・PR を作成・更新**するときも、**デフォルトは `./scripts/gh-user.sh`**（人間アカウント）を使う。
+
+**bot PAT（`GITHUB_BOT_TOKEN`）は任意。** 未設定でも PR/Issue 作成は進めてよい。`cursor-agent` ラベルでエージェント PR を識別する。
 
 ## 必須ルール
 
-1. **PR / Issue 作成・更新** — 必ず bot ラッパーを使う:
+1. **PR / Issue 作成・更新（デフォルト）** — 人間 gh ラッパーを使う:
    ```bash
-   ./scripts/gh-bot.sh pr create ...
-   ./scripts/gh-bot.sh issue create ...
+   ./scripts/gh-user.sh pr create ...
+   ./scripts/gh-user.sh issue create ...
    ```
-   リポジトリルートから実行。`gh pr create` を直接使わない（人間アカウントになる）。
+   リポジトリルートから実行。`gh pr create` を直接使っても可（Active が `felix-jp-studio` なら同等）。
 
-2. **読み取り専用**（`gh pr view`, `gh run list` 等）— デフォルトの `gh` または `./scripts/gh-user.sh` で可。
+2. **bot gh（任意・将来用）** — `GITHUB_BOT_TOKEN` に Pull requests write がある場合のみ `./scripts/gh-bot.sh` を使える。トークン未設定時は `gh-user.sh` にフォールバックする（警告付き）。
 
-3. **トークンをコミットしない** — `GITHUB_BOT_TOKEN` / `GH_TOKEN_BOT` は `.env.local`（gitignore 済み）または macOS Keychain のみ。`.env.example` には変数名だけ。
+3. **読み取り専用**（`gh pr view`, `gh run list` 等）— デフォルトの `gh` または `./scripts/gh-user.sh` で可。
 
-4. **PR ラベル** — リポジトリに `cursor-agent` ラベルがある場合、PR 作成時に付与:
+4. **トークンをコミットしない** — `GITHUB_BOT_TOKEN` / `GH_TOKEN_BOT` は `.env.local`（gitignore 済み）または macOS Keychain のみ。`.env.example` には変数名だけ。
+
+5. **PR ラベル** — リポジトリに `cursor-agent` ラベルがある場合、エージェント PR 作成時に付与:
    ```bash
-   ./scripts/gh-bot.sh pr create ... --label "cursor-agent"
+   ./scripts/gh-user.sh pr create ... --label "cursor-agent"
    ```
 
-5. **人間向け操作** — マージ、レビュー承認、Org 設定は `./scripts/gh-user.sh` または通常の `gh`（`felix-jp-studio`）を使う。
+6. **人間向け操作** — マージ、レビュー承認、Org 設定は `./scripts/gh-user.sh` または通常の `gh`（`felix-jp-studio`）を使う。
 
-## トークン未設定時
+## bot PAT 未設定時
 
-`GITHUB_BOT_TOKEN` が未設定なら `./scripts/gh-bot.sh` はエラーで停止する。ユーザーに `docs/cursor-github-integration.md` の「環境構築」を案内し、PAT 設定完了まで PR 作成を進めない。
+`GITHUB_BOT_TOKEN` が未設定でも **PR 作成を止めない**。`./scripts/gh-user.sh` で `felix-jp-studio` として PR を作成し、`cursor-agent` ラベルで区別する。
+
+bot PAT を設定したい場合は `docs/cursor-github-integration.md` の「bot PAT は任意」を参照。
 
 ## 関連
 
-- `docs/cursor-github-integration.md` — デュアルアカウント構築手順
-- `.cursor/rules/pr-review.mdc` — PR 作成前 Bugbot レビュー（bot で PR 作成）
+- `docs/cursor-github-integration.md` — 推奨 2 層構成（人間 gh + Actions GITHUB_TOKEN）
+- `.cursor/rules/pr-review.mdc` — PR 作成前 Bugbot レビュー（`gh-user.sh` で PR 作成）
