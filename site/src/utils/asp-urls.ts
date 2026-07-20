@@ -1,4 +1,6 @@
-import aspUrlsJson from "../../../config/asp-urls.json";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 type AspProvider = {
   displayName: string;
@@ -12,7 +14,15 @@ type AspUrlsRegistry = {
   providers: Record<string, AspProvider>;
 };
 
-const registry = aspUrlsJson as AspUrlsRegistry;
+const registry = JSON.parse(
+  readFileSync(
+    join(
+      dirname(fileURLToPath(import.meta.url)),
+      "../../../config/asp-urls.json",
+    ),
+    "utf8",
+  ),
+) as AspUrlsRegistry;
 
 const DEFAULT_AFFILIATE_HOSTS = ["px.a8.net", "valuecommerce.com"];
 
