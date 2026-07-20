@@ -1,8 +1,4 @@
-export type ArticleType =
-  | "comparison"
-  | "howto"
-  | "troubleshoot"
-  | "crosssell";
+export type ArticleType = "comparison" | "howto" | "troubleshoot" | "crosssell";
 
 export const articleTypeLabels: Record<ArticleType, string> = {
   comparison: "比較",
