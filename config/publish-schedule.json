@@ -1,9 +1,15 @@
 {
   "mode": "weekly",
-  "days": ["monday", "thursday"],
+  "days": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
   "articles_per_run": 1,
   "timezone": "Asia/Tokyo",
-  "max_per_week": 2,
+  "max_per_week": 6,
+  "weekly_type_quota": {
+    "comparison": 2,
+    "howto": 2,
+    "troubleshoot": 2
+  },
+  "type_order": ["comparison", "howto", "troubleshoot"],
   "generation_mode": "auto",
   "keywords_seed": "data/keywords.seed.csv",
   "output_dir": "site/src/content/articles"

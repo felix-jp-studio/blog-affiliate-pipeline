@@ -94,21 +94,126 @@ def get_published_slugs(articles_dir: Path) -> set[str]:
     return {path.stem for path in articles_dir.glob("*.md")}
 
 
+def build_type_sequence(type_order: list[str], quota: dict[str, int]) -> list[str]:
+    """Interleave the weekly quota round-robin over ``type_order``.
+
+    Example: order ``[comparison, howto, troubleshoot]`` with quota 2 each yields
+    ``[comparison, howto, troubleshoot, comparison, howto, troubleshoot]``.
+    """
+    remaining = {t: int(quota.get(t, 0)) for t in type_order}
+    seq: list[str] = []
+    while any(v > 0 for v in remaining.values()):
+        for t in type_order:
+            if remaining[t] > 0:
+                seq.append(t)
+                remaining[t] -= 1
+    return seq
+
+
+def next_needed_type(
+    type_counts: dict[str, int],
+    type_order: list[str],
+    quota: dict[str, int],
+) -> str | None:
+    """Return the article type that should fill the next weekly slot.
+
+    Walks the interleaved sequence and consumes one credit per already-published
+    article of each type. The first slot whose type has no remaining credit is the
+    next needed type. Returns ``None`` when the weekly quota is fully met. Extra
+    articles of one type (from an earlier fallback) simply shift demand toward the
+    types that are still short.
+    """
+    seq = build_type_sequence(type_order, quota)
+    credits = {t: int(type_counts.get(t, 0)) for t in type_order}
+    for t in seq:
+        if credits.get(t, 0) > 0:
+            credits[t] -= 1
+        else:
+            return t
+    return None
+
+
+def _preferred_types(
+    needed: str | None,
+    type_counts: dict[str, int],
+    type_order: list[str],
+    quota: dict[str, int],
+) -> list[str]:
+    """Ordered list of types to try, most-wanted first.
+
+    1. The next needed type. 2. Other types still under their weekly quota
+    (in ``type_order``). 3. Any remaining type as a last-resort fallback.
+    """
+    order: list[str] = []
+    if needed:
+        order.append(needed)
+    for t in type_order:
+        if t not in order and int(type_counts.get(t, 0)) < int(quota.get(t, 0)):
+            order.append(t)
+    for t in type_order:
+        if t not in order:
+            order.append(t)
+    return order
+
+
+def _pick_one_of_type(
+    seed_rows: list[dict],
+    published_slugs: set[str],
+    used_slugs: set[str],
+    article_type: str | None,
+) -> dict | None:
+    for row in seed_rows:
+        if article_type is not None and row["articleType"] != article_type:
+            continue
+        slug = slugify(row["keyword"], priority=row["priority"])
+        assert_seo_slug(slug, keyword=row["keyword"])
+        if slug in published_slugs or slug in used_slugs:
+            continue
+        return seed_row_to_item(row)
+    return None
+
+
 def pick_next_keywords(
     *,
     seed_rows: list[dict],
     published_slugs: set[str],
     count: int,
+    type_counts: dict[str, int] | None = None,
+    type_order: list[str] | None = None,
+    weekly_type_quota: dict[str, int] | None = None,
 ) -> list[dict]:
+    """Pick the next ``count`` keywords by priority.
+
+    When ``type_order`` and ``weekly_type_quota`` are provided, selection is
+    balanced across article types: each pick targets the next needed type and only
+    falls back to other types when the seed has no unpublished keyword of that type
+    left. Without those arguments it degrades to pure priority order.
+    """
+    balanced = bool(type_order and weekly_type_quota)
+    counts = {t: int((type_counts or {}).get(t, 0)) for t in (type_order or [])}
     picked: list[dict] = []
-    for row in seed_rows:
-        slug = slugify(row["keyword"], priority=row["priority"])
-        assert_seo_slug(slug, keyword=row["keyword"])
-        if slug in published_slugs:
-            continue
-        picked.append(seed_row_to_item(row))
-        if len(picked) >= count:
+    used_slugs: set[str] = set()
+
+    for _ in range(count):
+        item: dict | None = None
+        if balanced:
+            needed = next_needed_type(counts, type_order, weekly_type_quota)
+            for candidate_type in _preferred_types(
+                needed, counts, type_order, weekly_type_quota
+            ):
+                item = _pick_one_of_type(seed_rows, published_slugs, used_slugs, candidate_type)
+                if item is not None:
+                    break
+        if item is None:
+            item = _pick_one_of_type(seed_rows, published_slugs, used_slugs, None)
+        if item is None:
             break
+
+        picked.append(item)
+        used_slugs.add(slugify(item["keyword"], priority=item["priority"]))
+        if balanced:
+            counts[item["articleType"]] = counts.get(item["articleType"], 0) + 1
+
     return picked
 
 
@@ -162,6 +267,36 @@ def is_due_today(
     return ScheduleDecision(True, "due", today)
 
 
+def reconstruct_week_type_counts(
+    *,
+    queue_state: dict,
+    seed_rows: list[dict],
+    week_id: str,
+) -> dict[str, int]:
+    """Best-effort rebuild of this week's per-type counts from history.
+
+    Migrates a queue state written by an older version that tracked
+    ``runs_this_week`` without ``type_counts`` so the interleaved rotation keeps its
+    place instead of restarting from the first type mid-week.
+    """
+    type_by_keyword = {row["keyword"]: row["articleType"] for row in seed_rows}
+    counts: dict[str, int] = {}
+    for entry in queue_state.get("history", []):
+        if entry.get("ok_count", 0) <= 0:
+            continue
+        try:
+            entry_date = date.fromisoformat(entry.get("date", ""))
+        except ValueError:
+            continue
+        if iso_week_id(entry_date) != week_id:
+            continue
+        for keyword in entry.get("keywords", []):
+            article_type = type_by_keyword.get(keyword)
+            if article_type:
+                counts[article_type] = counts.get(article_type, 0) + 1
+    return counts
+
+
 def load_queue_state(path: Path) -> dict:
     if not path.exists():
         return {
@@ -169,6 +304,7 @@ def load_queue_state(path: Path) -> dict:
             "next_scheduled": None,
             "week_id": None,
             "runs_this_week": 0,
+            "type_counts": {},
             "history": [],
         }
     return json.loads(path.read_text(encoding="utf-8"))
@@ -186,14 +322,18 @@ def update_queue_after_run(
     run_date: date,
     keywords: list[str],
     ok_count: int,
+    ok_types: list[str] | None = None,
 ) -> dict:
     week_id = iso_week_id(run_date)
     runs_this_week = queue_state.get("runs_this_week", 0)
+    type_counts = dict(queue_state.get("type_counts", {}))
     if queue_state.get("week_id") != week_id:
         runs_this_week = 0
+        type_counts = {}
 
-    if ok_count > 0:
-        runs_this_week += 1
+    runs_this_week += ok_count
+    for article_type in ok_types or []:
+        type_counts[article_type] = type_counts.get(article_type, 0) + 1
 
     history = list(queue_state.get("history", []))
     history.append(
@@ -209,6 +349,7 @@ def update_queue_after_run(
         "next_scheduled": compute_next_scheduled(schedule, from_day=run_date).isoformat(),
         "week_id": week_id,
         "runs_this_week": runs_this_week,
+        "type_counts": type_counts,
         "history": history[-52:],
     }
 
@@ -251,10 +392,26 @@ def run_publish_scheduled(
     seed_rows = load_keywords_seed(seed_path)
 
     count = schedule["articles_per_run"]
+    type_order = schedule.get("type_order")
+    weekly_type_quota = schedule.get("weekly_type_quota")
+
+    week_id = iso_week_id(decision.run_date)
+    if queue_state.get("week_id") == week_id:
+        type_counts = dict(queue_state.get("type_counts") or {})
+        if not type_counts and queue_state.get("runs_this_week", 0) > 0:
+            type_counts = reconstruct_week_type_counts(
+                queue_state=queue_state, seed_rows=seed_rows, week_id=week_id
+            )
+    else:
+        type_counts = {}
+
     items = pick_next_keywords(
         seed_rows=seed_rows,
         published_slugs=published_slugs,
         count=count,
+        type_counts=type_counts,
+        type_order=type_order,
+        weekly_type_quota=weekly_type_quota,
     )
     if not items:
         return PublishScheduledResult(
@@ -286,7 +443,8 @@ def run_publish_scheduled(
         except Exception as e:  # noqa: BLE001 — aggregate per-item errors
             results.append(RunResult(keyword=keyword, ok=False, error=str(e)))
 
-    ok_count = sum(1 for r in results if r.ok)
+    ok_types = [item["articleType"] for item, r in zip(items, results) if r.ok]
+    ok_count = len(ok_types)
     if ok_count > 0:
         queue_state = update_queue_after_run(
             schedule=schedule,
@@ -294,6 +452,7 @@ def run_publish_scheduled(
             run_date=decision.run_date,
             keywords=keywords,
             ok_count=ok_count,
+            ok_types=ok_types,
         )
         save_queue_state(queue_path, queue_state)
 
