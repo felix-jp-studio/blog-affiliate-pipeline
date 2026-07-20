@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "updatedAt": "2026-07-20",
+  "providers": {
+    "a8": {
+      "displayName": "A8.net",
+      "status": "active",
+      "lastVerified": "2026-07-19",
+      "portal": {
+        "registration": "https://www.a8.net/",
+        "management": "https://pub.a8.net/"
+      },
+      "tracking": {
+        "hostPattern": "px.a8.net",
+        "urlTemplate": "https://px.a8.net/svt/ejp?a8mat={programId}"
+      }
+    },
+    "valuecommerce": {
+      "displayName": "バリューコマース",
+      "status": "active",
+      "lastVerified": "2026-07-19",
+      "portal": {
+        "registration": "https://www.valuecommerce.ne.jp/",
+        "management": "https://aff.valuecommerce.ne.jp/"
+      },
+      "tracking": {
+        "hostPattern": "valuecommerce.com",
+        "urlTemplate": "https://ck.jp.ap.valuecommerce.com/servlet/referral?sid={siteId}&pid={programId}"
+      },
+      "siteId": "3776193"
+    },
+    "moshimo": {
+      "displayName": "もしもアフィリエイト",
+      "status": "pending",
+      "portal": {
+        "registration": "https://af.moshimo.com/af/shop/account/new",
+        "management": "https://af.moshimo.com/af/s/"
+      },
+      "tracking": {
+        "hostPattern": "af.moshimo.com",
+        "urlTemplate": null
+      }
+    },
+    "official": {
+      "displayName": "公式サイト（非ASP）",
+      "status": "active",
+      "portal": {},
+      "tracking": {
+        "hostPattern": null,
+        "urlTemplate": null
+      }
+    }
+  },
+  "programs": {
+    "rakuten-mobile": {
+      "label": "楽天モバイル",
+      "category": "sim",
+      "provider": "a8",
+      "programId": "4B8097+2XZ6GI+424K+NTJWY",
+      "trackingUrl": "https://px.a8.net/svt/ejp?a8mat=4B8097+2XZ6GI+424K+NTJWY",
+      "status": "active",
+      "lastVerified": "2026-07-19"
+    },
+    "linemo": {
+      "label": "LINEMO",
+      "category": "sim",
+      "provider": "valuecommerce",
+      "programId": "892660854",
+      "trackingUrl": "https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3776193&pid=892660854",
+      "status": "active",
+      "lastVerified": "2026-07-19"
+    },
+    "ahamo": {
+      "label": "ahamo",
+      "category": "sim",
+      "provider": "official",
+      "fallbackUrl": "https://www.docomo.ne.jp/ahamo/",
+      "status": "pending"
+    },
+    "povo": {
+      "label": "povo",
+      "category": "sim",
+      "provider": "official",
+      "fallbackUrl": "https://povo.jp/",
+      "status": "pending"
+    },
+    "uq-mobile": {
+      "label": "UQ mobile",
+      "category": "sim",
+      "provider": "official",
+      "fallbackUrl": "https://www.uqwimax.jp/mobile/",
+      "status": "pending"
+    },
+    "au-hikari": {
+      "label": "auひかり",
+      "category": "hikari",
+      "provider": "a8",
+      "programId": "4B8097+1WGVCI+3HKU+1THW9E",
+      "trackingUrl": "https://px.a8.net/svt/ejp?a8mat=4B8097+1WGVCI+3HKU+1THW9E",
+      "status": "active",
+      "lastVerified": "2026-07-19"
+    },
+    "softbank-hikari": {
+      "label": "ソフトバンク光",
+      "category": "hikari",
+      "provider": "a8",
+      "programId": "4B8097+230N02+3HKU+25EKCY",
+      "trackingUrl": "https://px.a8.net/svt/ejp?a8mat=4B8097+230N02+3HKU+25EKCY",
+      "status": "active",
+      "lastVerified": "2026-07-19"
+    },
+    "wimax": {
+      "label": "WiMAX",
+      "category": "hikari",
+      "provider": "a8",
+      "programId": "4B8097+2PN3ZM+2JMM+1BN3TU",
+      "trackingUrl": "https://px.a8.net/svt/ejp?a8mat=4B8097+2PN3ZM+2JMM+1BN3TU",
+      "status": "active",
+      "lastVerified": "2026-07-19"
+    }
+  }
+}

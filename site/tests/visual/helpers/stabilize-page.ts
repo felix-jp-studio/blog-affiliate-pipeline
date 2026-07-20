@@ -1,10 +1,14 @@
 import type { Locator, Page } from "@playwright/test";
+import { affiliateHostPatterns } from "../../../src/utils/asp-urls";
+
+const AFFILIATE_MASK_SELECTORS = affiliateHostPatterns().map(
+  (host) => `a[href*="${host}"]`,
+);
 
 export const VISUAL_MASK_SELECTORS = [
   ".article-hero time",
   "[datetime]",
-  'a[href*="px.a8.net"]',
-  'a[href*="valuecommerce.com"]',
+  ...AFFILIATE_MASK_SELECTORS,
   ".category-hero__count",
   ".contact-form",
   ".article-hero__eyecatch",

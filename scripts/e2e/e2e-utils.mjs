@@ -93,6 +93,28 @@ export function pass(label, count) {
 }
 
 let cachedE2eConfig;
+let cachedAspUrls;
+
+const DEFAULT_AFFILIATE_PATTERNS = ["px\\.a8\\.net", "valuecommerce\\.com"];
+
+export function loadAspUrls() {
+  if (cachedAspUrls) {
+    return cachedAspUrls;
+  }
+  const aspUrlsPath = join(repoRoot, "config/asp-urls.json");
+  if (!existsSync(aspUrlsPath)) {
+    cachedAspUrls = { providers: {} };
+    return cachedAspUrls;
+  }
+  cachedAspUrls = JSON.parse(readFileSync(aspUrlsPath, "utf8"));
+  return cachedAspUrls;
+}
+
+function patternsFromAspUrls(aspUrls) {
+  return Object.values(aspUrls.providers ?? {})
+    .filter((provider) => provider.status === "active" && provider.tracking?.hostPattern)
+    .map((provider) => provider.tracking.hostPattern.replace(/\./g, "\\."));
+}
 
 export function loadE2eConfig() {
   if (cachedE2eConfig) {
@@ -107,9 +129,13 @@ export function loadE2eConfig() {
 }
 
 export function affiliatePatternsFromConfig(config = loadE2eConfig()) {
-  return (config.affiliatePatterns ?? ["px\\.a8\\.net", "valuecommerce\\.com"]).map(
-    (pattern) => new RegExp(pattern, "i"),
-  );
+  if (config.affiliatePatterns?.length) {
+    return config.affiliatePatterns.map((pattern) => new RegExp(pattern, "i"));
+  }
+
+  const aspPatterns = patternsFromAspUrls(loadAspUrls());
+  const patterns = aspPatterns.length > 0 ? aspPatterns : DEFAULT_AFFILIATE_PATTERNS;
+  return patterns.map((pattern) => new RegExp(pattern, "i"));
 }
 
 export function articleRequiresAffiliate(article, config = loadE2eConfig()) {

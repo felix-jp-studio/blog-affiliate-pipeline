@@ -1,5 +1,5 @@
-const AFFILIATE_URL_PATTERN = /px\.a8\.net|valuecommerce\.com/;
+import { affiliateUrlPattern } from "./asp-urls";
 
 export function hasAffiliateLinks(markdown: string): boolean {
-  return AFFILIATE_URL_PATTERN.test(markdown);
+  return affiliateUrlPattern().test(markdown);
 }

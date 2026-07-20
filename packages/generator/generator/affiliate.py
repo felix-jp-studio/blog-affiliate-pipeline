@@ -6,6 +6,8 @@ import json
 import re
 from pathlib import Path
 
+from generator.asp_urls import resolve_carrier_url
+
 
 def inject_affiliates(body: str, root: Path) -> str:
     rules_path = root / "config/affiliate-rules.json"
@@ -17,7 +19,7 @@ def inject_affiliates(body: str, root: Path) -> str:
         carrier = carriers.get(carrier_id)
         if not carrier:
             return match.group(0)
-        return carrier.get("linkTemplate", "#")
+        return resolve_carrier_url(root, carrier)
 
     body = re.sub(r"\{\{AFFILIATE:([a-z0-9-]+)\}\}", repl, body)
     return re.sub(r"\{AFFILIATE:([a-z0-9-]+)\}", repl, body)
