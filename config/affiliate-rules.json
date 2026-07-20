@@ -45,6 +45,11 @@
     "troubleshoot": {
       "minLinks": 1,
       "requiredCarriers": []
+    },
+    "crosssell": {
+      "minLinks": 2,
+      "requiredCarriers": ["rakuten-mobile", "au-hikari"],
+      "note": "固定費×通信クロスセル。通信キャリアは ASP リンク、電気サービスは公式 URL のみ。"
     }
   },
   "forbiddenPhrases": ["絶対お得", "必ず儲かる", "公式より安い保証"]

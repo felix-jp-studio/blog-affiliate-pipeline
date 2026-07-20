@@ -1,0 +1,23 @@
+---
+import { getCollection } from "astro:content";
+import CategoryHub from "../components/CategoryHub.astro";
+import { categoryMeta } from "../data/category-meta";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { compareArticlesByRecency } from "../utils/sort-articles";
+
+const meta = categoryMeta.cost;
+
+const articles = (await getCollection("articles", ({ data }) => !data.draft))
+  .filter((a) => a.data.category === "cost")
+  .sort(compareArticlesByRecency);
+---
+
+<BaseLayout
+  title={meta.label}
+  description={meta.description}
+  layout="hub"
+  activeNav="cost"
+  ogImage={meta.ogImage}
+>
+  <CategoryHub category="cost" articles={articles} />
+</BaseLayout>

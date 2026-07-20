@@ -56,6 +56,8 @@ class PublishScheduledResult:
 
 
 def infer_category(keyword: str, article_type: str) -> str:
+    if article_type == "crosssell":
+        return "cost"
     if article_type == "troubleshoot":
         return "trouble"
     if any(hint in keyword for hint in HIKARI_HINTS):
@@ -181,6 +183,7 @@ def pick_next_keywords(
     type_counts: dict[str, int] | None = None,
     type_order: list[str] | None = None,
     weekly_type_quota: dict[str, int] | None = None,
+    article_type_filter: str | None = None,
 ) -> list[dict]:
     """Pick the next ``count`` keywords by priority.
 
@@ -188,7 +191,20 @@ def pick_next_keywords(
     balanced across article types: each pick targets the next needed type and only
     falls back to other types when the seed has no unpublished keyword of that type
     left. Without those arguments it degrades to pure priority order.
+
+    When ``article_type_filter`` is set (Sunday crosssell runs), only keywords of
+    that type are considered, in priority order.
     """
+    if article_type_filter:
+        filtered_rows = [
+            row for row in seed_rows if row["articleType"] == article_type_filter
+        ]
+        return pick_next_keywords(
+            seed_rows=filtered_rows,
+            published_slugs=published_slugs,
+            count=count,
+        )
+
     balanced = bool(type_order and weekly_type_quota)
     counts = {t: int((type_counts or {}).get(t, 0)) for t in (type_order or [])}
     picked: list[dict] = []
@@ -224,6 +240,35 @@ def iso_week_id(day: date) -> str:
 
 def weekday_name(day: date) -> str:
     return day.strftime("%A").lower()
+
+
+def is_sunday(day: date) -> bool:
+    return day.weekday() == DAY_NAMES["sunday"]
+
+
+@dataclass
+class RunProfile:
+    seed_rel: str
+    type_order: list[str] | None
+    weekly_type_quota: dict[str, int] | None
+    article_type_filter: str | None
+
+
+def resolve_run_profile(schedule: dict, run_date: date) -> RunProfile:
+    """Return keyword source and selection rules for the given run day."""
+    if is_sunday(run_date):
+        return RunProfile(
+            seed_rel=schedule.get("sunday_keywords_seed", "data/keywords.sunday.csv"),
+            type_order=None,
+            weekly_type_quota=None,
+            article_type_filter=schedule.get("sunday_type", "crosssell"),
+        )
+    return RunProfile(
+        seed_rel=schedule["keywords_seed"],
+        type_order=schedule.get("type_order"),
+        weekly_type_quota=schedule.get("weekly_type_quota"),
+        article_type_filter=None,
+    )
 
 
 def is_scheduled_day(schedule: dict, day: date) -> bool:
@@ -386,17 +431,21 @@ def run_publish_scheduled(
             queue_state=queue_state,
         )
 
-    seed_path = root / schedule["keywords_seed"]
+    profile = resolve_run_profile(schedule, decision.run_date)
+
+    seed_path = root / profile.seed_rel
     articles_dir = root / schedule["output_dir"]
     published_slugs = get_published_slugs(articles_dir)
     seed_rows = load_keywords_seed(seed_path)
 
     count = schedule["articles_per_run"]
-    type_order = schedule.get("type_order")
-    weekly_type_quota = schedule.get("weekly_type_quota")
+    type_order = profile.type_order
+    weekly_type_quota = profile.weekly_type_quota
 
     week_id = iso_week_id(decision.run_date)
-    if queue_state.get("week_id") == week_id:
+    if is_sunday(decision.run_date):
+        type_counts: dict[str, int] = {}
+    elif queue_state.get("week_id") == week_id:
         type_counts = dict(queue_state.get("type_counts") or {})
         if not type_counts and queue_state.get("runs_this_week", 0) > 0:
             type_counts = reconstruct_week_type_counts(
@@ -412,6 +461,7 @@ def run_publish_scheduled(
         type_counts=type_counts,
         type_order=type_order,
         weekly_type_quota=weekly_type_quota,
+        article_type_filter=profile.article_type_filter,
     )
     if not items:
         return PublishScheduledResult(

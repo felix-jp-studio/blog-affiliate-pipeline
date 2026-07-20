@@ -17,8 +17,8 @@
   "title": "30〜45字のタイトル",
   "slug": "ascii-hyphen-slug",
   "metaDescription": "80〜120字",
-  "category": "sim|hikari|trouble",
-  "articleType": "comparison|howto|troubleshoot",
+  "category": "sim|hikari|trouble|cost",
+  "articleType": "comparison|howto|troubleshoot|crosssell",
   "h2": [
     {
       "heading": "見出し",
