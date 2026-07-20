@@ -1,15 +1,17 @@
 {
   "mode": "weekly",
-  "days": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
+  "days": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"],
   "articles_per_run": 1,
   "timezone": "Asia/Tokyo",
-  "max_per_week": 6,
+  "max_per_week": 7,
   "weekly_type_quota": {
     "comparison": 2,
     "howto": 2,
     "troubleshoot": 2
   },
   "type_order": ["comparison", "howto", "troubleshoot"],
+  "sunday_type": "crosssell",
+  "sunday_keywords_seed": "data/keywords.sunday.csv",
   "generation_mode": "auto",
   "keywords_seed": "data/keywords.seed.csv",
   "output_dir": "site/src/content/articles"

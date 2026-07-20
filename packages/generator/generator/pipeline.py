@@ -10,7 +10,7 @@ from generator.affiliate import inject_affiliates
 from generator.config import load_prompt, resolve_mode
 from generator.groq_client import GroqError, chat_completion
 from generator.quality import check_article
-from generator.template_articles import build_body, build_outline
+from generator.template_articles import build_body, build_outline, slugify
 from generator.writer import write_article
 
 
@@ -91,14 +91,21 @@ def _generate_groq(root: Path, item: dict) -> tuple[dict, str]:
     try:
         outline_raw = chat_completion(outline_prompt, json_mode=True)
         outline = json.loads(outline_raw)
-        outline["keyword"] = item["keyword"]
     except (GroqError, json.JSONDecodeError) as e:
         raise RuntimeError(f"outline generation failed: {e}") from e
+
+    outline["keyword"] = item["keyword"]
+    outline["category"] = item["category"]
+    outline["articleType"] = item["articleType"]
+    if item.get("priority") is not None:
+        outline["priority"] = item["priority"]
+    outline["slug"] = slugify(item["keyword"], priority=item.get("priority"))
 
     article_prompt_name = {
         "comparison": "article-sim.md",
         "howto": "article-howto.md",
         "troubleshoot": "article-troubleshoot.md",
+        "crosssell": "article-crosssell.md",
     }[item["articleType"]]
 
     article_prompt = load_prompt(

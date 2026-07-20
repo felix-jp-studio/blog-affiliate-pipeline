@@ -14,6 +14,7 @@ from generator.publish_schedule import (
     next_needed_type,
     pick_next_keywords,
     reconstruct_week_type_counts,
+    resolve_run_profile,
     run_publish_scheduled,
     seed_row_to_item,
     update_queue_after_run,
@@ -25,12 +26,22 @@ TYPE_ORDER = ["comparison", "howto", "troubleshoot"]
 WEEKLY_TYPE_QUOTA = {"comparison": 2, "howto": 2, "troubleshoot": 2}
 SCHEDULE = {
     "mode": "weekly",
-    "days": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
+    "days": [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday",
+    ],
     "articles_per_run": 1,
     "timezone": "Asia/Tokyo",
-    "max_per_week": 6,
+    "max_per_week": 7,
     "weekly_type_quota": WEEKLY_TYPE_QUOTA,
     "type_order": TYPE_ORDER,
+    "sunday_type": "crosssell",
+    "sunday_keywords_seed": "data/keywords.sunday.csv",
     "generation_mode": "template",
     "keywords_seed": "data/keywords.seed.csv",
     "output_dir": "site/src/content/articles",
@@ -42,6 +53,7 @@ class PublishScheduleTest(unittest.TestCase):
         self.assertEqual(infer_category("格安SIM 20GB おすすめ", "comparison"), "sim")
         self.assertEqual(infer_category("NURO 光 料金 キャンペーン", "comparison"), "hikari")
         self.assertEqual(infer_category("格安SIM 速度 遅い 対処", "troubleshoot"), "trouble")
+        self.assertEqual(infer_category("auでんき セット割", "crosssell"), "cost")
 
     def test_pick_next_keywords_skips_published(self):
         seed_rows = load_keywords_seed(ROOT / "data/keywords.seed.csv")
@@ -61,11 +73,10 @@ class PublishScheduleTest(unittest.TestCase):
         decision = is_due_today(SCHEDULE, now=saturday, queue_state={})
         self.assertTrue(decision.due)
 
-    def test_is_due_today_skips_sunday(self):
+    def test_is_due_today_on_sunday(self):
         sunday = datetime(2026, 7, 26, 9, 0, tzinfo=ZoneInfo("Asia/Tokyo"))
         decision = is_due_today(SCHEDULE, now=sunday, queue_state={})
-        self.assertFalse(decision.due)
-        self.assertIn("not a scheduled day", decision.reason)
+        self.assertTrue(decision.due)
 
     def test_is_due_today_idempotent_same_day(self):
         monday = datetime(2026, 7, 20, 9, 0, tzinfo=ZoneInfo("Asia/Tokyo"))
@@ -76,7 +87,7 @@ class PublishScheduleTest(unittest.TestCase):
 
     def test_is_due_today_weekly_limit(self):
         monday = datetime(2026, 7, 20, 9, 0, tzinfo=ZoneInfo("Asia/Tokyo"))
-        queue_state = {"week_id": "2026-W30", "runs_this_week": 6}
+        queue_state = {"week_id": "2026-W30", "runs_this_week": 7}
         decision = is_due_today(SCHEDULE, now=monday, queue_state=queue_state)
         self.assertFalse(decision.due)
         self.assertEqual(decision.reason, "weekly limit reached")
@@ -85,9 +96,9 @@ class PublishScheduleTest(unittest.TestCase):
         monday = date(2026, 7, 20)
         self.assertEqual(compute_next_scheduled(SCHEDULE, from_day=monday), date(2026, 7, 21))
 
-    def test_compute_next_scheduled_from_saturday_skips_sunday(self):
+    def test_compute_next_scheduled_from_saturday_goes_to_sunday(self):
         saturday = date(2026, 7, 25)
-        self.assertEqual(compute_next_scheduled(SCHEDULE, from_day=saturday), date(2026, 7, 27))
+        self.assertEqual(compute_next_scheduled(SCHEDULE, from_day=saturday), date(2026, 7, 26))
 
     def test_seed_row_to_item_maps_article_type(self):
         item = seed_row_to_item(
@@ -275,6 +286,10 @@ class PublishScheduleTest(unittest.TestCase):
             schedule_path.write_text(json.dumps(SCHEDULE), encoding="utf-8")
             seed_src = ROOT / "data/keywords.seed.csv"
             (root / "data/keywords.seed.csv").write_text(seed_src.read_text(encoding="utf-8"))
+            sunday_src = ROOT / "data/keywords.sunday.csv"
+            (root / "data/keywords.sunday.csv").write_text(
+                sunday_src.read_text(encoding="utf-8")
+            )
 
             monday = datetime(2026, 7, 20, 9, 0, tzinfo=ZoneInfo("Asia/Tokyo"))
             result = run_publish_scheduled(
@@ -285,6 +300,52 @@ class PublishScheduleTest(unittest.TestCase):
             )
             self.assertFalse(result.skipped)
             self.assertEqual(result.keywords, ["格安SIM 20GB おすすめ"])
+
+    def test_resolve_run_profile_sunday(self):
+        profile = resolve_run_profile(SCHEDULE, date(2026, 7, 26))
+        self.assertEqual(profile.seed_rel, "data/keywords.sunday.csv")
+        self.assertEqual(profile.article_type_filter, "crosssell")
+        self.assertIsNone(profile.type_order)
+
+    def test_pick_next_keywords_sunday_crosssell_only(self):
+        seed_rows = load_keywords_seed(ROOT / "data/keywords.sunday.csv")
+        picked = pick_next_keywords(
+            seed_rows=seed_rows,
+            published_slugs=set(),
+            count=1,
+            article_type_filter="crosssell",
+        )
+        self.assertEqual(len(picked), 1)
+        self.assertEqual(picked[0]["articleType"], "crosssell")
+        self.assertEqual(picked[0]["category"], "cost")
+        self.assertEqual(picked[0]["keyword"], "auでんき セット割")
+
+    def test_run_publish_scheduled_dry_run_sunday(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "config").mkdir()
+            (root / "data").mkdir()
+            (root / "state").mkdir()
+            (root / "site/src/content/articles").mkdir(parents=True)
+
+            schedule_path = root / "config/publish-schedule.json"
+            schedule_path.write_text(json.dumps(SCHEDULE), encoding="utf-8")
+            (root / "data/keywords.seed.csv").write_text(
+                (ROOT / "data/keywords.seed.csv").read_text(encoding="utf-8")
+            )
+            (root / "data/keywords.sunday.csv").write_text(
+                (ROOT / "data/keywords.sunday.csv").read_text(encoding="utf-8")
+            )
+
+            sunday = datetime(2026, 7, 26, 9, 0, tzinfo=ZoneInfo("Asia/Tokyo"))
+            result = run_publish_scheduled(
+                root=root,
+                schedule_path=schedule_path,
+                dry_run=True,
+                now=sunday,
+            )
+            self.assertFalse(result.skipped)
+            self.assertEqual(result.keywords, ["auでんき セット割"])
 
 
 if __name__ == "__main__":

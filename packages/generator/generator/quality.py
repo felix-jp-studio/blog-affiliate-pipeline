@@ -35,7 +35,7 @@ def check_article(body: str, article_type: str, root: Path, *, test_mode: bool =
     if "AI" not in body and "AI 支援" not in body:
         errors.append("AI 開示フッターがありません")
 
-    if article_type == "comparison":
+    if article_type == "comparison" or article_type == "crosssell":
         if "|" not in body or "---" not in body:
             errors.append("比較表（Markdown table）がありません")
 

@@ -58,6 +58,21 @@ class TemplateGenerationTest(unittest.TestCase):
         batch = json.loads((ROOT / "config/test-batch.json").read_text(encoding="utf-8"))
         self.assertEqual(len(batch["items"]), 5)
 
+    def test_crosssell_passes_quality(self):
+        item = {
+            "keyword": "auでんき セット割",
+            "articleType": "crosssell",
+            "category": "cost",
+            "priority": 1,
+        }
+        outline = build_outline(item)
+        self.assertEqual(outline["slug"], "au-denki-setwari")
+        body = inject_affiliates(build_body(outline), ROOT)
+        result = check_article(body, "crosssell", ROOT, test_mode=True)
+        self.assertTrue(result.ok, result.errors)
+        self.assertIn("px.a8.net", body)
+        self.assertNotIn("MNP予約番号", body)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -20,8 +20,13 @@ export const REQUIRED_FIELDS = [
   "draft",
 ];
 
-export const VALID_CATEGORIES = new Set(["sim", "hikari", "trouble"]);
-export const VALID_ARTICLE_TYPES = new Set(["comparison", "howto", "troubleshoot"]);
+export const VALID_CATEGORIES = new Set(["sim", "hikari", "trouble", "cost"]);
+export const VALID_ARTICLE_TYPES = new Set([
+  "comparison",
+  "howto",
+  "troubleshoot",
+  "crosssell",
+]);
 export const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 export const FORBIDDEN_SLUG_PATTERN = /^article-p\d+$/;
 
@@ -151,7 +156,10 @@ export function articleRequiresAffiliate(article, config = loadE2eConfig()) {
 
   const category = article.fields?.category;
   const articleType = article.fields?.articleType;
-  return (category === "sim" || category === "hikari") && articleType === "comparison";
+  return (
+    ((category === "sim" || category === "hikari") && articleType === "comparison") ||
+    (category === "cost" && articleType === "crosssell")
+  );
 }
 
 export function missingAffiliatePatterns(content, config = loadE2eConfig()) {

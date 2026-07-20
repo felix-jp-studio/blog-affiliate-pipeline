@@ -1,4 +1,4 @@
-export type CategorySlug = "sim" | "hikari" | "trouble";
+export type CategorySlug = "sim" | "hikari" | "trouble" | "cost";
 
 export type CategoryMeta = {
   label: string;
@@ -46,5 +46,17 @@ export const categoryMeta: Record<CategorySlug, CategoryMeta> = {
     themeColor: "#d97706",
     gradient: "linear-gradient(135deg, #ffedd5 0%, #fdba74 100%)",
     ogImage: "/og/og-trouble.png",
+  },
+  cost: {
+    label: "固定費・ライフイベント",
+    href: "/cost",
+    description: "通信×固定費のセット見直し・引越し・新生活向け記事一覧",
+    heroLead:
+      "電気・セット割・引越し時の通信まとめなど、固定費と通信を横断して見直す記事です。",
+    guideText:
+      "セット割は対象回線・契約名・適用条件が複雑です。電気料金と通信料を別々に比較する前に、公式のセットシミュレーターで前提条件を揃えて確認しましょう。",
+    themeColor: "#7c3aed",
+    gradient: "linear-gradient(135deg, #ede9fe 0%, #c4b5fd 100%)",
+    ogImage: "/og/og-default.png",
   },
 };
