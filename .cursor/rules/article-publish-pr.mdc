@@ -1,0 +1,56 @@
+---
+description: 記事公開 PR の作成・自動マージ規約
+globs:
+  - site/src/content/articles/**
+  - state/publish-queue.json
+  - state/generate-state.json
+---
+
+# 記事公開 PR
+
+記事生成・定期公開・バッチ生成で PR を作成するときは、**記事公開 PR** として識別可能にし、CI 通過後の auto-merge 対象にする。
+
+## 識別条件（いずれか + 変更ファイル制限）
+
+| 手段 | 値 |
+| --- | --- |
+| ラベル | `article-publish`（**必須推奨**） |
+| ブランチ | `scheduled/articles-YYYY-MM-DD` / `article/*` / `articles/*` |
+| タイトル | `chore: 定期記事生成 YYYY-MM-DD` または `chore: scheduled articles YYYY-MM-DD` |
+
+**変更してよいファイル**（これ以外があると auto-merge されない）:
+
+- `site/src/content/articles/*.md`
+- `state/publish-queue.json`
+- `state/generate-state.json`
+
+## PR 作成例
+
+```bash
+./scripts/gh-user.sh pr create \
+  --title "chore: 定期記事生成 2026-07-20" \
+  --label "article-publish" \
+  --body "$(cat <<'EOF'
+## Summary
+- 記事 N 本を生成
+
+## Test plan
+- [ ] CI green
+EOF
+)"
+```
+
+## 自動マージ
+
+- ワークフロー: `.github/workflows/articles-auto-merge.yml`
+- CI（`ci.yml` / `pull-request.yml`）成功後に squash merge
+- **インフラ・UI・コード変更 PR は対象外**（ラベル・ブランチ・ファイルパスで除外）
+
+## 定期生成
+
+`.github/workflows/scheduled-articles.yml` が `article-publish` ラベル付き PR を自動作成する。手動マージは不要。
+
+## 関連
+
+- `docs/article-publish-schedule.md` — 公開スケジュール
+- `.cursor/rules/pr-review.mdc` — コード変更 PR は Bugbot レビュー必須（記事のみ PR は対象外でも可）
