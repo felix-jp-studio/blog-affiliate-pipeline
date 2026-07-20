@@ -2,43 +2,35 @@
   "carriers": {
     "rakuten-mobile": {
       "label": "楽天モバイル",
-      "asp": "a8",
-      "linkTemplate": "https://px.a8.net/svt/ejp?a8mat=4B8097+2XZ6GI+424K+NTJWY"
+      "program": "rakuten-mobile"
     },
     "linemo": {
       "label": "LINEMO",
-      "asp": "valuecommerce",
-      "linkTemplate": "https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3776193&pid=892660854"
+      "program": "linemo"
     },
     "ahamo": {
       "label": "ahamo",
-      "asp": "pending",
-      "linkTemplate": "https://www.docomo.ne.jp/ahamo/"
+      "program": "ahamo"
     },
     "povo": {
       "label": "povo",
-      "asp": "pending",
-      "linkTemplate": "https://povo.jp/"
+      "program": "povo"
     },
     "uq-mobile": {
       "label": "UQ mobile",
-      "asp": "pending",
-      "linkTemplate": "https://www.uqwimax.jp/mobile/"
+      "program": "uq-mobile"
     },
     "au-hikari": {
       "label": "auひかり",
-      "asp": "a8",
-      "linkTemplate": "https://px.a8.net/svt/ejp?a8mat=4B8097+1WGVCI+3HKU+1THW9E"
+      "program": "au-hikari"
     },
     "softbank-hikari": {
       "label": "ソフトバンク光",
-      "asp": "a8",
-      "linkTemplate": "https://px.a8.net/svt/ejp?a8mat=4B8097+230N02+3HKU+25EKCY"
+      "program": "softbank-hikari"
     },
     "wimax": {
       "label": "WiMAX",
-      "asp": "a8",
-      "linkTemplate": "https://px.a8.net/svt/ejp?a8mat=4B8097+2PN3ZM+2JMM+1BN3TU"
+      "program": "wimax"
     }
   },
   "articleTypes": {

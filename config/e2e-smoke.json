@@ -11,7 +11,6 @@
   ],
   "smokeSlugs": ["hikari-mansion-osusume", "kouji-fuyou-hikari"],
   "requiredOgTags": ["og:title", "og:description", "og:image", "og:url"],
-  "affiliatePatterns": ["px\\.a8\\.net", "valuecommerce\\.com"],
   "articlesRequiringAffiliate": ["sim-20gb-osusume"],
   "affiliateExemptSlugs": [
     "ahamo-povo-hikaku",

@@ -1,8 +1,9 @@
 import type { Root } from "hast";
 import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
+import { affiliateHostPatterns } from "../utils/asp-urls";
 
-const AFFILIATE_HOSTS = ["px.a8.net", "valuecommerce.com"];
+const AFFILIATE_HOSTS = affiliateHostPatterns();
 
 function isAffiliateUrl(href: string): boolean {
   try {
