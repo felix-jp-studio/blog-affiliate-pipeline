@@ -3,6 +3,9 @@
   "next_scheduled": "2026-07-20",
   "week_id": "2026-W29",
   "runs_this_week": 1,
+  "type_counts": {
+    "comparison": 1
+  },
   "history": [
     {
       "date": "2026-07-19",

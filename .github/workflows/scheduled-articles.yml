@@ -8,8 +8,8 @@ on:
         type: boolean
         default: false
   schedule:
-    # Mon/Thu 09:00 JST = UTC Mon/Thu 00:00
-    - cron: "0 0 * * 1,4"
+    # Mon-Sat 09:00 JST = UTC Mon-Sat 00:00 (6 articles/week, 1 per day, Sunday off)
+    - cron: "0 0 * * 1-6"
 
 jobs:
   publish-scheduled:
@@ -108,7 +108,8 @@ jobs:
           git push -u origin "$BRANCH"
           {
             echo "## Summary"
-            echo "- 公開スケジュール（月・木 JST）に従い記事を自動生成"
+            echo "- 公開スケジュール（月〜土 09:00 JST・週6本 / 3タイプ×2）に従い記事を自動生成"
+            echo "- タイプ均等配分（comparison / howto / troubleshoot をインターリーブ）"
             echo "- state/publish-queue.json を更新"
             echo ""
             echo "## Test plan"
@@ -130,6 +131,6 @@ jobs:
             echo "## Scheduled articles"
             echo ""
             echo "- changed: ${{ steps.changes.outputs.changed }}"
-            echo "- schedule: Mon/Thu 09:00 JST"
+            echo "- schedule: Mon-Sat 09:00 JST (6/week = comparison×2 / howto×2 / troubleshoot×2)"
             echo "- docs: docs/article-publish-schedule.md"
           } >> "$GITHUB_STEP_SUMMARY"
