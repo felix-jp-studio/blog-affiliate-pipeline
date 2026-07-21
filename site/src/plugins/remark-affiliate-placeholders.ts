@@ -4,10 +4,7 @@ import { fileURLToPath } from "node:url";
 import type { Link, Root } from "mdast";
 import type { Plugin } from "unified";
 import { visit } from "unist-util-visit";
-import {
-  loadAffiliateRules,
-  resolveCarrierUrl,
-} from "../utils/asp-urls.ts";
+import { loadAffiliateRules, resolveCarrierUrl } from "../utils/asp-urls.ts";
 
 const PLACEHOLDER_PATTERN = /^\{\{?AFFILIATE:([a-z0-9-]+)\}\}?$/;
 
