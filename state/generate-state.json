@@ -2,57 +2,57 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "工事 不要 光回線",
+      "keyword": "日本通信SIM 評判",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/kouji-fuyou-hikari.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/nihon-tsushin-sim-hyoban.md",
       "error": null
     },
     {
-      "keyword": "格安SIM 法人 おすすめ",
+      "keyword": "NURO 光 auひかり 比較",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-houjin-osusume.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/nuro-hikari-au-hikari-hikaku.md",
       "error": null
     },
     {
-      "keyword": "光回線 プロバイダ 違い",
+      "keyword": "ソフトバンク光 ビッグローブ光 比較",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/hikari-provider-chigai.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/softbank-hikari-biglobe-hikari-hikaku.md",
       "error": null
     },
     {
-      "keyword": "格安SIM おすすめ 比較 2026",
+      "keyword": "ドコモ光 光コラボ 比較",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-osusume-hikaku-2026.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/docomo-hikari-hikari-collab-hikaku.md",
       "error": null
     },
     {
-      "keyword": "格安SIM キャリア 比較",
+      "keyword": "光回線 1Gbps 安い",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-carrier-hikaku.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/hikari-1gbps-yasui.md",
       "error": null
     },
     {
-      "keyword": "楽天モバイル UQモバイル 比較",
+      "keyword": "光回線 戸建て おすすめ",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/rakuten-mobile-uq-mobile-hikaku.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/hikari-kodate-osusume.md",
       "error": null
     },
     {
-      "keyword": "ahamo povo 比較",
+      "keyword": "モバレコAir WiMAX 比較",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/ahamo-povo-hikaku.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/mobareco-air-wimax-hikaku.md",
       "error": null
     },
     {
-      "keyword": "LINEMO ahamo 比較",
+      "keyword": "ホームルーター 光回線 比較",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/linemo-ahamo-hikaku.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/home-router-hikari-hikaku.md",
       "error": null
     },
     {
-      "keyword": "IIJmio 評判 料金",
+      "keyword": "格安SIM 通話定額 比較",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/iijmio-hyoban-fee.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-tuuwa-teigaku-hikaku.md",
       "error": null
     }
   ]

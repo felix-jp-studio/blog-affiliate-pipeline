@@ -15,7 +15,7 @@
     "format:check": "prettier --check .",
     "generate:test": "PYTHONPATH=packages/generator python3 -m generator --mode auto",
     "generate:template": "PYTHONPATH=packages/generator python3 -m generator --mode template",
-    "generate:batch": "PYTHONPATH=packages/generator python3 -m generator --batch config/batch-priority-17-25.json --mode auto",
+    "generate:batch": "PYTHONPATH=packages/generator python3 -m generator --batch config/batch-priority-27-35.json --mode auto",
     "publish:scheduled": "PYTHONPATH=packages/generator python3 -m generator publish-scheduled",
     "test:e2e:local": "bash scripts/e2e/run-local-e2e.sh --mode template",
     "test:e2e": "node scripts/e2e/validate-articles.mjs && npm run build --prefix site && node scripts/e2e/validate-dist.mjs",
