@@ -38,7 +38,9 @@ npm install
 npm run wp:ping
 ```
 
-## 手動記事の投稿（Week 1 Day 6）
+## 手動記事の投稿
+
+**本番運用（現行）**: 記事は GitHub Actions の **Scheduled articles** ワークフロー（cron または [workflow_dispatch](./article-publish-schedule.md#手動実行workflow_dispatch)）で Markdown を生成し、PR → auto-merge → Vercel 反映する。下記の `wp:post` は WordPress 移行時のレガシー手順。
 
 `drafts/` に Markdown を置き、frontmatter を付与:
 
