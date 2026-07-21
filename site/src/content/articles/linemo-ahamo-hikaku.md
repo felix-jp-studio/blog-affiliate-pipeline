@@ -35,7 +35,7 @@ LINEMOとahamoを比較するときは、月額料金だけでなく、速度の
 
 LINEMOの料金体系・キャンペーン・オプションは公式サイト記載を正として確認してください。エリアや速度は居住地で差が出るため、公式のエリアマップも併せて確認してください。
 
-[LINEMOの公式を見る](https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3776193&pid=892660854)
+[LINEMOの公式を見る]({AFFILIATE:linemo})
 
 ### LINEMOのメリットになりやすい点
 

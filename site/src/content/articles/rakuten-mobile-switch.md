@@ -31,7 +31,7 @@ draft: false
 6. 公式ガイドに沿って開通・APN設定を行う
 7. 旧回線の解約タイミングを調整する
 
-[楽天モバイルの公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+2XZ6GI+424K+NTJWY)
+[楽天モバイルの公式を見る]({AFFILIATE:rakuten-mobile})
 
 ## 所要時間とタイミング
 
