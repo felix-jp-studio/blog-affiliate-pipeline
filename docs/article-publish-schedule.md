@@ -95,6 +95,55 @@
 | GitHub Actions cron | `0 0 * * 1,4`（UTC 月木 00:00 = JST 09:00）                       |
 | 公開フロー          | 生成 → PR 作成 → **人手レビュー後マージ**（自動 main マージなし） |
 
+## 手動実行（workflow_dispatch）
+
+定期 cron（日〜土 09:00 JST）に加え、GitHub Actions から手動で記事生成を起動できる。ワークフロー: [`.github/workflows/scheduled-articles.yml`](../.github/workflows/scheduled-articles.yml)
+
+### 手順
+
+1. GitHub リポジトリ → **Actions** タブ
+2. 左サイドバーで **Scheduled articles** を選択
+3. 右上 **Run workflow** → ブランチ（通常 `main`）を確認 → **Run workflow**
+
+### 入力: `force`
+
+| 値                    | 意味                                                                                                                               |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `false`（デフォルト） | 通常の手動実行。未マージの `scheduled/articles-*` PR がある場合は**生成をスキップ**                                                |
+| `true`                | 未マージ PR があっても生成を実行。生成 CLI に `--force` を渡し、**スケジュール曜日外**でも実行可能（同一日・週上限のガードは維持） |
+
+#### `force=true` を使う場面
+
+- **未マージの定期 PR が残っている**のに、追加生成や再生成が必要なとき（先に既存 PR をマージまたは close するのが原則）
+- **スケジュール外の曜日**にテスト生成したいとき（例: 設定変更後の動作確認）
+- cron が失敗・スキップした日の**リカバリ**（ただし `state/publish-queue.json` の `last_run` が当日の場合は「already ran today」でスキップされる）
+
+`force=true` でも **同一日 2 回目**や **週 7 本上限超過**は生成されない（`publish-scheduled --force` の仕様）。
+
+### 実行後のフロー
+
+```text
+workflow_dispatch / cron
+  → dry-run 検証（--dry-run --force・ファイル変更なし）
+  → 記事生成（Groq / テンプレート）
+  → format / validate / Playwright スナップショット更新
+  → PR 作成（ブランチ scheduled/articles-YYYY-MM-DD・ラベル article-publish）
+  → CI（format:check / test / build / playwright-visual）
+  → articles-auto-merge.yml により CI green 後 squash merge
+  → Vercel が main をデプロイ（sim-hikari-guide.com 反映）
+```
+
+- PR 本文・Job summary に生成内容の要約が出る
+- 変更がなければ PR は作成されない（`changed=false`）
+- マージ後の本番反映は Vercel のデプロイ完了を確認（[`docs/vercel-deploy.md`](./vercel-deploy.md)）
+
+### 日曜 crosssell と dry-run
+
+- **日曜（JST）**の実行は `data/keywords.sunday.csv` から **crosssell 1 本**を選ぶ（月〜土の type 均等配分とは独立）。詳細: [sunday-crosssell-design.md](./sunday-crosssell-design.md)
+- ワークフロー冒頭の **Dry-run scheduled publish** ステップは、常に `publish-scheduled --dry-run --force` を実行する。実ファイル・`publish-queue.json` は更新せず、生成計画だけを検証する
+- 日曜に手動実行した場合、dry-run も本生成も **crosssell プロファイル**が使われる（実行日の JST 曜日で決まる）
+- 日曜以外に `force=true` で手動実行した場合は **月〜土プロファイル**（comparison / howto / troubleshoot のインターリーブ）が使われ、crosssell は生成されない
+
 ## 変更履歴
 
 | 日付       | 内容                                                                                                        |
@@ -102,3 +151,4 @@
 | 2026-07-19 | 初版。Option C 採用（週2本・月木）                                                                          |
 | 2026-07-20 | 週6本（3タイプ×2）へ増量。月〜土 09:00 JST、タイプ均等インターリーブ配分を導入。cron `0 0 * * 1-6`          |
 | 2026-07-21 | 定期記事 PR に Playwright visual/text スナップショット自動更新を追加（Ubuntu CI 上で `--update-snapshots`） |
+| 2026-07-21 | 手動実行（workflow_dispatch）運用手順を追記                                                                 |
