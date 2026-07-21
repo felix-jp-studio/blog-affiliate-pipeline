@@ -2,7 +2,10 @@ import { createMarkdownProcessor } from "@astrojs/markdown-remark";
 import type { CollectionEntry } from "astro:content";
 import type { CategorySlug } from "../data/category-meta";
 import { categoryMeta } from "../data/category-meta";
-import { markdownRehypePlugins } from "../markdown-plugins";
+import {
+  markdownRemarkPlugins,
+  markdownRehypePlugins,
+} from "../markdown-plugins";
 
 const CHARS_PER_MINUTE = 400;
 
@@ -18,6 +21,7 @@ async function getMarkdownProcessor() {
   if (!processorPromise) {
     processorPromise = createMarkdownProcessor({
       markdown: {
+        remarkPlugins: markdownRemarkPlugins,
         rehypePlugins: markdownRehypePlugins,
       },
     });

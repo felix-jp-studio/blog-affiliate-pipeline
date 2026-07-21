@@ -58,7 +58,9 @@ for (const filePath of listArticleFiles()) {
 
   const article = { slug, fields, draft: fields.draft === "true" };
   if (!article.draft && articleRequiresAffiliate(article)) {
-    const missingPatterns = missingAffiliatePatterns(content);
+    const missingPatterns = missingAffiliatePatterns(content, undefined, {
+      allowPlaceholders: true,
+    });
     if (missingPatterns.length > 0) {
       errors.push(
         `${slug}: missing affiliate link patterns: ${missingPatterns.join(", ")}`,

@@ -35,7 +35,7 @@ draft: false
 
 工事不要で据置型端末を室内に置くだけで利用できます。光回線が敷設されていない物件や、短期利用・引越し予定がある場合の選択肢です。
 
-[WiMAXの公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+2PN3ZM+2JMM+1BN3TU)
+[WiMAXの公式を見る]({AFFILIATE:wimax})
 
 ### ホーム5G / ホームルーター
 

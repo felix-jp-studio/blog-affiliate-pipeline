@@ -54,19 +54,19 @@ NURO 光は高速回線として案内されることが多いです。エリア
 
 auひかりはau/UQ mobileのセット割と組み合わせやすい選択肢として比較表に入れやすい回線です。戸建て向けプランが中心のため、マンションの場合は別回線も併せて検討してください。
 
-[auひかりの公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+1WGVCI+3HKU+1THW9E)
+[auひかりの公式を見る]({AFFILIATE:au-hikari})
 
 ### ソフトバンク光
 
 ソフトバンク光はソフトバンク/Y!mobile/LINEMOとのセット割がポイントになります。プロバイダやオプションによって月額が変わるため、公式の料金表で内訳を確認してください。
 
-[ソフトバンク光の公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+230N02+3HKU+25EKCY)
+[ソフトバンク光の公式を見る]({AFFILIATE:softbank-hikari})
 
 ### WiMAX
 
 WiMAXは工事不要で据置型端末を置くだけで使える場合があります。光回線が敷設されていない物件や、短期利用・引越し予定がある場合の選択肢として比較対象に入れられます。
 
-[WiMAXの公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+2PN3ZM+2JMM+1BN3TU)
+[WiMAXの公式を見る]({AFFILIATE:wimax})
 
 ## 乗り換え・申し込みの流れ
 

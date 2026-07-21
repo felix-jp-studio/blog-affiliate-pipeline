@@ -35,11 +35,11 @@ draft: false
 
 ### 楽天モバイル
 
-[楽天モバイルの公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+2XZ6GI+424K+NTJWY)
+[楽天モバイルの公式を見る]({AFFILIATE:rakuten-mobile})
 
 ### LINEMO
 
-[LINEMOの公式を見る](https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3776193&pid=892660854)
+[LINEMOの公式を見る]({AFFILIATE:linemo})
 
 ### ahamo
 

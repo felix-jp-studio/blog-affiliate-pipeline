@@ -1,5 +1,7 @@
-import { affiliateUrlPattern } from "./asp-urls";
+import { affiliateUrlPattern, hasAffiliatePlaceholder } from "./asp-urls";
 
 export function hasAffiliateLinks(markdown: string): boolean {
-  return affiliateUrlPattern().test(markdown);
+  return (
+    affiliateUrlPattern().test(markdown) || hasAffiliatePlaceholder(markdown)
+  );
 }
