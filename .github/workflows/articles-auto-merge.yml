@@ -68,6 +68,7 @@ jobs:
             case "$file" in
               site/src/content/articles/*) ;;
               state/publish-queue.json|state/generate-state.json) ;;
+              site/tests/visual/*-snapshots/*) ;;
               *)
                 ARTICLES_ONLY=false
                 echo "Disallowed file: $file"
