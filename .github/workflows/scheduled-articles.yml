@@ -98,6 +98,21 @@ jobs:
             echo "$CHANGED"
           fi
 
+      - name: Install Playwright browsers
+        if: success() && steps.changes.outputs.changed == 'true'
+        working-directory: site
+        run: npx playwright install --with-deps chromium
+
+      - name: Update Playwright visual snapshots
+        if: success() && steps.changes.outputs.changed == 'true'
+        working-directory: site
+        env:
+          CI: true
+          PUBLIC_CONTACT_FORM_ACTION: ""
+        run: |
+          npm run test:e2e:visual:update
+          npm run test:e2e:visual
+
       - name: Create pull request
         if: steps.changes.outputs.changed == 'true'
         env:
@@ -109,6 +124,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
           git add site/src/content/articles state/publish-queue.json
+          git add site/tests/visual/*-snapshots/
           if git diff --cached --quiet; then
             echo "No staged article changes; skipping PR creation."
             exit 0
@@ -121,9 +137,11 @@ jobs:
             echo "- 月〜土: タイプ均等配分（comparison / howto / troubleshoot をインターリーブ）"
             echo "- 日曜: data/keywords.sunday.csv から crosssell のみ"
             echo "- state/publish-queue.json を更新"
+            echo "- Playwright visual/text スナップショットを CI (Ubuntu) で自動更新（主に /sim ハブ）"
             echo ""
             echo "## Test plan"
             echo "- [ ] 生成記事の料金・リンク・AI 開示を目視確認"
+            echo "- [ ] playwright-visual CI green を確認"
             echo "- [ ] CI green を確認"
             echo "- [ ] マージ後 Vercel 本番反映を確認"
             echo ""
@@ -142,6 +160,7 @@ jobs:
             echo "## Scheduled articles"
             echo ""
             echo "- changed: ${{ steps.changes.outputs.changed }}"
+            echo "- visual snapshots: updated in CI (Ubuntu) when articles change /sim hub layout"
             echo "- schedule: Sun-Sat 09:00 JST (7/week = Mon-Sat comparison×2 / howto×2 / troubleshoot×2 + Sun crosssell)"
             echo "- docs: docs/article-publish-schedule.md"
           } >> "$GITHUB_STEP_SUMMARY"

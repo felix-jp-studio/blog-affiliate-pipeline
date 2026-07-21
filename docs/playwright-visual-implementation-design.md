@@ -254,9 +254,17 @@ git commit -m "test(visual): update baselines for sim hub layout"
 | フォント・OG 画像変更             | ✅ visual 更新          | —                                |
 | flaky（環境差）                   | mask / stabilize 改善   | baseline 安易更新禁止            |
 
-### 6.3 CI での baseline 更新（非推奨）
+### 6.3 CI での baseline 更新（定期記事 PR のみ）
 
-自動 `--update-snapshots` は main で実行しない。必ず PR 経由で baseline をレビューする。
+通常の UI 変更 PR では自動 `--update-snapshots` は実行しない（必ず PR 経由で baseline をレビューする）。
+
+**例外**: `scheduled-articles.yml` が記事生成後に Ubuntu 上で全 visual spec を `--update-snapshots` 実行し、変更があった PNG/txt を記事 PR に同梱する。macOS と Linux のフォントレンダリング差を避けるため、定期更新は CI 環境のみとする。
+
+| 対象 spec                         | 更新タイミング                                    |
+| --------------------------------- | ------------------------------------------------- |
+| `sim-hub.visual.spec.ts`          | 記事追加で Hub レイアウト・先頭見出しが変わるたび |
+| `article-template.visual.spec.ts` | 固定 slug のため通常は変化なし                    |
+| `contact.visual.spec.ts`          | 記事追加では通常は変化なし                        |
 
 ---
 
