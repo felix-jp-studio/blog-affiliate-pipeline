@@ -99,6 +99,26 @@ npm run test:generator
 | バリューコマース     | active  | [aff.valuecommerce.ne.jp](https://aff.valuecommerce.ne.jp/) | `valuecommerce.com` |
 | もしもアフィリエイト | pending | [af.moshimo.com](https://af.moshimo.com/af/s/)              | （未設定）          |
 
+## 登録済みプログラム（`programs`）
+
+| プログラム ID   | キャリア   | ASP | 状態    | 備考                                           |
+| --------------- | ---------- | --- | ------- | ---------------------------------------------- |
+| rakuten-mobile  | 楽天モバイル | A8  | active  | —                                              |
+| linemo          | LINEMO     | VC  | active  | —                                              |
+| au-hikari       | auひかり   | A8  | active  | —                                              |
+| softbank-hikari | SB光       | A8  | active  | —                                              |
+| wimax           | WiMAX      | A8  | active  | —                                              |
+| ahamo           | ahamo      | 公式 | pending | fallbackUrl のみ                                |
+| povo            | povo       | 公式 | pending | fallbackUrl のみ                                |
+| uq-mobile       | UQ mobile  | 公式 | pending | fallbackUrl のみ                                |
+| **nuro-hikari** | **NURO 光** | A8  | **pending** | **A8 提携申請中。承認後 `trackingUrl` / `programId` を設定** |
+
+### pending プログラムの挙動
+
+- `status: pending` かつ `trackingUrl` 未設定の場合、生成・サイトビルドは `fallbackUrl`（公式サイト）へ解決する
+- `{AFFILIATE:nuro-hikari}` プレースホルダも同様に公式 URL へフォールバック（ビルドは失敗しない）
+- **A8 提携承認後**: User が [pub.a8.net](https://pub.a8.net/) でトラッキング URL を取得 → `status` を `active`、`programId` / `trackingUrl` を設定 → 該当記事を `{AFFILIATE:nuro-hikari}` へ反映
+
 ## 関連ドキュメント
 
 - [`docs/pipeline-flow.md`](./pipeline-flow.md) — パイプライン全体

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-20",
+  "updatedAt": "2026-07-21",
   "providers": {
     "a8": {
       "displayName": "A8.net",
@@ -117,6 +117,13 @@
       "trackingUrl": "https://px.a8.net/svt/ejp?a8mat=4B8097+2PN3ZM+2JMM+1BN3TU",
       "status": "active",
       "lastVerified": "2026-07-19"
+    },
+    "nuro-hikari": {
+      "label": "NURO 光",
+      "category": "hikari",
+      "provider": "a8",
+      "fallbackUrl": "https://nuro.jp/",
+      "status": "pending"
     }
   }
 }
