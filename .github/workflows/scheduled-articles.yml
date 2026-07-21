@@ -121,7 +121,7 @@ jobs:
             echo "- [ ] マージ後 Vercel 本番反映を確認"
             echo ""
             echo "## Note"
-            echo "CI 通過後、`articles-auto-merge.yml` により自動 squash merge されます。"
+            echo 'CI 通過後、`articles-auto-merge.yml` により自動 squash merge されます。'
           } > /tmp/pr-body.md
           gh pr create \
             --title "chore: 定期記事生成 ${RUN_DATE}" \
