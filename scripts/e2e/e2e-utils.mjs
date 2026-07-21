@@ -170,8 +170,7 @@ export function missingAffiliatePatterns(
 ) {
   const patterns = affiliatePatternsFromConfig(config);
   const hasAffiliateUrl = patterns.some((pattern) => pattern.test(content));
-  const hasPlaceholder =
-    allowPlaceholders && AFFILIATE_PLACEHOLDER_PATTERN.test(content);
+  const hasPlaceholder = allowPlaceholders && AFFILIATE_PLACEHOLDER_PATTERN.test(content);
   if (hasAffiliateUrl || hasPlaceholder) {
     return [];
   }
