@@ -101,6 +101,7 @@ let cachedE2eConfig;
 let cachedAspUrls;
 
 const DEFAULT_AFFILIATE_PATTERNS = ["px\\.a8\\.net", "valuecommerce\\.com"];
+const AFFILIATE_PLACEHOLDER_PATTERN = /\{\{?AFFILIATE:[a-z0-9-]+\}\}?/;
 
 export function loadAspUrls() {
   if (cachedAspUrls) {
@@ -162,10 +163,16 @@ export function articleRequiresAffiliate(article, config = loadE2eConfig()) {
   );
 }
 
-export function missingAffiliatePatterns(content, config = loadE2eConfig()) {
+export function missingAffiliatePatterns(
+  content,
+  config = loadE2eConfig(),
+  { allowPlaceholders = false } = {},
+) {
   const patterns = affiliatePatternsFromConfig(config);
-  const hasAny = patterns.some((pattern) => pattern.test(content));
-  if (hasAny) {
+  const hasAffiliateUrl = patterns.some((pattern) => pattern.test(content));
+  const hasPlaceholder =
+    allowPlaceholders && AFFILIATE_PLACEHOLDER_PATTERN.test(content);
+  if (hasAffiliateUrl || hasPlaceholder) {
     return [];
   }
   return patterns.map((pattern) => pattern.source);

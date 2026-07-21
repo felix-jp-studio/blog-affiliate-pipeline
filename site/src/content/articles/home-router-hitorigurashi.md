@@ -48,21 +48,21 @@ draft: false
 
 工事不要で据置型端末を置くタイプです。エリアと室内の電波状況で速度が変わるため、公式のエリアマップと返品・試用条件を確認してください。
 
-[WiMAXの公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+2PN3ZM+2JMM+1BN3TU)
+[WiMAXの公式を見る]({AFFILIATE:wimax})
 
 ### 光回線（参考）
 
 長期利用・高速安定重視なら光回線も比較対象です。初期費用と工事期間はかかりますが、月額単価が有利になりやすいケースがあります。
 
-[auひかりの公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+1WGVCI+3HKU+1THW9E)
+[auひかりの公式を見る]({AFFILIATE:au-hikari})
 
-[ソフトバンク光の公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+230N02+3HKU+25EKCY)
+[ソフトバンク光の公式を見る]({AFFILIATE:softbank-hikari})
 
 ### モバイル回線との併用
 
 ホームルーターだけで足りない場合、格安SIMのテザリングやポケットWiFiを併用する方法もあります。総データ量と料金上限を公式で確認してください。
 
-[楽天モバイルの公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+2XZ6GI+424K+NTJWY)
+[楽天モバイルの公式を見る]({AFFILIATE:rakuten-mobile})
 
 ## 選び方のチェックリスト
 

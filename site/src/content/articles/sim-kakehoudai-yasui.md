@@ -50,13 +50,13 @@ draft: false
 
 楽天モバイルは、料金体系とポイント還元、家族利用の条件などを公式で確認しながら比較する価値があります。エリアや速度は居住地で差が出るため、公式のエリアマップと速度に関する注意書きを併せて確認してください。
 
-[楽天モバイルの公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+2XZ6GI+424K+NTJWY)
+[楽天モバイルの公式を見る]({AFFILIATE:rakuten-mobile})
 
 ### LINEMO
 
 LINEMOはオンライン手続き中心で、プラン構成がシンプルな一方、通話の使い方に慣れが必要な場合があります。20GB前後で足りるかは、テザリングや動画視聴の頻度次第です。
 
-[LINEMOの公式を見る](https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3776193&pid=892660854)
+[LINEMOの公式を見る]({AFFILIATE:linemo})
 
 ### ahamo
 
