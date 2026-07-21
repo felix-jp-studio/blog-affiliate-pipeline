@@ -101,17 +101,17 @@ npm run test:generator
 
 ## 登録済みプログラム（`programs`）
 
-| プログラム ID   | キャリア   | ASP | 状態    | 備考                                           |
-| --------------- | ---------- | --- | ------- | ---------------------------------------------- |
-| rakuten-mobile  | 楽天モバイル | A8  | active  | —                                              |
-| linemo          | LINEMO     | VC  | active  | —                                              |
-| au-hikari       | auひかり   | A8  | active  | —                                              |
-| softbank-hikari | SB光       | A8  | active  | —                                              |
-| wimax           | WiMAX      | A8  | active  | —                                              |
-| ahamo           | ahamo      | 公式 | pending | fallbackUrl のみ                                |
-| povo            | povo       | 公式 | pending | fallbackUrl のみ                                |
-| uq-mobile       | UQ mobile  | 公式 | pending | fallbackUrl のみ                                |
-| **nuro-hikari** | **NURO 光** | A8  | **pending** | **A8 提携申請中。承認後 `trackingUrl` / `programId` を設定** |
+| プログラム ID   | キャリア     | ASP  | 状態        | 備考                                                         |
+| --------------- | ------------ | ---- | ----------- | ------------------------------------------------------------ |
+| rakuten-mobile  | 楽天モバイル | A8   | active      | —                                                            |
+| linemo          | LINEMO       | VC   | active      | —                                                            |
+| au-hikari       | auひかり     | A8   | active      | —                                                            |
+| softbank-hikari | SB光         | A8   | active      | —                                                            |
+| wimax           | WiMAX        | A8   | active      | —                                                            |
+| ahamo           | ahamo        | 公式 | pending     | fallbackUrl のみ                                             |
+| povo            | povo         | 公式 | pending     | fallbackUrl のみ                                             |
+| uq-mobile       | UQ mobile    | 公式 | pending     | fallbackUrl のみ                                             |
+| **nuro-hikari** | **NURO 光**  | A8   | **pending** | **A8 提携申請中。承認後 `trackingUrl` / `programId` を設定** |
 
 ### pending プログラムの挙動
 
