@@ -86,13 +86,16 @@ jobs:
           cd site && npm ci && npm run format:check && npm run build
           node ../scripts/e2e/validate-dist.mjs
 
-      - name: Check for changes
+      - name: Check for article publish changes
         id: changes
         run: |
-          if git diff --quiet; then
+          CHANGED=$(git status --porcelain -- site/src/content/articles state/publish-queue.json)
+          if [ -z "$CHANGED" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No article or publish-queue changes; skipping PR creation."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "$CHANGED"
           fi
 
       - name: Create pull request
@@ -106,6 +109,10 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
           git add site/src/content/articles state/publish-queue.json
+          if git diff --cached --quiet; then
+            echo "No staged article changes; skipping PR creation."
+            exit 0
+          fi
           git commit -m "chore: scheduled articles ${RUN_DATE}"
           git push -u origin "$BRANCH"
           {
