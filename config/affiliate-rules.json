@@ -31,6 +31,10 @@
     "wimax": {
       "label": "WiMAX",
       "program": "wimax"
+    },
+    "nuro-hikari": {
+      "label": "NURO 光",
+      "program": "nuro-hikari"
     }
   },
   "articleTypes": {
