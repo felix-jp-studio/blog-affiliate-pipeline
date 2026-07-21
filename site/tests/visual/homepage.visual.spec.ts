@@ -25,11 +25,7 @@ test.describe("homepage", () => {
         `.latest-articles__grid .article-card:nth-of-type(${index + 1}) .article-card__title`,
     );
 
-    const text = await snapshotText(page, [
-      "h1",
-      ".lead",
-      ...titleSelectors,
-    ]);
+    const text = await snapshotText(page, ["h1", ".lead", ...titleSelectors]);
     expect(text).toMatchSnapshot(homepage.textSnapshot);
   });
 });
