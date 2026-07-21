@@ -1,10 +1,11 @@
 {
-  "last_run": "2026-07-20",
-  "next_scheduled": "2026-07-21",
+  "last_run": "2026-07-21",
+  "next_scheduled": "2026-07-22",
   "week_id": "2026-W30",
-  "runs_this_week": 1,
+  "runs_this_week": 2,
   "type_counts": {
-    "crosssell": 1
+    "crosssell": 1,
+    "comparison": 1
   },
   "history": [
     {
@@ -15,6 +16,11 @@
     {
       "date": "2026-07-20",
       "keywords": ["auでんき セット割"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-07-21",
+      "keywords": ["mineo 評判 デメリット"],
       "ok_count": 1
     }
   ]
