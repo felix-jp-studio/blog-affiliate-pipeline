@@ -1,0 +1,59 @@
+{
+  "description": "記事量産バッチ3 — keywords.seed.csv priority 27-35",
+  "items": [
+    {
+      "keyword": "日本通信SIM 評判",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 27
+    },
+    {
+      "keyword": "NURO 光 auひかり 比較",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 28
+    },
+    {
+      "keyword": "ソフトバンク光 ビッグローブ光 比較",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 29
+    },
+    {
+      "keyword": "ドコモ光 光コラボ 比較",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 30
+    },
+    {
+      "keyword": "光回線 1Gbps 安い",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 31
+    },
+    {
+      "keyword": "光回線 戸建て おすすめ",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 32
+    },
+    {
+      "keyword": "モバレコAir WiMAX 比較",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 33
+    },
+    {
+      "keyword": "ホームルーター 光回線 比較",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 34
+    },
+    {
+      "keyword": "格安SIM 通話定額 比較",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 35
+    }
+  ]
+}
