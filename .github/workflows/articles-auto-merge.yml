@@ -103,4 +103,5 @@ jobs:
             echo ""
             echo "- PR: #${{ github.event.pull_request.number }}"
             echo "- Squash merge enabled (falls back to immediate merge when auto-merge is unavailable)."
+            echo "- After merge: \`post-publish-index-queue.yml\` appends new slugs to \`data/gsc-index-queue.json\`."
           } >> "$GITHUB_STEP_SUMMARY"
