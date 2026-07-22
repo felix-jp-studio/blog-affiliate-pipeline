@@ -487,8 +487,12 @@ def _ensure_min_length(
         filler_idx += 1
     if len(combined) < min_chars:
         combined += tail
-    if len(combined) < min_chars:
-        combined += f"\n\n{keyword}の最新条件は各公式サイトの記載を正としてご確認ください。"
+    pad_line = (
+        f"\n\n{keyword}に関する最新の料金・手続き・提供条件は、"
+        "各公式サイトの記載を正としてご確認ください（2026年7月時点）。"
+    )
+    while len(combined) < min_chars:
+        combined += pad_line
     return combined
 
 

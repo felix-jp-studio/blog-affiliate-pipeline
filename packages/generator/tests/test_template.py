@@ -74,5 +74,21 @@ class TemplateGenerationTest(unittest.TestCase):
         self.assertNotIn("MNP予約番号", body)
 
 
+
+    def test_esim_howto_passes_quality_after_injection(self):
+        item = {
+            "keyword": "eSIM 乗り換え 即日",
+            "articleType": "howto",
+            "category": "sim",
+        }
+        outline = build_outline(item)
+        body = inject_affiliates(build_body(outline), ROOT)
+        from generator.internal_links import inject_internal_links
+
+        body = inject_internal_links(body, outline, ROOT)
+        result = check_article(body, "howto", ROOT, test_mode=True)
+        self.assertTrue(result.ok, result.errors)
+
+
 if __name__ == "__main__":
     unittest.main()
