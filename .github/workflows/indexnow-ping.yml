@@ -1,0 +1,54 @@
+name: IndexNow ping
+
+# 記事マージ後（main push）に変更 slug を IndexNow へ通知。
+# INDEXNOW_KEY 未設定時はスキップ（CI 失敗にしない）。
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "site/src/content/articles/**"
+      - "scripts/indexnow-ping.mjs"
+      - "scripts/e2e/changed-slugs.mjs"
+      - "config/indexnow.json"
+      - ".github/workflows/indexnow-ping.yml"
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Resolve changed slugs
+        id: slugs
+        run: |
+          SLUGS="$(node scripts/e2e/changed-slugs.mjs --format=comma --no-fallback)"
+          echo "slugs=$SLUGS" >> "$GITHUB_OUTPUT"
+          echo "Changed slugs: ${SLUGS:-<none>}"
+
+      - name: Ping IndexNow
+        if: steps.slugs.outputs.slugs != ''
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          INDEXNOW_SLUGS: ${{ steps.slugs.outputs.slugs }}
+        run: node scripts/indexnow-ping.mjs
+
+      - name: Write job summary
+        if: always()
+        run: |
+          {
+            echo "## IndexNow ping"
+            echo ""
+            echo "- slugs: \`${{ steps.slugs.outputs.slugs || 'none' }}\`"
+            echo "- script: \`node scripts/indexnow-ping.mjs\`"
+            echo "- note: skipped when \`INDEXNOW_KEY\` secret is unset"
+          } >> "$GITHUB_STEP_SUMMARY"

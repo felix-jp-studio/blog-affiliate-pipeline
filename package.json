@@ -23,6 +23,7 @@
     "test:e2e:dist": "node scripts/e2e/validate-dist.mjs",
     "test:e2e:smoke": "node scripts/e2e/smoke-production.mjs",
     "test:e2e:changed-slugs": "node scripts/e2e/changed-slugs.mjs",
+    "indexnow:ping": "node scripts/indexnow-ping.mjs",
     "test:e2e:visual": "npm run test:e2e:visual --prefix site",
     "test:e2e:visual:update": "npm run test:e2e:visual:update --prefix site",
     "test:e2e:all": "npm run test:e2e && npm run test:e2e:visual"

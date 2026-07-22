@@ -1,0 +1,6 @@
+{
+  "productionUrl": "https://sim-hikari-guide.com",
+  "host": "sim-hikari-guide.com",
+  "endpoint": "https://api.indexnow.org/indexnow",
+  "articlePathPrefix": "/articles/"
+}

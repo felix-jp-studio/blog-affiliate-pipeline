@@ -7,6 +7,7 @@
  *   node scripts/e2e/changed-slugs.mjs --format=env
  *   node scripts/e2e/changed-slugs.mjs --format=json
  *   node scripts/e2e/changed-slugs.mjs --base=origin/main --head=HEAD
+ *   node scripts/e2e/changed-slugs.mjs --no-fallback
  */
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
@@ -22,6 +23,7 @@ const args = process.argv.slice(2);
 const formatArg = args.find((arg) => arg.startsWith("--format="));
 const baseArg = args.find((arg) => arg.startsWith("--base="));
 const headArg = args.find((arg) => arg.startsWith("--head="));
+const noFallback = args.includes("--no-fallback");
 const format = formatArg?.split("=")[1] ?? "lines";
 
 function runGit(argsList) {
@@ -126,7 +128,7 @@ function formatOutput(slugs) {
 }
 
 const { base, head, slugs } = resolveChangedSlugs();
-const outputSlugs = slugs.length > 0 ? slugs : fallbackSlugs();
+const outputSlugs = slugs.length > 0 ? slugs : noFallback ? [] : fallbackSlugs();
 
 if (format === "lines") {
   console.error(`changed-slugs: base=${base} head=${head} count=${outputSlugs.length}`);
