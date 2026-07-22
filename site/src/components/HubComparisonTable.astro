@@ -20,11 +20,7 @@ const { title, note, columns, rows } = Astro.props;
     <table class="hub-comparison__table">
       <thead>
         <tr>
-          {
-            columns.map((column) => (
-              <th scope="col">{column.label}</th>
-            ))
-          }
+          {columns.map((column) => <th scope="col">{column.label}</th>)}
         </tr>
       </thead>
       <tbody>

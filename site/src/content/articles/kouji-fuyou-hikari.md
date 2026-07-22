@@ -8,6 +8,7 @@ keyword: "工事 不要 光回線"
 priority: 17
 draft: false
 ---
+
 ## 結論サマリ
 
 工事 不要 光回線を探す場合、NURO 光やauひかりのような工事が必要な回線ではなく、**工事不要で使える選択肢**に絞って比較するのが近道です。主な候補はマンション既設配線の光回線、WiMAX、ホーム5G（据置型）です。
@@ -71,12 +72,14 @@ draft: false
 - 表の数値は比較観点であり、最新条件は公式が正
 
 <!-- internal-links:v1 -->
+
 ## あわせて読みたい
 
 同じカテゴリの関連記事もあわせてご確認ください。
 
 - [ソフトバンク光 ビッグローブ光 比較の完全ガイド](/articles/softbank-hikari-biglobe-hikari-hikaku)
 - [NURO 光 auひかり 比較の完全ガイド](/articles/nuro-hikari-au-hikari-hikaku)
+
 ## よくある質問
 
 ### 工事不要の光回線は本当にありますか？

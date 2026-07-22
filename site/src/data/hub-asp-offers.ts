@@ -171,8 +171,7 @@ export const hubAspSections: Partial<Record<CategorySlug, HubAspSection>> = {
       },
       {
         programId: "linemo",
-        description:
-          "ソフトバンク光とのセット割を検討する場合の格安SIM候補。",
+        description: "ソフトバンク光とのセット割を検討する場合の格安SIM候補。",
       },
       {
         programId: "au-hikari",
