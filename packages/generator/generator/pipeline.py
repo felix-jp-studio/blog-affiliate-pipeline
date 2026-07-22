@@ -9,6 +9,7 @@ from pathlib import Path
 from generator.affiliate import inject_affiliates
 from generator.config import load_prompt, resolve_mode
 from generator.groq_client import GroqError, chat_completion
+from generator.internal_links import inject_internal_links
 from generator.quality import check_article
 from generator.template_articles import build_body, build_outline, slugify
 from generator.writer import write_article
@@ -71,6 +72,7 @@ def generate_one(*, root: Path, item: dict, out_dir: Path, mode: str) -> Path:
         body = build_body(outline)
 
     body = inject_affiliates(body, root)
+    body = inject_internal_links(body, outline, root)
     quality = check_article(body, item["articleType"], root, test_mode=True)
     if not quality.ok:
         raise ValueError("; ".join(quality.errors))
