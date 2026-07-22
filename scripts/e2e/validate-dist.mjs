@@ -60,6 +60,22 @@ for (const article of published) {
   }
 }
 
+const robotsPath = join(distDir, "robots.txt");
+if (!existsSync(robotsPath)) {
+  errors.push("robots.txt: missing from dist");
+} else {
+  const robotsText = readFileSync(robotsPath, "utf8");
+  if (!robotsText.includes("User-agent: *")) {
+    errors.push("robots.txt: missing User-agent: *");
+  }
+  if (!robotsText.includes("Allow: /")) {
+    errors.push("robots.txt: missing Allow: /");
+  }
+  if (!robotsText.includes("Sitemap: https://sim-hikari-guide.com/sitemap-index.xml")) {
+    errors.push("robots.txt: missing Sitemap URL");
+  }
+}
+
 const sitemapFiles = readdirSync(distDir).filter(
   (name) => name.startsWith("sitemap") && name.endsWith(".xml"),
 );
