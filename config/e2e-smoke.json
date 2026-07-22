@@ -7,7 +7,8 @@
       "path": "/sitemap-index.xml",
       "label": "sitemap-index",
       "checks": ["sitemapXml"]
-    }
+    },
+    { "path": "/robots.txt", "label": "robots-txt" }
   ],
   "smokeSlugs": ["hikari-mansion-osusume", "kouji-fuyou-hikari"],
   "requiredOgTags": ["og:title", "og:description", "og:image", "og:url"],
