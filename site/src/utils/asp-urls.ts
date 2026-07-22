@@ -64,6 +64,10 @@ export function resolveProgramUrl(programId: string): string {
   return program.trackingUrl ?? program.fallbackUrl ?? "#";
 }
 
+export function resolveProgramLabel(programId: string): string {
+  return registry.programs[programId]?.label ?? programId;
+}
+
 export function resolveCarrierUrl(carrier: AffiliateCarrier): string {
   if (carrier.program) {
     return resolveProgramUrl(carrier.program);
