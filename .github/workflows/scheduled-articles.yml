@@ -147,6 +147,7 @@ jobs:
             echo ""
             echo "## Note"
             echo 'CI 通過後、`articles-auto-merge.yml` により自動 squash merge されます。'
+            echo 'マージ後、`post-publish-index-queue.yml` が `data/gsc-index-queue.json` に slug を追記します。'
           } > /tmp/pr-body.md
           gh pr create \
             --title "chore: 定期記事生成 ${RUN_DATE}" \
