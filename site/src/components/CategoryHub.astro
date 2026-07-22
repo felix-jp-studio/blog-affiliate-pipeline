@@ -3,10 +3,13 @@ import type { CollectionEntry } from "astro:content";
 import ArticleCard from "./ArticleCard.astro";
 import Breadcrumbs from "./Breadcrumbs.astro";
 import CategoryGuideBox from "./CategoryGuideBox.astro";
+import HubAspCtaSection from "./HubAspCtaSection.astro";
+import HubComparisonTable from "./HubComparisonTable.astro";
 import type { ArticleType } from "../data/article-type-labels";
 import { articleTypeLabels } from "../data/article-type-labels";
 import type { CategorySlug } from "../data/category-meta";
 import { categoryMeta } from "../data/category-meta";
+import { getHubAspSection } from "../data/hub-asp-offers";
 import { buildBreadcrumbs } from "../data/site-nav";
 import { getReadingTimeForEntry } from "../utils/article-meta";
 
@@ -19,6 +22,7 @@ const { category, articles } = Astro.props;
 
 const meta = categoryMeta[category];
 const breadcrumbs = buildBreadcrumbs([{ label: meta.label }]);
+const hubAspSection = getHubAspSection(category);
 
 const filterOptions: { value: "all" | ArticleType; label: string }[] = [
   { value: "all", label: "すべて" },
@@ -42,6 +46,23 @@ const hasMultipleTypes =
     </div>
     <span class="category-hero__count">全{articles.length}件</span>
   </header>
+
+  {
+    hubAspSection && (
+      <div class="category-hub__asp">
+        <HubComparisonTable
+          title={hubAspSection.comparisonTitle}
+          note={hubAspSection.comparisonNote}
+          columns={hubAspSection.comparisonColumns}
+          rows={hubAspSection.comparisonRows}
+        />
+        <HubAspCtaSection
+          title={hubAspSection.ctaTitle}
+          offers={hubAspSection.offers}
+        />
+      </div>
+    )
+  }
 
   {
     hasMultipleTypes && articles.length > 0 && (
@@ -164,6 +185,12 @@ const hasMultipleTypes =
     line-height: 1.75;
     color: var(--text-secondary);
     max-width: 36rem;
+  }
+
+  .category-hub__asp {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
   }
 
   .category-hero__count {
