@@ -1,6 +1,6 @@
 # generator
 
-KW → 構成 JSON → Markdown 本文 → Astro 公開用ファイル。
+KW → 構成 JSON → Markdown 本文 → **同一カテゴリ内部リンク（2本）** → Astro 公開用ファイル。
 
 設計: [`docs/article-generation-design.md`](../../docs/article-generation-design.md)
 
