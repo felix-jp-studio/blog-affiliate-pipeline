@@ -12,6 +12,10 @@
       "label": "ahamo",
       "program": "ahamo"
     },
+    "ahamo-hikari": {
+      "label": "ahamo光",
+      "program": "ahamo-hikari"
+    },
     "povo": {
       "label": "povo",
       "program": "povo"

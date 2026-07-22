@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-21",
+  "updatedAt": "2026-07-22",
   "providers": {
     "a8": {
       "displayName": "A8.net",
@@ -73,23 +73,34 @@
     "ahamo": {
       "label": "ahamo",
       "category": "sim",
-      "provider": "official",
+      "provider": "a8",
       "fallbackUrl": "https://www.docomo.ne.jp/ahamo/",
-      "status": "pending"
+      "status": "pending",
+      "note": "A8 提携申請中（2026-07-22）。承認後 trackingUrl / programId を設定"
+    },
+    "ahamo-hikari": {
+      "label": "ahamo光",
+      "category": "hikari",
+      "provider": "a8",
+      "fallbackUrl": "https://ahamohikari.com/",
+      "status": "pending",
+      "note": "A8 提携申請中（2026-07-22）。承認後 trackingUrl / programId を設定"
     },
     "povo": {
       "label": "povo",
       "category": "sim",
       "provider": "official",
       "fallbackUrl": "https://povo.jp/",
-      "status": "pending"
+      "status": "pending",
+      "note": "A8 に povo 案件なし（2026-07-22 調査）。公式 URL 維持"
     },
     "uq-mobile": {
       "label": "UQ mobile",
       "category": "sim",
-      "provider": "official",
+      "provider": "a8",
       "fallbackUrl": "https://www.uqwimax.jp/mobile/",
-      "status": "pending"
+      "status": "pending",
+      "note": "A8 提携申請中（povo 代替、2026-07-22）。承認後 trackingUrl / programId を設定"
     },
     "au-hikari": {
       "label": "auひかり",
