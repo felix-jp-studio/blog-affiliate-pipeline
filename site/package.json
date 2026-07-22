@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/generate-og-png.mjs && astro build",
+    "build": "node scripts/generate-og-png.mjs && node scripts/generate-indexnow-key-file.mjs && astro build",
     "preview": "astro preview",
     "generate:og": "node scripts/generate-og-png.mjs",
     "format:check": "prettier --check .",
