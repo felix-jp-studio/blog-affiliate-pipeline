@@ -5,6 +5,7 @@ from pathlib import Path
 
 from generator.internal_links import (
     ArticleRef,
+    backfill_article_file,
     build_internal_links_section,
     inject_internal_links,
     insert_internal_links_section,
@@ -106,6 +107,100 @@ body
 
     def test_build_section_empty(self):
         self.assertEqual(build_internal_links_section([]), "")
+
+    def test_backfill_article_file_skips_when_no_same_category_peers(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            articles_dir = root / "site/src/content/articles"
+            articles_dir.mkdir(parents=True)
+            article_path = articles_dir / "au-denki-setwari.md"
+            article_path.write_text(
+                """---
+title: "auでんき セット割"
+description: "d"
+pubDate: 2026-07-20
+category: cost
+articleType: crosssell
+keyword: "k"
+draft: false
+---
+
+## 結論
+
+本文
+
+> 本記事は AI 支援により作成されています。
+""",
+                encoding="utf-8",
+            )
+
+            self.assertFalse(backfill_article_file(article_path, root))
+            self.assertNotIn("## あわせて読みたい", article_path.read_text(encoding="utf-8"))
+
+    def test_backfill_article_file_injects_before_faq(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            articles_dir = root / "site/src/content/articles"
+            articles_dir.mkdir(parents=True)
+            (articles_dir / "sim-peer-a.md").write_text(
+                """---
+title: "Peer A"
+description: "d"
+pubDate: 2026-07-21
+category: sim
+articleType: comparison
+keyword: "k"
+draft: false
+---
+
+body
+""",
+                encoding="utf-8",
+            )
+            (articles_dir / "sim-peer-b.md").write_text(
+                """---
+title: "Peer B"
+description: "d"
+pubDate: 2026-07-20
+category: sim
+articleType: comparison
+keyword: "k2"
+draft: false
+---
+
+body
+""",
+                encoding="utf-8",
+            )
+            target = articles_dir / "sim-target.md"
+            target.write_text(
+                """---
+title: "Target"
+description: "d"
+pubDate: 2026-07-19
+category: sim
+articleType: comparison
+keyword: "k3"
+draft: false
+---
+
+## 本文
+
+## よくある質問
+
+### Q
+
+A
+""",
+                encoding="utf-8",
+            )
+
+            self.assertTrue(backfill_article_file(target, root))
+            updated = target.read_text(encoding="utf-8")
+            self.assertIn("## あわせて読みたい", updated)
+            self.assertLess(updated.index("## あわせて読みたい"), updated.index("## よくある質問"))
+            self.assertIn("/articles/sim-peer-a", updated)
+            self.assertIn("/articles/sim-peer-b", updated)
 
 
 if __name__ == "__main__":

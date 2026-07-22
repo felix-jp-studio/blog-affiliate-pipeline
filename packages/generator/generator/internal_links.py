@@ -124,3 +124,32 @@ def inject_internal_links(body: str, outline: dict, root: Path) -> str:
     )
     section = build_internal_links_section(links)
     return insert_internal_links_section(body, section)
+
+
+def backfill_article_file(path: Path, root: Path, *, write: bool = True) -> bool:
+    """Inject internal links into an existing article file. Returns True if modified."""
+    text = path.read_text(encoding="utf-8")
+    match = FRONTMATTER_RE.match(text)
+    if not match:
+        return False
+
+    frontmatter = match.group(1)
+    body = text[match.end() :].lstrip("\n")
+    if SECTION_HEADING in body or MARKER in body:
+        return False
+
+    if _parse_field(r"^draft:\s*(true|false)\s*$", frontmatter) == "true":
+        return False
+
+    category = _parse_field(r"^category:\s*(\w+)\s*$", frontmatter)
+    if not category:
+        return False
+
+    outline = {"category": category, "slug": path.stem}
+    new_body = inject_internal_links(body, outline, root)
+    if new_body == body:
+        return False
+
+    if write:
+        path.write_text(text[: match.end()] + "\n" + new_body, encoding="utf-8")
+    return True
