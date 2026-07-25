@@ -6,5 +6,6 @@ UI/UX や技術設計の提案は Markdown として本ディレクトリに保�
 
 - [ASP URL レジストリ](./asp-urls.md) — トラッキング URL・管理画面 URL の更新手順
 - [IndexNow 連携](./indexnow.md) — 記事マージ後の Bing/Yandex 通知
+- [Visual Regression 運用](./visual-regression-operations.md) — Playwright hybrid E2E・baseline 更新・PR コメント
 
 設計書 PR は自動マージ対象（`docs/` のみの変更、または `design-doc` ラベル付き PR）。
