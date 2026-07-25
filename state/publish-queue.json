@@ -1,12 +1,12 @@
 {
-  "last_run": "2026-07-24",
-  "next_scheduled": "2026-07-25",
+  "last_run": "2026-07-25",
+  "next_scheduled": "2026-07-26",
   "week_id": "2026-W30",
-  "runs_this_week": 5,
+  "runs_this_week": 6,
   "type_counts": {
     "crosssell": 1,
     "comparison": 2,
-    "howto": 1,
+    "howto": 2,
     "troubleshoot": 1
   },
   "history": [
@@ -38,6 +38,11 @@
     {
       "date": "2026-07-24",
       "keywords": ["格安SIM 5G 対応 比較"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-07-25",
+      "keywords": ["iPhone そのまま 格安SIM"],
       "ok_count": 1
     }
   ]
