@@ -26,6 +26,8 @@
     "indexnow:ping": "node scripts/indexnow-ping.mjs",
     "test:e2e:visual": "npm run test:e2e:visual --prefix site",
     "test:e2e:visual:update": "npm run test:e2e:visual:update --prefix site",
+    "test:e2e:visual:docker": "bash scripts/e2e/update-visual-baselines-docker.sh verify",
+    "test:e2e:visual:update:docker": "bash scripts/e2e/update-visual-baselines-docker.sh update",
     "test:e2e:all": "npm run test:e2e && npm run test:e2e:visual"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 # Playwright ハイブリッド Visual 実装設計
 
 **対象**: `blog-affiliate-pipeline`（Astro 静的サイト / sim-hikari-guide.com）  
-**関連**: [e2e-publish-check-design.md](./e2e-publish-check-design.md)（P0/P1/P2 機能 E2E）、[visual-regression-design.md](./visual-regression-design.md)（方式選定）  
+**関連**: [e2e-publish-check-design.md](./e2e-publish-check-design.md)（P0/P1/P2 機能 E2E）、[visual-regression-design.md](./visual-regression-design.md)（方式選定）、[visual-regression-operations.md](./visual-regression-operations.md)（運用・baseline 更新）  
 **ステータス**: 実装設計（P0 実装済み — `feature/playwright-visual-p0`）  
 **作成日**: 2026-07-19
 

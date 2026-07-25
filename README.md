@@ -62,13 +62,17 @@ npm run wp:ping
 
 ## コマンド
 
-| コマンド                                                               | 説明                  |
-| ---------------------------------------------------------------------- | --------------------- |
-| `npm run wp:ping`                                                      | WordPress 接続確認    |
-| `npm run wp:post -- --file drafts/article.md`                          | 下書き投稿（dry-run） |
-| `npm run wp:post -- --file drafts/article.md --publish --status draft` | 下書きを WP に投稿    |
-| `npm test`                                                             | publisher テスト      |
-| `npm run format:check`                                                 | Prettier              |
+| コマンド                                                               | 説明                                        |
+| ---------------------------------------------------------------------- | ------------------------------------------- |
+| `npm run wp:ping`                                                      | WordPress 接続確認                          |
+| `npm run wp:post -- --file drafts/article.md`                          | 下書き投稿（dry-run）                       |
+| `npm run wp:post -- --file drafts/article.md --publish --status draft` | 下書きを WP に投稿                          |
+| `npm test`                                                             | publisher テスト                            |
+| `npm run format:check`                                                 | Prettier                                    |
+| `npm run test:e2e:visual:docker`                                       | Visual regression（Linux Docker / CI 同等） |
+| `npm run test:e2e:visual:update:docker`                                | Visual baseline 更新                        |
+
+Visual regression 運用: [`docs/visual-regression-operations.md`](docs/visual-regression-operations.md)
 
 ## 関連リポ
 

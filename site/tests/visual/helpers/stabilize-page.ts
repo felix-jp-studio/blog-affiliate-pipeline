@@ -26,6 +26,9 @@ export async function stabilizePage(page: Page): Promise<void> {
     `,
   });
   await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
 }
 
 export function visualMaskLocators(page: Page): Locator[] {
