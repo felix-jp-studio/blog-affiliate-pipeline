@@ -1,0 +1,53 @@
+name: Approve article PR CI
+
+# github-actions[bot] が開いた article-publish PR では、
+# 初回 CI が action_required になり auto-merge が止まることがある。
+# Settings で「Actions による PR 承認」が有効な GITHUB_TOKEN で pending run を approve する。
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+    branches: [main]
+
+permissions:
+  actions: write
+  pull-requests: read
+  contents: read
+
+jobs:
+  approve-pending-runs:
+    if: >-
+      github.event.pull_request.draft == false &&
+      (
+        contains(github.event.pull_request.labels.*.name, 'article-publish') ||
+        startsWith(github.event.pull_request.head.ref, 'scheduled/articles-')
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - name: Approve action_required workflow runs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          approve_runs() {
+            gh api "repos/${REPO}/actions/runs?head_sha=${HEAD_SHA}&per_page=30" \
+              --jq '.workflow_runs[] | select(.status == "action_required") | .id' \
+              | while read -r RUN_ID; do
+                  [ -z "$RUN_ID" ] && continue
+                  echo "Approving workflow run ${RUN_ID}..."
+                  gh api --method POST "repos/${REPO}/actions/runs/${RUN_ID}/approve" || true
+                done
+          }
+
+          for attempt in 1 2 3 4 5 6; do
+            PENDING=$(gh api "repos/${REPO}/actions/runs?head_sha=${HEAD_SHA}&per_page=30" \
+              --jq '[.workflow_runs[] | select(.status == "action_required")] | length')
+            if [ "$PENDING" -gt 0 ]; then
+              approve_runs
+            fi
+            sleep 15
+          done
+
+          echo "Done polling for action_required runs on ${HEAD_SHA}."
