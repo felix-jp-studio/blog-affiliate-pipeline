@@ -24,6 +24,7 @@ echo "Running ${NPM_SCRIPT} in ${PLAYWRIGHT_IMAGE} ..."
 
 docker run --rm \
   -v "${ROOT}:/work" \
+  -v /work/site/node_modules \
   -w /work/site \
   -e CI=true \
   -e PUBLIC_CONTACT_FORM_ACTION="" \

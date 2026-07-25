@@ -104,6 +104,8 @@ CI 上での `--update-snapshots` 自動実行は **禁止**（意図した UI �
 
 **例外**: `scheduled-articles.yml` が記事 PR 向けに Hub 系 snapshot を Ubuntu 上で自動更新する場合あり。
 
+Docker 実行時は `site/node_modules` をコンテナ専用ボリュームにマウントし、ホスト（macOS）の native モジュール（`sharp` 等）を上書きしない。
+
 ### 5.2 更新フロー
 
 1. UI / 文言を意図的に変更する PR を作成
