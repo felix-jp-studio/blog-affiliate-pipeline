@@ -144,10 +144,39 @@ workflow_dispatch / cron
 - 日曜に手動実行した場合、dry-run も本生成も **crosssell プロファイル**が使われる（実行日の JST 曜日で決まる）
 - 日曜以外に `force=true` で手動実行した場合は **月〜土プロファイル**（comparison / howto / troubleshoot のインターリーブ）が使われ、crosssell は生成されない
 
+## トラブルシューティング
+
+### PR 作成後 CI が `action_required` で止まる
+
+**症状**: `scheduled-articles` は成功したが、記事 PR の CI / auto-merge が `action_required` のまま。Vercel だけ green で数時間マージされない（2026-07-24 / 07-25 で発生）。
+
+**原因**: `github-actions[bot]` が開いた PR に対し、リポジトリまたは Organization で「ワークフロー実行の承認」が必要。
+
+**対策（優先順）**
+
+1. **GitHub Settings → Actions → General**  
+   - 「Allow GitHub Actions to create and approve pull requests」を **有効**（2026-07-23 実施済み）  
+   - `approve-article-pr-ci.yml` が article-publish PR 向けに `action_required` run を自動 approve
+
+2. **手動復旧（急ぎ）**  
+   - Actions タブで pending run を Approve、または `gh run rerun`  
+   - 記事ブランチは push 済みのため、PR 作成だけ失敗した場合は `./scripts/gh-user.sh pr create` で復旧 PR（PR #61 パターン）
+
+3. **PR 作成権限エラー**（2026-07-23）  
+   - エラー: `GitHub Actions is not permitted to create or approve pull requests`  
+   - 上記 Settings の PR 作成許可を有効化
+
+### 生成失敗（品質ゲート）
+
+**症状**: `文字数不足: XXXX < 3500` 等で `publish-scheduled` が exit 1（2026-07-22 howto）。
+
+**対策**: `template_articles.py` の min length パディング修正済み（PR #60）。再発時は generator ログと `npm run test:generator` を確認。
+
 ## 変更履歴
 
 | 日付       | 内容                                                                                                        |
 | ---------- | ----------------------------------------------------------------------------------------------------------- |
+| 2026-07-25 | トラブルシューティング追加。`action_required` 自動 approve ワークフロー |
 | 2026-07-19 | 初版。Option C 採用（週2本・月木）                                                                          |
 | 2026-07-20 | 週6本（3タイプ×2）へ増量。月〜土 09:00 JST、タイプ均等インターリーブ配分を導入。cron `0 0 * * 1-6`          |
 | 2026-07-21 | 定期記事 PR に Playwright visual/text スナップショット自動更新を追加（Ubuntu CI 上で `--update-snapshots`） |
