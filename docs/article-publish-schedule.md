@@ -154,16 +154,16 @@ workflow_dispatch / cron
 
 **対策（優先順）**
 
-1. **GitHub Settings → Actions → General**  
-   - 「Allow GitHub Actions to create and approve pull requests」を **有効**（2026-07-23 実施済み）  
+1. **GitHub Settings → Actions → General**
+   - 「Allow GitHub Actions to create and approve pull requests」を **有効**（2026-07-23 実施済み）
    - `approve-article-pr-ci.yml` が article-publish PR 向けに `action_required` run を自動 approve
 
-2. **手動復旧（急ぎ）**  
-   - Actions タブで pending run を Approve、または `gh run rerun`  
+2. **手動復旧（急ぎ）**
+   - Actions タブで pending run を Approve、または `gh run rerun`
    - 記事ブランチは push 済みのため、PR 作成だけ失敗した場合は `./scripts/gh-user.sh pr create` で復旧 PR（PR #61 パターン）
 
-3. **PR 作成権限エラー**（2026-07-23）  
-   - エラー: `GitHub Actions is not permitted to create or approve pull requests`  
+3. **PR 作成権限エラー**（2026-07-23）
+   - エラー: `GitHub Actions is not permitted to create or approve pull requests`
    - 上記 Settings の PR 作成許可を有効化
 
 ### 生成失敗（品質ゲート）
@@ -176,7 +176,7 @@ workflow_dispatch / cron
 
 | 日付       | 内容                                                                                                        |
 | ---------- | ----------------------------------------------------------------------------------------------------------- |
-| 2026-07-25 | トラブルシューティング追加。`action_required` 自動 approve ワークフロー |
+| 2026-07-25 | トラブルシューティング追加。`action_required` 自動 approve ワークフロー                                     |
 | 2026-07-19 | 初版。Option C 採用（週2本・月木）                                                                          |
 | 2026-07-20 | 週6本（3タイプ×2）へ増量。月〜土 09:00 JST、タイプ均等インターリーブ配分を導入。cron `0 0 * * 1-6`          |
 | 2026-07-21 | 定期記事 PR に Playwright visual/text スナップショット自動更新を追加（Ubuntu CI 上で `--update-snapshots`） |
