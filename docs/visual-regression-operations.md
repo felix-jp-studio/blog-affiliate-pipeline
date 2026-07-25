@@ -66,18 +66,17 @@ scripts/e2e/
 # テスト実行（ローカル macOS では PNG が OS 差で FAIL しうる）
 npm run test:e2e:visual
 
-# baseline 更新（原則 Docker 経由 — 下記 §5）
-npm run test:e2e:visual:update
+# Linux（CI 同等）で検証 — 推奨
+npm run test:e2e:visual:docker
+
+# baseline 更新 — 原則 Docker 経由（§5）
+npm run test:e2e:visual:update:docker
 
 # 機能 E2E + visual 一括
 npm run test:e2e:all
-
-# Linux（CI 同等）で baseline 更新
-bash scripts/e2e/update-visual-baselines-docker.sh update
-
-# Linux で検証のみ
-bash scripts/e2e/update-visual-baselines-docker.sh verify
 ```
+
+> macOS ネイティブの `npm run test:e2e:visual:update` は OS 差で baseline が壊れるため **非推奨**。直接 bash を呼ぶ場合も `scripts/e2e/update-visual-baselines-docker.sh` を使う。
 
 PR コメント Markdown のローカル確認:
 
@@ -104,7 +103,7 @@ CI 上での `--update-snapshots` 自動実行は **禁止**（意図した UI �
 
 **例外**: `scheduled-articles.yml` が記事 PR 向けに Hub 系 snapshot を Ubuntu 上で自動更新する場合あり。
 
-Docker 実行時は `site/node_modules` をコンテナ専用ボリュームにマウントし、ホスト（macOS）の native モジュール（`sharp` 等）を上書きしない。
+Docker 実行時は `site/node_modules` をコンテナ専用ボリュームにマウントし、ホスト（macOS）の native モジュール（`sharp` 等）を上書きしない。Playwright Docker イメージのタグは `site/package-lock.json` の解決済み `@playwright/test` 版から自動決定する。
 
 ### 5.2 更新フロー
 
@@ -113,7 +112,7 @@ Docker 実行時は `site/node_modules` をコンテナ専用ボリュームに�
 3. 意図どおりなら Docker で baseline 更新:
 
    ```bash
-   bash scripts/e2e/update-visual-baselines-docker.sh update
+   npm run test:e2e:visual:update:docker
    git add site/tests/visual/
    git commit -m "test(visual): update baselines for <変更内容>"
    ```

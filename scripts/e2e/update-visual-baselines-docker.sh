@@ -4,8 +4,21 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
-PLAYWRIGHT_IMAGE="${PLAYWRIGHT_IMAGE:-mcr.microsoft.com/playwright:v1.61.1-noble}"
 MODE="${1:-update}"
+
+if [ -z "${PLAYWRIGHT_IMAGE:-}" ]; then
+  PLAYWRIGHT_VERSION="$(
+    node -p "
+      const lock = require('${ROOT}/site/package-lock.json');
+      const entry = lock.packages?.['node_modules/@playwright/test'];
+      if (!entry?.version) {
+        throw new Error('@playwright/test not found in site/package-lock.json');
+      }
+      entry.version;
+    "
+  )"
+  PLAYWRIGHT_IMAGE="mcr.microsoft.com/playwright:v${PLAYWRIGHT_VERSION}-noble"
+fi
 
 case "${MODE}" in
   update)
@@ -20,9 +33,17 @@ case "${MODE}" in
     ;;
 esac
 
+# baseline PNG/txt が root 所有にならないよう、ホスト UID/GID で実行
+USER_ARGS=()
+if [ "$(id -u)" -ne 0 ]; then
+  USER_ARGS=(--user "$(id -u):$(id -g)")
+fi
+
 echo "Running ${NPM_SCRIPT} in ${PLAYWRIGHT_IMAGE} ..."
 
 docker run --rm \
+  "${USER_ARGS[@]}" \
+  -e HOME=/tmp \
   -v "${ROOT}:/work" \
   -v /work/site/node_modules \
   -w /work/site \
