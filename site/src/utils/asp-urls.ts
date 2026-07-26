@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -36,10 +36,22 @@ type AffiliateRules = {
   carriers: Record<string, AffiliateCarrier>;
 };
 
-const configDir = join(
-  dirname(fileURLToPath(import.meta.url)),
-  "../../../config",
-);
+function resolveConfigDir(): string {
+  const fromSource = join(
+    dirname(fileURLToPath(import.meta.url)),
+    "../../../config",
+  );
+  if (existsSync(join(fromSource, "asp-urls.json"))) {
+    return fromSource;
+  }
+  const fromSiteCwd = join(process.cwd(), "../config");
+  if (existsSync(join(fromSiteCwd, "asp-urls.json"))) {
+    return fromSiteCwd;
+  }
+  return fromSource;
+}
+
+const configDir = resolveConfigDir();
 
 const registry = JSON.parse(
   readFileSync(join(configDir, "asp-urls.json"), "utf8"),

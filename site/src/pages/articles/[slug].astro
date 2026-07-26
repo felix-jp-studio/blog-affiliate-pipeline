@@ -5,6 +5,7 @@ import ArticleHero from "../../components/ArticleHero.astro";
 import ArticleToc from "../../components/ArticleToc.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import RelatedArticles from "../../components/RelatedArticles.astro";
+import ArticleComments from "../../components/ArticleComments.astro";
 import SitePublisherBox from "../../components/SitePublisherBox.astro";
 import { categoryMeta } from "../../data/category-meta";
 import { buildBreadcrumbs } from "../../data/site-nav";
@@ -115,6 +116,7 @@ const articleJsonLd = {
       </div>
     </div>
     <SitePublisherBox />
+    <ArticleComments slug={slug} articleTitle={entry.data.title} />
     <RelatedArticles articles={sameCategoryArticles} currentSlug={slug} />
   </article>
 </BaseLayout>
