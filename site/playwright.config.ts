@@ -30,12 +30,14 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "npm run build && npm run preview -- --host 127.0.0.1 --port 4321",
+    command:
+      "npm run build && (test -d dist/client && npx --yes serve dist/client -l 4321 || npx --yes serve dist -l 4321)",
     url: "http://127.0.0.1:4321",
     reuseExistingServer: !isCI,
     timeout: 120_000,
     env: {
       PUBLIC_CONTACT_FORM_ACTION: "",
+      PUBLIC_COMMENTS_ENABLED: "true",
     },
   },
 });

@@ -1,0 +1,414 @@
+---
+interface Props {
+  slug: string;
+  articleTitle: string;
+}
+
+const { slug, articleTitle } = Astro.props;
+const enabled = import.meta.env.PUBLIC_COMMENTS_ENABLED === "true";
+---
+
+{
+  enabled && (
+    <section
+      class="article-comments"
+      data-article-comments
+      data-article-slug={slug}
+      aria-labelledby="article-comments-heading"
+    >
+      <h2 id="article-comments-heading" class="article-comments__heading">
+        コメント
+      </h2>
+      <p class="article-comments__lead">
+        「{articleTitle}
+        」へのコメントを投稿できます。投稿は運営確認後に公開されます。
+      </p>
+
+      <div
+        class="comment-status"
+        role="status"
+        aria-live="polite"
+        tabindex="-1"
+        data-comment-status
+        hidden
+      />
+
+      <ol class="comment-list" data-comment-list aria-live="polite" />
+
+      <form class="comment-form" data-comment-form novalidate>
+        <div class="field field-honeypot" aria-hidden="true">
+          <label for={`website-${slug}`}>Website</label>
+          <input
+            id={`website-${slug}`}
+            name="website"
+            type="text"
+            tabindex="-1"
+            autocomplete="off"
+          />
+        </div>
+        <div class="field">
+          <label for={`authorName-${slug}`}>お名前</label>
+          <input
+            id={`authorName-${slug}`}
+            name="authorName"
+            type="text"
+            required
+            maxlength="32"
+            autocomplete="name"
+            aria-describedby={`authorName-error-${slug}`}
+          />
+          <p
+            class="field-error"
+            id={`authorName-error-${slug}`}
+            data-field-error="authorName"
+            hidden
+          />
+        </div>
+        <div class="field">
+          <label for={`body-${slug}`}>コメント</label>
+          <textarea
+            id={`body-${slug}`}
+            name="body"
+            rows="4"
+            required
+            minlength="10"
+            maxlength="1000"
+            aria-describedby={`body-error-${slug} body-hint-${slug}`}
+          />
+          <p class="field-hint" id={`body-hint-${slug}`}>
+            10文字以上、1,000文字以内。荒らし・誹謗中傷は削除します。
+          </p>
+          <p
+            class="field-error"
+            id={`body-error-${slug}`}
+            data-field-error="body"
+            hidden
+          />
+        </div>
+        <button type="submit" class="btn btn-primary" data-submit-button>
+          <span class="btn-label">コメントを送信</span>
+          <span class="btn-loading" hidden>
+            送信中…
+          </span>
+        </button>
+      </form>
+    </section>
+  )
+}
+
+<script define:vars={{ slug }}>
+  const root = document.querySelector(
+    `[data-article-comments][data-article-slug="${slug}"]`,
+  );
+  if (!root) {
+    /* comments disabled */
+  } else {
+    const form = root.querySelector("[data-comment-form]");
+    const listEl = root.querySelector("[data-comment-list]");
+    const statusEl = root.querySelector("[data-comment-status]");
+    const submitButton = root.querySelector("[data-submit-button]");
+    const btnLabel = submitButton?.querySelector(".btn-label");
+    const btnLoading = submitButton?.querySelector(".btn-loading");
+
+    const validators = {
+      authorName(value) {
+        const trimmed = value.trim();
+        if (!trimmed) return "お名前を入力してください。";
+        if (trimmed.length > 32) {
+          return "お名前は32文字以内で入力してください。";
+        }
+        return null;
+      },
+      body(value) {
+        const trimmed = value.trim();
+        if (!trimmed) return "コメントを入力してください。";
+        if (trimmed.length < 10) {
+          return "コメントは10文字以上で入力してください。";
+        }
+        if (trimmed.length > 1000) {
+          return "コメントは1,000文字以内で入力してください。";
+        }
+        return null;
+      },
+    };
+
+    const setFieldError = (field, message) => {
+      const input = form.querySelector(`[name="${field}"]`);
+      const errorEl = form.querySelector(`[data-field-error="${field}"]`);
+      if (!input || !errorEl) return;
+      if (message) {
+        input.setAttribute("aria-invalid", "true");
+        errorEl.textContent = message;
+        errorEl.hidden = false;
+      } else {
+        input.removeAttribute("aria-invalid");
+        errorEl.textContent = "";
+        errorEl.hidden = true;
+      }
+    };
+
+    const validateField = (field) => {
+      const input = form.querySelector(`[name="${field}"]`);
+      if (!input) return true;
+      const error = validators[field](input.value);
+      setFieldError(field, error);
+      return error === null;
+    };
+
+    const validateForm = () =>
+      ["authorName", "body"].map(validateField).every(Boolean);
+
+    const setStatus = (type, message = "") => {
+      if (!statusEl) return;
+      statusEl.classList.remove("is-success", "is-error");
+      if (!type) {
+        statusEl.hidden = true;
+        statusEl.textContent = "";
+        return;
+      }
+      statusEl.hidden = false;
+      statusEl.textContent = message;
+      statusEl.classList.add(type === "success" ? "is-success" : "is-error");
+    };
+
+    const setLoading = (loading) => {
+      if (!submitButton || !btnLabel || !btnLoading) return;
+      submitButton.disabled = loading;
+      submitButton.setAttribute("aria-busy", loading ? "true" : "false");
+      btnLabel.hidden = loading;
+      btnLoading.hidden = !loading;
+    };
+
+    const formatDate = (iso) => {
+      try {
+        return new Date(iso).toLocaleDateString("ja-JP", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
+      } catch {
+        return iso;
+      }
+    };
+
+    const renderComments = (comments) => {
+      if (!listEl) return;
+      listEl.innerHTML = "";
+      if (!comments.length) {
+        const empty = document.createElement("li");
+        empty.className = "comment-list__empty";
+        empty.textContent =
+          "まだコメントはありません。最初のコメントを投稿してください。";
+        listEl.appendChild(empty);
+        return;
+      }
+      for (const comment of comments) {
+        const item = document.createElement("li");
+        item.className = "comment-item";
+        const meta = document.createElement("p");
+        meta.className = "comment-item__meta";
+        meta.textContent = `${comment.authorName} · ${formatDate(comment.approvedAt ?? comment.createdAt)}`;
+        const body = document.createElement("p");
+        body.className = "comment-item__body";
+        body.textContent = comment.body;
+        item.append(meta, body);
+        listEl.appendChild(item);
+      }
+    };
+
+    const loadComments = async () => {
+      try {
+        const res = await fetch(
+          `/api/comments?slug=${encodeURIComponent(slug)}`,
+        );
+        if (!res.ok) return;
+        const data = await res.json();
+        renderComments(data.comments ?? []);
+      } catch {
+        /* ignore load errors on static preview */
+      }
+    };
+
+    ["authorName", "body"].forEach((field) => {
+      const input = form.querySelector(`[name="${field}"]`);
+      input?.addEventListener("blur", () => validateField(field));
+      input?.addEventListener("input", () => {
+        if (input.getAttribute("aria-invalid") === "true") {
+          validateField(field);
+        }
+      });
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!validateForm()) return;
+
+      setStatus(null);
+      setLoading(true);
+
+      const formData = new FormData(form);
+      const payload = {
+        articleSlug: slug,
+        authorName: String(formData.get("authorName") ?? ""),
+        body: String(formData.get("body") ?? ""),
+        website: String(formData.get("website") ?? ""),
+      };
+
+      try {
+        const res = await fetch("/api/comments", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          setStatus("error", data.error ?? "送信に失敗しました。");
+          return;
+        }
+        form.reset();
+        setStatus(
+          "success",
+          data.message ?? "コメントを受け付けました。承認後に公開されます。",
+        );
+      } catch {
+        setStatus(
+          "error",
+          "送信に失敗しました。時間をおいて再度お試しください。",
+        );
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    loadComments();
+  }
+</script>
+
+<style>
+  .article-comments {
+    margin: 2rem 1.25rem 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .article-comments__heading {
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .article-comments__lead {
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    margin: 0 0 1.25rem;
+  }
+
+  .comment-status {
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.9375rem;
+  }
+
+  .comment-status.is-success {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+  }
+
+  .comment-status.is-error {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+  }
+
+  .comment-list {
+    list-style: none;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .comment-list__empty {
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .comment-item {
+    background: var(--bg-subtle, #f8fafc);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.875rem 1rem;
+  }
+
+  .comment-item__meta {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin: 0 0 0.375rem;
+  }
+
+  .comment-item__body {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.375rem;
+    font-size: 0.9375rem;
+  }
+
+  .field input,
+  .field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font: inherit;
+  }
+
+  .field-honeypot {
+    position: absolute;
+    left: -9999px;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .field-hint {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin: 0.375rem 0 0;
+  }
+
+  .field-error {
+    color: #b91c1c;
+    font-size: 0.8125rem;
+    margin: 0.375rem 0 0;
+  }
+
+  .btn-primary {
+    align-self: flex-start;
+    padding: 0.625rem 1.25rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: var(--accent, #2563eb);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+</style>
