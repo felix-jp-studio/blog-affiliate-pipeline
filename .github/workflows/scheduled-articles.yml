@@ -19,11 +19,12 @@ jobs:
       cancel-in-progress: false
     permissions:
       contents: write
-      pull-requests: write
-      actions: write
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -45,19 +46,7 @@ jobs:
             exit 1
           fi
 
-      - name: Check for open scheduled PR
-        id: open_pr
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          COUNT=$(gh pr list --state open --json headRefName --jq '[.[] | select(.headRefName | startswith("scheduled/articles-"))] | length')
-          echo "count=${COUNT}" >> "$GITHUB_OUTPUT"
-          if [ "${COUNT}" -gt 0 ]; then
-            echo "Open scheduled PR exists; skipping generation unless forced."
-          fi
-
       - name: Generate scheduled articles
-        if: steps.open_pr.outputs.count == '0' || (github.event_name == 'workflow_dispatch' && inputs.force == true)
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
@@ -66,10 +55,6 @@ jobs:
             FORCE_FLAG="--force"
           fi
           npm run publish:scheduled -- $FORCE_FLAG
-
-      - name: Skip message
-        if: steps.open_pr.outputs.count != '0' && (github.event_name != 'workflow_dispatch' || inputs.force != true)
-        run: echo "[SKIP] Open scheduled PR exists. Merge or close it before the next run."
 
       - name: Format
         if: success()
@@ -93,7 +78,7 @@ jobs:
           CHANGED=$(git status --porcelain -- site/src/content/articles state/publish-queue.json)
           if [ -z "$CHANGED" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No article or publish-queue changes; skipping PR creation."
+            echo "No article or publish-queue changes; skipping publish."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "$CHANGED"
@@ -114,59 +99,20 @@ jobs:
           npm run test:e2e:visual:update
           npm run test:e2e:visual
 
-      - name: Create pull request
+      - name: Commit and push to main
         if: steps.changes.outputs.changed == 'true'
-        env:
-          # PAT で PR 作成者を github-actions[bot] 以外にし、action_required を回避
-          GH_TOKEN: ${{ secrets.GITHUB_BOT_TOKEN != '' && secrets.GITHUB_BOT_TOKEN || github.token }}
         run: |
-          if [ -z "${{ secrets.GITHUB_BOT_TOKEN }}" ]; then
-            echo "::warning::GITHUB_BOT_TOKEN is not set; PR may require manual workflow approval."
-          fi
           RUN_DATE=$(TZ=Asia/Tokyo date +%Y-%m-%d)
-          BRANCH="scheduled/articles-${RUN_DATE}"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b "$BRANCH"
           git add site/src/content/articles state/publish-queue.json
           git add site/tests/visual/*-snapshots/
           if git diff --cached --quiet; then
-            echo "No staged article changes; skipping PR creation."
+            echo "No staged article changes; skipping push."
             exit 0
           fi
           git commit -m "chore: scheduled articles ${RUN_DATE}"
-          git push -u origin "$BRANCH"
-          {
-            echo "## Summary"
-            echo "- 公開スケジュール（日〜土 09:00 JST・週7本 / 月〜土 3タイプ×2 + 日曜 crosssell）に従い記事を自動生成"
-            echo "- 月〜土: タイプ均等配分（comparison / howto / troubleshoot をインターリーブ）"
-            echo "- 日曜: data/keywords.sunday.csv から crosssell のみ"
-            echo "- state/publish-queue.json を更新"
-            echo "- Playwright visual/text スナップショットを CI (Ubuntu) で自動更新（主に /sim ハブ）"
-            echo ""
-            echo "## Test plan"
-            echo "- [ ] 生成記事の料金・リンク・AI 開示を目視確認"
-            echo "- [ ] playwright-visual CI green を確認"
-            echo "- [ ] CI green を確認"
-            echo "- [ ] マージ後 Vercel 本番反映を確認"
-            echo ""
-            echo "## Note"
-            echo 'CI 通過後、`articles-auto-merge.yml` により自動 squash merge されます。'
-            echo 'マージ後、`post-publish-index-queue.yml` が `data/gsc-index-queue.json` に slug を追記します。'
-          } > /tmp/pr-body.md
-          gh pr create \
-            --title "chore: 定期記事生成 ${RUN_DATE}" \
-            --label "article-publish" \
-            --body-file /tmp/pr-body.md
-
-      - name: Approve pending CI runs on new PR
-        if: steps.changes.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_BOT_TOKEN != '' && secrets.GITHUB_BOT_TOKEN || github.token }}
-          REPO: ${{ github.repository }}
-        run: |
-          SHA="$(git rev-parse HEAD)"
-          bash scripts/approve-pending-runs.sh "${SHA}" "${REPO}"
+          git push origin main
 
       - name: Write job summary
         if: always()
@@ -175,7 +121,8 @@ jobs:
             echo "## Scheduled articles"
             echo ""
             echo "- changed: ${{ steps.changes.outputs.changed }}"
-            echo "- visual snapshots: updated in CI (Ubuntu) when articles change /sim hub layout"
+            echo "- publish: direct push to \`main\` (no PR; validate + visual in this job)"
+            echo "- follow-up: \`post-publish-index-queue.yml\`, \`indexnow-ping.yml\`, \`ci.yml\` on push"
             echo "- schedule: Sun-Sat 09:00 JST (7/week = Mon-Sat comparison×2 / howto×2 / troubleshoot×2 + Sun crosssell)"
             echo "- docs: docs/article-publish-schedule.md"
           } >> "$GITHUB_STEP_SUMMARY"
