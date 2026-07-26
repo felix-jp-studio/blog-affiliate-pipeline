@@ -8,7 +8,16 @@ export const e2eConfigPath = join(repoRoot, "config/e2e-smoke.json");
 export const articlesPathPrefix = "site/src/content/articles/";
 export const articlesDir =
   process.env.E2E_ARTICLES_DIR ?? join(repoRoot, "site/src/content/articles");
-export const distDir = join(repoRoot, "site/dist");
+function resolveSiteDistDir() {
+  const distRoot = join(repoRoot, "site/dist");
+  const clientDir = join(distRoot, "client");
+  if (existsSync(join(clientDir, "index.html"))) {
+    return clientDir;
+  }
+  return distRoot;
+}
+
+export const distDir = resolveSiteDistDir();
 
 export const REQUIRED_FIELDS = [
   "title",

@@ -37,6 +37,7 @@ export default defineConfig({
     timeout: 120_000,
     env: {
       PUBLIC_CONTACT_FORM_ACTION: "",
+      PUBLIC_COMMENTS_ENABLED: "true",
     },
   },
 });
