@@ -30,9 +30,7 @@ export async function getApprovedComments(
     .map(toPublicComment);
 }
 
-export async function createPendingComment(
-  comment: Comment,
-): Promise<void> {
+export async function createPendingComment(comment: Comment): Promise<void> {
   await kv.set(COMMENT_KEY(comment.id), comment);
   await kv.lpush(PENDING_KEY, comment.id);
 }

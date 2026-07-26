@@ -71,8 +71,7 @@ export const POST: APIRoute = async ({ request }) => {
     return jsonResponse(
       {
         ok: true,
-        message:
-          "コメントを受け付けました。承認後に公開されます。",
+        message: "コメントを受け付けました。承認後に公開されます。",
       },
       201,
     );
@@ -96,7 +95,9 @@ export const POST: APIRoute = async ({ request }) => {
     const allowed = await checkRateLimit(ipHash, input.articleSlug);
     if (!allowed) {
       return jsonResponse(
-        { error: "投稿回数の上限に達しました。しばらくしてからお試しください。" },
+        {
+          error: "投稿回数の上限に達しました。しばらくしてからお試しください。",
+        },
         429,
       );
     }
@@ -117,8 +118,7 @@ export const POST: APIRoute = async ({ request }) => {
     return jsonResponse(
       {
         ok: true,
-        message:
-          "コメントを受け付けました。承認後に公開されます。",
+        message: "コメントを受け付けました。承認後に公開されます。",
       },
       201,
     );

@@ -23,8 +23,12 @@ async function listPending() {
   for (const id of ids) {
     const comment = await kv.get(COMMENT_KEY(id));
     if (!comment) continue;
-    console.log(`${comment.id}\t${comment.articleSlug}\t${comment.authorName}\t${comment.createdAt}`);
-    console.log(`  ${comment.body.slice(0, 120)}${comment.body.length > 120 ? "…" : ""}`);
+    console.log(
+      `${comment.id}\t${comment.articleSlug}\t${comment.authorName}\t${comment.createdAt}`,
+    );
+    console.log(
+      `  ${comment.body.slice(0, 120)}${comment.body.length > 120 ? "…" : ""}`,
+    );
   }
 }
 
