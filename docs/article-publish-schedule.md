@@ -6,17 +6,17 @@
 
 **週7本 = 月〜土（3タイプ × 各2本）+ 日曜（crosssell 1本）**
 
-| 項目                   | 値                                                                                                                                   |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| モード                 | `weekly`                                                                                                                             |
-| 曜日（JST）            | 日・月・火・水・木・金・土                                                                                                           |
-| 1回あたり              | 1本                                                                                                                                  |
-| 週上限                 | 7本                                                                                                                                  |
-| 月〜土タイプ別クォータ | comparison 2 / howto 2 / troubleshoot 2                                                                                              |
-| 日曜                   | `crosssell` 1本（`data/keywords.sunday.csv`、タイプ均等配分なし）                                                                    |
-| タイプ配分（月〜土）   | `type_order` を round-robin でインターリーブ                                                                                         |
-| GitHub Actions cron    | `0 0 * * 0-6`（UTC 日〜土 00:00 = JST 日〜土 09:00）                                                                                 |
-| 公開フロー             | 生成 → validate → **Playwright スナップショット更新（CI/Ubuntu）** → PR 作成 → **CI 通過後 auto-merge**（`articles-auto-merge.yml`） |
+| 項目                   | 値                                                                                                            |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------- |
+| モード                 | `weekly`                                                                                                      |
+| 曜日（JST）            | 日・月・火・水・木・金・土                                                                                    |
+| 1回あたり              | 1本                                                                                                           |
+| 週上限                 | 7本                                                                                                           |
+| 月〜土タイプ別クォータ | comparison 2 / howto 2 / troubleshoot 2                                                                       |
+| 日曜                   | `crosssell` 1本（`data/keywords.sunday.csv`、タイプ均等配分なし）                                             |
+| タイプ配分（月〜土）   | `type_order` を round-robin でインターリーブ                                                                  |
+| GitHub Actions cron    | `0 0 * * 0-6`（UTC 日〜土 00:00 = JST 日〜土 09:00）                                                          |
+| 公開フロー             | 生成 → validate → **Playwright スナップショット更新** → **main へ直接 push** → push 連動 CI / Vercel デプロイ |
 
 ### 日曜クロスセル（固定費×通信）
 
@@ -29,10 +29,10 @@
 
 ### 曜日分散の根拠
 
-- **1日1本 × 7日**を採用（`articles_per_run: 1`）。1 PR あたりの diff を小さく保ち、YMYL 記事の目視レビューを現実的にするため、まとめ生成より均等分散を優先。
+- **1日1本 × 7日**を採用（`articles_per_run: 1`）。1 コミットあたりの diff を小さく保ち、YMYL 記事の目視レビューを現実的にするため、まとめ生成より均等分散を優先。
 - 日曜は固定費×通信のクロスセル専用枠とし、月〜土の SIM / 光 / トラブル記事とコンテンツ軸を分離。
-- ワークフローには「未マージの `scheduled/...` PR がある場合は次回生成をスキップ」ガードがあるため、CI 失敗やマージ待ちでペースが落ちる（過剰生成の抑制）。
-- 記事 PR は `article-publish` ラベル付きで作成され、CI 通過後に `articles-auto-merge.yml` が squash merge する（変更ファイルが記事・publish-queue・Playwright スナップショットのみの場合）。
+- `concurrency: scheduled-articles` で同時実行を直列化（二重生成の抑制）。
+- 定期記事は **PR を作らず main に直接 push**（workflow 内で validate / visual 済み）。手動・エージェント記事は従来どおり PR + `articles-auto-merge.yml`。
 
 ### タイプ均等配分（type balancing）の仕組み
 
@@ -107,14 +107,13 @@
 
 ### 入力: `force`
 
-| 値                    | 意味                                                                                                                               |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `false`（デフォルト） | 通常の手動実行。未マージの `scheduled/articles-*` PR がある場合は**生成をスキップ**                                                |
-| `true`                | 未マージ PR があっても生成を実行。生成 CLI に `--force` を渡し、**スケジュール曜日外**でも実行可能（同一日・週上限のガードは維持） |
+| 値                    | 意味                                                                                             |
+| --------------------- | ------------------------------------------------------------------------------------------------ |
+| `false`（デフォルト） | 通常の手動実行（スケジュール曜日・同一日ガードは CLI 側）                                        |
+| `true`                | 生成 CLI に `--force` を渡し、**スケジュール曜日外**でも実行可能（同一日・週上限のガードは維持） |
 
 #### `force=true` を使う場面
 
-- **未マージの定期 PR が残っている**のに、追加生成や再生成が必要なとき（先に既存 PR をマージまたは close するのが原則）
 - **スケジュール外の曜日**にテスト生成したいとき（例: 設定変更後の動作確認）
 - cron が失敗・スキップした日の**リカバリ**（ただし `state/publish-queue.json` の `last_run` が当日の場合は「already ran today」でスキップされる）
 
@@ -127,15 +126,15 @@ workflow_dispatch / cron
   → dry-run 検証（--dry-run --force・ファイル変更なし）
   → 記事生成（Groq / テンプレート）
   → format / validate / Playwright スナップショット更新
-  → PR 作成（ブランチ scheduled/articles-YYYY-MM-DD・ラベル article-publish）
-  → CI（format:check / test / build / playwright-visual）
-  → articles-auto-merge.yml により CI green 後 squash merge
+  → main へ直接 commit & push
+  → push 連動: ci.yml / post-publish-index-queue.yml / indexnow-ping.yml
   → Vercel が main をデプロイ（sim-hikari-guide.com 反映）
 ```
 
-- PR 本文・Job summary に生成内容の要約が出る
-- 変更がなければ PR は作成されない（`changed=false`）
-- マージ後の本番反映は Vercel のデプロイ完了を確認（[`docs/vercel-deploy.md`](./vercel-deploy.md)）
+- Job summary に生成内容の要約が出る
+- 変更がなければ push しない（`changed=false`）
+- main の branch protection で PR 必須の場合は push が拒否される → Settings で **Allow GitHub Actions to bypass** を有効化
+- 本番反映は Vercel のデプロイ完了を確認（[`docs/vercel-deploy.md`](./vercel-deploy.md)）
 
 ### 日曜 crosssell と dry-run
 
@@ -146,29 +145,22 @@ workflow_dispatch / cron
 
 ## トラブルシューティング
 
-### PR 作成後 CI が `action_required` で止まる
+### main への push が拒否される
 
-**症状**: `scheduled-articles` は成功したが、記事 PR の CI / auto-merge が `action_required` のまま。Vercel だけ green で数時間マージされない（2026-07-24 / 07-25 で発生）。
+**症状**: `Commit and push to main` で `remote: Permission denied` または branch protection エラー。
 
-**原因**: `github-actions[bot]` が開いた PR に対し、リポジトリまたは Organization で「ワークフロー実行の承認」が必要。
+**対策**: リポジトリ **Settings → Branches → Branch protection rules**（main）で、**Allow specified actors to bypass required pull requests** に `github-actions[bot]` を追加。または定期記事用に protection を緩和。
 
-**対策（優先順）**
+### 手動・エージェント PR で CI が `action_required` で止まる
 
-1. **GitHub Actions Secret に `GITHUB_BOT_TOKEN` を登録**（推奨）
-   - felix-jp-studio-bot 等の PAT（repo + workflow 権限）
-   - `scheduled-articles` が PR 作成・CI approve に使用。未設定時は `github.token` にフォールバックし `action_required` が再発しうる
+**症状**: `./scripts/gh-user.sh pr create` 等の **手動 PR** で CI / auto-merge が `action_required` のまま（2026-07-24〜26 に定期 PR で発生。定期記事は直接 push に移行済み）。
 
-2. **GitHub Settings → Actions → General**
-   - 「Allow GitHub Actions to create and approve pull requests」を **有効**（2026-07-23 実施済み）
-   - `approve-article-pr-ci.yml`（`pull_request_target` + PAT）が article-publish PR 向けに `action_required` run を自動 approve
+**対策**: Actions タブで pending run を Approve、または `gh run rerun`。Secret / PAT なしで定期記事は再発しない。
 
-3. **手動復旧（急ぎ）**
-   - Actions タブで pending run を Approve、または `gh run rerun`
-   - 記事ブランチは push 済みのため、PR 作成だけ失敗した場合は `./scripts/gh-user.sh pr create` で復旧 PR（PR #61 パターン）
+### PR 作成権限エラー（2026-07-23・レガシー）
 
-4. **PR 作成権限エラー**（2026-07-23）
-   - エラー: `GitHub Actions is not permitted to create or approve pull requests`
-   - 上記 Settings の PR 作成許可を有効化
+- エラー: `GitHub Actions is not permitted to create or approve pull requests`
+- 定期記事は PR 作成しないため該当しない。手動 PR のみ Settings 確認。
 
 ### 生成失敗（品質ゲート）
 
@@ -180,7 +172,8 @@ workflow_dispatch / cron
 
 | 日付       | 内容                                                                                                        |
 | ---------- | ----------------------------------------------------------------------------------------------------------- |
-| 2026-07-26 | `pull_request_target` + `GITHUB_BOT_TOKEN` で approve デッドロック対策                                      |
+| 2026-07-26 | 定期記事を PR 経由から **main 直接 push** に変更（action_required 回避）                                    |
+| 2026-07-26 | `pull_request_target` + `GITHUB_BOT_TOKEN` で approve デッドロック対策（手動 PR 向け）                      |
 | 2026-07-25 | トラブルシューティング追加。`action_required` 自動 approve ワークフロー                                     |
 | 2026-07-19 | 初版。Option C 採用（週2本・月木）                                                                          |
 | 2026-07-20 | 週6本（3タイプ×2）へ増量。月〜土 09:00 JST、タイプ均等インターリーブ配分を導入。cron `0 0 * * 1-6`          |
