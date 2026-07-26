@@ -1,10 +1,10 @@
 {
-  "last_run": "2026-07-25",
-  "next_scheduled": "2026-07-26",
+  "last_run": "2026-07-26",
+  "next_scheduled": "2026-07-27",
   "week_id": "2026-W30",
-  "runs_this_week": 6,
+  "runs_this_week": 7,
   "type_counts": {
-    "crosssell": 1,
+    "crosssell": 2,
     "comparison": 2,
     "howto": 2,
     "troubleshoot": 1
@@ -43,6 +43,11 @@
     {
       "date": "2026-07-25",
       "keywords": ["iPhone そのまま 格安SIM"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-07-26",
+      "keywords": ["楽天でんき 楽天モバイル"],
       "ok_count": 1
     }
   ]
