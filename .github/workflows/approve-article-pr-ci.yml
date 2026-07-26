@@ -1,11 +1,11 @@
 name: Approve article PR CI
 
-# github-actions[bot] が開いた article-publish PR では、
-# 初回 CI が action_required になり auto-merge が止まることがある。
-# Settings で「Actions による PR 承認」が有効な GITHUB_TOKEN で pending run を approve する。
+# github-actions[bot] PR では CI が action_required になり auto-merge が止まる。
+# pull_request_target + PAT で base コンテキストから pending run を approve する
+# （この workflow 自身が action_required になるデッドロックを避ける）。
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize, reopened, labeled]
     branches: [main]
 
@@ -24,30 +24,16 @@ jobs:
       )
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
       - name: Approve action_required workflow runs
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GITHUB_BOT_TOKEN != '' && secrets.GITHUB_BOT_TOKEN || github.token }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           REPO: ${{ github.repository }}
         run: |
-          set -euo pipefail
-          approve_runs() {
-            gh api "repos/${REPO}/actions/runs?head_sha=${HEAD_SHA}&per_page=30" \
-              --jq '.workflow_runs[] | select(.status == "action_required") | .id' \
-              | while read -r RUN_ID; do
-                  [ -z "$RUN_ID" ] && continue
-                  echo "Approving workflow run ${RUN_ID}..."
-                  gh api --method POST "repos/${REPO}/actions/runs/${RUN_ID}/approve" || true
-                done
-          }
-
-          for attempt in 1 2 3 4 5 6; do
-            PENDING=$(gh api "repos/${REPO}/actions/runs?head_sha=${HEAD_SHA}&per_page=30" \
-              --jq '[.workflow_runs[] | select(.status == "action_required")] | length')
-            if [ "$PENDING" -gt 0 ]; then
-              approve_runs
-            fi
-            sleep 15
-          done
-
-          echo "Done polling for action_required runs on ${HEAD_SHA}."
+          if [ -z "${{ secrets.GITHUB_BOT_TOKEN }}" ]; then
+            echo "Warning: GITHUB_BOT_TOKEN is not set; approve may fail for bot PRs."
+          fi
+          bash scripts/approve-pending-runs.sh "${HEAD_SHA}" "${REPO}"
