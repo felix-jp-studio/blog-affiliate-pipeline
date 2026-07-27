@@ -88,6 +88,9 @@ const { items } = Astro.props;
   }
 
   .article-toc--mobile {
+    position: sticky;
+    top: var(--sticky-top-offset);
+    z-index: 10;
     margin-bottom: 1.25rem;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
@@ -110,13 +113,21 @@ const { items } = Astro.props;
     margin-top: 0.75rem;
   }
 
+  .article-toc--mobile[open] {
+    max-height: calc(100vh - var(--sticky-top-offset) - 1rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
   @media (min-width: 1024px) {
     .article-toc--desktop {
       display: block;
       position: sticky;
-      top: 5rem;
-      max-height: calc(100vh - 6rem);
+      top: var(--sticky-top-offset);
+      align-self: start;
+      max-height: calc(100vh - var(--sticky-top-offset) - 1rem);
       overflow-y: auto;
+      overscroll-behavior: contain;
       padding-right: 0.5rem;
     }
 
