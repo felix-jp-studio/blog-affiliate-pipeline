@@ -85,57 +85,40 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-page: color-mix(in srgb, Canvas 90%, #1a1816 10%);
-    --surface: color-mix(in srgb, Canvas 85%, #242220 15%);
-    --bg-article: color-mix(in srgb, Canvas 92%, #2a2826 8%);
-    --text-primary: CanvasText;
-    --text-secondary: color-mix(in srgb, CanvasText 72%, Canvas 28%);
-    --text-tertiary: color-mix(in srgb, CanvasText 55%, Canvas 45%);
-    --border: color-mix(in srgb, Canvas 70%, #3d3935 30%);
-    --border-strong: color-mix(in srgb, Canvas 55%, #4a4540 45%);
-    --chip-subtle: color-mix(in srgb, Canvas 85%, #2a2826 15%);
-    --bg-subtle: color-mix(in srgb, Canvas 88%, #242220 12%);
-    --bg-accent-soft: color-mix(in srgb, var(--accent) 15%, Canvas 85%);
-    --bg-table-stripe: color-mix(in srgb, Canvas 92%, #1a1816 8%);
-    --bg-table-hover: color-mix(in srgb, var(--accent) 12%, Canvas 88%);
-    --accent-soft: color-mix(in srgb, var(--accent) 18%, Canvas 82%);
-    --bg-hero: linear-gradient(
-      135deg,
-      color-mix(in srgb, #242220 60%, Canvas 40%) 0%,
-      var(--bg-page) 100%
-    );
-    --bg-home-hero: linear-gradient(
-      135deg,
-      color-mix(in srgb, #2a2826 50%, Canvas 50%) 0%,
-      var(--bg-page) 100%
-    );
-    --header-bg: color-mix(in srgb, var(--surface) 92%, transparent 8%);
-    --callout-success-bg: color-mix(in srgb, #059669 12%, Canvas 88%);
-    --callout-success-border: color-mix(in srgb, #059669 30%, Canvas 70%);
+    /* Warm dark palette — explicit hex avoids Canvas (#000) washing out contrast */
+    --bg-page: #1e1c1a;
+    --surface: #262320;
+    --bg-article: #2d2a27;
+    --text-primary: #f5f3f0;
+    --text-secondary: #c8c4bf;
+    --text-tertiary: #9c9893;
+    --border: #3d3935;
+    --border-strong: #524d48;
+    --chip-subtle: #353230;
+    --bg-subtle: #262320;
+    --bg-accent-soft: #243044;
+    --bg-table-stripe: #232120;
+    --bg-table-hover: #2a3545;
+    --accent: #5eb0ff;
+    --accent-soft: #1e3a5f;
+    --accent-hover: #7ec0ff;
+    --text-on-accent: #1a1816;
+    --bg-hero: linear-gradient(135deg, #2d2a27 0%, #1e1c1a 100%);
+    --bg-home-hero: linear-gradient(135deg, #322f2c 0%, #1e1c1a 100%);
+    --header-bg: color-mix(in srgb, #262320 94%, transparent 6%);
+    --callout-success-bg: #0f2e22;
+    --callout-success-border: #166534;
     --callout-success-accent: #34d399;
-    --callout-success-text: color-mix(in srgb, #6ee7b7 80%, CanvasText 20%);
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  }
-
-  @supports not (color: Canvas) {
-    :root {
-      --bg-page: #1a1816;
-      --surface: #242220;
-      --bg-article: #2a2826;
-      --text-primary: #f5f3f0;
-      --text-secondary: #a8a29e;
-      --text-tertiary: #78716c;
-      --border: #3d3935;
-      --border-strong: #4a4540;
-      --chip-subtle: #2a2826;
-      --bg-subtle: #242220;
-      --bg-accent-soft: #1e2a3a;
-      --bg-table-stripe: #1f1d1b;
-      --bg-table-hover: #1e2a3a;
-      --accent-soft: #1e3a5f;
-      --bg-hero: linear-gradient(135deg, #242220 0%, #1a1816 100%);
-      --bg-home-hero: linear-gradient(135deg, #2a2826 0%, #1a1816 100%);
-    }
+    --callout-success-text: #a7f3d0;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.28);
+    --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.38);
+    --color-sim: #7ec0ff;
+    --color-hikari: #34d399;
+    --color-trouble: #fbbf24;
+    --color-cost: #a78bfa;
+    --gradient-sim: linear-gradient(135deg, #1a3050 0%, #2d5080 100%);
+    --gradient-hikari: linear-gradient(135deg, #0f3d30 0%, #166534 100%);
+    --gradient-trouble: linear-gradient(135deg, #4a2808 0%, #92400e 100%);
+    --gradient-cost: linear-gradient(135deg, #3b1f6e 0%, #5b21b6 100%);
   }
 }
