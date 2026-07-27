@@ -14,11 +14,13 @@ const latestArticles = (
 ---
 
 <BaseLayout title="SIM・光回線ガイド" ogImage={defaultOgImage}>
-  <p class="badge">記事公開中</p>
-  <h1>格安SIM・光回線の比較とお困り解決</h1>
-  <p class="lead">
-    乗り換え手順、料金比較、速度トラブルの対処法など、通信まわりの情報をわかりやすくまとめます。
-  </p>
+  <section class="home-hero">
+    <p class="badge">記事公開中</p>
+    <h1>格安SIM・光回線の比較とお困り解決</h1>
+    <p class="lead">
+      乗り換え手順、料金比較、速度トラブルの対処法など、通信まわりの情報をわかりやすくまとめます。
+    </p>
+  </section>
 
   <section class="latest-articles">
     <h2>最新記事</h2>
@@ -75,6 +77,17 @@ const latestArticles = (
 </BaseLayout>
 
 <style>
+  .home-hero {
+    background: var(--bg-home-hero);
+    border-radius: var(--radius-md);
+    padding: 2rem 2.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .home-hero h1 {
+    margin-top: 0;
+  }
+
   .latest-articles {
     margin-top: 2.5rem;
   }
@@ -94,6 +107,12 @@ const latestArticles = (
 
   .category-section {
     margin-top: 3rem;
+  }
+
+  @media (max-width: 640px) {
+    .home-hero {
+      padding: 1.5rem 1.25rem;
+    }
   }
 
   @media (min-width: 768px) {
