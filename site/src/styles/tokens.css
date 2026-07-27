@@ -59,6 +59,8 @@
   --width-page: 1120px;
   --width-hub: 1100px;
   --width-body: 680px;
+  --site-header-height: 4rem;
+  --sticky-top-offset: calc(var(--site-header-height) + 1rem);
   --space-section: 3rem;
   --space-block: 1.5rem;
 }
