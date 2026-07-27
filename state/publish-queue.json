@@ -1,13 +1,10 @@
 {
-  "last_run": "2026-07-26",
-  "next_scheduled": "2026-07-27",
-  "week_id": "2026-W30",
-  "runs_this_week": 7,
+  "last_run": "2026-07-27",
+  "next_scheduled": "2026-07-28",
+  "week_id": "2026-W31",
+  "runs_this_week": 1,
   "type_counts": {
-    "crosssell": 2,
-    "comparison": 2,
-    "howto": 2,
-    "troubleshoot": 1
+    "comparison": 1
   },
   "history": [
     {
@@ -48,6 +45,11 @@
     {
       "date": "2026-07-26",
       "keywords": ["楽天でんき 楽天モバイル"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-07-27",
+      "keywords": ["格安SIM シニア おすすめ"],
       "ok_count": 1
     }
   ]
