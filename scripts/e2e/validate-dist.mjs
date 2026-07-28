@@ -103,6 +103,24 @@ if (sitemapFiles.length === 0) {
   }
 }
 
+const indexnowKey = process.env.INDEXNOW_KEY?.trim();
+const INDEXNOW_KEY_PATTERN = /^[a-zA-Z0-9-]{8,128}$/;
+if (indexnowKey) {
+  if (!INDEXNOW_KEY_PATTERN.test(indexnowKey)) {
+    errors.push("INDEXNOW_KEY must be 8-128 ASCII letters, digits, or hyphens");
+  } else {
+    const keyFilePath = join(distDir, `${indexnowKey}.txt`);
+    if (!existsSync(keyFilePath)) {
+      errors.push(`IndexNow key file missing in dist: ${keyFilePath}`);
+    } else {
+      const keyBody = readFileSync(keyFilePath, "utf8").trim();
+      if (keyBody !== indexnowKey) {
+        errors.push("IndexNow key file content does not match INDEXNOW_KEY");
+      }
+    }
+  }
+}
+
 if (errors.length > 0) {
   fail(errors);
 }

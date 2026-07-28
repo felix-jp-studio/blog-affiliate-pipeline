@@ -40,7 +40,9 @@ jobs:
         env:
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
           INDEXNOW_SLUGS: ${{ steps.slugs.outputs.slugs }}
-        run: node scripts/indexnow-ping.mjs
+        run: |
+          node scripts/e2e/verify-indexnow-key.mjs --target=production
+          node scripts/indexnow-ping.mjs
 
       - name: Write job summary
         if: always()
@@ -50,5 +52,6 @@ jobs:
             echo ""
             echo "- slugs: \`${{ steps.slugs.outputs.slugs || 'none' }}\`"
             echo "- script: \`node scripts/indexnow-ping.mjs\`"
+            echo "- verify: \`node scripts/e2e/verify-indexnow-key.mjs --target=production\` (when \`INDEXNOW_KEY\` is set)"
             echo "- note: skipped when \`INDEXNOW_KEY\` secret is unset"
           } >> "$GITHUB_STEP_SUMMARY"
