@@ -14,7 +14,9 @@ const queuePath = join(repoRoot, "data/gsc-index-queue.json");
 const args = process.argv.slice(2);
 const limitArg = args.find((arg) => arg.startsWith("--limit="));
 const asJson = args.includes("--json");
-const parsedLimit = limitArg ? Number.parseInt(limitArg.slice("--limit=".length), 10) : 10;
+const parsedLimit = limitArg
+  ? Number.parseInt(limitArg.slice("--limit=".length), 10)
+  : 10;
 const limit = Number.isFinite(parsedLimit) && parsedLimit > 0 ? parsedLimit : 10;
 
 function loadPending() {
