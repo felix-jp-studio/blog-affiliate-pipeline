@@ -33,11 +33,11 @@ sim-hikari-guide.com の記事ページに、**ログイン不要・承認制**�
 
 Vercel → **Settings → Environment Variables**（**Production** に設定）:
 
-| 変数 | 値 | 備考 |
-| ---- | -- | ---- |
-| `PUBLIC_COMMENTS_ENABLED` | `true` | ビルド時に UI に埋め込まれる。**変更後は再デプロイ必須** |
-| `COMMENTS_MODERATOR_TOKEN` | 下記参照 | **サーバー専用**（`PUBLIC_` なし）。クライアントに露出しない |
-| `COMMENTS_IP_SALT` | 任意のランダム文字列 | 未設定時は `"comments"` が使われる |
+| 変数                       | 値                   | 備考                                                         |
+| -------------------------- | -------------------- | ------------------------------------------------------------ |
+| `PUBLIC_COMMENTS_ENABLED`  | `true`               | ビルド時に UI に埋め込まれる。**変更後は再デプロイ必須**     |
+| `COMMENTS_MODERATOR_TOKEN` | 下記参照             | **サーバー専用**（`PUBLIC_` なし）。クライアントに露出しない |
+| `COMMENTS_IP_SALT`         | 任意のランダム文字列 | 未設定時は `"comments"` が使われる                           |
 
 `KV_REST_API_URL` / `KV_REST_API_TOKEN` は KV 連携で自動注入される。
 
@@ -121,13 +121,13 @@ npm run comments:moderate -- reject <comment-id>
 
 ### 週次モデレーション（推奨フロー）
 
-| 手順 | 操作 |
-| ---- | ---- |
-| 1. 一覧 | `npm run comments:moderate -- list` または moderate API `{"action":"list"}` |
-| 2. 確認 | スパム・誹謗・宣伝 URL・無関係内容を却下 |
-| 3. 承認 | 有用なコメント: `approve <comment-id>` |
-| 4. 却下 | 不要: `reject <comment-id>` |
-| 5. 公開確認 | 記事 URL で承認済みコメントが表示されるか確認 |
+| 手順        | 操作                                                                        |
+| ----------- | --------------------------------------------------------------------------- |
+| 1. 一覧     | `npm run comments:moderate -- list` または moderate API `{"action":"list"}` |
+| 2. 確認     | スパム・誹謗・宣伝 URL・無関係内容を却下                                    |
+| 3. 承認     | 有用なコメント: `approve <comment-id>`                                      |
+| 4. 却下     | 不要: `reject <comment-id>`                                                 |
+| 5. 公開確認 | 記事 URL で承認済みコメントが表示されるか確認                               |
 
 **目安**: 週 1 回（月曜など）。pending が溜まったら随時。
 
