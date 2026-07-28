@@ -135,7 +135,9 @@ jobs:
         env:
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
           INDEXNOW_SLUGS: ${{ steps.publish_slugs.outputs.slugs }}
-        run: node scripts/indexnow-ping.mjs
+        run: |
+          node scripts/e2e/verify-indexnow-key.mjs --target=production
+          node scripts/indexnow-ping.mjs
 
       - name: Update GSC index queue (post-publish)
         if: steps.changes.outputs.changed == 'true' && steps.publish_slugs.outputs.slugs != ''

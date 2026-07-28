@@ -8,6 +8,7 @@ on:
       - "site/**"
       - "scripts/e2e/changed-slugs.mjs"
       - "scripts/e2e/smoke-production.mjs"
+      - "scripts/e2e/verify-indexnow-key.mjs"
       - "config/e2e-smoke.json"
       - ".github/workflows/post-deploy-smoke.yml"
 
@@ -37,6 +38,11 @@ jobs:
           E2E_SMOKE_SLUGS: ${{ steps.slugs.outputs.slugs }}
         run: npm run test:e2e:smoke
 
+      - name: Verify IndexNow key file (production)
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: node scripts/e2e/verify-indexnow-key.mjs --target=production
+
       - name: Write job summary
         if: always()
         run: |
@@ -45,6 +51,7 @@ jobs:
             echo ""
             echo "- target: https://sim-hikari-guide.com"
             echo "- script: \`npm run test:e2e:smoke\`"
+            echo "- indexnow: \`npm run test:e2e:indexnow\` when \`INDEXNOW_KEY\` secret is set"
             echo "- config: \`config/e2e-smoke.json\`"
             echo "- retry: exponential backoff (max 5 attempts, CDN delay)"
           } >> "$GITHUB_STEP_SUMMARY"
