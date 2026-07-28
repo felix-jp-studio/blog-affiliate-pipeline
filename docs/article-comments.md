@@ -31,15 +31,42 @@ sim-hikari-guide.com の記事ページに、**ログイン不要・承認制**�
 
 ### 2. 環境変数
 
-Vercel → **Settings → Environment Variables**:
+Vercel → **Settings → Environment Variables**（**Production** に設定）:
 
-- `PUBLIC_COMMENTS_ENABLED` = `true`
-- `COMMENTS_MODERATOR_TOKEN` = （`openssl rand -hex 32` 等）
-- `COMMENTS_IP_SALT` = （任意のランダム文字列）
+| 変数 | 値 | 備考 |
+| ---- | -- | ---- |
+| `PUBLIC_COMMENTS_ENABLED` | `true` | ビルド時に UI に埋め込まれる。**変更後は再デプロイ必須** |
+| `COMMENTS_MODERATOR_TOKEN` | 下記参照 | **サーバー専用**（`PUBLIC_` なし）。クライアントに露出しない |
+| `COMMENTS_IP_SALT` | 任意のランダム文字列 | 未設定時は `"comments"` が使われる |
+
+`KV_REST_API_URL` / `KV_REST_API_TOKEN` は KV 連携で自動注入される。
 
 再デプロイ後に有効化。
 
+#### `COMMENTS_MODERATOR_TOKEN` の設定（Vercel）
+
+1. **生成**（ローカル端末）:
+   ```bash
+   openssl rand -hex 32
+   ```
+2. **Vercel に登録**: プロジェクト → **Settings → Environment Variables**
+   - Name: `COMMENTS_MODERATOR_TOKEN`
+   - Value: 生成した文字列
+   - Environment: **Production**（Preview でもモデレーションする場合は Preview も）
+   - **Sensitive** にチェック（値のマスク表示）
+3. **再デプロイ**: 環境変数追加・変更後、Production を redeploy する
+4. **動作確認**（トークン未設定・不一致は 401）:
+   ```bash
+   curl -sS -X POST https://sim-hikari-guide.com/api/comments/moderate \
+     -H "Authorization: Bearer $COMMENTS_MODERATOR_TOKEN" \
+     -H "Content-Type: application/json" \
+     -d '{"action":"list"}'
+   ```
+   成功時: `{"comments":[...]}`（pending 一覧）
+
 ### 3. ローカル開発
+
+#### 手動 `.env`（最小）
 
 `site/.env`:
 
@@ -57,14 +84,73 @@ KV 未設定時は API が 503、UI は表示されるが投稿不可。
 cd site && npm run dev
 ```
 
+#### 本番 KV / トークンで CLI モデレーション（推奨）
+
+Vercel CLI で Production 環境変数を pull し、**値をリポジトリにコミットしない**:
+
+```bash
+cd site
+vercel link          # 初回のみ（プロジェクト blog-affiliate-pipeline / site）
+vercel env pull .env.local --environment=production
+```
+
+`.env.local` は gitignore 済み。シェルでは **export せず**、dotenv 経由または 1 コマンド限定で使う:
+
+```bash
+cd site
+set -a && source .env.local && set +a
+npm run comments:moderate -- list
+npm run comments:moderate -- approve <comment-id>
+npm run comments:moderate -- reject <comment-id>
+```
+
+`COMMENTS_MODERATOR_TOKEN` は CLI スクリプトでは直接参照しないが、HTTP API 経由のモデレーション時に必要。
+
+## 運用チェックリスト
+
+### トークン保管のベストプラクティス
+
+- **保存場所**: Vercel Environment Variables（Sensitive）を正本とする。ローカルは `site/.env.local`（gitignore）のみ
+- **禁止**: `.env` のコミット、Slack/メール/スクショでの平文共有、Issue/PR への貼り付け
+- **ローテーション**: 漏洩疑い時は Vercel で新値を設定 → redeploy → 旧トークンを削除
+- **権限分離**: モデレーション用トークンは運営者のみ。CI や公開スクリプトには載せない
+- **バックアップ**: パスワードマネージャー等に **1 箇所**だけ控える（Vercel UI から再表示できない場合に備える）
+
+### 週次モデレーション（推奨フロー）
+
+| 手順 | 操作 |
+| ---- | ---- |
+| 1. 一覧 | `npm run comments:moderate -- list` または moderate API `{"action":"list"}` |
+| 2. 確認 | スパム・誹謗・宣伝 URL・無関係内容を却下 |
+| 3. 承認 | 有用なコメント: `approve <comment-id>` |
+| 4. 却下 | 不要: `reject <comment-id>` |
+| 5. 公開確認 | 記事 URL で承認済みコメントが表示されるか確認 |
+
+**目安**: 週 1 回（月曜など）。pending が溜まったら随時。
+
+POST `/api/comments` のレスポンスには **comment ID は含まれない**。ID は `list` で取得する（出力形式: `id\tslug\tauthor\tcreatedAt`）。
+
+### 本番ヘルスチェック
+
+```bash
+# 承認済み一覧（200 + comments 配列）
+curl -sS "https://sim-hikari-guide.com/api/comments?slug=au-denki-setwari"
+
+# slug 省略は 400（API 稼働確認）
+curl -sS "https://sim-hikari-guide.com/api/comments"
+
+# UI: 記事末尾に「コメント」セクション（PUBLIC_COMMENTS_ENABLED=true かつ再デプロイ済み）
+curl -sS "https://sim-hikari-guide.com/articles/au-denki-setwari" | grep -q article-comments
+```
+
 ## 承認運用
 
 ### CLI（推奨）
 
 ```bash
 cd site
-export KV_REST_API_URL=...
-export KV_REST_API_TOKEN=...
+# vercel env pull .env.local --environment=production の後:
+set -a && source .env.local && set +a
 
 npm run comments:moderate -- list
 npm run comments:moderate -- approve <comment-id>
@@ -74,10 +160,23 @@ npm run comments:moderate -- reject <comment-id>
 ### HTTP API
 
 ```bash
-curl -X POST https://sim-hikari-guide.com/api/comments/moderate \
+# pending 一覧
+curl -sS -X POST https://sim-hikari-guide.com/api/comments/moderate \
+  -H "Authorization: Bearer $COMMENTS_MODERATOR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"action":"list"}'
+
+# 承認
+curl -sS -X POST https://sim-hikari-guide.com/api/comments/moderate \
   -H "Authorization: Bearer $COMMENTS_MODERATOR_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"action":"approve","id":"<uuid>"}'
+
+# 却下
+curl -sS -X POST https://sim-hikari-guide.com/api/comments/moderate \
+  -H "Authorization: Bearer $COMMENTS_MODERATOR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"action":"reject","id":"<uuid>"}'
 ```
 
 ## スパム対策
