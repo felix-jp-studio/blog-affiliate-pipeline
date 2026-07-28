@@ -9,8 +9,7 @@
  * Skips (exit 0) when INDEXNOW_KEY is unset.
  */
 import { readFileSync, existsSync } from "node:fs";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 import { distDir, fail, loadE2eConfig, pass, repoRoot } from "./e2e-utils.mjs";
 
 const KEY_PATTERN = /^[a-zA-Z0-9-]{8,128}$/;
@@ -37,6 +36,10 @@ function loadProductionUrl() {
 function skip(message) {
   console.log(`[skip] ${message}`);
   process.exit(0);
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 const key = process.env.INDEXNOW_KEY?.trim();
@@ -70,25 +73,48 @@ if (target !== "production") {
   fail([`unknown --target=${target} (use dist or production)`]);
 }
 
+const config = loadE2eConfig();
+const retry = {
+  maxAttempts: 5,
+  initialDelayMs: 15000,
+  maxDelayMs: 60000,
+  ...config.retry,
+};
+
 const productionUrl = loadProductionUrl();
 const url = `${productionUrl}/${key}.txt`;
-let response;
-try {
-  response = await fetch(url, { redirect: "follow" });
-} catch (err) {
-  fail([`IndexNow key file fetch failed (${url}): ${err.message}`]);
+let delay = retry.initialDelayMs;
+let lastError = `IndexNow key file not served (${url})`;
+
+for (let attempt = 1; attempt <= retry.maxAttempts; attempt++) {
+  try {
+    const response = await fetch(url, { redirect: "follow" });
+    if (response.status === 200) {
+      const body = (await response.text()).trim();
+      if (body !== key) {
+        fail([`IndexNow key file content mismatch at ${url}`]);
+      }
+      if (attempt > 1) {
+        console.log(`[OK] IndexNow key file verified (attempt ${attempt})`);
+      }
+      pass("verify-indexnow-key (production)", 1);
+      process.exit(0);
+    }
+
+    lastError =
+      `IndexNow key file not served (${url}): HTTP ${response.status}. ` +
+      "Set INDEXNOW_KEY on Vercel Production and redeploy.";
+  } catch (err) {
+    lastError = `IndexNow key file fetch failed (${url}): ${err.message}`;
+  }
+
+  if (attempt < retry.maxAttempts) {
+    console.log(
+      `[RETRY ${attempt}/${retry.maxAttempts}] ${lastError}, waiting ${delay}ms`,
+    );
+    await sleep(delay);
+    delay = Math.min(delay * 2, retry.maxDelayMs);
+  }
 }
 
-if (response.status !== 200) {
-  fail([
-    `IndexNow key file not served (${url}): HTTP ${response.status}. ` +
-      "Set INDEXNOW_KEY on Vercel Production and redeploy.",
-  ]);
-}
-
-const body = (await response.text()).trim();
-if (body !== key) {
-  fail([`IndexNow key file content mismatch at ${url}`]);
-}
-
-pass("verify-indexnow-key (production)", 1);
+fail([lastError]);

@@ -57,11 +57,11 @@ Settings → Secrets and variables → Actions → `INDEXNOW_KEY`
 
 - `indexnow-ping.mjs` は `[skip] INDEXNOW_KEY is not set` で **正常終了**（CI 失敗にしない）
 - `verify-indexnow-key.mjs` も同様にスキップ
-- `post-deploy-smoke.yml` の IndexNow 検証ステップは **実行されない**
+- `post-deploy-smoke.yml` の IndexNow 検証ステップは **常に実行** されるが、キー未設定時はスクリプト内で skip
 
 設定済みの場合:
 
-- `post-deploy-smoke.yml` — site 変更の main push 後に本番 `{key}.txt` を GET 検証
+- `post-deploy-smoke.yml` — site 変更の main push 後に本番 `{key}.txt` を GET 検証（未設定時はスクリプトが skip）
 - `indexnow-ping.yml` — ping 前に本番キーファイルを検証（未公開なら ping 前に失敗）
 - `scheduled-articles.yml` — 定期公開後の inline ping 前に同様に検証（`continue-on-error: true`）
 
