@@ -99,6 +99,19 @@ jobs:
           npm run test:e2e:visual:update
           npm run test:e2e:visual
 
+      - name: Resolve publish slugs
+        if: success() && steps.changes.outputs.changed == 'true'
+        id: publish_slugs
+        run: |
+          SLUGS="$(
+            git status --porcelain -- site/src/content/articles \
+              | awk '{print $2}' \
+              | sed 's|.*/||;s|\.md||' \
+              | paste -sd,
+          )"
+          echo "slugs=${SLUGS}" >> "$GITHUB_OUTPUT"
+          echo "Publish slugs: ${SLUGS:-<none>}"
+
       - name: Commit and push to main
         if: steps.changes.outputs.changed == 'true'
         run: |
@@ -114,6 +127,33 @@ jobs:
           git commit -m "chore: scheduled articles ${RUN_DATE}"
           git push origin main
 
+      # GITHUB_TOKEN pushes do not trigger other workflows on push.
+      # Run post-publish scripts inline (same as indexnow-ping.yml / post-publish-index-queue.yml).
+      - name: Ping IndexNow (post-publish)
+        if: steps.changes.outputs.changed == 'true' && steps.publish_slugs.outputs.slugs != ''
+        continue-on-error: true
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          INDEXNOW_SLUGS: ${{ steps.publish_slugs.outputs.slugs }}
+        run: node scripts/indexnow-ping.mjs
+
+      - name: Update GSC index queue (post-publish)
+        if: steps.changes.outputs.changed == 'true' && steps.publish_slugs.outputs.slugs != ''
+        run: node scripts/append-index-queue.mjs --slugs=${{ steps.publish_slugs.outputs.slugs }}
+
+      - name: Commit GSC index queue
+        if: steps.changes.outputs.changed == 'true' && steps.publish_slugs.outputs.slugs != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/gsc-index-queue.json
+          if git diff --cached --quiet; then
+            echo "No queue changes to commit."
+            exit 0
+          fi
+          git commit -m "chore: update GSC index queue after scheduled publish"
+          git push origin main
+
       - name: Write job summary
         if: always()
         run: |
@@ -122,7 +162,7 @@ jobs:
             echo ""
             echo "- changed: ${{ steps.changes.outputs.changed }}"
             echo "- publish: direct push to \`main\` (no PR; validate + visual in this job)"
-            echo "- follow-up: \`post-publish-index-queue.yml\`, \`indexnow-ping.yml\`, \`ci.yml\` on push"
+            echo "- follow-up: IndexNow ping + GSC queue in this job (GITHUB_TOKEN push does not trigger other workflows); PR merges still use \`post-publish-index-queue.yml\` / \`indexnow-ping.yml\`"
             echo "- schedule: Sun-Sat 09:00 JST (7/week = Mon-Sat comparison×2 / howto×2 / troubleshoot×2 + Sun crosssell)"
             echo "- docs: docs/article-publish-schedule.md"
           } >> "$GITHUB_STEP_SUMMARY"

@@ -49,6 +49,10 @@ curl -s "https://sim-hikari-guide.com/{YOUR_KEY}.txt"
   → indexnow-ping.yml
   → changed-slugs.mjs --no-fallback
   → indexnow-ping.mjs (INDEXNOW_KEY がある場合のみ POST)
+
+scheduled-articles.yml → main へ GITHUB_TOKEN 直接 push
+  → push 連動 WF は起動しない（GitHub 制限）
+  → 同一 job 内で publish slugs を解決し indexnow-ping.mjs を実行
 ```
 
 ## ローカル実行

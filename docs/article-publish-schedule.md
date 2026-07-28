@@ -127,7 +127,8 @@ workflow_dispatch / cron
   → 記事生成（Groq / テンプレート）
   → format / validate / Playwright スナップショット更新
   → main へ直接 commit & push
-  → push 連動: ci.yml / post-publish-index-queue.yml / indexnow-ping.yml
+  → 同一 job 内: IndexNow ping + GSC index queue 更新（GITHUB_TOKEN push は他 WF を起動しない）
+  → 記事 PR 経由の merge 時は push 連動: post-publish-index-queue.yml / indexnow-ping.yml
   → Vercel が main をデプロイ（sim-hikari-guide.com 反映）
 ```
 
