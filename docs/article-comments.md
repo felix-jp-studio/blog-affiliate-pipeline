@@ -57,11 +57,14 @@ Vercel → **Settings → Environment Variables**（**Production** に設定）:
 3. **再デプロイ**: 環境変数追加・変更後、Production を redeploy する
 4. **動作確認**（トークン未設定・不一致は 401）:
    ```bash
+   # ローカルでトークンを export（Vercel 登録値と同じ文字列）
+   export COMMENTS_MODERATOR_TOKEN='（Vercel に登録した値）'
    curl -sS -X POST https://sim-hikari-guide.com/api/comments/moderate \
      -H "Authorization: Bearer $COMMENTS_MODERATOR_TOKEN" \
      -H "Content-Type: application/json" \
      -d '{"action":"list"}'
    ```
+   または `vercel env pull .env.local --environment=production` 後に `set -a && source .env.local && set +a` でも可。
    成功時: `{"comments":[...]}`（pending 一覧）
 
 ### 3. ローカル開発
@@ -136,7 +139,7 @@ POST `/api/comments` のレスポンスには **comment ID は含まれない**�
 # 承認済み一覧（200 + comments 配列）
 curl -sS "https://sim-hikari-guide.com/api/comments?slug=au-denki-setwari"
 
-# slug 省略は 400（API 稼働確認）
+# slug 省略: 有効化 + KV 設定済みなら 400（無効時は 200 + 空配列、KV 未設定は 503）
 curl -sS "https://sim-hikari-guide.com/api/comments"
 
 # UI: 記事末尾に「コメント」セクション（PUBLIC_COMMENTS_ENABLED=true かつ再デプロイ済み）
