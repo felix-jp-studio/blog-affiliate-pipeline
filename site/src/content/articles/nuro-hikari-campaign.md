@@ -1,6 +1,6 @@
 ---
-title: "NURO 光 料金 キャンペーンの完全ガイド"
-description: "NURO 光 料金 キャンペーンについて、公式情報を参照しながら中立に解説します。料金・条件は各公式サイトでご確認ください。"
+title: "【2026年最新】NURO 光 料金 キャンペーン比較｜選び方と注意点"
+description: "【2026年最新】NURO 光 料金 キャンペーンを5社比較。料金・速度・セット割の観点で選び方を解説。公式情報を参照し中立にまとめています。"
 pubDate: 2026-07-19
 category: hikari
 articleType: comparison

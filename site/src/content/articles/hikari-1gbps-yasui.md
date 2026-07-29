@@ -1,6 +1,6 @@
 ---
-title: "光回線 1Gbps 安いの完全ガイド"
-description: "光回線 1Gbps 安いについて、公式情報を参照しながら中立に解説します。料金・条件は各公式サイトでご確認ください。"
+title: "【2026年最新】光回線 1Gbps 安い比較｜選び方と注意点"
+description: "【2026年最新】光回線 1Gbps 安いを5社比較。料金・速度・セット割の観点で選び方を解説。公式情報を参照し中立にまとめています。"
 pubDate: 2026-07-21
 category: hikari
 articleType: comparison
