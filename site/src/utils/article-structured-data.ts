@@ -24,7 +24,9 @@ function stripInlineMarkdown(text: string): string {
     .trim();
 }
 
-function splitH2Sections(body: string): Array<{ title: string; content: string }> {
+function splitH2Sections(
+  body: string,
+): Array<{ title: string; content: string }> {
   const sections: Array<{ title: string; content: string }> = [];
   const lines = body.split("\n");
   let currentTitle = "";
@@ -128,7 +130,9 @@ function extractStepsFromSection(content: string): HowToStep[] {
   return steps;
 }
 
-export function extractArticleStructuredData(body: string): ArticleStructuredData {
+export function extractArticleStructuredData(
+  body: string,
+): ArticleStructuredData {
   const sections = splitH2Sections(body);
   const faq = sections
     .filter((section) => FAQ_SECTION_TITLES.test(section.title))
@@ -140,7 +144,9 @@ export function extractArticleStructuredData(body: string): ArticleStructuredDat
   return { faq, steps };
 }
 
-export function buildFaqPageJsonLd(faq: FaqItem[]): Record<string, unknown> | null {
+export function buildFaqPageJsonLd(
+  faq: FaqItem[],
+): Record<string, unknown> | null {
   if (faq.length === 0) {
     return null;
   }
