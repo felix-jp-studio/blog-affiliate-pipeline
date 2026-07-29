@@ -1,0 +1,32 @@
+name: GSC inspection weekly
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Sun 09:30 JST = UTC Sun 00:30
+    - cron: "30 0 * * 0"
+
+jobs:
+  inspection-batch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Print weekly GSC inspection batch
+        run: node scripts/print-gsc-inspection-batch.mjs --week-first --limit=10 --format=md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Append text batch to summary
+        run: |
+          {
+            echo ""
+            echo "### CLI output"
+            echo '```'
+            node scripts/print-gsc-inspection-batch.mjs --week-first --limit=10
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
