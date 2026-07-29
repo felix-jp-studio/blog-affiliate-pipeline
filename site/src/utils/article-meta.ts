@@ -79,12 +79,7 @@ export function formatArticleDate(date: Date): string {
   });
 }
 
-export function resolveDateModified(
-  pubDate: Date,
-  dateModified?: Date,
-): Date {
-  return dateModified ?? pubDate;
-}
+export { resolveDateModified } from "./article-dates.ts";
 
 export function getArticleExcerpt(
   description: string,

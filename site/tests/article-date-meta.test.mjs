@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { resolveDateModified } from "../src/utils/article-meta.ts";
+import { resolveDateModified } from "../src/utils/article-dates.ts";
 
 describe("resolveDateModified", () => {
   it("falls back to pubDate when dateModified is absent", () => {
