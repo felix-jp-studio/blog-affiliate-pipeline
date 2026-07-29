@@ -1,0 +1,37 @@
+name: CWV smoke (Lighthouse)
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Sun 11:00 JST = UTC Sun 02:00
+    - cron: "0 2 * * 0"
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    # Initial rollout: scores can fluctuate on production CDN; do not block merges.
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Run Lighthouse CI smoke
+        run: npx --yes @lhci/cli@0.14.0 autorun
+
+      - name: Write job summary
+        if: always()
+        run: |
+          {
+            echo "## CWV smoke (Lighthouse CI)"
+            echo ""
+            echo "- targets: Hub \`/sim\` + article \`/articles/sim-osusume-hikaku-2026\`"
+            echo "- config: \`lighthouserc.cjs\`"
+            echo "- thresholds: performance ≥0.6, a11y/BP ≥0.85, SEO ≥0.9 (warn only)"
+            echo "- policy: \`continue-on-error: true\` until baseline stabilizes"
+            echo "- docs: \`docs/cwv-smoke.md\`"
+          } >> "$GITHUB_STEP_SUMMARY"

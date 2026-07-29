@@ -22,6 +22,7 @@
     "test:e2e:articles": "node scripts/e2e/validate-articles.mjs",
     "test:e2e:dist": "node scripts/e2e/validate-dist.mjs",
     "test:e2e:smoke": "node scripts/e2e/smoke-production.mjs",
+    "test:e2e:cwv": "npx --yes @lhci/cli@0.14.0 autorun",
     "test:e2e:indexnow": "node scripts/e2e/verify-indexnow-key.mjs",
     "test:e2e:changed-slugs": "node scripts/e2e/changed-slugs.mjs",
     "indexnow:ping": "node scripts/indexnow-ping.mjs",
