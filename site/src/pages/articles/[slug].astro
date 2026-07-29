@@ -15,6 +15,11 @@ import {
   getReadingTimeForEntry,
   resolveOgImageUrl,
 } from "../../utils/article-meta";
+import {
+  buildFaqPageJsonLd,
+  buildHowToJsonLd,
+  extractArticleStructuredData,
+} from "../../utils/article-structured-data";
 import { compareArticlesByRecency } from "../../utils/sort-articles";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
@@ -85,6 +90,17 @@ const articleJsonLd = {
     url: Astro.site,
   },
 };
+
+const { faq, steps } = extractArticleStructuredData(entry.body ?? "");
+const faqJsonLd = buildFaqPageJsonLd(faq);
+const howToJsonLd = buildHowToJsonLd(
+  entry.data.title,
+  entry.data.description,
+  steps,
+);
+const jsonLd = [articleJsonLd, breadcrumbJsonLd, faqJsonLd, howToJsonLd].filter(
+  (item): item is Record<string, unknown> => item !== null,
+);
 ---
 
 <BaseLayout
@@ -95,7 +111,7 @@ const articleJsonLd = {
   ogType="article"
   ogImage={ogImage}
   publishedTime={publishedTime}
-  jsonLd={[articleJsonLd, breadcrumbJsonLd]}
+  jsonLd={jsonLd}
 >
   <Breadcrumbs items={breadcrumbs} />
   <article class="article-shell">
