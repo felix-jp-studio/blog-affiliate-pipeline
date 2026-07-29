@@ -1,0 +1,71 @@
+---
+import type { CategorySlug } from "../data/category-meta";
+import { getHubArticleMesh } from "../data/hub-article-mesh";
+
+interface Props {
+  category: CategorySlug;
+}
+
+const { category } = Astro.props;
+const mesh = getHubArticleMesh(category);
+
+if (!mesh) {
+  return null;
+}
+---
+
+<section class="hub-article-mesh" aria-labelledby="hub-article-mesh-title">
+  <h2 id="hub-article-mesh-title" class="hub-article-mesh__title">
+    {mesh.hubLabel}のおすすめ記事
+  </h2>
+  <p class="hub-article-mesh__intro">{mesh.intro}</p>
+  <ul class="hub-article-mesh__list">
+    {
+      mesh.featured.map((article) => (
+        <li>
+          <a href={`/articles/${article.slug}`}>{article.label}</a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .hub-article-mesh {
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-article);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+
+  .hub-article-mesh__title {
+    margin: 0 0 0.5rem;
+    font-size: 1.05rem;
+    line-height: var(--line-heading);
+    color: var(--text-primary);
+  }
+
+  .hub-article-mesh__intro {
+    margin: 0 0 0.85rem;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+  }
+
+  .hub-article-mesh__list {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .hub-article-mesh__list a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .hub-article-mesh__list a:hover {
+    text-decoration: underline;
+  }
+</style>

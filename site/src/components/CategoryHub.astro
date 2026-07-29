@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import ArticleCard from "./ArticleCard.astro";
 import Breadcrumbs from "./Breadcrumbs.astro";
 import CategoryGuideBox from "./CategoryGuideBox.astro";
+import HubArticleMesh from "./HubArticleMesh.astro";
 import HubAspCtaSection from "./HubAspCtaSection.astro";
 import HubComparisonTable from "./HubComparisonTable.astro";
 import type { ArticleType } from "../data/article-type-labels";
@@ -114,6 +115,7 @@ const hasMultipleTypes =
   }
 
   <CategoryGuideBox category={category} />
+  <HubArticleMesh category={category} />
 </div>
 
 <script>

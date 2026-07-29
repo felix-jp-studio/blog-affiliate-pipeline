@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import AffiliateDisclosure from "../../components/AffiliateDisclosure.astro";
 import ArticleHero from "../../components/ArticleHero.astro";
+import ArticleHubLink from "../../components/ArticleHubLink.astro";
 import ArticleToc from "../../components/ArticleToc.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import RelatedArticles from "../../components/RelatedArticles.astro";
@@ -132,6 +133,7 @@ const jsonLd = [articleJsonLd, breadcrumbJsonLd, faqJsonLd, howToJsonLd].filter(
       readingTimeMinutes={readingTimeMinutes}
       eyecatch={entry.data.eyecatch}
     />
+    <ArticleHubLink category={entry.data.category} />
     {showAffiliateDisclosure && <AffiliateDisclosure />}
     <div class="article-content">
       <ArticleToc items={toc} />
