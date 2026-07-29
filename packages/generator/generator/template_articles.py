@@ -371,6 +371,91 @@ def build_outline(item: dict) -> dict:
     }
 
 
+_SNIPPET_SUMMARY_HEADING = "## 要点（結論）"
+
+
+def _build_snippet_section(keyword: str, article_type: str) -> str:
+    """Featured-snippet oriented bullet block placed after 結論サマリ."""
+    if article_type == "comparison":
+        bullets = (
+            "- **データ容量**: 月間15GB/20GB/無制限など、使用量の目安を先に決める\n"
+            "- **月額とオプション**: 通話かけ放題・端末代・セット割の有無を公式で確認する\n"
+            "- **エリアと速度**: 自宅・職場での電波状況と速度目安を公式エリアマップで確認する\n"
+            "- **乗り換え条件**: MNP・解約金・最低利用期間を契約前に確認する"
+        )
+    elif article_type == "howto":
+        bullets = (
+            "- **事前準備**: 必要書類・MNP予約番号・端末対応（eSIM/物理SIM）を確認する\n"
+            "- **申し込み**: 公式サイトからプランを選び、本人確認を完了する\n"
+            "- **開通**: 公式ガイドに沿ってAPN設定やeSIMプロファイルを反映する\n"
+            "- **旧回線**: 解約タイミングと二重課金を避ける手順を確認する"
+        )
+    elif article_type == "troubleshoot":
+        bullets = (
+            "- **再起動**: 端末・ルーター・SIMの抜き差しで一時的な不具合を切り分ける\n"
+            "- **設定確認**: APN・データ通信ON・VPN/省電力モードの影響を確認する\n"
+            "- **エリア**: 圏外・混雑・建物内の電波状況を公式エリア情報と照合する\n"
+            "- **公式サポート**: 改善しない場合は契約キャリアの障害情報・問い合わせ窓口を確認する"
+        )
+    elif article_type == "crosssell":
+        bullets = (
+            "- **セット割対象**: 利用中の通信回線名が公式の対象一覧に含まれるか確認する\n"
+            "- **契約名義**: 同一名義・同一住所などセット条件を満たしているか確認する\n"
+            "- **総額比較**: 電気単体最安とセット割込みの通信総額を公式シミュレーターで比較する"
+        )
+    else:
+        return ""
+
+    return (
+        f"{_SNIPPET_SUMMARY_HEADING}\n\n"
+        f"{keyword}の要点は次のとおりです。\n\n"
+        f"{bullets}\n"
+    )
+
+
+def _inject_featured_snippet_sections(body: str, outline: dict) -> str:
+    snippet_section = _build_snippet_section(
+        outline["keyword"], outline["articleType"]
+    )
+    if not snippet_section or _SNIPPET_SUMMARY_HEADING in body:
+        return body
+
+    summary_marker = "## 結論サマリ"
+    if summary_marker not in body:
+        return body.rstrip() + "\n\n" + snippet_section
+
+    before, after = body.split(summary_marker, 1)
+    next_h2 = re.search(r"\n## ", after)
+    if next_h2:
+        after = (
+            after[: next_h2.start()]
+            + "\n\n"
+            + snippet_section
+            + after[next_h2.start() :]
+        )
+    else:
+        after = after + "\n\n" + snippet_section
+    return before + summary_marker + after
+
+
+_SNIPPET_TABLE_CAPTION = (
+    "比較の一覧表です。最新の数値は各公式サイトでご確認ください。"
+)
+
+
+def _enhance_comparison_table_for_snippets(body: str) -> str:
+    pattern = (
+        r"(## [^\n]*比較表[^\n]*\n\n)"
+        rf"(?!{re.escape(_SNIPPET_TABLE_CAPTION)})"
+    )
+    return re.sub(
+        pattern,
+        r"\1" + _SNIPPET_TABLE_CAPTION + "\n\n",
+        body,
+        count=1,
+    )
+
+
 def build_body(outline: dict) -> str:
     builders = {
         "comparison": _comparison_body,
@@ -380,6 +465,9 @@ def build_body(outline: dict) -> str:
     }
     fn = builders[outline["articleType"]]
     body = fn(outline)
+    body = _inject_featured_snippet_sections(body, outline)
+    if outline["articleType"] in ("comparison", "crosssell"):
+        body = _enhance_comparison_table_for_snippets(body)
     return _ensure_min_length(
         body, outline["keyword"], min_chars=3600, article_type=outline["articleType"]
     )

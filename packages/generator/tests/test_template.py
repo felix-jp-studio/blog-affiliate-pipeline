@@ -122,6 +122,29 @@ class TemplateGenerationTest(unittest.TestCase):
         self.assertIn("2026年", outline["title"])
         self.assertIn("5社", outline["metaDescription"])
 
+    def test_comparison_includes_snippet_sections(self):
+        item = {
+            "keyword": "格安SIM 20GB おすすめ",
+            "articleType": "comparison",
+            "category": "sim",
+        }
+        outline = build_outline(item)
+        body = build_body(outline)
+        self.assertIn("## 要点（結論）", body)
+        self.assertIn("- **データ容量**", body)
+        self.assertIn("比較の一覧表です", body)
+
+    def test_howto_includes_snippet_bullets(self):
+        item = {
+            "keyword": "eSIM 乗り換え 即日",
+            "articleType": "howto",
+            "category": "sim",
+        }
+        outline = build_outline(item)
+        body = build_body(outline)
+        self.assertIn("## 要点（結論）", body)
+        self.assertIn("- **事前準備**", body)
+
 
 if __name__ == "__main__":
     unittest.main()
