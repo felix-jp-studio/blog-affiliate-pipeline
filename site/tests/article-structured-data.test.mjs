@@ -52,6 +52,31 @@ describe("extractArticleStructuredData", () => {
 
     assert.equal(steps.length, 3);
   });
+
+  it("extracts steps from 取得方法 section titles", () => {
+    const body = `
+## 取得方法（一般的な流れ）
+
+1. 現在のキャリアのマイページにアクセスする
+2. MNP予約番号の発行メニューを選ぶ
+`;
+    const { steps } = extractArticleStructuredData(body);
+
+    assert.equal(steps.length, 2);
+    assert.equal(steps[0].name, "現在のキャリアのマイページにアクセスする");
+  });
+
+  it("does not treat 乗り換えの流れ as HowTo steps", () => {
+    const body = `
+## 乗り換えの流れ
+
+1. 現在の契約を確認する
+2. MNP予約番号を取得する
+`;
+    const { steps } = extractArticleStructuredData(body);
+
+    assert.equal(steps.length, 0);
+  });
 });
 
 describe("buildFaqPageJsonLd", () => {
