@@ -1,0 +1,48 @@
+---
+import type { CategorySlug } from "../data/category-meta";
+import { categoryMeta } from "../data/category-meta";
+
+interface Props {
+  category: CategorySlug;
+}
+
+const { category } = Astro.props;
+const meta = categoryMeta[category];
+---
+
+<nav class="article-hub-link" aria-label={`${meta.label}カテゴリへ戻る`}>
+  <a href={meta.href} class="article-hub-link__anchor">
+    ← {meta.label}一覧へ
+  </a>
+</nav>
+
+<style>
+  .article-hub-link {
+    margin: 0 2.25rem 1rem;
+  }
+
+  .article-hub-link__anchor {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg-article);
+    color: var(--accent);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .article-hub-link__anchor:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  @media (max-width: 640px) {
+    .article-hub-link {
+      margin-inline: 1.25rem;
+    }
+  }
+</style>
