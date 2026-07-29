@@ -4,7 +4,11 @@ import { articleTypeLabels } from "../data/article-type-labels";
 import CategoryEyecatchPlaceholder from "./CategoryEyecatchPlaceholder.astro";
 import type { CategorySlug } from "../data/category-meta";
 import { categoryMeta } from "../data/category-meta";
-import { formatArticleDate, formatReadingTime, resolveDateModified } from "../utils/article-meta";
+import {
+  formatArticleDate,
+  formatReadingTime,
+  resolveDateModified,
+} from "../utils/article-meta";
 
 interface Props {
   title: string;
@@ -36,8 +40,7 @@ const publishedLabel = formatArticleDate(pubDate);
 const lastUpdated = resolveDateModified(pubDate, dateModified);
 const lastUpdatedLabel = formatArticleDate(lastUpdated);
 const showPublishedDate =
-  dateModified !== undefined &&
-  dateModified.getTime() !== pubDate.getTime();
+  dateModified !== undefined && dateModified.getTime() !== pubDate.getTime();
 const readingLabel = formatReadingTime(readingTimeMinutes);
 ---
 

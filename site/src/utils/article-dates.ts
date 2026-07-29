@@ -1,6 +1,3 @@
-export function resolveDateModified(
-  pubDate: Date,
-  dateModified?: Date,
-): Date {
+export function resolveDateModified(pubDate: Date, dateModified?: Date): Date {
   return dateModified ?? pubDate;
 }
