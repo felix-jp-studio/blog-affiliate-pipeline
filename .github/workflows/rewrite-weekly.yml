@@ -1,0 +1,37 @@
+name: Rewrite weekly
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Mon 10:00 JST = UTC Mon 01:00
+    - cron: "0 1 * * 1"
+
+jobs:
+  rewrite:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: rewrite-weekly
+      cancel-in-progress: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Run rewrite queue (skeleton)
+        run: node scripts/rewrite-weekly.mjs
+
+      - name: Write job summary
+        if: always()
+        run: |
+          {
+            echo "## Rewrite weekly (skeleton)"
+            echo ""
+            echo "- queue: \`data/rewrite-queue.csv\`"
+            echo "- script: \`node scripts/rewrite-weekly.mjs\`"
+            echo "- empty queue: exits 0 (no failure)"
+            echo "- docs: \`docs/rewrite-weekly-workflow.md\`"
+          } >> "$GITHUB_STEP_SUMMARY"
