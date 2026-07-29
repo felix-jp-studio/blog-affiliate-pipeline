@@ -12,10 +12,7 @@ describe("cta placement config", () => {
   });
 
   it("uses slug override for variant B", () => {
-    assert.equal(
-      resolveCtaPlacement("sim-20gb-osusume"),
-      "before-conclusion",
-    );
+    assert.equal(resolveCtaPlacement("sim-20gb-osusume"), "before-conclusion");
   });
 
   it("prefers markdown comment override", () => {

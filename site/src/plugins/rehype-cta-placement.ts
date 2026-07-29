@@ -61,31 +61,89 @@ function extractCommentPlacement(tree: Root): CtaPlacement | null {
   return placement;
 }
 
-function removeCtaBlocks(tree: Root): Element[] {
-  const blocks: Element[] = [];
+function collectCtaBlocks(
+  tree: Root,
+): Array<{ node: Element; parent: Element | Root; index: number }> {
+  const blocks: Array<{
+    node: Element;
+    parent: Element | Root;
+    index: number;
+  }> = [];
   visit(tree, "element", (node, index, parent) => {
     if (!isCtaBlock(node) || !parent || typeof index !== "number") {
       return;
     }
-    blocks.push(node);
-    parent.children.splice(index, 1);
-    return index;
+    blocks.push({ node, parent, index });
   });
   return blocks;
+}
+
+function removeCollectedCtaBlocks(
+  blocks: Array<{ node: Element; parent: Element | Root; index: number }>,
+): Element[] {
+  for (const block of [...blocks].reverse()) {
+    block.parent.children.splice(block.index, 1);
+  }
+  return blocks.map((block) => block.node);
+}
+
+function adjustInsertIndexAfterRemovals(
+  target: { parent: Element | Root; index: number },
+  removed: Array<{ parent: Element | Root; index: number }>,
+): void {
+  for (const block of removed) {
+    if (block.parent !== target.parent || block.index >= target.index) {
+      continue;
+    }
+    target.index -= 1;
+  }
+}
+
+function isTableInsideScrollWrapper(
+  node: Element,
+  parent: Element | Root,
+): boolean {
+  return (
+    node.tagName === "table" &&
+    parent.type === "element" &&
+    parent.tagName === "div" &&
+    hasClass(parent, "table-scroll")
+  );
 }
 
 function findAfterTableInsertPoint(
   tree: Root,
 ): { parent: Element | Root; index: number } | null {
   let target: { parent: Element | Root; index: number } | null = null;
+
   visit(tree, "element", (node, index, parent) => {
     if (target || !parent || typeof index !== "number") {
       return;
     }
-    if (node.tagName === "div" && hasClass(node, "table-wrap")) {
+    if (node.tagName === "div" && hasClass(node, "table-scroll")) {
       target = { parent, index: index + 1 };
     }
   });
+
+  if (target) {
+    return target;
+  }
+
+  visit(tree, "element", (node, index, parent) => {
+    if (
+      target ||
+      !parent ||
+      typeof index !== "number" ||
+      node.tagName !== "table"
+    ) {
+      return;
+    }
+    if (isTableInsideScrollWrapper(node, parent)) {
+      return;
+    }
+    target = { parent, index: index + 1 };
+  });
+
   return target;
 }
 
@@ -103,7 +161,7 @@ function findBeforeConclusionInsertPoint(
       return;
     }
     const text = headingText(node);
-    if (/まとめ|結論|FAQ|よくある質問/.test(text)) {
+    if (/^(まとめ|FAQ|よくある質問)$/.test(text)) {
       target = { parent, index };
     }
   });
@@ -116,9 +174,9 @@ export const rehypeCtaPlacement: Plugin<[], Root> =
       const slug = resolveSlugFromFile(file);
       const commentPlacement = extractCommentPlacement(tree);
       const placement = resolveCtaPlacement(slug, commentPlacement);
-      const ctaBlocks = removeCtaBlocks(tree);
+      const locatedBlocks = collectCtaBlocks(tree);
 
-      if (ctaBlocks.length === 0) {
+      if (locatedBlocks.length === 0) {
         return;
       }
 
@@ -131,6 +189,8 @@ export const rehypeCtaPlacement: Plugin<[], Root> =
         return;
       }
 
+      adjustInsertIndexAfterRemovals(target, locatedBlocks);
+      const ctaBlocks = removeCollectedCtaBlocks(locatedBlocks);
       target.parent.children.splice(target.index, 0, ...ctaBlocks);
     };
   };
