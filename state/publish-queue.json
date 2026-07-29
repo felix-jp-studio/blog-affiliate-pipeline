@@ -1,11 +1,12 @@
 {
-  "last_run": "2026-07-28",
-  "next_scheduled": "2026-07-29",
+  "last_run": "2026-07-29",
+  "next_scheduled": "2026-07-30",
   "week_id": "2026-W31",
-  "runs_this_week": 2,
+  "runs_this_week": 3,
   "type_counts": {
     "comparison": 1,
-    "howto": 1
+    "howto": 1,
+    "troubleshoot": 1
   },
   "history": [
     {
@@ -56,6 +57,11 @@
     {
       "date": "2026-07-28",
       "keywords": ["au ひかり 解約 方法"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-07-29",
+      "keywords": ["Wi-Fi 速度 遅い 改善"],
       "ok_count": 1
     }
   ]
