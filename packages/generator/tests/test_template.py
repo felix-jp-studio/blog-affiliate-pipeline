@@ -3,7 +3,7 @@ from pathlib import Path
 
 from generator.affiliate import inject_affiliates
 from generator.quality import check_article
-from generator.template_articles import build_body, build_outline
+from generator.template_articles import build_body, build_outline, build_meta_description, build_meta_title
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -88,6 +88,39 @@ class TemplateGenerationTest(unittest.TestCase):
         body = inject_internal_links(body, outline, ROOT)
         result = check_article(body, "howto", ROOT, test_mode=True)
         self.assertTrue(result.ok, result.errors)
+
+    def test_meta_title_includes_year_and_intent_for_comparison(self):
+        title = build_meta_title("WiMAX 料金 比較 2026", "comparison")
+        self.assertIn("2026年", title)
+        self.assertIn("比較", title)
+        self.assertIn("5社", title)
+
+    def test_meta_title_includes_steps_for_howto(self):
+        title = build_meta_title("eSIM 乗り換え 即日", "howto")
+        self.assertIn("手順", title)
+        self.assertIn("5ステップ", title)
+        self.assertIn("2026年", title)
+
+    def test_meta_title_includes_causes_for_troubleshoot(self):
+        title = build_meta_title("格安SIM 速度 遅い 対処", "troubleshoot")
+        self.assertIn("原因", title)
+        self.assertIn("7つ", title)
+        self.assertIn("2026年", title)
+
+    def test_meta_description_includes_numbers_for_comparison(self):
+        desc = build_meta_description("格安SIM キャリア 比較", "comparison")
+        self.assertIn("5社", desc)
+        self.assertIn("2026年", desc)
+
+    def test_build_outline_uses_meta_templates(self):
+        item = {
+            "keyword": "ahamo povo 比較",
+            "articleType": "comparison",
+            "category": "sim",
+        }
+        outline = build_outline(item)
+        self.assertIn("2026年", outline["title"])
+        self.assertIn("5社", outline["metaDescription"])
 
 
 if __name__ == "__main__":
