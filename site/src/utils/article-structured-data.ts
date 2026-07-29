@@ -64,7 +64,11 @@ function isHowToSectionTitle(title: string): boolean {
     return false;
   }
 
-  return title.endsWith("手順") || title.endsWith("ステップ");
+  return (
+    title.endsWith("手順") ||
+    title.endsWith("ステップ") ||
+    title.includes("取得方法")
+  );
 }
 
 function extractFaqFromSection(content: string): FaqItem[] {
