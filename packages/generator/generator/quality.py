@@ -39,6 +39,12 @@ def check_article(body: str, article_type: str, root: Path, *, test_mode: bool =
         if "|" not in body or "---" not in body:
             errors.append("比較表（Markdown table）がありません")
 
+    if article_type in ("comparison", "crosssell", "howto", "troubleshoot"):
+        if "## 要点（結論）" not in body:
+            errors.append("スニペット向け要点セクションがありません")
+        if not re.search(r"^[-*] ", body, re.MULTILINE):
+            errors.append("箇条書き（スニペット向け）がありません")
+
     if thresholds.get("requireOfficialDateNote") and not re.search(
         r"公式|要確認|2026", body
     ):
