@@ -42,15 +42,16 @@ function parseCsv(text) {
 }
 
 function serializeCsv(headers, rows) {
-  const body = rows.map((row) =>
-    headers.map((header) => row[header] ?? "").join(","),
-  );
+  const body = rows.map((row) => headers.map((header) => row[header] ?? "").join(","));
   return `${[headers.join(","), ...body].join("\n")}\n`;
 }
 
 function loadQueue() {
   if (!existsSync(queuePath)) {
-    return { headers: ["slug", "query", "position", "priority", "status", "notes"], rows: [] };
+    return {
+      headers: ["slug", "query", "position", "priority", "status", "notes"],
+      rows: [],
+    };
   }
 
   return parseCsv(readFileSync(queuePath, "utf8"));
@@ -111,9 +112,7 @@ function runMetaBackfill(slug) {
 }
 
 function markRowDone(headers, rows, slug) {
-  return rows.map((row) =>
-    row.slug === slug ? { ...row, status: "done" } : row,
-  );
+  return rows.map((row) => (row.slug === slug ? { ...row, status: "done" } : row));
 }
 
 function runGh(args) {
