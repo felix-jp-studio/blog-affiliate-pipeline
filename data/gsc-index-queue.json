@@ -55,7 +55,8 @@
       "slug": "wifi-speed-slow-kaizen",
       "url": "https://sim-hikari-guide.com/articles/wifi-speed-slow-kaizen",
       "mergedAt": "2026-07-29T02:11:18.841Z",
-      "indexed": false
+      "indexed": true,
+      "indexedAt": "2026-07-29T12:00:00.000Z"
     }
   ]
 }
