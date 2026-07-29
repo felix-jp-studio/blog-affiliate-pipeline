@@ -13,6 +13,7 @@ import { hasAffiliateLinks } from "../../utils/affiliate-links";
 import {
   extractHeadings,
   getReadingTimeForEntry,
+  resolveDateModified,
   resolveOgImageUrl,
 } from "../../utils/article-meta";
 import {
@@ -44,6 +45,10 @@ const toc = await extractHeadings(entry.body ?? "");
 const articleUrl = new URL(`/articles/${slug}`, Astro.site).href;
 const ogImage = resolveOgImageUrl(entry.data.eyecatch, entry.data.category);
 const publishedTime = entry.data.pubDate.toISOString();
+const modifiedTime = resolveDateModified(
+  entry.data.pubDate,
+  entry.data.dateModified,
+).toISOString();
 
 const allArticles = (
   await getCollection("articles", ({ data }) => !data.draft)
@@ -77,6 +82,7 @@ const articleJsonLd = {
   headline: entry.data.title,
   description: entry.data.description,
   datePublished: publishedTime,
+  dateModified: modifiedTime,
   image: new URL(ogImage, Astro.site).href,
   mainEntityOfPage: articleUrl,
   author: {
@@ -111,6 +117,7 @@ const jsonLd = [articleJsonLd, breadcrumbJsonLd, faqJsonLd, howToJsonLd].filter(
   ogType="article"
   ogImage={ogImage}
   publishedTime={publishedTime}
+  modifiedTime={modifiedTime}
   jsonLd={jsonLd}
 >
   <Breadcrumbs items={breadcrumbs} />
@@ -121,6 +128,7 @@ const jsonLd = [articleJsonLd, breadcrumbJsonLd, faqJsonLd, howToJsonLd].filter(
       category={entry.data.category}
       articleType={entry.data.articleType}
       pubDate={entry.data.pubDate}
+      dateModified={entry.data.dateModified}
       readingTimeMinutes={readingTimeMinutes}
       eyecatch={entry.data.eyecatch}
     />
