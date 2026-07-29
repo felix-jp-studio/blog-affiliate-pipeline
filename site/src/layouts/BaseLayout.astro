@@ -14,6 +14,7 @@ interface Props {
   ogType?: "website" | "article";
   ogImage?: string;
   publishedTime?: string;
+  modifiedTime?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
@@ -25,6 +26,7 @@ const {
   ogType = "website",
   ogImage = defaultOgImage,
   publishedTime,
+  modifiedTime,
   jsonLd,
 } = Astro.props;
 
@@ -82,6 +84,11 @@ const jsonLdPayload = jsonLd
     {
       publishedTime && (
         <meta property="article:published_time" content={publishedTime} />
+      )
+    }
+    {
+      modifiedTime && (
+        <meta property="article:modified_time" content={modifiedTime} />
       )
     }
     <meta name="twitter:card" content="summary_large_image" />

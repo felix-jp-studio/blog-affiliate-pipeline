@@ -21,11 +21,15 @@ def write_article(
     if outline.get("priority") is not None:
         priority_line = f"priority: {outline['priority']}\n"
 
+    date_modified_line = ""
+    if outline.get("dateModified"):
+        date_modified_line = f"dateModified: {outline['dateModified']}\n"
+
     frontmatter = f"""---
 title: "{outline["title"]}"
 description: "{outline["metaDescription"]}"
 pubDate: {date.today().isoformat()}
-category: {outline["category"]}
+{date_modified_line}category: {outline["category"]}
 articleType: {outline["articleType"]}
 keyword: "{outline["keyword"]}"
 {priority_line}draft: {"true" if draft else "false"}

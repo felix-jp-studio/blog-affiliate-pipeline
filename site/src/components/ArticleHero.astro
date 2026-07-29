@@ -4,7 +4,7 @@ import { articleTypeLabels } from "../data/article-type-labels";
 import CategoryEyecatchPlaceholder from "./CategoryEyecatchPlaceholder.astro";
 import type { CategorySlug } from "../data/category-meta";
 import { categoryMeta } from "../data/category-meta";
-import { formatArticleDate, formatReadingTime } from "../utils/article-meta";
+import { formatArticleDate, formatReadingTime, resolveDateModified } from "../utils/article-meta";
 
 interface Props {
   title: string;
@@ -12,6 +12,7 @@ interface Props {
   category: CategorySlug;
   articleType: ArticleType;
   pubDate: Date;
+  dateModified?: Date;
   readingTimeMinutes: number;
   eyecatch?: string;
   showPlaceholderEyecatch?: boolean;
@@ -23,6 +24,7 @@ const {
   category,
   articleType,
   pubDate,
+  dateModified,
   readingTimeMinutes,
   eyecatch,
   showPlaceholderEyecatch = true,
@@ -30,7 +32,12 @@ const {
 
 const categoryInfo = categoryMeta[category];
 const typeLabel = articleTypeLabels[articleType];
-const dateLabel = formatArticleDate(pubDate);
+const publishedLabel = formatArticleDate(pubDate);
+const lastUpdated = resolveDateModified(pubDate, dateModified);
+const lastUpdatedLabel = formatArticleDate(lastUpdated);
+const showPublishedDate =
+  dateModified !== undefined &&
+  dateModified.getTime() !== pubDate.getTime();
 const readingLabel = formatReadingTime(readingTimeMinutes);
 ---
 
@@ -43,7 +50,21 @@ const readingLabel = formatReadingTime(readingTimeMinutes);
     <h1 class="article-hero__title">{title}</h1>
     <p class="article-hero__lead">{description}</p>
     <p class="article-hero__meta">
-      <time datetime={pubDate.toISOString()}>{dateLabel}</time>
+      <span class="article-hero__updated">
+        最終更新
+        <time datetime={lastUpdated.toISOString()}>{lastUpdatedLabel}</time>
+      </span>
+      {
+        showPublishedDate && (
+          <>
+            <span class="article-hero__meta-sep">·</span>
+            <span class="article-hero__published">
+              公開
+              <time datetime={pubDate.toISOString()}>{publishedLabel}</time>
+            </span>
+          </>
+        )
+      }
       <span class="article-hero__meta-sep">·</span>
       <span>{readingLabel}</span>
     </p>
@@ -123,8 +144,16 @@ const readingLabel = formatReadingTime(readingTimeMinutes);
     font-size: 0.875rem;
     color: var(--text-tertiary);
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.4rem;
+  }
+
+  .article-hero__updated,
+  .article-hero__published {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
   }
 
   .article-hero__meta-sep {

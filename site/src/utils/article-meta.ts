@@ -79,6 +79,13 @@ export function formatArticleDate(date: Date): string {
   });
 }
 
+export function resolveDateModified(
+  pubDate: Date,
+  dateModified?: Date,
+): Date {
+  return dateModified ?? pubDate;
+}
+
 export function getArticleExcerpt(
   description: string,
   excerpt?: string,

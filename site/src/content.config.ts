@@ -7,6 +7,7 @@ const articles = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
+    dateModified: z.coerce.date().optional(),
     category: z.enum(["sim", "hikari", "trouble", "cost"]),
     articleType: z.enum(["comparison", "howto", "troubleshoot", "crosssell"]),
     keyword: z.string(),
