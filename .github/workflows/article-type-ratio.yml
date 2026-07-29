@@ -1,0 +1,32 @@
+name: Article type ratio
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Sun 09:00 JST = UTC Sun 00:00 (same slot as ASP weekly ops)
+    - cron: "0 0 * * 0"
+
+jobs:
+  ratio-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Write ratio report to job summary
+        run: node scripts/report-article-type-ratio.mjs --format=md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Fail when howto/troubleshoot gap exceeds threshold
+        run: |
+          node scripts/report-article-type-ratio.mjs --json > /tmp/ratio.json
+          HOWTO_GAP=$(node -e "const r=require('/tmp/ratio.json'); console.log(r.gaps.howto)")
+          TROUBLE_GAP=$(node -e "const r=require('/tmp/ratio.json'); console.log(r.gaps.troubleshoot)")
+          echo "howto gap: ${HOWTO_GAP}pt, troubleshoot gap: ${TROUBLE_GAP}pt"
+          if awk "BEGIN { exit !(${HOWTO_GAP} > 20 || ${TROUBLE_GAP} > 20) }"; then
+            echo "::warning::Article type ratio gap >20pt — review publish schedule / backlog"
+          fi
