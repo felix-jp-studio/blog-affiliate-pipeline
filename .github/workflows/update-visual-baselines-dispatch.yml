@@ -1,0 +1,55 @@
+name: Update visual baselines
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_branch:
+        description: Branch to commit updated snapshots to
+        required: true
+        default: main
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.target_branch }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            site/package-lock.json
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install site dependencies
+        working-directory: site
+        run: npm ci
+
+      - name: Install Playwright browsers
+        working-directory: site
+        run: npx playwright install --with-deps chromium
+
+      - name: Update Playwright visual snapshots
+        working-directory: site
+        env:
+          CI: true
+          PUBLIC_CONTACT_FORM_ACTION: ""
+        run: |
+          npm run test:e2e:visual:update
+          npm run test:e2e:visual
+
+      - name: Commit updated snapshots
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(ci): update Playwright visual baselines on Linux"
+          file_pattern: "site/tests/visual/*-snapshots/**"
