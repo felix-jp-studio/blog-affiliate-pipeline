@@ -1,6 +1,6 @@
 ---
-title: "格安SIMの速度が遅いときの対処法と確認手順"
-description: "格安SIM 速度 遅い 対処について、公式情報を参照しながら中立に解説します。料金・条件は各公式サイトでご確認ください。"
+title: "格安SIM速度が遅い原因と7つの対処法【2026年版】"
+description: "格安SIM 速度 遅い 対処の原因候補と7つの対処法を【2026年版】で解説。自分で確認できるチェックリスト付き。公式情報を参照しています。"
 pubDate: 2026-07-17
 category: trouble
 articleType: troubleshoot

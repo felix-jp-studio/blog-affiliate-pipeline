@@ -1,6 +1,6 @@
 ---
-title: "iPhone そのまま 格安SIMの完全ガイド"
-description: "iPhone そのまま 格安SIMについて、公式情報を参照しながら中立に解説します。料金・条件は各公式サイトでご確認ください。"
+title: "iPhone そのまま 格安SIMの手順【2026年版】5ステップで解説"
+description: "iPhone そのまま 格安SIMを5ステップで解説。【2026年版】必要書類・所要時間・つまずきポイントを公式情報に基づき整理。"
 pubDate: 2026-07-25
 category: sim
 articleType: howto
