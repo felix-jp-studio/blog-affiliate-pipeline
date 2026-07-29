@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 import unicodedata
+from datetime import datetime, timedelta, timezone
 
 
 _KEYWORD_SLUGS: dict[str, str] = {
@@ -241,18 +242,81 @@ def slugify(keyword: str, *, priority: int | None = None) -> str:
     raise ValueError(f"Could not derive SEO slug for keyword: {keyword!r}")
 
 
+def _jst_now() -> datetime:
+    return datetime.now(timezone(timedelta(hours=9)))
+
+
+def _year_label() -> str:
+    return f"{_jst_now().year}年"
+
+
+def _year_month_label() -> str:
+    now = _jst_now()
+    return f"{now.year}年{now.month}月"
+
+
+_TITLE_OVERRIDES: dict[str, str] = {
+    "格安SIM 20GB おすすめ": "【2026年最新】格安SIM 20GB比較｜5社の選び方と料金",
+    "楽天モバイル 乗り換え 手順": "楽天モバイル乗り換え手順【2026年版】5ステップで解説",
+    "MNP 予約番号 取得方法": "MNP予約番号の取得方法【2026年版】手順と注意点",
+    "格安SIM 速度 遅い 対処": "格安SIM速度が遅い原因と7つの対処法【2026年版】",
+    "LINEMO 評判 デメリット": "【2026年最新】LINEMO評判・デメリット比較｜5つの注意点",
+}
+
+
+def build_meta_title(keyword: str, article_type: str) -> str:
+    if keyword in _TITLE_OVERRIDES:
+        return _TITLE_OVERRIDES[keyword]
+
+    year = _year_label()
+    if article_type == "comparison":
+        if "比較" in keyword:
+            return f"【{year}最新】{keyword}｜5社比較と選び方"
+        if "おすすめ" in keyword:
+            return f"【{year}最新】{keyword}｜料金・速度を比較"
+        return f"【{year}最新】{keyword}比較｜選び方と注意点"
+    if article_type == "howto":
+        return f"{keyword}の手順【{year}版】5ステップで解説"
+    if article_type == "troubleshoot":
+        return f"{keyword}の原因と7つの対処法【{year}版】"
+    if article_type == "crosssell":
+        return f"【{year}】{keyword}で固定費を見直す｜比較ポイント3つ"
+    return f"{keyword}の完全ガイド【{_year_month_label()}版】"
+
+
+def build_meta_description(keyword: str, article_type: str) -> str:
+    year = _year_label()
+    if article_type == "comparison":
+        return (
+            f"【{year}最新】{keyword}を5社比較。"
+            "料金・速度・セット割の観点で選び方を解説。"
+            "公式情報を参照し中立にまとめています。"
+        )
+    if article_type == "howto":
+        return (
+            f"{keyword}を5ステップで解説。【{year}版】"
+            "必要書類・所要時間・つまずきポイントを公式情報に基づき整理。"
+        )
+    if article_type == "troubleshoot":
+        return (
+            f"{keyword}の原因候補と7つの対処法を【{year}版】で解説。"
+            "自分で確認できるチェックリスト付き。公式情報を参照しています。"
+        )
+    if article_type == "crosssell":
+        return (
+            f"【{year}】{keyword}のセット条件と3つの比較ポイント。"
+            "固定費と通信をまとめて見直す方向けに公式情報を整理。"
+        )
+    return (
+        f"{keyword}について、公式情報を参照しながら中立に解説します。"
+        "料金・条件は各公式サイトでご確認ください。"
+    )
+
+
 def build_outline(item: dict) -> dict:
     keyword = item["keyword"]
     article_type = item["articleType"]
     category = item["category"]
-
-    titles = {
-        "格安SIM 20GB おすすめ": "格安SIM 20GBの選び方と比較ポイント【2026年7月版】",
-        "楽天モバイル 乗り換え 手順": "楽天モバイルへの乗り換え手順をわかりやすく解説",
-        "MNP 予約番号 取得方法": "MNP予約番号の取得方法と注意点をまとめて解説",
-        "格安SIM 速度 遅い 対処": "格安SIMの速度が遅いときの対処法と確認手順",
-        "LINEMO 評判 デメリット": "LINEMOの評判とデメリットを中立に整理",
-    }
 
     slug = slugify(keyword, priority=item.get("priority"))
     assert_seo_slug(slug, keyword=keyword)
@@ -268,9 +332,9 @@ def build_outline(item: dict) -> dict:
     }.get(article_type, ["rakuten-mobile", "linemo", "ahamo", "povo", "uq-mobile"])
 
     return {
-        "title": titles.get(keyword, f"{keyword}の完全ガイド"),
+        "title": build_meta_title(keyword, article_type),
         "slug": slug,
-        "metaDescription": f"{keyword}について、公式情報を参照しながら中立に解説します。料金・条件は各公式サイトでご確認ください。",
+        "metaDescription": build_meta_description(keyword, article_type),
         "category": category,
         "articleType": article_type,
         "keyword": keyword,
