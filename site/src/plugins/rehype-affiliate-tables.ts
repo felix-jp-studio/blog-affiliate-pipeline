@@ -33,7 +33,7 @@ export const rehypeAffiliateAndTables: Plugin<[], Root> = () => {
         node.tagName === "table" &&
         parent &&
         typeof index === "number" &&
-        parent.type === "element"
+        (parent.type === "element" || parent.type === "root")
       ) {
         parent.children[index] = {
           type: "element",

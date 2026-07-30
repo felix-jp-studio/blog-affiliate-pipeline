@@ -37,18 +37,21 @@ type AffiliateRules = {
 };
 
 function resolveConfigDir(): string {
-  const fromSource = join(
-    dirname(fileURLToPath(import.meta.url)),
-    "../../../config",
-  );
-  if (existsSync(join(fromSource, "asp-urls.json"))) {
-    return fromSource;
+  const moduleDir = dirname(fileURLToPath(import.meta.url));
+  const candidates = [
+    // Prefer site-local config (Vercel Root Directory = site).
+    join(moduleDir, "../../config"),
+    join(process.cwd(), "config"),
+    // Monorepo root config (local CI / repo-root tooling).
+    join(moduleDir, "../../../config"),
+    join(process.cwd(), "../config"),
+  ];
+  for (const dir of candidates) {
+    if (existsSync(join(dir, "asp-urls.json"))) {
+      return dir;
+    }
   }
-  const fromSiteCwd = join(process.cwd(), "../config");
-  if (existsSync(join(fromSiteCwd, "asp-urls.json"))) {
-    return fromSiteCwd;
-  }
-  return fromSource;
+  return candidates[0];
 }
 
 const configDir = resolveConfigDir();

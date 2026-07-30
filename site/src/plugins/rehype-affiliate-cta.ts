@@ -19,7 +19,10 @@ function hasClass(node: Element, className: string): boolean {
   if (Array.isArray(classNames)) {
     return classNames.includes(className);
   }
-  return classNames === className;
+  if (typeof classNames === "string") {
+    return classNames.split(/\s+/).includes(className);
+  }
+  return false;
 }
 
 function getMeaningfulChildren(node: Element) {

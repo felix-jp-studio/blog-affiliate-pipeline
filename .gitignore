@@ -3,6 +3,7 @@ dist/
 site/node_modules/
 site/dist/
 site/.astro/
+site/config/
 site/test-results/
 site/playwright-report/
 .env
