@@ -14,6 +14,15 @@
 
 Vercel プロジェクトの **Root Directory = `site`** のとき、ビルドは Astro プリセットが自動検出する。`site/vercel.json` で www → apex リダイレクト等を定義する。
 
+`site` の `npm run build` は次を含む:
+
+1. Astro キャッシュ削除（`.astro` / `node_modules/.astro`）
+2. `config/asp-urls.json` 等を `site/config/` へ同期（Root Directory 内で解決可能にする）
+3. `astro build`
+4. `validate-dist`（記事 HTML に `px.a8.net` / `valuecommerce.com` が無いとビルド失敗）
+
+これにより、アフィリエイト CTA 欠落を本番へ出しにくくする。
+
 ---
 
 ## 1. Vercel CLI の準備

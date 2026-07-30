@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/generate-og-png.mjs && node scripts/generate-indexnow-key-file.mjs && astro build",
+    "build": "rm -rf dist .astro node_modules/.astro && node scripts/sync-site-config.mjs && node scripts/generate-og-png.mjs && node scripts/generate-indexnow-key-file.mjs && astro build && node ../scripts/e2e/validate-dist.mjs",
     "preview": "astro preview",
     "generate:og": "node scripts/generate-og-png.mjs",
     "format:check": "prettier --check .",
