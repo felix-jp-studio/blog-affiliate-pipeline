@@ -1,10 +1,10 @@
 {
-  "last_run": "2026-07-29",
-  "next_scheduled": "2026-07-30",
+  "last_run": "2026-07-30",
+  "next_scheduled": "2026-07-31",
   "week_id": "2026-W31",
-  "runs_this_week": 3,
+  "runs_this_week": 4,
   "type_counts": {
-    "comparison": 1,
+    "comparison": 2,
     "howto": 1,
     "troubleshoot": 1
   },
@@ -62,6 +62,11 @@
     {
       "date": "2026-07-29",
       "keywords": ["Wi-Fi 速度 遅い 改善"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-07-30",
+      "keywords": ["格安SIM 子供 おすすめ"],
       "ok_count": 1
     }
   ]
