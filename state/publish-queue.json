@@ -1,11 +1,11 @@
 {
-  "last_run": "2026-07-30",
-  "next_scheduled": "2026-07-31",
+  "last_run": "2026-07-31",
+  "next_scheduled": "2026-08-01",
   "week_id": "2026-W31",
-  "runs_this_week": 4,
+  "runs_this_week": 5,
   "type_counts": {
     "comparison": 2,
-    "howto": 1,
+    "howto": 2,
     "troubleshoot": 1
   },
   "history": [
@@ -67,6 +67,11 @@
     {
       "date": "2026-07-30",
       "keywords": ["格安SIM 子供 おすすめ"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-07-31",
+      "keywords": ["引っ越し 光回線 手続き"],
       "ok_count": 1
     }
   ]
