@@ -3,6 +3,7 @@ import Analytics from "../components/Analytics.astro";
 import type { CategorySlug } from "../data/category-meta";
 import { defaultOgImage } from "../data/category-meta";
 import { mainNav } from "../data/site-nav";
+import "../styles/fonts.css";
 import "../styles/tokens.css";
 import "../styles/prose.css";
 
@@ -69,12 +70,6 @@ const jsonLdPayload = jsonLd
       href="/rss.xml"
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700&display=swap"
-      rel="stylesheet"
-    />
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="SIM・光回線ガイド" />
     <meta property="og:title" content={pageTitle} />
