@@ -20,7 +20,6 @@
 | SEO               | warn   | ≥ 0.9     |
 | LCP               | warn   | ≤ 4000 ms |
 | CLS               | warn   | ≤ 0.15    |
-| INP               | warn   | ≤ 500 ms  |
 | TBT               | warn   | ≤ 600 ms  |
 
 - アサーションは **`warn`** のみ（LHCI 上は失敗扱いにしない）

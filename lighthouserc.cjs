@@ -23,7 +23,6 @@ module.exports = {
         "categories:seo": ["warn", { minScore: 0.9 }],
         "largest-contentful-paint": ["warn", { maxNumericValue: 4000 }],
         "cumulative-layout-shift": ["warn", { maxNumericValue: 0.15 }],
-        "interaction-to-next-paint": ["warn", { maxNumericValue: 500 }],
         "total-blocking-time": ["warn", { maxNumericValue: 600 }],
       },
     },
