@@ -27,6 +27,7 @@
     "test:e2e:changed-slugs": "node scripts/e2e/changed-slugs.mjs",
     "indexnow:ping": "node scripts/indexnow-ping.mjs",
     "gsc:inspection-batch": "node scripts/print-gsc-inspection-batch.mjs",
+    "gsc:weekly-report": "node scripts/gsc-weekly-report.mjs",
     "rewrite:weekly": "node scripts/rewrite-weekly.mjs",
     "scraper:hikari": "cd packages/scraper && PYTHONPATH=. .venv/bin/python -m scraper.hikari_prices",
     "scraper:hikari:fixture": "cd packages/scraper && PYTHONPATH=. .venv/bin/python -m scraper.hikari_prices --fixture-dir tests/fixtures",

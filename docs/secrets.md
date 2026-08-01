@@ -20,6 +20,16 @@ Phase 1 で追加:
 | -------------- | ------------------------------- | ------------------------------------------- |
 | `INDEXNOW_KEY` | GitHub Actions Secrets + Vercel | IndexNow 検証キー（未設定時 ping スキップ） |
 
-詳細: [indexnow.md](./indexnow.md)
+GSC 週次レポート（スケルトン・未設定時 skip）:
+
+| Secret / Env               | 設定先                    | 説明                                           |
+| -------------------------- | ------------------------- | ---------------------------------------------- |
+| `GSC_SITE_URL`             | Actions Variables（任意） | プロパティ URL。未設定時は本番ドメイン既定値   |
+| `GSC_SERVICE_ACCOUNT_JSON` | Actions Secrets           | Search Console 権限付きサービスアカウント JSON |
+| `GSC_OAUTH_CLIENT_ID`      | Actions Secrets           | OAuth（SA の代替）                             |
+| `GSC_OAUTH_CLIENT_SECRET`  | Actions Secrets           | OAuth                                          |
+| `GSC_OAUTH_REFRESH_TOKEN`  | Actions Secrets           | OAuth                                          |
+
+詳細: [gsc-api-weekly-report.md](./gsc-api-weekly-report.md)
 
 登録: Settings → Secrets and variables → Actions

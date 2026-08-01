@@ -1,0 +1,75 @@
+name: GSC weekly report
+
+on:
+  workflow_dispatch:
+    inputs:
+      fixture:
+        description: "Generate sample report from fixture rows (no API)"
+        type: boolean
+        default: false
+  schedule:
+    # Mon 09:00 JST = UTC Sun 00:00
+    - cron: "0 0 * * 1"
+
+jobs:
+  gsc-weekly:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Check secrets presence (no values logged)
+        id: creds
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          GSC_OAUTH_CLIENT_ID: ${{ secrets.GSC_OAUTH_CLIENT_ID }}
+          GSC_OAUTH_CLIENT_SECRET: ${{ secrets.GSC_OAUTH_CLIENT_SECRET }}
+          GSC_OAUTH_REFRESH_TOKEN: ${{ secrets.GSC_OAUTH_REFRESH_TOKEN }}
+        run: |
+          if [ -n "$GSC_SERVICE_ACCOUNT_JSON" ]; then
+            echo "mode=service-account" >> "$GITHUB_OUTPUT"
+          elif [ -n "$GSC_OAUTH_CLIENT_ID" ] && [ -n "$GSC_OAUTH_CLIENT_SECRET" ] && [ -n "$GSC_OAUTH_REFRESH_TOKEN" ]; then
+            echo "mode=oauth" >> "$GITHUB_OUTPUT"
+          else
+            echo "mode=missing" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run weekly report
+        env:
+          GSC_SITE_URL: ${{ vars.GSC_SITE_URL }}
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          GSC_OAUTH_CLIENT_ID: ${{ secrets.GSC_OAUTH_CLIENT_ID }}
+          GSC_OAUTH_CLIENT_SECRET: ${{ secrets.GSC_OAUTH_CLIENT_SECRET }}
+          GSC_OAUTH_REFRESH_TOKEN: ${{ secrets.GSC_OAUTH_REFRESH_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${GSC_SITE_URL:-}" ]; then
+            export GSC_SITE_URL="https://sim-hikari-guide.com/"
+          fi
+
+          if [ "${{ inputs.fixture }}" = "true" ]; then
+            node scripts/gsc-weekly-report.mjs --fixture --dry-run | tee /tmp/gsc-weekly-out.txt
+          elif [ "${{ steps.creds.outputs.mode }}" = "missing" ]; then
+            echo "## GSC weekly report" >> "$GITHUB_STEP_SUMMARY"
+            echo "Secrets missing — graceful skip (exit 0)." >> "$GITHUB_STEP_SUMMARY"
+            echo "Configure GSC_SERVICE_ACCOUNT_JSON or GSC_OAUTH_* (see docs/secrets.md)." >> "$GITHUB_STEP_SUMMARY"
+            node scripts/gsc-weekly-report.mjs --dry-run | tee /tmp/gsc-weekly-out.txt
+            exit 0
+          else
+            node scripts/gsc-weekly-report.mjs --dry-run | tee /tmp/gsc-weekly-out.txt
+          fi
+
+          {
+            echo "## GSC weekly report"
+            echo ""
+            echo "Credential mode: \`${{ steps.creds.outputs.mode }}\`"
+            echo ""
+            echo '```'
+            cat /tmp/gsc-weekly-out.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
