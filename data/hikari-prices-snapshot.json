@@ -1,0 +1,69 @@
+{
+  "version": "1",
+  "updatedAt": "2026-08-01T10:59:10.885344+00:00",
+  "source": "fixture",
+  "providers": {
+    "nuro-hikari": {
+      "url": "https://nuro-hikari.com/",
+      "status_code": 200,
+      "fetched_at": "2026-08-01T10:59:10.884075+00:00",
+      "content_length": 308,
+      "ok": true,
+      "monthlyFeeYen": 5200,
+      "constructionFeeYen": 0,
+      "campaignNote": "工事費 0円 キャンペーン実施中。",
+      "parseStatus": "parsed",
+      "error": null,
+      "rateLimited": false,
+      "rewriteSlugs": ["nuro-hikari-au-hikari-hikaku", "nuro-hikari-campaign"]
+    },
+    "au-hikari": {
+      "url": "https://www.au.com/internet/",
+      "status_code": 200,
+      "fetched_at": "2026-08-01T10:59:10.884743+00:00",
+      "content_length": 279,
+      "ok": true,
+      "monthlyFeeYen": 5610,
+      "constructionFeeYen": 30000,
+      "campaignNote": "割引キャンペーンあり",
+      "parseStatus": "parsed",
+      "error": null,
+      "rateLimited": false,
+      "rewriteSlugs": ["nuro-hikari-au-hikari-hikaku", "hikari-mansion-osusume"]
+    },
+    "softbank-hikari": {
+      "url": "https://www.softbank.jp/internet/",
+      "status_code": 200,
+      "fetched_at": "2026-08-01T10:59:10.884982+00:00",
+      "content_length": 288,
+      "ok": true,
+      "monthlyFeeYen": 5720,
+      "constructionFeeYen": 26400,
+      "campaignNote": "特典：事務手数料無料キャンペーン",
+      "parseStatus": "parsed",
+      "error": null,
+      "rateLimited": false,
+      "rewriteSlugs": ["softbank-hikari-biglobe-hikari-hikaku", "hikari-mansion-osusume"]
+    },
+    "docomo-hikari": {
+      "url": "https://www.docomo.ne.jp/internet/hikari/",
+      "status_code": 200,
+      "fetched_at": "2026-08-01T10:59:10.885184+00:00",
+      "content_length": 299,
+      "ok": true,
+      "monthlyFeeYen": 5720,
+      "constructionFeeYen": 3300,
+      "campaignNote": "キャンペーン情報は公式でご確認ください",
+      "parseStatus": "parsed",
+      "error": null,
+      "rateLimited": false,
+      "rewriteSlugs": ["hikari-provider-chigai", "hikari-mansion-osusume"]
+    }
+  },
+  "summary": {
+    "total": 4,
+    "ok": 4,
+    "rateLimited": [],
+    "fetchFailed": []
+  }
+}
