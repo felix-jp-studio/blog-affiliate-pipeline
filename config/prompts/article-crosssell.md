@@ -28,6 +28,9 @@
 
 - 通信キャリアは `config/affiliate-rules.json` の carrier ID を `{AFFILIATE:rakuten-mobile}` 形式で挿入
 - 電気サービスは **公式 URL のみ**（ASP 未登録の場合はプレースホルダを使わない）
+- ASP 化候補（User 調査待ち）: `config/crosssell-asp-candidates.json`
+  - 調査完了後のみ `{AFFILIATE:au-denki}` / `{AFFILIATE:rakuten-denki}` 等を許可
+  - **trackingUrl 未設定の ID を本文に書かない**
 - 最低 2 リンク（通信キャリア）を本文に含める
 
 ## 禁止
@@ -35,6 +38,7 @@
 - セット割の金額を断定
 - 虚偽の利用体験
 - 「絶対お得」「必ず儲かる」等
+- 未調査の電気・クレカ向けに仮のアフィリエイト URL を埋め込むこと
 
 ## フッター（必須）
 

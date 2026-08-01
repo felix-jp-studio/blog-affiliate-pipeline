@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "updatedAt": "2026-08-01",
+  "status": "blocked-on-user-asp-research",
+  "note": "User が A8/VC/もしもで電気・クレカ案件を調査するまで trackingUrl / programId は空欄のまま。Agent は仮のアフィリエイト URL を発明しない。",
+  "candidates": [
+    {
+      "id": "au-denki",
+      "label": "auでんき",
+      "category": "cost",
+      "kwHints": ["auでんき セット割", "auスマートバリュー でんき"],
+      "officialUrl": "https://www.au.com/electricity/",
+      "aspTargets": ["a8", "valuecommerce", "moshimo"],
+      "trackingUrl": null,
+      "programId": null,
+      "researchStatus": "pending-user"
+    },
+    {
+      "id": "rakuten-denki",
+      "label": "楽天でんき",
+      "category": "cost",
+      "kwHints": ["楽天でんき 楽天モバイル", "楽天でんき 料金"],
+      "officialUrl": "https://energy.rakuten.co.jp/",
+      "aspTargets": ["a8", "valuecommerce", "moshimo"],
+      "trackingUrl": null,
+      "programId": null,
+      "researchStatus": "pending-user"
+    },
+    {
+      "id": "softbank-denki",
+      "label": "ソフトバンクでんき",
+      "category": "cost",
+      "kwHints": ["ソフトバンク でんき"],
+      "officialUrl": null,
+      "aspTargets": ["a8", "valuecommerce", "moshimo"],
+      "trackingUrl": null,
+      "programId": null,
+      "researchStatus": "pending-user",
+      "note": "公式 URL・案件有無は User 調査で確定"
+    },
+    {
+      "id": "credit-card-crosssell",
+      "label": "クレカ（クロスセル・案件未特定）",
+      "category": "cost",
+      "kwHints": ["固定費 見直し", "楽天経済圏 固定費"],
+      "officialUrl": null,
+      "aspTargets": ["a8", "valuecommerce", "moshimo"],
+      "trackingUrl": null,
+      "programId": null,
+      "researchStatus": "pending-user",
+      "note": "具体的なカード案件名・programId は User が選定後に記入"
+    }
+  ],
+  "activationChecklist": [
+    "User が各 ASP で案件検索し trackingUrl / programId を共有",
+    "config/asp-urls.json の programs に status:active で追加",
+    "config/crosssell-asp-candidates.json の researchStatus を done に更新",
+    "article-crosssell プロンプトで {AFFILIATE:id} を許可",
+    "既存 crosssell 記事の公式リンクをプレースホルダへ置換（任意）"
+  ]
+}
