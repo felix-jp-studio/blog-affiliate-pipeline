@@ -38,14 +38,16 @@ Percy / Chromatic 等の hosted サービスは **採用していません**（�
 
 ```
 site/
-├── playwright.config.ts              # webServer, snapshotPathTemplate, Chromium 1280×720
+├── playwright.config.ts              # webServer, snapshotPathTemplate
+│                                       # projects: chromium 1280×720 + mobile 390×844
 ├── tests/visual/
 │   ├── fixtures/pages.ts             # 対象 URL・locator・snapshot 名
 │   ├── helpers/
 │   │   ├── stabilize-page.ts         # フォント待ち・animation 無効・mask
 │   │   └── normalize-text.ts         # 空白正規化
-│   ├── *.visual.spec.ts              # ページ別 spec（7 本）
+│   ├── *.visual.spec.ts              # ページ別 spec（7 本 × 2 viewport）
 │   └── *-snapshots/                  # PNG + txt baseline（Git 管理）
+│       # 例: homepage-main-chromium.png / homepage-main-mobile.png
 scripts/e2e/
 ├── visual-pages.mjs                  # PR コメント用ページ定義
 ├── collect-visual-diffs.mjs          # diff PNG 収集
@@ -90,6 +92,15 @@ VISUAL_REPORT_PATH=site/test-results/visual-report.json \
 ---
 
 ## 5. baseline 更新ルール
+
+### 5.0 Viewport projects
+
+| Project    | Viewport | Snapshot 接尾辞 | 用途                                |
+| ---------- | -------- | --------------- | ----------------------------------- |
+| `chromium` | 1280×720 | `-chromium`     | デスクトップ回帰（既存）            |
+| `mobile`   | 390×844  | `-mobile`       | スマホ主要テンプレ回帰（UX-VIS-01） |
+
+新規 project 追加時は **Linux baseline** を `update-visual-baselines-dispatch.yml` で生成してから CI を緑にする。
 
 ### 5.1 OS 統一（必須）
 
