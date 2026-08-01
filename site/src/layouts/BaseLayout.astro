@@ -112,7 +112,21 @@ const jsonLdPayload = jsonLd
     <header>
       <div class="container header-inner">
         <a class="logo" href="/">SIM・光回線ガイド</a>
-        <nav aria-label="メインナビゲーション">
+        <button
+          type="button"
+          class="nav-toggle"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          aria-label="メニューを開く"
+        >
+          <span class="nav-toggle__icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span class="nav-toggle__label">メニュー</span>
+        </button>
+        <nav id="site-nav" class="site-nav" aria-label="メインナビゲーション">
           {
             mainNav.map((item) => {
               const navKey = item.href.replace("/", "") as CategorySlug;
@@ -131,6 +145,37 @@ const jsonLdPayload = jsonLd
         </nav>
       </div>
     </header>
+    <script is:inline>
+      (() => {
+        const header = document.querySelector("header");
+        const toggle = document.querySelector(".nav-toggle");
+        const nav = document.getElementById("site-nav");
+        if (!header || !toggle || !nav) return;
+
+        const setOpen = (open) => {
+          header.classList.toggle("is-nav-open", open);
+          toggle.setAttribute("aria-expanded", String(open));
+          toggle.setAttribute(
+            "aria-label",
+            open ? "メニューを閉じる" : "メニューを開く",
+          );
+        };
+
+        toggle.addEventListener("click", () => {
+          setOpen(!header.classList.contains("is-nav-open"));
+        });
+
+        nav.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => setOpen(false));
+        });
+
+        window
+          .matchMedia("(min-width: 768px)")
+          .addEventListener("change", (event) => {
+            if (event.matches) setOpen(false);
+          });
+      })();
+    </script>
     <main id="main-content" class={mainClass} tabindex="-1">
       <slot />
     </main>
@@ -262,29 +307,126 @@ const jsonLdPayload = jsonLd
     font-size: 1.1rem;
   }
 
-  nav {
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-width: 44px;
+    min-height: 44px;
+    margin-left: auto;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .nav-toggle:hover {
+    border-color: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .nav-toggle__icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 18px;
+  }
+
+  .nav-toggle__icon span {
+    display: block;
+    height: 2px;
+    border-radius: 1px;
+    background: currentColor;
+  }
+
+  header.is-nav-open .nav-toggle__icon span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  header.is-nav-open .nav-toggle__icon span:nth-child(2) {
+    opacity: 0;
+  }
+
+  header.is-nav-open .nav-toggle__icon span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  header.is-nav-open .nav-toggle__icon span {
+    transition:
+      transform 0.15s ease,
+      opacity 0.15s ease;
+  }
+
+  .site-nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
+    margin-top: 0.25rem;
+  }
+
+  header.is-nav-open .site-nav {
+    display: flex;
+  }
+
+  .site-nav a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.5rem 0.25rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    text-decoration: none;
+  }
+
+  .site-nav a:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .site-nav a.is-active {
+    color: var(--accent);
+    font-weight: 700;
+    border-bottom-color: var(--accent);
+  }
+
+  footer nav {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
   }
 
-  nav a {
-    color: var(--text-secondary);
-    font-weight: 500;
-    padding: 0.35rem 0.15rem;
-    border-bottom: 2px solid transparent;
-    text-decoration: none;
-  }
+  @media (min-width: 768px) {
+    .nav-toggle {
+      display: none;
+    }
 
-  nav a:hover {
-    color: var(--accent);
-    text-decoration: none;
-  }
+    .site-nav {
+      display: flex;
+      width: auto;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-top: 0;
+      border-top: none;
+      margin-top: 0;
+    }
 
-  nav a.is-active {
-    color: var(--accent);
-    font-weight: 700;
-    border-bottom-color: var(--accent);
+    .site-nav a {
+      display: inline;
+      min-height: auto;
+      padding: 0.35rem 0.15rem;
+    }
   }
 
   main {
