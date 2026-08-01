@@ -55,7 +55,7 @@
   --gradient-hikari: linear-gradient(135deg, #d1fae5 0%, #6ee7b7 100%);
   --gradient-trouble: linear-gradient(135deg, #ffedd5 0%, #fdba74 100%);
   --gradient-cost: linear-gradient(135deg, #ede9fe 0%, #c4b5fd 100%);
-  /* font-weight 500 uses nearest available face (400) from self-hosted subset */
+  /* font-weight 500/600 mapped to 400/700 to match self-hosted faces */
   --font-sans:
     "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
   --font-serif: "Noto Serif JP", "Hiragino Mincho ProN", serif;
