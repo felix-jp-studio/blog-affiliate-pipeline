@@ -1,0 +1,39 @@
+name: Price diff rewrite hook
+
+on:
+  workflow_dispatch:
+    inputs:
+      use_fixtures:
+        description: "Diff fixture snapshots (no live data)"
+        type: boolean
+        default: true
+  # Optional: run after monthly scraper via repository_dispatch later
+
+jobs:
+  price-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Dry-run price diff
+        run: |
+          if [ "${{ inputs.use_fixtures }}" = "true" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            node scripts/price-diff-rewrite-hook.mjs --dry-run \
+              --previous=scripts/fixtures/hikari-prices-previous.json \
+              --current=scripts/fixtures/hikari-prices-current.json \
+              | tee /tmp/price-diff.txt
+          else
+            node scripts/price-diff-rewrite-hook.mjs --dry-run | tee /tmp/price-diff.txt
+          fi
+          {
+            echo "## Price diff rewrite hook"
+            echo '```'
+            cat /tmp/price-diff.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
