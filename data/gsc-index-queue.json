@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-07-31T02:25:54.110Z",
+  "updatedAt": "2026-08-01T02:27:45.896Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -284,6 +284,12 @@
       "slug": "hikkoshi-hikari-tetsuzuki",
       "url": "https://sim-hikari-guide.com/articles/hikkoshi-hikari-tetsuzuki",
       "mergedAt": "2026-07-31T02:25:54.110Z",
+      "indexed": false
+    },
+    {
+      "slug": "softbank-hikari-shogai-kakunin",
+      "url": "https://sim-hikari-guide.com/articles/softbank-hikari-shogai-kakunin",
+      "mergedAt": "2026-08-01T02:27:45.896Z",
       "indexed": false
     }
   ]
