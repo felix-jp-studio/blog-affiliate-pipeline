@@ -25,6 +25,7 @@
 - ナビ計測（LHCI autorun）では **INP は計測不可**のため assert 対象外。ラボ代理指標として **TBT** を監視
 - アサーションは **`warn`** のみ（LHCI 上は失敗扱いにしない）
 - workflow ジョブは **`continue-on-error: true`** — 本番 CDN・計測ブレで flaky になり得るため、初期は merge をブロックしない
+- 週次中央値の記録先: [`docs/operations/cwv-baseline.md`](./operations/cwv-baseline.md)
 
 ## ローカル実行
 
