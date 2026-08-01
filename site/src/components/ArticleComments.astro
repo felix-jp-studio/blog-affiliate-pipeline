@@ -96,193 +96,222 @@ const enabled = import.meta.env.PUBLIC_COMMENTS_ENABLED === "true";
   )
 }
 
-<script define:vars={{ slug }}>
-  const root = document.querySelector(
-    `[data-article-comments][data-article-slug="${slug}"]`,
-  );
-  if (!root) {
-    /* comments disabled */
-  } else {
-    const form = root.querySelector("[data-comment-form]");
-    const listEl = root.querySelector("[data-comment-list]");
-    const statusEl = root.querySelector("[data-comment-status]");
-    const submitButton = root.querySelector("[data-submit-button]");
-    const btnLabel = submitButton?.querySelector(".btn-label");
-    const btnLoading = submitButton?.querySelector(".btn-loading");
-
-    const validators = {
-      authorName(value) {
-        const trimmed = value.trim();
-        if (!trimmed) return "お名前を入力してください。";
-        if (trimmed.length > 32) {
-          return "お名前は32文字以内で入力してください。";
-        }
-        return null;
-      },
-      body(value) {
-        const trimmed = value.trim();
-        if (!trimmed) return "コメントを入力してください。";
-        if (trimmed.length < 10) {
-          return "コメントは10文字以上で入力してください。";
-        }
-        if (trimmed.length > 1000) {
-          return "コメントは1,000文字以内で入力してください。";
-        }
-        return null;
-      },
-    };
-
-    const setFieldError = (field, message) => {
-      const input = form.querySelector(`[name="${field}"]`);
-      const errorEl = form.querySelector(`[data-field-error="${field}"]`);
-      if (!input || !errorEl) return;
-      if (message) {
-        input.setAttribute("aria-invalid", "true");
-        errorEl.textContent = message;
-        errorEl.hidden = false;
+{
+  enabled && (
+    <script define:vars={{ slug }}>
+      const root = document.querySelector(
+        `[data-article-comments][data-article-slug="${slug}"]`,
+      );
+      if (!root) {
+        /* comments markup missing */
       } else {
-        input.removeAttribute("aria-invalid");
-        errorEl.textContent = "";
-        errorEl.hidden = true;
-      }
-    };
+        let initialized = false;
 
-    const validateField = (field) => {
-      const input = form.querySelector(`[name="${field}"]`);
-      if (!input) return true;
-      const error = validators[field](input.value);
-      setFieldError(field, error);
-      return error === null;
-    };
+        const initComments = () => {
+          if (initialized) return;
+          initialized = true;
 
-    const validateForm = () =>
-      ["authorName", "body"].map(validateField).every(Boolean);
+          const form = root.querySelector("[data-comment-form]");
+          const listEl = root.querySelector("[data-comment-list]");
+          const statusEl = root.querySelector("[data-comment-status]");
+          const submitButton = root.querySelector("[data-submit-button]");
+          const btnLabel = submitButton?.querySelector(".btn-label");
+          const btnLoading = submitButton?.querySelector(".btn-loading");
 
-    const setStatus = (type, message = "") => {
-      if (!statusEl) return;
-      statusEl.classList.remove("is-success", "is-error");
-      if (!type) {
-        statusEl.hidden = true;
-        statusEl.textContent = "";
-        return;
-      }
-      statusEl.hidden = false;
-      statusEl.textContent = message;
-      statusEl.classList.add(type === "success" ? "is-success" : "is-error");
-    };
+          const validators = {
+            authorName(value) {
+              const trimmed = value.trim();
+              if (!trimmed) return "お名前を入力してください。";
+              if (trimmed.length > 32) {
+                return "お名前は32文字以内で入力してください。";
+              }
+              return null;
+            },
+            body(value) {
+              const trimmed = value.trim();
+              if (!trimmed) return "コメントを入力してください。";
+              if (trimmed.length < 10) {
+                return "コメントは10文字以上で入力してください。";
+              }
+              if (trimmed.length > 1000) {
+                return "コメントは1,000文字以内で入力してください。";
+              }
+              return null;
+            },
+          };
 
-    const setLoading = (loading) => {
-      if (!submitButton || !btnLabel || !btnLoading) return;
-      submitButton.disabled = loading;
-      submitButton.setAttribute("aria-busy", loading ? "true" : "false");
-      btnLabel.hidden = loading;
-      btnLoading.hidden = !loading;
-    };
+          const setFieldError = (field, message) => {
+            const input = form.querySelector(`[name="${field}"]`);
+            const errorEl = form.querySelector(`[data-field-error="${field}"]`);
+            if (!input || !errorEl) return;
+            if (message) {
+              input.setAttribute("aria-invalid", "true");
+              errorEl.textContent = message;
+              errorEl.hidden = false;
+            } else {
+              input.removeAttribute("aria-invalid");
+              errorEl.textContent = "";
+              errorEl.hidden = true;
+            }
+          };
 
-    const formatDate = (iso) => {
-      try {
-        return new Date(iso).toLocaleDateString("ja-JP", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        });
-      } catch {
-        return iso;
-      }
-    };
+          const validateField = (field) => {
+            const input = form.querySelector(`[name="${field}"]`);
+            if (!input) return true;
+            const error = validators[field](input.value);
+            setFieldError(field, error);
+            return error === null;
+          };
 
-    const renderComments = (comments) => {
-      if (!listEl) return;
-      listEl.innerHTML = "";
-      if (!comments.length) {
-        const empty = document.createElement("li");
-        empty.className = "comment-list__empty";
-        empty.textContent =
-          "まだコメントはありません。最初のコメントを投稿してください。";
-        listEl.appendChild(empty);
-        return;
-      }
-      for (const comment of comments) {
-        const item = document.createElement("li");
-        item.className = "comment-item";
-        const meta = document.createElement("p");
-        meta.className = "comment-item__meta";
-        meta.textContent = `${comment.authorName} · ${formatDate(comment.approvedAt ?? comment.createdAt)}`;
-        const body = document.createElement("p");
-        body.className = "comment-item__body";
-        body.textContent = comment.body;
-        item.append(meta, body);
-        listEl.appendChild(item);
-      }
-    };
+          const validateForm = () =>
+            ["authorName", "body"].map(validateField).every(Boolean);
 
-    const loadComments = async () => {
-      try {
-        const res = await fetch(
-          `/api/comments?slug=${encodeURIComponent(slug)}`,
-        );
-        if (!res.ok) return;
-        const data = await res.json();
-        renderComments(data.comments ?? []);
-      } catch {
-        /* ignore load errors on static preview */
-      }
-    };
+          const setStatus = (type, message = "") => {
+            if (!statusEl) return;
+            statusEl.classList.remove("is-success", "is-error");
+            if (!type) {
+              statusEl.hidden = true;
+              statusEl.textContent = "";
+              return;
+            }
+            statusEl.hidden = false;
+            statusEl.textContent = message;
+            statusEl.classList.add(
+              type === "success" ? "is-success" : "is-error",
+            );
+          };
 
-    ["authorName", "body"].forEach((field) => {
-      const input = form.querySelector(`[name="${field}"]`);
-      input?.addEventListener("blur", () => validateField(field));
-      input?.addEventListener("input", () => {
-        if (input.getAttribute("aria-invalid") === "true") {
-          validateField(field);
+          const setLoading = (loading) => {
+            if (!submitButton || !btnLabel || !btnLoading) return;
+            submitButton.disabled = loading;
+            submitButton.setAttribute("aria-busy", loading ? "true" : "false");
+            btnLabel.hidden = loading;
+            btnLoading.hidden = !loading;
+          };
+
+          const formatDate = (iso) => {
+            try {
+              return new Date(iso).toLocaleDateString("ja-JP", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              });
+            } catch {
+              return iso;
+            }
+          };
+
+          const renderComments = (comments) => {
+            if (!listEl) return;
+            listEl.innerHTML = "";
+            if (!comments.length) {
+              const empty = document.createElement("li");
+              empty.className = "comment-list__empty";
+              empty.textContent =
+                "まだコメントはありません。最初のコメントを投稿してください。";
+              listEl.appendChild(empty);
+              return;
+            }
+            for (const comment of comments) {
+              const item = document.createElement("li");
+              item.className = "comment-item";
+              const meta = document.createElement("p");
+              meta.className = "comment-item__meta";
+              meta.textContent = `${comment.authorName} · ${formatDate(comment.approvedAt ?? comment.createdAt)}`;
+              const body = document.createElement("p");
+              body.className = "comment-item__body";
+              body.textContent = comment.body;
+              item.append(meta, body);
+              listEl.appendChild(item);
+            }
+          };
+
+          const loadComments = async () => {
+            try {
+              const res = await fetch(
+                `/api/comments?slug=${encodeURIComponent(slug)}`,
+              );
+              if (!res.ok) return;
+              const data = await res.json();
+              renderComments(data.comments ?? []);
+            } catch {
+              /* ignore load errors on static preview */
+            }
+          };
+
+          ["authorName", "body"].forEach((field) => {
+            const input = form.querySelector(`[name="${field}"]`);
+            input?.addEventListener("blur", () => validateField(field));
+            input?.addEventListener("input", () => {
+              if (input.getAttribute("aria-invalid") === "true") {
+                validateField(field);
+              }
+            });
+          });
+
+          form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            if (!validateForm()) return;
+
+            setStatus(null);
+            setLoading(true);
+
+            const formData = new FormData(form);
+            const payload = {
+              articleSlug: slug,
+              authorName: String(formData.get("authorName") ?? ""),
+              body: String(formData.get("body") ?? ""),
+              website: String(formData.get("website") ?? ""),
+            };
+
+            try {
+              const res = await fetch("/api/comments", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+              });
+              const data = await res.json().catch(() => ({}));
+              if (!res.ok) {
+                setStatus("error", data.error ?? "送信に失敗しました。");
+                return;
+              }
+              form.reset();
+              setStatus(
+                "success",
+                data.message ??
+                  "コメントを受け付けました。承認後に公開されます。",
+              );
+            } catch {
+              setStatus(
+                "error",
+                "送信に失敗しました。時間をおいて再度お試しください。",
+              );
+            } finally {
+              setLoading(false);
+            }
+          });
+
+          loadComments();
+        };
+
+        if (typeof IntersectionObserver === "undefined") {
+          initComments();
+        } else {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              if (entries.some((entry) => entry.isIntersecting)) {
+                observer.disconnect();
+                initComments();
+              }
+            },
+            { rootMargin: "200px 0px" },
+          );
+          observer.observe(root);
         }
-      });
-    });
-
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      if (!validateForm()) return;
-
-      setStatus(null);
-      setLoading(true);
-
-      const formData = new FormData(form);
-      const payload = {
-        articleSlug: slug,
-        authorName: String(formData.get("authorName") ?? ""),
-        body: String(formData.get("body") ?? ""),
-        website: String(formData.get("website") ?? ""),
-      };
-
-      try {
-        const res = await fetch("/api/comments", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-        const data = await res.json().catch(() => ({}));
-        if (!res.ok) {
-          setStatus("error", data.error ?? "送信に失敗しました。");
-          return;
-        }
-        form.reset();
-        setStatus(
-          "success",
-          data.message ?? "コメントを受け付けました。承認後に公開されます。",
-        );
-      } catch {
-        setStatus(
-          "error",
-          "送信に失敗しました。時間をおいて再度お試しください。",
-        );
-      } finally {
-        setLoading(false);
       }
-    });
-
-    loadComments();
-  }
-</script>
+    </script>
+  )
+}
 
 <style>
   .article-comments {

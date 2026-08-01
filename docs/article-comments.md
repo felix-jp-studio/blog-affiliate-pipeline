@@ -5,6 +5,7 @@ sim-hikari-guide.com の記事ページに、**ログイン不要・承認制**�
 ## アーキテクチャ
 
 - **UI**: `ArticleComments.astro`（記事末尾、`RelatedArticles` の前）
+- **クライアント JS**: `PUBLIC_COMMENTS_ENABLED=true` のときのみ script を出力。初期化は **IntersectionObserver**（`rootMargin: 200px`）でビューポート接近時に遅延。無効時は HTML/JS ともゼロコスト
 - **API**: Astro server endpoints（Vercel Serverless）
   - `GET /api/comments?slug=` — 承認済み一覧
   - `POST /api/comments` — pending 投稿
