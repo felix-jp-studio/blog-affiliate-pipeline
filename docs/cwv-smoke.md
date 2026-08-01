@@ -1,13 +1,14 @@
 # Core Web Vitals smoke（Lighthouse CI）
 
-本番 URL に対する週次 Lighthouse smoke です。Hub 1 ページ + 記事 1 ページを計測し、パフォーマンス回帰の早期検知を目的とします。
+本番 URL に対する週次 Lighthouse smoke です。**モバイル**でホーム・Hub・記事 3 ページを計測し、パフォーマンス回帰の早期検知を目的とします。
 
-| 項目         | 値                                                                 |
-| ------------ | ------------------------------------------------------------------ |
-| workflow     | `.github/workflows/cwv-smoke.yml`                                  |
-| 設定         | `lighthouserc.cjs`                                                 |
-| スケジュール | 毎週日曜 11:00 JST + `workflow_dispatch`                           |
-| 対象 URL     | `/sim`（Hub）、`/articles/sim-osusume-hikaku-2026`（記事サンプル） |
+| 項目         | 値                                                                                |
+| ------------ | --------------------------------------------------------------------------------- |
+| workflow     | `.github/workflows/cwv-smoke.yml`                                                 |
+| 設定         | `lighthouserc.cjs`                                                                |
+| スケジュール | 毎週日曜 11:00 JST + `workflow_dispatch`                                          |
+| フォーム因子 | **mobile**（`formFactor: "mobile"` + `screenEmulation.mobile`）                   |
+| 対象 URL     | `/`（ホーム）、`/sim`（Hub）、`/articles/sim-osusume-hikaku-2026`（記事サンプル） |
 
 ## しきい値（初期）
 
@@ -19,7 +20,9 @@
 | SEO               | warn   | ≥ 0.9     |
 | LCP               | warn   | ≤ 4000 ms |
 | CLS               | warn   | ≤ 0.15    |
+| TBT               | warn   | ≤ 600 ms  |
 
+- ナビ計測（LHCI autorun）では **INP は計測不可**のため assert 対象外。ラボ代理指標として **TBT** を監視
 - アサーションは **`warn`** のみ（LHCI 上は失敗扱いにしない）
 - workflow ジョブは **`continue-on-error: true`** — 本番 CDN・計測ブレで flaky になり得るため、初期は merge をブロックしない
 
