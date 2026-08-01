@@ -1,0 +1,28 @@
+{
+  "version": "1",
+  "updatedAt": "2026-08-01T00:00:00.000Z",
+  "source": "fixture",
+  "providers": {
+    "nuro-hikari": {
+      "url": "https://nuro-hikari.com/",
+      "ok": true,
+      "monthlyFeeYen": 5450,
+      "constructionFeeYen": 0,
+      "campaignNote": "新キャッシュバック",
+      "parseStatus": "parsed",
+      "rateLimited": false,
+      "rewriteSlugs": ["nuro-hikari-au-hikari-hikaku", "nuro-hikari-campaign"]
+    },
+    "au-hikari": {
+      "url": "https://www.au.com/internet/",
+      "ok": true,
+      "monthlyFeeYen": 5610,
+      "constructionFeeYen": 30000,
+      "campaignNote": "割引キャンペーンあり",
+      "parseStatus": "parsed",
+      "rateLimited": false,
+      "rewriteSlugs": ["nuro-hikari-au-hikari-hikaku", "hikari-mansion-osusume"]
+    }
+  },
+  "summary": { "total": 2, "ok": 2, "rateLimited": [], "fetchFailed": [] }
+}

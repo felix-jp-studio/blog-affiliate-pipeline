@@ -32,6 +32,7 @@
     "scraper:hikari": "cd packages/scraper && PYTHONPATH=. .venv/bin/python -m scraper.hikari_prices",
     "scraper:hikari:fixture": "cd packages/scraper && PYTHONPATH=. .venv/bin/python -m scraper.hikari_prices --fixture-dir tests/fixtures",
     "test:scraper": "cd packages/scraper && PYTHONPATH=. .venv/bin/python -m unittest discover -s tests -q",
+    "price-diff:rewrite-hook": "node scripts/price-diff-rewrite-hook.mjs",
     "report:article-type-ratio": "node scripts/report-article-type-ratio.mjs",
     "test:e2e:visual": "npm run test:e2e:visual --prefix site",
     "test:e2e:visual:update": "npm run test:e2e:visual:update --prefix site",
