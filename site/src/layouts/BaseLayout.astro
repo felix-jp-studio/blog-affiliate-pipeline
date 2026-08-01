@@ -112,67 +112,67 @@ const jsonLdPayload = jsonLd
     <header>
       <div class="container header-inner">
         <a class="logo" href="/">SIM・光回線ガイド</a>
-        <button
-          type="button"
-          class="nav-toggle"
-          aria-expanded="false"
-          aria-controls="site-nav"
-          aria-label="メニューを開く"
-        >
-          <span class="nav-toggle__icon" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
-          <span class="nav-toggle__label">メニュー</span>
-        </button>
-        <nav id="site-nav" class="site-nav" aria-label="メインナビゲーション">
-          {
-            mainNav.map((item) => {
-              const navKey = item.href.replace("/", "") as CategorySlug;
-              const isActive = activeNav === navKey;
-              return (
-                <a
-                  href={item.href}
-                  class:list={{ "is-active": isActive }}
-                  aria-current={isActive ? "page" : undefined}
-                >
-                  {item.label}
-                </a>
-              );
-            })
-          }
-        </nav>
+        <details class="site-nav-menu">
+          <summary
+            class="nav-toggle"
+            aria-expanded="false"
+            aria-controls="site-nav"
+          >
+            <span class="nav-toggle__icon" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+            <span class="nav-toggle__label">メニュー</span>
+          </summary>
+          <nav id="site-nav" class="site-nav" aria-label="メインナビゲーション">
+            {
+              mainNav.map((item) => {
+                const navKey = item.href.replace("/", "") as CategorySlug;
+                const isActive = activeNav === navKey;
+                return (
+                  <a
+                    href={item.href}
+                    class:list={{ "is-active": isActive }}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {item.label}
+                  </a>
+                );
+              })
+            }
+          </nav>
+        </details>
       </div>
     </header>
     <script is:inline>
       (() => {
-        const header = document.querySelector("header");
-        const toggle = document.querySelector(".nav-toggle");
+        const menu = document.querySelector(".site-nav-menu");
+        const summary = menu?.querySelector(".nav-toggle");
         const nav = document.getElementById("site-nav");
-        if (!header || !toggle || !nav) return;
+        if (!menu || !summary || !nav) return;
 
-        const setOpen = (open) => {
-          header.classList.toggle("is-nav-open", open);
-          toggle.setAttribute("aria-expanded", String(open));
-          toggle.setAttribute(
-            "aria-label",
-            open ? "メニューを閉じる" : "メニューを開く",
-          );
+        const syncExpanded = () => {
+          summary.setAttribute("aria-expanded", String(menu.open));
         };
 
-        toggle.addEventListener("click", () => {
-          setOpen(!header.classList.contains("is-nav-open"));
-        });
+        menu.addEventListener("toggle", syncExpanded);
+        syncExpanded();
 
         nav.querySelectorAll("a").forEach((link) => {
-          link.addEventListener("click", () => setOpen(false));
+          link.addEventListener("click", () => {
+            menu.open = false;
+            syncExpanded();
+          });
         });
 
         window
           .matchMedia("(min-width: 768px)")
           .addEventListener("change", (event) => {
-            if (event.matches) setOpen(false);
+            if (event.matches) {
+              menu.open = false;
+              syncExpanded();
+            }
           });
       })();
     </script>
@@ -314,7 +314,6 @@ const jsonLdPayload = jsonLd
     gap: 0.4rem;
     min-width: 44px;
     min-height: 44px;
-    margin-left: auto;
     padding: 0.5rem 0.75rem;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
@@ -346,36 +345,45 @@ const jsonLdPayload = jsonLd
     background: currentColor;
   }
 
-  header.is-nav-open .nav-toggle__icon span:nth-child(1) {
+  .site-nav-menu {
+    margin-left: auto;
+    width: auto;
+  }
+
+  .site-nav-menu > summary {
+    list-style: none;
+  }
+
+  .site-nav-menu > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .site-nav-menu[open] .nav-toggle__icon span:nth-child(1) {
     transform: translateY(6px) rotate(45deg);
   }
 
-  header.is-nav-open .nav-toggle__icon span:nth-child(2) {
+  .site-nav-menu[open] .nav-toggle__icon span:nth-child(2) {
     opacity: 0;
   }
 
-  header.is-nav-open .nav-toggle__icon span:nth-child(3) {
+  .site-nav-menu[open] .nav-toggle__icon span:nth-child(3) {
     transform: translateY(-6px) rotate(-45deg);
   }
 
-  header.is-nav-open .nav-toggle__icon span {
+  .site-nav-menu[open] .nav-toggle__icon span {
     transition:
       transform 0.15s ease,
       opacity 0.15s ease;
   }
 
   .site-nav {
-    display: none;
+    display: flex;
     width: 100%;
     flex-direction: column;
     gap: 0;
     padding-top: 0.5rem;
     border-top: 1px solid var(--border);
     margin-top: 0.25rem;
-  }
-
-  header.is-nav-open .site-nav {
-    display: flex;
   }
 
   .site-nav a {
@@ -407,8 +415,16 @@ const jsonLdPayload = jsonLd
   }
 
   @media (min-width: 768px) {
-    .nav-toggle {
+    .site-nav-menu {
+      margin-left: 0;
+    }
+
+    .site-nav-menu > summary.nav-toggle {
       display: none;
+    }
+
+    .site-nav-menu {
+      display: contents;
     }
 
     .site-nav {
