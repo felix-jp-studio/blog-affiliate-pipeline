@@ -97,15 +97,15 @@ const { title, offers } = Astro.props;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 44px;
-    padding: 0.65rem 1.25rem;
-    border-radius: 6px;
+    min-height: var(--cta-min-height);
+    padding: var(--cta-padding-y) var(--cta-padding-x);
+    border-radius: var(--cta-radius);
     background: var(--accent);
     color: var(--text-on-accent);
-    font-weight: 700;
-    font-size: 0.95rem;
+    font-weight: var(--cta-font-weight);
+    font-size: var(--cta-font-size);
     text-decoration: none;
-    transition: background 0.15s ease;
+    transition: var(--cta-transition);
   }
 
   .affiliate-link.affiliate-cta-block__action:hover {

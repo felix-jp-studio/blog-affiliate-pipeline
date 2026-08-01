@@ -70,6 +70,14 @@
   --sticky-top-offset: calc(var(--site-header-height) + 1rem);
   --space-section: 3rem;
   --space-block: 1.5rem;
+  /* Shared CTA button surface (prose / Hub / AffiliateButton) */
+  --cta-radius: var(--radius-sm);
+  --cta-padding-y: 0.65rem;
+  --cta-padding-x: 1.25rem;
+  --cta-font-size: 0.95rem;
+  --cta-font-weight: 700;
+  --cta-min-height: 44px;
+  --cta-transition: background 0.15s ease;
 }
 
 @supports not (color: Canvas) {
