@@ -1,0 +1,74 @@
+name: Hikari price scraper
+
+on:
+  workflow_dispatch:
+    inputs:
+      use_fixtures:
+        description: "Use HTML fixtures instead of live fetch (CI / dry)"
+        type: boolean
+        default: false
+  schedule:
+    # 毎月1日 00:00 JST = UTC 前日 15:00
+    - cron: "0 15 1 * *"
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install scraper deps
+        working-directory: packages/scraper
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run unit tests (fixtures)
+        working-directory: packages/scraper
+        run: PYTHONPATH=. python -m unittest discover -s tests -q
+
+      - name: Scrape (fixtures or live)
+        id: scrape
+        working-directory: packages/scraper
+        run: |
+          set +e
+          if [ "${{ inputs.use_fixtures }}" = "true" ]; then
+            PYTHONPATH=. python -m scraper.hikari_prices \
+              --fixture-dir tests/fixtures \
+              --output ../../data/hikari-prices-snapshot.json \
+              | tee /tmp/hikari-snapshot.json
+          else
+            PYTHONPATH=. python -m scraper.hikari_prices \
+              --output ../../data/hikari-prices-snapshot.json \
+              | tee /tmp/hikari-snapshot.json
+          fi
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Job summary
+        if: always()
+        run: |
+          {
+            echo "## Hikari price scraper"
+            echo ""
+            echo '```json'
+            cat /tmp/hikari-snapshot.json 2>/dev/null || echo "{}"
+            echo '```'
+            echo ""
+            echo "Exit code: ${{ steps.scrape.outputs.exit_code }}"
+            echo ""
+            echo "Note: HTTP 429 (rate limit) is treated as soft failure (exit 0)."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload snapshot artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hikari-prices-snapshot
+          path: data/hikari-prices-snapshot.json
+          if-no-files-found: warn
