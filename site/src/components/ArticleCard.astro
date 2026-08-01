@@ -108,6 +108,16 @@ const readingLabel =
     text-decoration: none;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .article-card {
+      transition: box-shadow 0.2s ease;
+    }
+
+    .article-card:hover {
+      transform: none;
+    }
+  }
+
   .article-card__media {
     aspect-ratio: 16 / 9;
     overflow: hidden;
