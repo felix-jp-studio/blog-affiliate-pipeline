@@ -24,7 +24,7 @@ const { href, label } = Astro.props;
     padding: 0.65rem 1.25rem;
     border-radius: 6px;
     background: var(--accent);
-    color: #fff;
+    color: var(--text-on-accent);
     font-weight: 600;
     font-size: 0.95rem;
     text-decoration: none;
@@ -32,7 +32,7 @@ const { href, label } = Astro.props;
   }
 
   .affiliate-button:hover {
-    background: #095aa8;
+    background: var(--accent-hover);
     text-decoration: none;
   }
 </style>

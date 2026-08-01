@@ -301,15 +301,15 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
   }
 
   .form-status.is-success {
-    background: #ecfdf5;
-    border: 1px solid #6ee7b7;
-    color: #047857;
+    background: var(--callout-success-bg);
+    border: 1px solid var(--callout-success-border);
+    color: var(--callout-success-text);
   }
 
   .form-status.is-error {
-    background: #fef2f2;
-    border: 1px solid #fca5a5;
-    color: #b91c1c;
+    background: var(--callout-error-bg);
+    border: 1px solid var(--callout-error-border);
+    color: var(--callout-error-text);
   }
 
   .field {
@@ -346,8 +346,8 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
 
   input[aria-invalid="true"],
   textarea[aria-invalid="true"] {
-    border-color: #dc2626;
-    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+    border-color: var(--callout-error-accent);
+    box-shadow: 0 0 0 3px var(--callout-error-ring);
   }
 
   textarea {
@@ -363,7 +363,7 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
 
   .field-error {
     margin: 0.35rem 0 0;
-    color: #b91c1c;
+    color: var(--callout-error-text);
     font-size: 0.875rem;
     line-height: 1.4;
   }
@@ -375,7 +375,7 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
     min-height: 2.75rem;
     min-width: 8rem;
     background: var(--accent);
-    color: #fff;
+    color: var(--text-on-accent);
     border: 0;
     border-radius: var(--radius-sm);
     padding: 0.65rem 1.5rem;
@@ -388,7 +388,7 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
   }
 
   button:hover:not(:disabled) {
-    background: #095aa8;
+    background: var(--accent-hover);
   }
 
   button:disabled {
