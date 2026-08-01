@@ -27,6 +27,7 @@
     "test:e2e:changed-slugs": "node scripts/e2e/changed-slugs.mjs",
     "indexnow:ping": "node scripts/indexnow-ping.mjs",
     "gsc:inspection-batch": "node scripts/print-gsc-inspection-batch.mjs",
+    "gsc:weekly-report": "node scripts/gsc-weekly-report.mjs",
     "rewrite:weekly": "node scripts/rewrite-weekly.mjs",
     "report:article-type-ratio": "node scripts/report-article-type-ratio.mjs",
     "test:e2e:visual": "npm run test:e2e:visual --prefix site",
