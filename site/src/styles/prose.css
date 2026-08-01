@@ -52,26 +52,18 @@
   border: 1px solid var(--border);
 }
 
-.prose .table-scroll:focus-within {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
 .prose .table-scroll::after {
   content: "← 横にスクロールできます →";
   display: block;
   text-align: center;
   font-size: 0.75rem;
-  line-height: 1.2;
   color: var(--text-secondary);
   padding: 0.35rem 0 0;
-  /* Reserve hint height on all viewports to avoid CLS when mobile hint paints */
-  min-height: calc(0.75rem * 1.2 + 0.35rem);
 }
 
 @media (min-width: 641px) {
   .prose .table-scroll::after {
-    visibility: hidden;
+    display: none;
   }
 }
 
@@ -84,7 +76,7 @@
 
 .prose thead {
   background: var(--accent-soft);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .prose th,
@@ -106,15 +98,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
-  padding: 0.45rem 0.85rem;
+  min-height: var(--cta-min-height);
+  padding: var(--cta-padding-y) var(--cta-padding-x);
   margin: 0.25rem 0;
-  border-radius: var(--radius-sm);
+  border-radius: var(--cta-radius);
   background: var(--accent);
   color: var(--text-on-accent);
-  font-weight: 700;
-  font-size: 0.9rem;
+  font-weight: var(--cta-font-weight);
+  font-size: var(--cta-font-size);
   text-decoration: none;
+  transition: var(--cta-transition);
 }
 
 .prose a.affiliate-link:hover {
