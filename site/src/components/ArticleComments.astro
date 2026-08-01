@@ -126,15 +126,15 @@ const enabled = import.meta.env.PUBLIC_COMMENTS_ENABLED === "true";
   }
 
   .comment-status.is-success {
-    background: #ecfdf5;
-    color: #065f46;
-    border: 1px solid #a7f3d0;
+    background: var(--callout-success-bg);
+    color: var(--callout-success-text);
+    border: 1px solid var(--callout-success-border);
   }
 
   .comment-status.is-error {
-    background: #fef2f2;
-    color: #991b1b;
-    border: 1px solid #fecaca;
+    background: var(--callout-error-bg);
+    color: var(--callout-error-text);
+    border: 1px solid var(--callout-error-border);
   }
 
   .comment-list {
@@ -207,7 +207,7 @@ const enabled = import.meta.env.PUBLIC_COMMENTS_ENABLED === "true";
   }
 
   .field-error {
-    color: #b91c1c;
+    color: var(--callout-error-text);
     font-size: 0.8125rem;
     margin: 0.375rem 0 0;
   }
@@ -217,10 +217,14 @@ const enabled = import.meta.env.PUBLIC_COMMENTS_ENABLED === "true";
     padding: 0.625rem 1.25rem;
     border: none;
     border-radius: var(--radius-sm);
-    background: var(--accent, #2563eb);
-    color: #fff;
+    background: var(--accent);
+    color: var(--text-on-accent);
     font-weight: 600;
     cursor: pointer;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: var(--accent-hover);
   }
 
   .btn-primary:disabled {
