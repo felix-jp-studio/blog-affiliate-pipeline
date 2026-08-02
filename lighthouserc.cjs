@@ -7,7 +7,7 @@ module.exports = {
         "https://sim-hikari-guide.com/sim",
         "https://sim-hikari-guide.com/articles/sim-osusume-hikaku-2026",
       ],
-      numberOfRuns: 1,
+      numberOfRuns: 3,
       settings: {
         formFactor: "mobile",
         screenEmulation: {
