@@ -22,9 +22,9 @@ const prefetchHrefs = related
 {
   related.length > 0 && (
     <aside class="related-articles" aria-labelledby="related-heading">
-      {
-        prefetchHrefs.map((href) => <link rel="prefetch" href={href} />)
-      }
+      {prefetchHrefs.map((href) => (
+        <link rel="prefetch" href={href} />
+      ))}
       <h2 id="related-heading">関連記事</h2>
       <div class="related-articles__grid">
         {related.map((article) => (
