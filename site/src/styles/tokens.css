@@ -76,6 +76,13 @@
   --sticky-top-offset: calc(var(--site-header-height) + 1rem);
   --space-section: 3rem;
   --space-block: 1.5rem;
+  /* Prose rhythm (article body) — subtle spacing; no rebrand */
+  --prose-h2-margin-top: var(--space-section);
+  --prose-h2-margin-bottom: 0.875rem;
+  --prose-h3-margin-top: 2.25rem;
+  --prose-h3-margin-bottom: 0.625rem;
+  --prose-block-margin-bottom: 1.375rem;
+  --prose-li-margin-bottom: 0.55rem;
   /* Shared CTA button surface (prose / Hub / AffiliateButton) */
   --cta-radius: var(--radius-sm);
   --cta-padding-y: 0.65rem;
