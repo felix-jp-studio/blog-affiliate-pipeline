@@ -107,7 +107,7 @@ IPv6対応の有無、プロバイダメールの付帯有無はプロバイダ�
 
 ### ahamo
 
-[ahamoの公式を見る](https://www.docomo.ne.jp/ahamo/)
+[ahamoの公式を見る]({AFFILIATE:ahamo})
 
 <!-- internal-links:v1 -->
 

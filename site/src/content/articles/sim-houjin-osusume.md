@@ -110,7 +110,7 @@ draft: false
 
 ### ahamo
 
-[ahamoの公式を見る](https://www.docomo.ne.jp/ahamo/)
+[ahamoの公式を見る]({AFFILIATE:ahamo})
 
 ## 経費処理の観点
 

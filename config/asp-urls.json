@@ -74,9 +74,11 @@
       "label": "ahamo",
       "category": "sim",
       "provider": "a8",
-      "fallbackUrl": "https://www.docomo.ne.jp/ahamo/",
-      "status": "pending",
-      "note": "A8 提携申請中（2026-07-22）。承認後 trackingUrl / programId を設定"
+      "programId": "4BB6H3+LGDU+4TIO+5YJRM",
+      "trackingUrl": "https://px.a8.net/svt/ejp?a8mat=4BB6H3+LGDU+4TIO+5YJRM",
+      "status": "active",
+      "lastVerified": "2026-08-02",
+      "note": "A8 テキストリンク「ahamo」（ブランド中立）。21 記事 {AFFILIATE:ahamo} 済"
     },
     "ahamo-hikari": {
       "label": "ahamo光",
