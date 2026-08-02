@@ -101,34 +101,53 @@ npm run test:generator
 
 ## 登録済みプログラム（`programs`）
 
-| プログラム ID   | キャリア     | ASP  | 状態       | 備考                                                              |
-| --------------- | ------------ | ---- | ---------- | ----------------------------------------------------------------- |
-| rakuten-mobile  | 楽天モバイル | A8   | active     | —                                                                 |
-| linemo          | LINEMO       | VC   | active     | —                                                                 |
-| au-hikari       | auひかり     | A8   | active     | —                                                                 |
-| softbank-hikari | SB光         | A8   | active     | —                                                                 |
-| wimax           | WiMAX        | A8   | active     | —                                                                 |
-| ahamo           | ahamo        | A8   | pending    | **A8 提携申請中**（2026-07-22）                                   |
-| ahamo-hikari    | ahamo光      | A8   | pending    | **A8 提携申請中**（2026-07-22）                                   |
-| povo            | povo         | 公式 | pending    | A8 に案件なし。公式 URL 維持                                      |
-| uq-mobile       | UQ mobile    | A8   | pending    | **A8 提携申請中**（povo 代替、2026-07-22）                        |
-| **nuro-hikari** | **NURO 光**  | A8   | **active** | A8 テキストリンク「NURO光」（2026-08-02 取得、`s00000020586001`） |
+| プログラム ID    | キャリア     | ASP  | 状態       | 備考                                                                  |
+| ---------------- | ------------ | ---- | ---------- | --------------------------------------------------------------------- |
+| rakuten-mobile   | 楽天モバイル | A8   | active     | —                                                                     |
+| linemo           | LINEMO       | VC   | active     | —                                                                     |
+| au-hikari        | auひかり     | A8   | active     | —                                                                     |
+| softbank-hikari  | SB光         | A8   | active     | —                                                                     |
+| wimax            | WiMAX        | A8   | active     | —                                                                     |
+| ahamo            | ahamo        | A8   | pending    | **A8 提携申請中**（2026-07-22）。モバイル案件。ahamo光 とは別エントリ |
+| **ahamo-hikari** | **ahamo光**  | A8   | **active** | A8 テキストリンク「【ahamo光】」（2026-08-02 取得、ブランド中立）     |
+| povo             | povo         | 公式 | pending    | A8 に案件なし。公式 URL 維持                                          |
+| uq-mobile        | UQ mobile    | A8   | pending    | **A8 提携申請中**（povo 代替、2026-07-22）                            |
+| **nuro-hikari**  | **NURO 光**  | A8   | **active** | A8 テキストリンク「NURO光」（2026-08-02 取得、`s00000020586001`）     |
 
 ### pending プログラムの挙動
 
 - `status: pending` かつ `trackingUrl` 未設定の場合、生成・サイトビルドは `fallbackUrl`（公式サイト）へ解決する
-- `{AFFILIATE:nuro-hikari}` プレースホルダも同様に公式 URL へフォールバック（ビルドは失敗しない）
+- `{AFFILIATE:nuro-hikari}` / `{AFFILIATE:ahamo-hikari}` は `status: active` のため A8 trackingUrl へ解決
 - **A8 提携承認後**: User が [pub.a8.net](https://pub.a8.net/) でトラッキング URL を取得 → `status` を `active`、`programId` / `trackingUrl` を設定 → 該当記事の `{AFFILIATE:*}` プレースホルダへ反映
 
-### A8 提携申請中（2026-07-22 時点）
+### A8 提携申請中（2026-08-02 時点）
 
 | プログラム | 状態                        | 承認後の作業                                                                      |
 | ---------- | --------------------------- | --------------------------------------------------------------------------------- |
-| ahamo      | 申請中                      | `ahamo` の trackingUrl 設定 → 比較記事の ahamo CTA を `{AFFILIATE:ahamo}` へ      |
-| ahamo光    | 申請中                      | `ahamo-hikari` を active 化（光回線記事向け）                                     |
+| ahamo      | 申請中（モバイル）          | `ahamo` の trackingUrl 設定 → 比較記事の ahamo CTA を `{AFFILIATE:ahamo}` へ      |
+| ahamo光    | **active**（URL 設定済み）  | 下記 12 記事は `{AFFILIATE:ahamo-hikari}` → A8 trackingUrl へ解決                 |
 | UQ mobile  | 申請中（povo 代替）         | `uq-mobile` の trackingUrl 設定 → UQ 関連記事の CTA を `{AFFILIATE:uq-mobile}` へ |
 | NURO 光    | **active**（URL 設定済み）  | 下記 11 記事は `{AFFILIATE:nuro-hikari}` → A8 trackingUrl へ解決                  |
 | povo       | **申請なし**（A8 案件なし） | 公式 URL（`https://povo.jp/`）維持                                                |
+
+### `{AFFILIATE:ahamo-hikari}` 反映済み記事（12 本）
+
+`status: active`。ビルド時に A8 trackingUrl（`px.a8.net`、ブランド中立テキスト「【ahamo光】」）へ解決される。`ahamo`（モバイル）エントリとは別管理。
+
+| #   | 記事ファイル                               | 備考                         |
+| --- | ------------------------------------------ | ---------------------------- |
+| 1   | `docomo-hikari-hikari-collab-hikaku.md`    | ドコモ系光比較に ahamo光追加 |
+| 2   | `hikari-provider-chigai.md`                | プロバイダ比較 CTA           |
+| 3   | `hikari-1gbps-yasui.md`                    | 比較セクション CTA           |
+| 4   | `hikari-kodate-osusume.md`                 | 比較セクション CTA           |
+| 5   | `hikari-mansion-osusume.md`                | 比較セクション CTA           |
+| 6   | `hikari-switch-osusume.md`                 | 比較セクション CTA           |
+| 7   | `home-router-hikari-hikaku.md`             | 比較セクション CTA           |
+| 8   | `mobareco-air-wimax-hikaku.md`             | 比較セクション CTA           |
+| 9   | `nuro-hikari-au-hikari-hikaku.md`          | 比較セクション CTA           |
+| 10  | `nuro-hikari-campaign.md`                  | 比較セクション CTA           |
+| 11  | `softbank-hikari-biglobe-hikari-hikaku.md` | 比較セクション CTA           |
+| 12  | `wimax-fee-hikaku-2026.md`                 | 比較セクション CTA           |
 
 ### `{AFFILIATE:nuro-hikari}` 反映済み記事（11 本）
 
