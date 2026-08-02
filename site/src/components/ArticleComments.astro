@@ -191,6 +191,17 @@ const enabled = import.meta.env.PUBLIC_COMMENTS_ENABLED === "true";
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     font: inherit;
+    font-size: max(1rem, 16px);
+    line-height: 1.5;
+    color: var(--text-primary);
+    background: var(--bg-article);
+  }
+
+  .field input:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
   }
 
   .field-honeypot {
@@ -214,13 +225,21 @@ const enabled = import.meta.env.PUBLIC_COMMENTS_ENABLED === "true";
 
   .btn-primary {
     align-self: flex-start;
-    padding: 0.625rem 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--cta-min-height);
+    padding: var(--cta-padding-y) var(--cta-padding-x);
     border: none;
-    border-radius: var(--radius-sm);
+    border-radius: var(--cta-radius);
     background: var(--accent);
     color: var(--text-on-accent);
-    font-weight: 700;
+    font-size: var(--cta-font-size);
+    font-weight: var(--cta-font-weight);
     cursor: pointer;
+    transition:
+      var(--cta-transition),
+      opacity 0.15s ease;
   }
 
   .btn-primary:hover:not(:disabled) {
