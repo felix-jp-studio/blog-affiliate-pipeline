@@ -69,6 +69,9 @@
   --width-page: 1120px;
   --width-hub: 1100px;
   --width-body: 680px;
+  --width-lead: 36rem;
+  --width-form: 560px;
+  --width-table-min: 36rem;
   --site-header-height: 4rem;
   --sticky-top-offset: calc(var(--site-header-height) + 1rem);
   --space-section: 3rem;
