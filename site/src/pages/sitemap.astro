@@ -1,0 +1,135 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { categoryMeta, type CategorySlug } from "../data/category-meta";
+import { buildBreadcrumbs } from "../data/site-nav";
+import { compareArticlesByRecency } from "../utils/sort-articles";
+
+const categoryOrder: CategorySlug[] = ["sim", "hikari", "trouble", "cost"];
+
+const articles = (await getCollection("articles", ({ data }) => !data.draft)).sort(
+  compareArticlesByRecency,
+);
+
+const byCategory = categoryOrder.map((category) => ({
+  category,
+  meta: categoryMeta[category],
+  articles: articles.filter((article) => article.data.category === category),
+}));
+
+const breadcrumbs = buildBreadcrumbs([{ label: "サイトマップ" }]);
+const total = articles.length;
+---
+
+<BaseLayout
+  title="サイトマップ"
+  description="格安SIM・光回線・お困り系・固定費の記事一覧（カテゴリ別 HTML サイトマップ）"
+>
+  <Breadcrumbs items={breadcrumbs} />
+
+  <header class="sitemap-hero">
+    <h1>サイトマップ</h1>
+    <p>
+      公開中の記事をカテゴリ別に一覧しています（全{total}件）。XML サイトマップは<a
+        href="/sitemap-index.xml">sitemap-index.xml</a
+      >も参照できます。
+    </p>
+  </header>
+
+  {
+    byCategory.map(({ category, meta, articles: items }) => (
+      <section class="sitemap-section" aria-labelledby={`sitemap-${category}`}>
+        <h2 id={`sitemap-${category}`}>
+          <a href={meta.href}>{meta.label}</a>
+          <span class="sitemap-count">{items.length}件</span>
+        </h2>
+        {items.length === 0 ? (
+          <p class="sitemap-empty">公開記事はまだありません。</p>
+        ) : (
+          <ul class="sitemap-list">
+            {items.map((article) => (
+              <li>
+                <a href={`/articles/${article.id}`}>{article.data.title}</a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+    ))
+  }
+</BaseLayout>
+
+<style>
+  .sitemap-hero {
+    margin: 0 0 2rem;
+  }
+
+  .sitemap-hero h1 {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+  }
+
+  .sitemap-hero p {
+    margin: 0;
+    color: var(--color-muted, #4b5563);
+    line-height: 1.7;
+  }
+
+  .sitemap-section {
+    margin: 0 0 2.5rem;
+  }
+
+  .sitemap-section h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin: 0 0 1rem;
+    font-size: 1.35rem;
+  }
+
+  .sitemap-section h2 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .sitemap-section h2 a:hover {
+    text-decoration: underline;
+  }
+
+  .sitemap-count {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-muted, #6b7280);
+  }
+
+  .sitemap-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .sitemap-list a {
+    color: var(--color-link, #0b6bcb);
+    text-decoration: none;
+    line-height: 1.5;
+  }
+
+  .sitemap-list a:hover {
+    text-decoration: underline;
+  }
+
+  .sitemap-empty {
+    margin: 0;
+    color: var(--color-muted, #6b7280);
+  }
+
+  @media (min-width: 768px) {
+    .sitemap-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 1.5rem;
+    }
+  }
+</style>
