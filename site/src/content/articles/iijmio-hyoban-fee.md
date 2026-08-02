@@ -84,7 +84,7 @@ IIJmio 以外の選択肢も含め、主要キャリアの公式申し込みペ�
 
 ### ahamo
 
-[ahamoの公式を見る](https://www.docomo.ne.jp/ahamo/)
+[ahamoの公式を見る]({AFFILIATE:ahamo})
 
 <!-- internal-links:v1 -->
 

@@ -18,8 +18,13 @@ class AspUrlsTest(unittest.TestCase):
         self.assertIn("892660854", url)
 
     def test_resolve_pending_program_fallback(self):
+        url = resolve_program_url(ROOT, "povo")
+        self.assertEqual(url, "https://povo.jp/")
+
+    def test_resolve_ahamo_tracking_url(self):
         url = resolve_program_url(ROOT, "ahamo")
-        self.assertEqual(url, "https://www.docomo.ne.jp/ahamo/")
+        self.assertIn("px.a8.net", url)
+        self.assertIn("4BB6H3+LGDU+4TIO+5YJRM", url)
 
     def test_resolve_ahamo_hikari_tracking_url(self):
         url = resolve_program_url(ROOT, "ahamo-hikari")

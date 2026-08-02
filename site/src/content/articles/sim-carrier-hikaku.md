@@ -28,7 +28,7 @@ draft: false
 
 ahamoはドコモのオンライン専用プラン、IIJmioはドコモ回線系MVNOです。エリアはドコモ系として案内されています。
 
-[ahamoの公式を見る](https://www.docomo.ne.jp/ahamo/)
+[ahamoの公式を見る]({AFFILIATE:ahamo})
 
 ### au系（povo / UQ mobile等）
 
