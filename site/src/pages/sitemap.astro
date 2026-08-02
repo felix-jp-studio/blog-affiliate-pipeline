@@ -8,9 +8,9 @@ import { compareArticlesByRecency } from "../utils/sort-articles";
 
 const categoryOrder: CategorySlug[] = ["sim", "hikari", "trouble", "cost"];
 
-const articles = (await getCollection("articles", ({ data }) => !data.draft)).sort(
-  compareArticlesByRecency,
-);
+const articles = (
+  await getCollection("articles", ({ data }) => !data.draft)
+).sort(compareArticlesByRecency);
 
 const byCategory = categoryOrder.map((category) => ({
   category,
@@ -31,8 +31,8 @@ const total = articles.length;
   <header class="sitemap-hero">
     <h1>サイトマップ</h1>
     <p>
-      公開中の記事をカテゴリ別に一覧しています（全{total}件）。XML サイトマップは<a
-        href="/sitemap-index.xml">sitemap-index.xml</a
+      公開中の記事をカテゴリ別に一覧しています（全{total}件）。XML
+      サイトマップは<a href="/sitemap-index.xml">sitemap-index.xml</a
       >も参照できます。
     </p>
   </header>
