@@ -8,6 +8,7 @@ keyword: "格安SIM おすすめ 比較 2026"
 priority: 20
 draft: false
 ---
+
 ## 結論サマリ
 
 格安SIM おすすめ 比較 2026では、2026年7月時点の主要格安SIM・オンライン専用プランを横断比較します。月額・データ容量・通話・セット割・キャンペーンを公式情報で確認し、自分の利用スタイルに合うキャリアに絞り込んでください。
@@ -62,6 +63,7 @@ draft: false
 - 店舗対面サポートを必須とする人
 
 <!-- internal-links:v2 -->
+
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
@@ -70,7 +72,6 @@ draft: false
 - [【2026年最新】格安SIM シニア おすすめ｜料金・速度を比較](/articles/sim-senior-osusume)
 - [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
 - [ソフトバンク光 障害 確認の原因と7つの対処法【2026年版】](/articles/softbank-hikari-shogai-kakunin)
-
 
 ## よくある質問
 

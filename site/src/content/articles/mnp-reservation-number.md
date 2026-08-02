@@ -8,6 +8,7 @@ keyword: "MNP 予約番号 取得方法"
 priority: 3
 draft: false
 ---
+
 ## MNP予約番号とは
 
 MNP（モバイル番号ポータビリティ）予約番号は、電話番号を変えずに別のキャリアへ乗り換えるために必要な10桁の番号です。有効期限があり、期限切れの場合は再取得が必要です。
@@ -74,6 +75,7 @@ MNP転入先として検討する主要キャリアの公式申し込みペー�
 [LINEMOの公式を見る]({AFFILIATE:linemo})
 
 <!-- internal-links:v2 -->
+
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
@@ -82,7 +84,6 @@ MNP転入先として検討する主要キャリアの公式申し込みペー�
 - [【2026年最新】格安SIM シニア おすすめ｜料金・速度を比較](/articles/sim-senior-osusume)
 - [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
 - [ソフトバンク光 障害 確認の原因と7つの対処法【2026年版】](/articles/softbank-hikari-shogai-kakunin)
-
 
 ## よくある質問
 
