@@ -133,9 +133,11 @@
       "label": "NURO 光",
       "category": "hikari",
       "provider": "a8",
-      "fallbackUrl": "https://nuro.jp/",
-      "status": "pending",
-      "note": "A8 提携承認済み（2026-08-02）。pub.a8.net で trackingUrl / programId 取得後 active 化"
+      "programId": "3T9D5A+2E6V1U+4B4+631SX",
+      "trackingUrl": "https://px.a8.net/svt/ejp?a8mat=3T9D5A+2E6V1U+4B4+631SX",
+      "status": "active",
+      "lastVerified": "2026-08-02",
+      "note": "A8 テキストリンク「NURO光」（program s00000020586001）。11 記事 {AFFILIATE:nuro-hikari} 済"
     }
   }
 }
