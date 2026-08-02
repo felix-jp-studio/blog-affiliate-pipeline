@@ -8,7 +8,7 @@
 .prose h2 {
   font-size: 1.375rem;
   line-height: var(--line-heading);
-  margin: var(--space-section) 0 0.75rem;
+  margin: var(--prose-h2-margin-top) 0 var(--prose-h2-margin-bottom);
   padding-bottom: 0.5rem;
   border-bottom: 2px solid var(--accent-soft);
 }
@@ -16,14 +16,14 @@
 .prose h3 {
   font-size: 1.125rem;
   line-height: var(--line-heading);
-  margin: 2rem 0 0.5rem;
+  margin: var(--prose-h3-margin-top) 0 var(--prose-h3-margin-bottom);
   color: var(--text-primary);
 }
 
 .prose p,
 .prose ul,
 .prose ol {
-  margin: 0 0 1.25rem;
+  margin: 0 0 var(--prose-block-margin-bottom);
 }
 
 .prose ul,
@@ -32,7 +32,7 @@
 }
 
 .prose li {
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--prose-li-margin-bottom);
 }
 
 .prose blockquote {
