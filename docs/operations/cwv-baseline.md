@@ -3,12 +3,12 @@
 本番 3 URL に対する Lighthouse CI（**mobile**）の中央値を週次で記録する。  
 計測設定の正本: [`docs/cwv-smoke.md`](../cwv-smoke.md) / `lighthouserc.cjs`。
 
-| 項目         | 値                                                                           |
-| ------------ | ---------------------------------------------------------------------------- |
-| フォーム因子 | mobile（`formFactor: "mobile"`）                                             |
-| 対象 URL     | `/` · `/sim` · `/articles/sim-osusume-hikaku-2026`                           |
-| assert 方針  | **warn のみ**（`continue-on-error: true`）。error 化は 4 週安定後に検討      |
-| 記録単位     | LHCI がアップロードする **median LHR**（現状 `numberOfRuns: 1` = その 1 回） |
+| 項目         | 値                                                                            |
+| ------------ | ----------------------------------------------------------------------------- |
+| フォーム因子 | mobile（`formFactor: "mobile"`）                                              |
+| 対象 URL     | `/` · `/sim` · `/articles/sim-osusume-hikaku-2026`                            |
+| assert 方針  | **warn のみ**（`continue-on-error: true`）。error 化は 4 週安定後に検討       |
+| 記録単位     | LHCI がアップロードする **median LHR**（`numberOfRuns: 3` の中央値。PR #128） |
 
 ## 記録手順
 
