@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-02T09:47:27.780Z",
+  "updatedAt": "2026-08-02T13:08:59.885Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -132,61 +132,71 @@
       "slug": "home-router-hitorigurashi",
       "url": "https://sim-hikari-guide.com/articles/home-router-hitorigurashi",
       "mergedAt": "2026-07-29T10:29:40.306Z",
-      "indexed": false
+      "indexed": true,
+      "indexedAt": "2026-08-02T13:08:59.885Z"
     },
     {
       "slug": "iijmio-hyoban-fee",
       "url": "https://sim-hikari-guide.com/articles/iijmio-hyoban-fee",
       "mergedAt": "2026-07-29T10:29:40.306Z",
-      "indexed": false
+      "indexed": true,
+      "indexedAt": "2026-08-02T13:08:59.885Z"
     },
     {
       "slug": "kouji-fuyou-hikari",
       "url": "https://sim-hikari-guide.com/articles/kouji-fuyou-hikari",
       "mergedAt": "2026-07-29T10:29:40.306Z",
-      "indexed": false
+      "indexed": true,
+      "indexedAt": "2026-08-02T13:08:59.885Z"
     },
     {
       "slug": "linemo-ahamo-hikaku",
       "url": "https://sim-hikari-guide.com/articles/linemo-ahamo-hikaku",
       "mergedAt": "2026-07-29T10:29:40.306Z",
-      "indexed": false
+      "indexed": true,
+      "indexedAt": "2026-08-02T13:08:59.885Z"
     },
     {
       "slug": "linemo-hyoban-demerit",
       "url": "https://sim-hikari-guide.com/articles/linemo-hyoban-demerit",
       "mergedAt": "2026-07-29T10:29:40.306Z",
-      "indexed": false
+      "indexed": true,
+      "indexedAt": "2026-08-02T13:08:59.885Z"
     },
     {
       "slug": "mineo-hyoban-demerit",
       "url": "https://sim-hikari-guide.com/articles/mineo-hyoban-demerit",
       "mergedAt": "2026-07-29T10:29:40.306Z",
-      "indexed": false
+      "indexed": true,
+      "indexedAt": "2026-08-02T13:08:59.885Z"
     },
     {
       "slug": "mnp-reservation-number",
       "url": "https://sim-hikari-guide.com/articles/mnp-reservation-number",
       "mergedAt": "2026-07-29T10:29:40.306Z",
-      "indexed": false
+      "indexed": true,
+      "indexedAt": "2026-08-02T13:08:59.885Z"
     },
     {
       "slug": "mobareco-air-wimax-hikaku",
       "url": "https://sim-hikari-guide.com/articles/mobareco-air-wimax-hikaku",
       "mergedAt": "2026-07-29T10:29:40.306Z",
-      "indexed": false
+      "indexed": true,
+      "indexedAt": "2026-08-02T13:08:59.885Z"
     },
     {
       "slug": "nihon-tsushin-sim-hyoban",
       "url": "https://sim-hikari-guide.com/articles/nihon-tsushin-sim-hyoban",
       "mergedAt": "2026-07-29T10:29:40.306Z",
-      "indexed": false
+      "indexed": true,
+      "indexedAt": "2026-08-02T13:08:59.885Z"
     },
     {
       "slug": "nuro-hikari-au-hikari-hikaku",
       "url": "https://sim-hikari-guide.com/articles/nuro-hikari-au-hikari-hikaku",
       "mergedAt": "2026-07-29T10:29:40.306Z",
-      "indexed": false
+      "indexed": true,
+      "indexedAt": "2026-08-02T13:08:59.885Z"
     },
     {
       "slug": "nuro-hikari-campaign",
