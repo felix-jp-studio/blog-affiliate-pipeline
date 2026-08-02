@@ -13,11 +13,18 @@ const { articles, currentSlug } = Astro.props;
 const related = articles
   .filter((article) => article.id !== currentSlug)
   .slice(0, 3);
+/** Careful prefetch: top 1–2 related only (not all cards / not viewport-wide). */
+const prefetchHrefs = related
+  .slice(0, 2)
+  .map((article) => `/articles/${article.id}`);
 ---
 
 {
   related.length > 0 && (
     <aside class="related-articles" aria-labelledby="related-heading">
+      {prefetchHrefs.map((href) => (
+        <link rel="prefetch" href={href} />
+      ))}
       <h2 id="related-heading">関連記事</h2>
       <div class="related-articles__grid">
         {related.map((article) => (
