@@ -9,6 +9,7 @@
 | スケジュール | 毎週日曜 11:00 JST + `workflow_dispatch`                                          |
 | フォーム因子 | **mobile**（`formFactor: "mobile"` + `screenEmulation.mobile`）                   |
 | 対象 URL     | `/`（ホーム）、`/sim`（Hub）、`/articles/sim-osusume-hikaku-2026`（記事サンプル） |
+| 実行回数     | `numberOfRuns: 3`（LHCI median。PR #128）                                     |
 
 ## しきい値（初期）
 
