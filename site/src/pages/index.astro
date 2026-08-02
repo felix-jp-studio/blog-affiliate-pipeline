@@ -46,26 +46,28 @@ const latestArticles = (
   <section class="category-section">
     <h2>カテゴリから探す</h2>
     <div class="card-grid">
-      <section class="card">
+      <section class="card card--category card--sim">
         <h2>格安SIM</h2>
         <p>
           乗り換え・MNP・料金比較など、格安SIMに関する記事を掲載しています。
         </p>
         <a href="/sim">カテゴリを見る</a>
       </section>
-      <section class="card">
+      <section class="card card--category card--hikari">
         <h2>光回線</h2>
-        <p>NURO光・auひかりなど、光回線の比較とセット割情報を掲載予定です。</p>
+        <p>
+          NURO光・auひかりなど、光回線の比較とセット割情報を掲載しています。
+        </p>
         <a href="/hikari">カテゴリを見る</a>
       </section>
-      <section class="card">
+      <section class="card card--category card--cost">
         <h2>固定費・ライフイベント</h2>
         <p>
           電気×通信セット、引越し時の見直しなど、固定費と通信を横断する記事です。
         </p>
         <a href="/cost">カテゴリを見る</a>
       </section>
-      <section class="card">
+      <section class="card card--category card--trouble">
         <h2>お困り系</h2>
         <p>
           速度が遅い、開通が遅いなど、よくある悩みへの対処法を掲載しています。
@@ -107,6 +109,42 @@ const latestArticles = (
 
   .category-section {
     margin-top: 3rem;
+  }
+
+  .card--category {
+    border-left: 4px solid var(--category-accent, var(--accent));
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(
+            in srgb,
+            var(--category-accent, var(--accent)) 10%,
+            transparent
+          )
+          0%,
+        transparent 2.5rem
+      ),
+      var(--bg-article);
+  }
+
+  .card--category h2 {
+    color: var(--category-accent, var(--text-primary));
+  }
+
+  .card--sim {
+    --category-accent: var(--color-sim);
+  }
+
+  .card--hikari {
+    --category-accent: var(--color-hikari);
+  }
+
+  .card--cost {
+    --category-accent: var(--color-cost);
+  }
+
+  .card--trouble {
+    --category-accent: var(--color-trouble);
   }
 
   @media (max-width: 640px) {
