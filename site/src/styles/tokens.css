@@ -58,7 +58,10 @@
   /* font-weight 500/600 mapped to 400/700 to match self-hosted faces */
   --font-sans:
     "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
-  --font-serif: "Noto Serif JP", "Hiragino Mincho ProN", serif;
+  /* System Japanese serif — brand/display only; no self-hosted serif woff2 */
+  --font-serif:
+    "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Yu Mincho", "YuMincho",
+    "MS PMincho", serif;
   --text-body: 1.0625rem;
   --text-lead: 1.125rem;
   --line-body: 1.85;
