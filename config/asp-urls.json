@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-22",
+  "updatedAt": "2026-08-02",
   "providers": {
     "a8": {
       "displayName": "A8.net",
@@ -134,7 +134,8 @@
       "category": "hikari",
       "provider": "a8",
       "fallbackUrl": "https://nuro.jp/",
-      "status": "pending"
+      "status": "pending",
+      "note": "A8 提携承認済み（2026-08-02）。pub.a8.net で trackingUrl / programId 取得後 active 化"
     }
   }
 }

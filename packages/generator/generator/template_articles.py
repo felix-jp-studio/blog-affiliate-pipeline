@@ -1007,7 +1007,7 @@ def _hikari_comparison(o: dict) -> str:
 
 NURO 光は高速回線として案内されることが多いです。エリア・建物タイプ・プロバイダによって料金と工事条件が変わるため、公式のエリア検索と料金シミュレーターで確認してください。
 
-[NURO 光の公式を見る](https://nuro.jp/)
+[NURO 光の公式を見る]({{AFFILIATE:nuro-hikari}})
 
 ### auひかり
 
