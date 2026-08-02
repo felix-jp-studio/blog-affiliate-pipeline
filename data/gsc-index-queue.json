@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-01T02:27:45.896Z",
+  "updatedAt": "2026-08-02T02:25:02.847Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -290,6 +290,12 @@
       "slug": "softbank-hikari-shogai-kakunin",
       "url": "https://sim-hikari-guide.com/articles/softbank-hikari-shogai-kakunin",
       "mergedAt": "2026-08-01T02:27:45.896Z",
+      "indexed": false
+    },
+    {
+      "slug": "au-denki-fee-hikaku",
+      "url": "https://sim-hikari-guide.com/articles/au-denki-fee-hikaku",
+      "mergedAt": "2026-08-02T02:25:02.847Z",
       "indexed": false
     }
   ]
