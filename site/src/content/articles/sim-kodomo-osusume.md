@@ -100,14 +100,16 @@ povoは基本料とトッピングの組み合わせで総額が変わるため�
 - 2年縛りやオプション解約条件を見落とすと想定外の費用になる
 - 表の数値はあくまで比較観点であり、最新条件は公式が正
 
-<!-- internal-links:v1 -->
+<!-- internal-links:v2 -->
 
 ## あわせて読みたい
 
-同じカテゴリの関連記事もあわせてご確認ください。
+同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
 - [【2026年最新】格安SIM シニア おすすめ｜料金・速度を比較](/articles/sim-senior-osusume)
 - [iPhone そのまま 格安SIMの手順【2026年版】5ステップで解説](/articles/iphone-sono-mama-sim)
+- [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
+- [ソフトバンク光 障害 確認の原因と7つの対処法【2026年版】](/articles/softbank-hikari-shogai-kakunin)
 
 ## よくある質問
 

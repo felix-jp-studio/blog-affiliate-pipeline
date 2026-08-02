@@ -62,14 +62,16 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - キャンペーン適用の有無（適用まで時間がかかる場合あり）
 - マイページでオプションが意図どおりか
 
-<!-- internal-links:v1 -->
+<!-- internal-links:v2 -->
 
 ## あわせて読みたい
 
-同じカテゴリの関連記事もあわせてご確認ください。
+同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [格安SIM 5G 対応 比較の完全ガイド](/articles/sim-5g-taiou-hikaku)
-- [eSIM 乗り換え 即日の完全ガイド](/articles/esim-norikae-sokujitsu)
+- [【2026年最新】格安SIM 子供 おすすめ｜料金・速度を比較](/articles/sim-kodomo-osusume)
+- [【2026年最新】格安SIM シニア おすすめ｜料金・速度を比較](/articles/sim-senior-osusume)
+- [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
+- [ソフトバンク光 障害 確認の原因と7つの対処法【2026年版】](/articles/softbank-hikari-shogai-kakunin)
 
 ## よくある質問
 

@@ -71,14 +71,16 @@ draft: false
 - WiMAX/5Gはエリアと設置場所で速度が変動する
 - 表の数値は比較観点であり、最新条件は公式が正
 
-<!-- internal-links:v1 -->
+<!-- internal-links:v2 -->
 
 ## あわせて読みたい
 
-同じカテゴリの関連記事もあわせてご確認ください。
+同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [ソフトバンク光 ビッグローブ光 比較の完全ガイド](/articles/softbank-hikari-biglobe-hikari-hikaku)
-- [NURO 光 auひかり 比較の完全ガイド](/articles/nuro-hikari-au-hikari-hikaku)
+- [引っ越し 光回線 手続きの手順【2026年版】5ステップで解説](/articles/hikkoshi-hikari-tetsuzuki)
+- [au ひかり 解約 方法の手順【2026年版】5ステップで解説](/articles/au-hikari-kaiyaku-houhou)
+- [【2026年最新】格安SIM 子供 おすすめ｜料金・速度を比較](/articles/sim-kodomo-osusume)
+- [ソフトバンク光 障害 確認の原因と7つの対処法【2026年版】](/articles/softbank-hikari-shogai-kakunin)
 
 ## よくある質問
 

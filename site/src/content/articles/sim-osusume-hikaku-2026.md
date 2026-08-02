@@ -62,14 +62,16 @@ draft: false
 - 特定キャリアに既に決まっている人
 - 店舗対面サポートを必須とする人
 
-<!-- internal-links:v1 -->
+<!-- internal-links:v2 -->
 
 ## あわせて読みたい
 
-同じカテゴリの関連記事もあわせてご確認ください。
+同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [格安SIM 通話定額 比較の完全ガイド](/articles/sim-tuuwa-teigaku-hikaku)
-- [日本通信SIM 評判の完全ガイド](/articles/nihon-tsushin-sim-hyoban)
+- [【2026年最新】格安SIM 子供 おすすめ｜料金・速度を比較](/articles/sim-kodomo-osusume)
+- [【2026年最新】格安SIM シニア おすすめ｜料金・速度を比較](/articles/sim-senior-osusume)
+- [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
+- [ソフトバンク光 障害 確認の原因と7つの対処法【2026年版】](/articles/softbank-hikari-shogai-kakunin)
 
 ## よくある質問
 
