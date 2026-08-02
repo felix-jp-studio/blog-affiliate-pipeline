@@ -22,7 +22,7 @@ export const categoryMeta: Record<CategorySlug, CategoryMeta> = {
     guideText:
       "月間データ量・通話の使い方・セット割の条件を先に整理しましょう。料金だけでなくエリアと速度の安定性も公式情報で確認し、キャンペーンは適用条件まで必ず照合してください。",
     themeColor: "#0b6bcb",
-    gradient: "linear-gradient(135deg, #dbeafe 0%, #93c5fd 100%)",
+    gradient: "var(--gradient-sim)",
     ogImage: "/og/og-sim.png",
   },
   hikari: {
@@ -33,7 +33,7 @@ export const categoryMeta: Record<CategorySlug, CategoryMeta> = {
     guideText:
       "提供エリア・工事の有無・解約金・セット割の対象回線を先に確認しましょう。月額だけでなく初期費用とキャッシュバック条件も含めて、公式サイトの最新情報で比較してください。",
     themeColor: "#059669",
-    gradient: "linear-gradient(135deg, #d1fae5 0%, #6ee7b7 100%)",
+    gradient: "var(--gradient-hikari)",
     ogImage: "/og/og-hikari.png",
   },
   trouble: {
@@ -44,7 +44,7 @@ export const categoryMeta: Record<CategorySlug, CategoryMeta> = {
     guideText:
       "症状がいつから続いているか、利用端末や場所、回線種別をメモしてから対処しましょう。再起動や設定確認のあとも改善しない場合は、契約キャリアの公式サポート窓口を優先してください。",
     themeColor: "#d97706",
-    gradient: "linear-gradient(135deg, #ffedd5 0%, #fdba74 100%)",
+    gradient: "var(--gradient-trouble)",
     ogImage: "/og/og-trouble.png",
   },
   cost: {
@@ -56,7 +56,7 @@ export const categoryMeta: Record<CategorySlug, CategoryMeta> = {
     guideText:
       "セット割は対象回線・契約名・適用条件が複雑です。電気料金と通信料を別々に比較する前に、公式のセットシミュレーターで前提条件を揃えて確認しましょう。",
     themeColor: "#7c3aed",
-    gradient: "linear-gradient(135deg, #ede9fe 0%, #c4b5fd 100%)",
+    gradient: "var(--gradient-cost)",
     ogImage: "/og/og-default.png",
   },
 };
