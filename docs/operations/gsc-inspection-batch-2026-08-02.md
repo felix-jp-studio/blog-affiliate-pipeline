@@ -40,3 +40,14 @@ User 確認後のみ: `npm run gsc:inspection-batch -- --mark-indexed=slug1,slug
 npm run gsc:inspection-batch -- --format=md --limit=10
 npm run gsc:inspection-batch -- --write-note
 ```
+
+## 完了記録（2026-08-02）
+
+User 確認済み: 本日バッチ 10 URL をインデックス済み / 登録リクエスト済みとしてキュー更新。
+
+```bash
+npm run gsc:inspection-batch -- --mark-indexed=ahamo-povo-hikaku,au-denki-setwari,docomo-hikari-hikari-collab-hikaku,family-2-lines-cheap,hikari-1gbps-yasui,hikari-kodate-osusume,hikari-mansion-osusume,hikari-provider-chigai,hikari-switch-osusume,home-router-hikari-hikaku
+```
+
+- marked: 10
+- pending remaining: 30（更新時点）
