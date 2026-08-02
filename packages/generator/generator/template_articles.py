@@ -119,6 +119,7 @@ _TOKEN_ROMAN: dict[str, str] = {
     "ワイモバイル": "ymobile",
     "LINEMO": "linemo",
     "ahamo": "ahamo",
+    "ahamo光": "ahamo-hikari",
     "povo": "povo",
     "mineo": "mineo",
     "IIJmio": "iijmio",
@@ -1026,6 +1027,12 @@ auひかりはau/UQ mobileのセット割と組み合わせやすい選択肢と
 WiMAXは工事不要で据置型端末を置くだけで使える場合があります。光回線が敷設されていない物件や、短期利用・引越し予定がある場合の選択肢として比較対象に入れられます。
 
 [WiMAXの公式を見る]({{AFFILIATE:wimax}})
+
+### ahamo光
+
+ahamo光はahamoユーザー向けの光回線として案内されることが多いです。料金・エリア・工事条件は公式サイトで確認してください。
+
+[ahamo光の公式を見る]({{AFFILIATE:ahamo-hikari}})
 
 ## 乗り換え・申し込みの流れ
 

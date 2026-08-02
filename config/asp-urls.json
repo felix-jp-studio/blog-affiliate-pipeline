@@ -82,9 +82,11 @@
       "label": "ahamo光",
       "category": "hikari",
       "provider": "a8",
-      "fallbackUrl": "https://ahamohikari.com/",
-      "status": "pending",
-      "note": "A8 提携申請中（2026-07-22）。承認後 trackingUrl / programId を設定"
+      "programId": "436HK6+FSMIQU+5IPO+CX6C6Q",
+      "trackingUrl": "https://px.a8.net/svt/ejp?a8mat=436HK6+FSMIQU+5IPO+CX6C6Q",
+      "status": "active",
+      "lastVerified": "2026-08-02",
+      "note": "A8 テキストリンク「【ahamo光】」（ブランド中立）。12 記事 {AFFILIATE:ahamo-hikari} 済"
     },
     "povo": {
       "label": "povo",
