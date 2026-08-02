@@ -15,12 +15,22 @@ from generator.internal_links import backfill_article_file  # noqa: E402
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Inject あわせて読みたい sections into existing article markdown files.",
+        description="Inject or upgrade あわせて読みたい sections in article markdown files.",
     )
     parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Report files that would change without writing.",
+    )
+    parser.add_argument(
+        "--upgrade-v1",
+        action="store_true",
+        help="Replace existing internal-links:v1 sections with cross-entity v2 links.",
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Rewrite existing v1/v2 sections with the latest link picker.",
     )
     args = parser.parse_args()
 
@@ -29,7 +39,13 @@ def main() -> int:
     skipped = 0
 
     for path in sorted(articles_dir.glob("*.md")):
-        changed = backfill_article_file(path, ROOT, write=not args.dry_run)
+        changed = backfill_article_file(
+            path,
+            ROOT,
+            write=not args.dry_run,
+            upgrade_v1=args.upgrade_v1,
+            force=args.force,
+        )
         if changed:
             updated += 1
             prefix = "[dry-run] " if args.dry_run else ""
