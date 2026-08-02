@@ -531,4 +531,62 @@ const jsonLdPayload = jsonLd
     font-size: 0.8rem;
     margin-bottom: 0.75rem;
   }
+
+  @media print {
+    :root {
+      color-scheme: light;
+      --bg-page: #fff;
+      --bg-article: #fff;
+      --surface: #fff;
+      --text-primary: #111;
+      --text-secondary: #333;
+      --text-tertiary: #444;
+      --border: #ccc;
+      --accent: #000;
+      --accent-soft: #eee;
+      --header-bg: #fff;
+      --bg-home-hero: #fff;
+      --bg-hero: #fff;
+      --shadow-sm: none;
+      --shadow-md: none;
+    }
+
+    body {
+      background: #fff;
+      color: #111;
+    }
+
+    header,
+    footer,
+    .skip-link,
+    .site-nav-menu,
+    .article-toc,
+    .article-comments,
+    .affiliate-cta-block,
+    .hub-asp-cta,
+    .nav-toggle {
+      display: none !important;
+    }
+
+    a {
+      color: #111;
+      text-decoration: underline;
+    }
+
+    a[href]::after {
+      content: none;
+    }
+
+    main {
+      padding: 0;
+    }
+
+    .container,
+    .layout-article,
+    .layout-hub {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+    }
+  }
 </style>
