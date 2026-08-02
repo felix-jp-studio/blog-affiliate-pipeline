@@ -51,3 +51,14 @@ npm run gsc:inspection-batch -- --mark-indexed=ahamo-povo-hikaku,au-denki-setwar
 
 - marked: 10
 - pending remaining: 30（更新時点）
+
+## 完了記録（2026-08-02 バッチ2）
+
+User 確認済み: 次バッチ 10 URL をインデックス済み / 登録リクエスト済みとしてキュー更新。
+
+```bash
+npm run gsc:inspection-batch -- --mark-indexed=home-router-hitorigurashi,iijmio-hyoban-fee,kouji-fuyou-hikari,linemo-ahamo-hikaku,linemo-hyoban-demerit,mineo-hyoban-demerit,mnp-reservation-number,mobareco-air-wimax-hikaku,nihon-tsushin-sim-hyoban,nuro-hikari-au-hikari-hikaku
+```
+
+- marked: 10
+- pending remaining: 20（更新時点）
