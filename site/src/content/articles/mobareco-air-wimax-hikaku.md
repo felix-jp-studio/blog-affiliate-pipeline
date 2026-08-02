@@ -68,6 +68,12 @@ WiMAXは工事不要で据置型端末を置くだけで使える場合があり
 
 [WiMAXの公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+2PN3ZM+2JMM+1BN3TU)
 
+### ahamo光
+
+ahamo光はahamoユーザー向けの光回線として案内されることが多いです。料金・エリア・工事条件は公式サイトで確認してください。
+
+[ahamo光の公式を見る]({AFFILIATE:ahamo-hikari})
+
 ## 乗り換え・申し込みの流れ
 
 1. 現在の契約（解約金・最低利用期間）を確認する

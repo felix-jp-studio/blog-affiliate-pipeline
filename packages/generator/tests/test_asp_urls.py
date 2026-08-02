@@ -21,6 +21,11 @@ class AspUrlsTest(unittest.TestCase):
         url = resolve_program_url(ROOT, "ahamo")
         self.assertEqual(url, "https://www.docomo.ne.jp/ahamo/")
 
+    def test_resolve_ahamo_hikari_tracking_url(self):
+        url = resolve_program_url(ROOT, "ahamo-hikari")
+        self.assertIn("px.a8.net", url)
+        self.assertIn("436HK6+FSMIQU+5IPO+CX6C6Q", url)
+
     def test_resolve_carrier_via_program_ref(self):
         carrier = {"label": "楽天モバイル", "program": "rakuten-mobile"}
         url = resolve_carrier_url(ROOT, carrier)

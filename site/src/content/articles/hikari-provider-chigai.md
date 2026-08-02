@@ -101,6 +101,10 @@ IPv6対応の有無、プロバイダメールの付帯有無はプロバイダ�
 
 [LINEMOの公式を見る]({AFFILIATE:linemo})
 
+### ahamo光
+
+[ahamo光の公式を見る]({AFFILIATE:ahamo-hikari})
+
 ### ahamo
 
 [ahamoの公式を見る](https://www.docomo.ne.jp/ahamo/)
