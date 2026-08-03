@@ -46,6 +46,19 @@ class ArticleRef:
     pub_date: date
 
 
+def _bump_date_modified(frontmatter: str, today: str | None = None) -> str:
+    stamp = today or date.today().isoformat()
+    if re.search(r"^dateModified:\s*\S+\s*$", frontmatter, re.MULTILINE):
+        return re.sub(
+            r"^dateModified:\s*\S+\s*$",
+            f"dateModified: {stamp}",
+            frontmatter,
+            count=1,
+            flags=re.MULTILINE,
+        )
+    return f"{frontmatter.rstrip()}\ndateModified: {stamp}"
+
+
 def _parse_field(pattern: str, frontmatter: str) -> str | None:
     match = re.search(pattern, frontmatter, re.MULTILINE)
     return match.group(1) if match else None
@@ -99,6 +112,21 @@ def _type_rank(category: str, article_type: str) -> int:
         return len(preference)
 
 
+def _slug_rotation_offset(slug: str, pool_size: int) -> int:
+    if pool_size <= 0:
+        return 0
+    return sum(ord(char) for char in slug) % pool_size
+
+
+def _rotate_refs(articles: list[ArticleRef], offset: int) -> list[ArticleRef]:
+    if not articles or offset <= 0:
+        return articles
+    normalized = offset % len(articles)
+    if normalized == 0:
+        return articles
+    return articles[normalized:] + articles[:normalized]
+
+
 def pick_same_category_links(
     *,
     category: str,
@@ -112,7 +140,11 @@ def pick_same_category_links(
         if article.category == category and article.slug != exclude_slug
     ]
     candidates.sort(key=lambda article: (article.pub_date, article.slug), reverse=True)
-    return candidates[:count]
+    rotated = _rotate_refs(
+        candidates,
+        _slug_rotation_offset(exclude_slug, len(candidates)),
+    )
+    return rotated[:count]
 
 
 def pick_cross_entity_links(
@@ -142,6 +174,10 @@ def pick_cross_entity_links(
             -article.pub_date.toordinal(),
             article.slug,
         )
+    )
+    candidates = _rotate_refs(
+        candidates,
+        _slug_rotation_offset(exclude_slug, len(candidates)),
     )
 
     # Prefer one article per related category first (SIM↔光, 障害↔乗り換え).
@@ -321,5 +357,9 @@ def backfill_article_file(
         return False
 
     if write:
-        path.write_text(text[: match.end()] + "\n" + new_body, encoding="utf-8")
+        updated_frontmatter = _bump_date_modified(frontmatter)
+        path.write_text(
+            f"---\n{updated_frontmatter}\n---\n{new_body}",
+            encoding="utf-8",
+        )
     return True

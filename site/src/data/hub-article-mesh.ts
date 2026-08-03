@@ -129,3 +129,21 @@ export function getHubArticleMesh(
 ): HubArticleMesh | undefined {
   return hubArticleMesh[category];
 }
+
+/** One top featured article per category for the homepage. */
+export function getHomeFeaturedArticles(): Array<
+  HubFeaturedArticle & { category: CategorySlug }
+> {
+  const categories: CategorySlug[] = ["sim", "hikari", "trouble", "cost"];
+  const featured: Array<HubFeaturedArticle & { category: CategorySlug }> = [];
+
+  for (const category of categories) {
+    const mesh = hubArticleMesh[category];
+    const top = mesh?.featured[0];
+    if (top) {
+      featured.push({ ...top, category });
+    }
+  }
+
+  return featured;
+}

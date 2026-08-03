@@ -1,7 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import ArticleCard from "../components/ArticleCard.astro";
+import HomeFeaturedArticles from "../components/HomeFeaturedArticles.astro";
 import { defaultOgImage } from "../data/category-meta";
+import { getHomeFeaturedArticles } from "../data/hub-article-mesh";
 import { getReadingTimeForEntry } from "../utils/article-meta";
 import { compareArticlesByRecency } from "../utils/sort-articles";
 import { buildWebSiteJsonLd } from "../utils/site-jsonld";
@@ -13,6 +15,7 @@ const latestArticles = (
   .sort(compareArticlesByRecency)
   .slice(0, 6);
 
+const featuredArticles = getHomeFeaturedArticles();
 const jsonLd = buildWebSiteJsonLd(Astro.site!.href);
 ---
 
@@ -24,6 +27,8 @@ const jsonLd = buildWebSiteJsonLd(Astro.site!.href);
       乗り換え手順、料金比較、速度トラブルの対処法など、通信まわりの情報をわかりやすくまとめます。
     </p>
   </section>
+
+  <HomeFeaturedArticles items={featuredArticles} />
 
   <section class="latest-articles">
     <h2>最新記事</h2>

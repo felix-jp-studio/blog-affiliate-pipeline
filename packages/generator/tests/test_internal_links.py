@@ -65,10 +65,8 @@ class InternalLinksTest(unittest.TestCase):
             exclude_slug="sim-a",
             articles=articles,
         )
-        self.assertEqual(
-            [link.slug for link in picked],
-            ["sim-b", "sim-c", "hikari-a", "trouble-a"],
-        )
+        self.assertEqual({link.slug for link in picked[:2]}, {"sim-b", "sim-c"})
+        self.assertEqual([link.slug for link in picked[2:]], ["hikari-a", "trouble-a"])
 
     def test_insert_before_faq(self):
         body = "## 注意点\n\n本文\n\n## よくある質問\n\n### Q\n\nA"
@@ -352,6 +350,30 @@ A
             self.assertIn("/articles/sim-peer", updated)
             self.assertIn("/articles/hikari-peer", updated)
             self.assertNotIn("/articles/old", updated)
+
+    def test_pick_v2_rotates_same_category_links_by_slug(self):
+        articles = [
+            _ref("sim-a", "Sim A", "sim", 21),
+            _ref("sim-b", "Sim B", "sim", 20),
+            _ref("sim-c", "Sim C", "sim", 19),
+            _ref("sim-d", "Sim D", "sim", 18),
+            _ref("hikari-a", "Hikari A", "hikari", 17, "howto"),
+            _ref("trouble-a", "Trouble A", "trouble", 16, "howto"),
+        ]
+        first = pick_internal_links_v2(
+            category="sim",
+            exclude_slug="sim-a",
+            articles=articles,
+        )
+        second = pick_internal_links_v2(
+            category="sim",
+            exclude_slug="sim-b",
+            articles=articles,
+        )
+        self.assertNotEqual(
+            [link.slug for link in first[:2]],
+            [link.slug for link in second[:2]],
+        )
 
     def test_replace_internal_links_section(self):
         body = f"{MARKER_V1}\n## あわせて読みたい\n\n- [old](/articles/old)\n\n## よくある質問\n"
