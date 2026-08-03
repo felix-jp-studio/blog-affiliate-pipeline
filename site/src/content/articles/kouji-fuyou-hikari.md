@@ -2,6 +2,7 @@
 title: "【2026年最新】工事 不要 光回線比較｜選び方と注意点"
 description: "【2026年最新】工事 不要 光回線を5社比較。料金・速度・セット割の観点で選び方を解説。公式情報を参照し中立にまとめています。"
 pubDate: 2026-07-19
+dateModified: 2026-07-19
 category: hikari
 articleType: comparison
 keyword: "工事 不要 光回線"

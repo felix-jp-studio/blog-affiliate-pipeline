@@ -2,6 +2,7 @@
 title: "【2026年】auでんき セット割で固定費を見直す｜比較ポイント3つ"
 description: "【2026年】auでんき セット割のセット条件と3つの比較ポイント。固定費と通信をまとめて見直す方向けに公式情報を整理。"
 pubDate: 2026-07-20
+dateModified: 2026-07-20
 category: cost
 articleType: crosssell
 keyword: "auでんき セット割"

@@ -2,6 +2,7 @@
 title: "光回線 開通 いつの原因と7つの対処法【2026年版】"
 description: "光回線 開通 いつの原因候補と7つの対処法を【2026年版】で解説。自分で確認できるチェックリスト付き。公式情報を参照しています。"
 pubDate: 2026-07-23
+dateModified: 2026-07-23
 category: trouble
 articleType: troubleshoot
 keyword: "光回線 開通 いつ"

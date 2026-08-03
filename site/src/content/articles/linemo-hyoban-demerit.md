@@ -2,6 +2,7 @@
 title: "【2026年最新】LINEMO評判・デメリット比較｜5つの注意点"
 description: "【2026年最新】LINEMO 評判 デメリットを5社比較。料金・速度・セット割の観点で選び方を解説。公式情報を参照し中立にまとめています。"
 pubDate: 2026-07-17
+dateModified: 2026-07-17
 category: sim
 articleType: comparison
 keyword: "LINEMO 評判 デメリット"

@@ -2,6 +2,7 @@
 title: "引っ越し 光回線 手続きの手順【2026年版】5ステップで解説"
 description: "引っ越し 光回線 手続きを5ステップで解説。【2026年版】必要書類・所要時間・つまずきポイントを公式情報に基づき整理。"
 pubDate: 2026-07-31
+dateModified: 2026-07-31
 category: hikari
 articleType: howto
 keyword: "引っ越し 光回線 手続き"

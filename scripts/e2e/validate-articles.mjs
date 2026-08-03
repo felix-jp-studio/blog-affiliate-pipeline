@@ -13,6 +13,9 @@ import {
   pass,
 } from "./e2e-utils.mjs";
 
+const MIN_DESCRIPTION_LENGTH = 50;
+const INTERNAL_LINKS_MARKER = "<!-- internal-links:v2 -->";
+
 const errors = [];
 
 if (listArticleFiles().length === 0) {
@@ -55,8 +58,19 @@ for (const filePath of listArticleFiles()) {
   if (!fields.pubDate || Number.isNaN(Date.parse(fields.pubDate))) {
     errors.push(`${slug}: invalid pubDate "${fields.pubDate ?? ""}"`);
   }
+  if (fields.dateModified && Number.isNaN(Date.parse(fields.dateModified))) {
+    errors.push(`${slug}: invalid dateModified "${fields.dateModified}"`);
+  }
+  if (fields.description && fields.description.length < MIN_DESCRIPTION_LENGTH) {
+    errors.push(
+      `${slug}: description too short (${fields.description.length} < ${MIN_DESCRIPTION_LENGTH})`,
+    );
+  }
 
   const article = { slug, fields, draft: fields.draft === "true" };
+  if (!article.draft && !content.includes(INTERNAL_LINKS_MARKER)) {
+    errors.push(`${slug}: missing ${INTERNAL_LINKS_MARKER}`);
+  }
   if (!article.draft && articleRequiresAffiliate(article)) {
     const missingPatterns = missingAffiliatePatterns(content, undefined, {
       allowPlaceholders: true,

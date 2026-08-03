@@ -2,6 +2,7 @@
 title: "eSIM 乗り換え 即日の手順【2026年版】5ステップで解説"
 description: "eSIM 乗り換え 即日を5ステップで解説。【2026年版】必要書類・所要時間・つまずきポイントを公式情報に基づき整理。"
 pubDate: 2026-07-22
+dateModified: 2026-07-22
 category: sim
 articleType: howto
 keyword: "eSIM 乗り換え 即日"

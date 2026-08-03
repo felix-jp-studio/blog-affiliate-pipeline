@@ -2,6 +2,7 @@
 title: "【2026年最新】ホームルーター おすすめ 一人暮らし｜料金・速度を比較"
 description: "【2026年最新】ホームルーター おすすめ 一人暮らしを5社比較。料金・速度・セット割の観点で選び方を解説。公式情報を参照し中立にまとめています。"
 pubDate: 2026-07-19
+dateModified: 2026-07-19
 category: sim
 articleType: comparison
 keyword: "ホームルーター おすすめ 一人暮らし"
