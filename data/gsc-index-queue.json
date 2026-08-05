@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-04T02:07:14.764Z",
+  "updatedAt": "2026-08-05T02:06:11.082Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -328,6 +328,12 @@
       "slug": "povo-data-yoryou-tsuika-houhou",
       "url": "https://sim-hikari-guide.com/articles/povo-data-yoryou-tsuika-houhou",
       "mergedAt": "2026-08-04T02:07:14.764Z",
+      "indexed": false
+    },
+    {
+      "slug": "povo-speed-slow-fix",
+      "url": "https://sim-hikari-guide.com/articles/povo-speed-slow-fix",
+      "mergedAt": "2026-08-05T02:06:11.082Z",
       "indexed": false
     }
   ]
