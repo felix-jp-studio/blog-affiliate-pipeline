@@ -2,6 +2,7 @@
 title: "【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方"
 description: "【2026年最新】ドコモ光 光コラボ 比較を5社比較。料金・速度・セット割の観点で選び方を解説。公式情報を参照し中立にまとめています。"
 pubDate: 2026-07-21
+dateModified: 2026-07-21
 category: hikari
 articleType: comparison
 keyword: "ドコモ光 光コラボ 比較"

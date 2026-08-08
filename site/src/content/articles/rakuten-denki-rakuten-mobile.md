@@ -2,6 +2,7 @@
 title: "【2026年】楽天でんき 楽天モバイルで固定費を見直す｜比較ポイント3つ"
 description: "【2026年】楽天でんき 楽天モバイルのセット条件と3つの比較ポイント。固定費と通信をまとめて見直す方向けに公式情報を整理。"
 pubDate: 2026-07-26
+dateModified: 2026-07-26
 category: cost
 articleType: crosssell
 keyword: "楽天でんき 楽天モバイル"

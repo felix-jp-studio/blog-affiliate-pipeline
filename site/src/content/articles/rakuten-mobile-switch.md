@@ -2,6 +2,7 @@
 title: "楽天モバイル乗り換え手順【2026年版】5ステップで解説"
 description: "楽天モバイル 乗り換え 手順を5ステップで解説。【2026年版】必要書類・所要時間・つまずきポイントを公式情報に基づき整理。"
 pubDate: 2026-07-17
+dateModified: 2026-07-17
 category: sim
 articleType: howto
 keyword: "楽天モバイル 乗り換え 手順"

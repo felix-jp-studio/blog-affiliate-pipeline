@@ -2,6 +2,7 @@
 title: "ソフトバンク光 障害 確認の原因と7つの対処法【2026年版】"
 description: "ソフトバンク光 障害 確認の原因候補と7つの対処法を【2026年版】で解説。自分で確認できるチェックリスト付き。公式情報を参照しています。"
 pubDate: 2026-08-01
+dateModified: 2026-08-01
 category: trouble
 articleType: troubleshoot
 keyword: "ソフトバンク光 障害 確認"

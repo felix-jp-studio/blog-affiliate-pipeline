@@ -2,6 +2,7 @@
 title: "【2026年最新】格安SIM 通話定額 比較｜5社比較と選び方"
 description: "【2026年最新】格安SIM 通話定額 比較を5社比較。料金・速度・セット割の観点で選び方を解説。公式情報を参照し中立にまとめています。"
 pubDate: 2026-07-21
+dateModified: 2026-07-21
 category: sim
 articleType: comparison
 keyword: "格安SIM 通話定額 比較"

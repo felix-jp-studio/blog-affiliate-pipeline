@@ -12,7 +12,7 @@
     "test:e2e:visual": "playwright test",
     "test:e2e:visual:update": "playwright test --update-snapshots",
     "test:e2e:visual:ui": "playwright test --ui",
-    "test:unit": "node --experimental-strip-types --test tests/comments-validation.test.mjs tests/article-structured-data.test.mjs tests/article-date-meta.test.mjs tests/hub-article-mesh.test.mjs tests/cta-placement.test.mjs tests/rss-feed.test.mjs tests/article-type-ratio.test.mjs",
+    "test:unit": "node --experimental-strip-types --test tests/comments-validation.test.mjs tests/article-structured-data.test.mjs tests/article-date-meta.test.mjs tests/hub-article-mesh.test.mjs tests/site-jsonld.test.mjs tests/cta-placement.test.mjs tests/rss-feed.test.mjs tests/article-type-ratio.test.mjs",
     "comments:moderate": "node scripts/comments-moderate.mjs"
   },
   "dependencies": {

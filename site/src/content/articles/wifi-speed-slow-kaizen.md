@@ -2,6 +2,7 @@
 title: "Wi-Fi 速度 遅い 改善の原因と7つの対処法【2026年版】"
 description: "Wi-Fi 速度 遅い 改善の原因候補と7つの対処法を【2026年版】で解説。自分で確認できるチェックリスト付き。公式情報を参照しています。"
 pubDate: 2026-07-29
+dateModified: 2026-07-29
 category: trouble
 articleType: troubleshoot
 keyword: "Wi-Fi 速度 遅い 改善"

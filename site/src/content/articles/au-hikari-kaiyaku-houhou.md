@@ -2,6 +2,7 @@
 title: "au ひかり 解約 方法の手順【2026年版】5ステップで解説"
 description: "au ひかり 解約 方法を5ステップで解説。【2026年版】必要書類・所要時間・つまずきポイントを公式情報に基づき整理。"
 pubDate: 2026-07-28
+dateModified: 2026-07-28
 category: hikari
 articleType: howto
 keyword: "au ひかり 解約 方法"

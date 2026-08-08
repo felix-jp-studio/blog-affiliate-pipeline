@@ -4,6 +4,7 @@ import ArticleCard from "../components/ArticleCard.astro";
 import { defaultOgImage } from "../data/category-meta";
 import { getReadingTimeForEntry } from "../utils/article-meta";
 import { compareArticlesByRecency } from "../utils/sort-articles";
+import { buildWebSiteJsonLd } from "../utils/site-jsonld";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const latestArticles = (
@@ -11,9 +12,11 @@ const latestArticles = (
 )
   .sort(compareArticlesByRecency)
   .slice(0, 6);
+
+const jsonLd = buildWebSiteJsonLd(Astro.site!.href);
 ---
 
-<BaseLayout title="SIM・光回線ガイド" ogImage={defaultOgImage}>
+<BaseLayout title="SIM・光回線ガイド" ogImage={defaultOgImage} jsonLd={jsonLd}>
   <section class="home-hero">
     <p class="badge">記事公開中</p>
     <h1>格安SIM・光回線の比較とお困り解決</h1>
