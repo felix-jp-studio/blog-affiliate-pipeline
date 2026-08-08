@@ -32,13 +32,24 @@ def main() -> int:
         action="store_true",
         help="Rewrite existing v1/v2 sections with the latest link picker.",
     )
+    parser.add_argument(
+        "--slugs",
+        help="Comma-separated slugs to process only (default: all articles).",
+    )
     args = parser.parse_args()
+
+    slug_filter: set[str] | None = None
+    if args.slugs:
+        slug_filter = {slug.strip() for slug in args.slugs.split(",") if slug.strip()}
 
     articles_dir = ROOT / "site/src/content/articles"
     updated = 0
     skipped = 0
 
     for path in sorted(articles_dir.glob("*.md")):
+        if slug_filter is not None and path.stem not in slug_filter:
+            skipped += 1
+            continue
         changed = backfill_article_file(
             path,
             ROOT,

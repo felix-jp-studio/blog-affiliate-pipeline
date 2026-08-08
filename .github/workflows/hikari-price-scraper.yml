@@ -38,6 +38,9 @@ jobs:
         working-directory: packages/scraper
         run: |
           set +e
+          if [ -f ../../data/hikari-prices-snapshot.json ]; then
+            cp ../../data/hikari-prices-snapshot.json ../../data/hikari-prices-snapshot.prev.json
+          fi
           if [ "${{ inputs.use_fixtures }}" = "true" ]; then
             PYTHONPATH=. python -m scraper.hikari_prices \
               --fixture-dir tests/fixtures \

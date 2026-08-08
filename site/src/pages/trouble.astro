@@ -2,7 +2,9 @@
 import { getCollection } from "astro:content";
 import CategoryHub from "../components/CategoryHub.astro";
 import { categoryMeta } from "../data/category-meta";
+import { buildBreadcrumbs } from "../data/site-nav";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { buildBreadcrumbJsonLd } from "../utils/breadcrumb-jsonld";
 import { compareArticlesByRecency } from "../utils/sort-articles";
 
 const meta = categoryMeta.trouble;
@@ -10,6 +12,11 @@ const meta = categoryMeta.trouble;
 const articles = (await getCollection("articles", ({ data }) => !data.draft))
   .filter((a) => a.data.category === "trouble")
   .sort(compareArticlesByRecency);
+
+const jsonLd = buildBreadcrumbJsonLd(
+  buildBreadcrumbs([{ label: meta.label, href: meta.href }]),
+  Astro.site!.href,
+);
 ---
 
 <BaseLayout
@@ -18,6 +25,7 @@ const articles = (await getCollection("articles", ({ data }) => !data.draft))
   layout="hub"
   activeNav="trouble"
   ogImage={meta.ogImage}
+  jsonLd={jsonLd}
 >
   <CategoryHub category="trouble" articles={articles} />
 </BaseLayout>
