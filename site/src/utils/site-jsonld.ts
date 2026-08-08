@@ -19,7 +19,9 @@ export function buildWebSiteJsonLd(siteUrl: string): Record<string, unknown> {
   };
 }
 
-export function buildOrganizationJsonLd(siteUrl: string): Record<string, unknown> {
+export function buildOrganizationJsonLd(
+  siteUrl: string,
+): Record<string, unknown> {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
