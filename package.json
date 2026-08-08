@@ -29,6 +29,7 @@
     "gsc:inspection-batch": "node scripts/print-gsc-inspection-batch.mjs",
     "audit:orphans": "node scripts/audit-orphan-articles.mjs",
     "backfill:date-modified": "node scripts/backfill-date-modified.mjs",
+    "backfill:internal-links": "python3 scripts/backfill-internal-links.py --force",
     "gsc:weekly-report": "node scripts/gsc-weekly-report.mjs",
     "rewrite:weekly": "node scripts/rewrite-weekly.mjs",
     "scraper:hikari": "cd packages/scraper && PYTHONPATH=. .venv/bin/python -m scraper.hikari_prices",

@@ -1,8 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { buildOrganizationJsonLd } from "../utils/site-jsonld";
+
+const siteUrl = Astro.site!.href;
+const jsonLd = buildOrganizationJsonLd(siteUrl);
 ---
 
-<BaseLayout title="運営者情報">
+<BaseLayout
+  title="運営者情報"
+  description="SIM・光回線ガイドの運営方針・更新ポリシー・免責事項"
+  jsonLd={jsonLd}
+>
   <h1>運営者情報</h1>
   <p>本サイト「SIM・光回線ガイド」（sim-hikari-guide.com）の運営情報です。</p>
 
@@ -14,7 +22,24 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
   <h2>運営内容</h2>
   <p>
-    格安SIM・光回線に関する比較情報、乗り換え手順、お困りごとの解決情報を提供します。
+    格安SIM・光回線に関する比較情報、乗り換え手順、お困りごとの解決情報を提供します。料金・キャンペーンは各公式サイトの情報を参照し、中立な立場で整理しています。
+  </p>
+
+  <h2>編集方針</h2>
+  <ul>
+    <li>比較記事では複数社の公式情報を参照し、料金・条件の出典を明記します。</li>
+    <li>手順記事は、利用者が再現しやすいようステップ形式で構成します。</li>
+    <li>お困り系記事は、自己確認できる対処法を優先し、改善しない場合の公式窓口を案内します。</li>
+  </ul>
+
+  <h2>情報の更新について</h2>
+  <p>
+    記事には公開日と最終更新日（<code>dateModified</code>）を表示しています。料金改定やキャンペーン変更が確認された記事は、内容と更新日を見直します。最終的な契約条件は、必ず各事業者の公式サイトでご確認ください。
+  </p>
+
+  <h2>アフィリエイトについて</h2>
+  <p>
+    当サイトはアフィリエイトプログラム（A8.net 等）を利用しています。リンク経由で申し込みがあった場合、紹介料が発生することがあります。掲載順位や評価は、紹介料の有無によって優先されるものではありません。
   </p>
 
   <h2>お問い合わせ</h2>
@@ -24,6 +49,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
   <h2>免責事項</h2>
   <p>
-    掲載情報は作成時点の内容です。料金・キャンペーンは変更される場合があります。最終的な条件は各公式サイトでご確認ください。
+    掲載情報は作成・更新時点の内容です。料金・キャンペーン・提供エリアは予告なく変更される場合があります。通信契約に関する最終判断は、読者ご自身の責任で各公式サイトの最新情報をもとに行ってください。
   </p>
 </BaseLayout>

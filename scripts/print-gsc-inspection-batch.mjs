@@ -7,6 +7,7 @@
  *   node scripts/print-gsc-inspection-batch.mjs --json
  *   node scripts/print-gsc-inspection-batch.mjs --format=md
  *   node scripts/print-gsc-inspection-batch.mjs --week-first --limit=10
+ *   node scripts/print-gsc-inspection-batch.mjs --offset=10 --limit=10
  *   node scripts/print-gsc-inspection-batch.mjs --write-note[=docs/operations/...]
  *   node scripts/print-gsc-inspection-batch.mjs --mark-indexed=slug-a,slug-b
  *
@@ -20,6 +21,7 @@ import { repoRoot } from "./e2e/e2e-utils.mjs";
 const queuePath = join(repoRoot, "data/gsc-index-queue.json");
 const args = process.argv.slice(2);
 const limitArg = args.find((arg) => arg.startsWith("--limit="));
+const offsetArg = args.find((arg) => arg.startsWith("--offset="));
 const markIndexedArg = args.find((arg) => arg.startsWith("--mark-indexed="));
 const writeNoteArg = args.find(
   (arg) => arg === "--write-note" || arg.startsWith("--write-note="),
@@ -32,6 +34,10 @@ const parsedLimit = limitArg
   ? Number.parseInt(limitArg.slice("--limit=".length), 10)
   : 10;
 const limit = Number.isFinite(parsedLimit) && parsedLimit > 0 ? parsedLimit : 10;
+const parsedOffset = offsetArg
+  ? Number.parseInt(offsetArg.slice("--offset=".length), 10)
+  : 0;
+const offset = Number.isFinite(parsedOffset) && parsedOffset >= 0 ? parsedOffset : 0;
 
 function todayJstDate() {
   return new Intl.DateTimeFormat("en-CA", {
@@ -138,7 +144,7 @@ function buildMarkdown({ stats, batch, pendingCount, forOpsNote = false }) {
     `| pending | ${stats.pending} |`,
     `| indexed | ${stats.indexed} |`,
     `| 今週追加 pending | ${stats.pendingThisWeek} |`,
-    `| 今回バッチ | ${batch.length} / ${pendingCount} |`,
+    `| 今回バッチ | ${batch.length} / ${pendingCount}${offset > 0 ? ` (offset ${offset})` : ""} |`,
     "",
   ];
 
@@ -206,7 +212,7 @@ if (markIndexedArg) {
 
 const stats = queueStats(queue.entries);
 const pending = loadPending(queue.entries);
-const batch = pending.slice(0, limit);
+const batch = pending.slice(offset, offset + limit);
 
 const notePath = resolveWriteNotePath();
 if (notePath) {

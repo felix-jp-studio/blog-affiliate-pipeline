@@ -2,14 +2,13 @@
 title: "ソフトバンク光 障害 確認の原因と7つの対処法【2026年版】"
 description: "ソフトバンク光 障害 確認の原因候補と7つの対処法を【2026年版】で解説。自分で確認できるチェックリスト付き。公式情報を参照しています。"
 pubDate: 2026-08-01
-dateModified: 2026-08-01
+dateModified: 2026-08-08
 category: trouble
 articleType: troubleshoot
 keyword: "ソフトバンク光 障害 確認"
 priority: 79
 draft: false
 ---
-
 ## 症状の確認
 
 ソフトバンク光 障害 確認で検索する方は、次のような状態に当てはまることが多いです。
@@ -72,15 +71,15 @@ APN設定の誤り、古い端末、省電力モード、バックグラウン�
 - 定期的にマイページで利用状況を確認する
 
 <!-- internal-links:v2 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
+- [povo 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/povo-speed-slow-fix)
 - [Wi-Fi 速度 遅い 改善の原因と7つの対処法【2026年版】](/articles/wifi-speed-slow-kaizen)
-- [光回線 開通 いつの原因と7つの対処法【2026年版】](/articles/hikari-kaituu-itsu)
-- [iPhone そのまま 格安SIMの手順【2026年版】5ステップで解説](/articles/iphone-sono-mama-sim)
-- [引っ越し 光回線 手続きの手順【2026年版】5ステップで解説](/articles/hikkoshi-hikari-tetsuzuki)
+- [ahamo 大盛り オプション 申し込み 手順の手順【2026年版】5ステップで解説](/articles/ahamo-oomori-option-moushikomi-tejun)
+- [【2026年最新】光回線 乗り換え おすすめ｜料金・速度を比較](/articles/hikari-switch-osusume)
+
 
 ## よくある質問
 
