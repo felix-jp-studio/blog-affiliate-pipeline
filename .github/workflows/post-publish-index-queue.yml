@@ -41,13 +41,21 @@ jobs:
             node scripts/append-index-queue.mjs --from-git
           fi
 
+      - name: Onboard new articles (internal links + dateModified)
+        run: |
+          if [ -n "${{ inputs.slugs }}" ]; then
+            node scripts/post-publish-article-onboard.mjs --slugs="${{ inputs.slugs }}"
+          else
+            node scripts/post-publish-article-onboard.mjs --from-git
+          fi
+
       - name: Commit queue update
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/gsc-index-queue.json
+          git add data/gsc-index-queue.json site/src/content/articles/
           if git diff --cached --quiet; then
             echo "No queue changes to commit."
             exit 0
