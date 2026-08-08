@@ -35,7 +35,10 @@
 
 ## 所感・次アクション
 
-- [ ] GSC バッチ1（10 URL）検査完了 → Agent に「全10件検査完了」
+- [ ] GSC バッチ1（10 URL）→ [batch1](./gsc-inspection-batch-2026-08-08.md)
+- [ ] GSC バッチ2（10 URL）→ [batch2](./gsc-inspection-batch-2026-08-08-batch2.md)
+- [ ] GSC バッチ4（残り6 URL）→ [batch4](./gsc-inspection-batch-2026-08-08-batch4.md)
+- [ ] いずれか完了後 Agent に「全N件検査完了」+ slug 一覧
 - [ ] 表示 > 0 になったクエリがあれば rewrite-queue 候補に追加
 - [ ] #147 マージ済 — internal v3 / 54記事 onboard 本番反映済
 
