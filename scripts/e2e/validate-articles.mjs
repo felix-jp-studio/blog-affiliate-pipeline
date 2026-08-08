@@ -14,7 +14,10 @@ import {
 } from "./e2e-utils.mjs";
 
 const MIN_DESCRIPTION_LENGTH = 50;
-const INTERNAL_LINKS_MARKER = "<!-- internal-links:v2 -->";
+const INTERNAL_LINKS_MARKERS = [
+  "<!-- internal-links:v4 -->",
+  "<!-- internal-links:v2 -->",
+];
 
 const errors = [];
 
@@ -68,8 +71,11 @@ for (const filePath of listArticleFiles()) {
   }
 
   const article = { slug, fields, draft: fields.draft === "true" };
-  if (!article.draft && !content.includes(INTERNAL_LINKS_MARKER)) {
-    errors.push(`${slug}: missing ${INTERNAL_LINKS_MARKER}`);
+  if (
+    !article.draft &&
+    !INTERNAL_LINKS_MARKERS.some((marker) => content.includes(marker))
+  ) {
+    errors.push(`${slug}: missing internal-links marker (v4 or v2)`);
   }
   if (!article.draft && articleRequiresAffiliate(article)) {
     const missingPatterns = missingAffiliatePatterns(content, undefined, {

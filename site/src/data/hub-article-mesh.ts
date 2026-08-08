@@ -45,6 +45,14 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "20GBプランの選び方",
       },
       {
+        slug: "mineo-hyoban-demerit",
+        label: "mineo 評判・デメリット",
+      },
+      {
+        slug: "nihon-tsushin-sim-hyoban",
+        label: "日本通信SIM 評判",
+      },
+      {
         slug: "povo-data-yoryou-tsuika-houhou",
         label: "povo データ容量追加",
       },
@@ -79,6 +87,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "nuro-hikari-au-hikari-hikaku",
         label: "NURO光 vs auひかり",
+      },
+      {
+        slug: "hikari-1gbps-yasui",
+        label: "1Gbps 安い光回線",
       },
     ],
   },
