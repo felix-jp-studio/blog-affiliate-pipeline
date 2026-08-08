@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-07T02:29:15.721Z",
+  "updatedAt": "2026-08-08T01:16:34.130Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -346,6 +346,12 @@
       "slug": "ahamo-oomori-option-moushikomi-tejun",
       "url": "https://sim-hikari-guide.com/articles/ahamo-oomori-option-moushikomi-tejun",
       "mergedAt": "2026-08-07T02:29:15.721Z",
+      "indexed": false
+    },
+    {
+      "slug": "iijmio-speed-slow-fix",
+      "url": "https://sim-hikari-guide.com/articles/iijmio-speed-slow-fix",
+      "mergedAt": "2026-08-08T01:16:34.130Z",
       "indexed": false
     }
   ]
