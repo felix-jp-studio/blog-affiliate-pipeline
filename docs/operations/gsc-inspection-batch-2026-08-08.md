@@ -11,13 +11,13 @@
 
 ## キュー概況
 
-| 項目             | 値      |
-| ---------------- | ------- |
-| キュー合計       | 54      |
-| pending          | 26      |
-| indexed          | 28      |
-| 今週追加 pending | 7       |
-| 今回バッチ       | 10 / 26 |
+| 項目 | 値 |
+| --- | --- |
+| キュー合計 | 54 |
+| pending | 26 |
+| indexed | 28 |
+| 今週追加 pending | 7 |
+| 今回バッチ | 10 / 26 |
 
 ## 本日の検査リスト
 
@@ -40,3 +40,4 @@ User 確認後のみ: `npm run gsc:inspection-batch -- --mark-indexed=slug1,slug
 npm run gsc:inspection-batch -- --format=md --limit=10
 npm run gsc:inspection-batch -- --write-note
 ```
+
