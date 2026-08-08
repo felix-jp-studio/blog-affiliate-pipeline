@@ -29,16 +29,28 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "キャリア vs MVNO 比較",
       },
       {
+        slug: "sim-norikae-osusume",
+        label: "格安SIM 乗り換えおすすめ",
+      },
+      {
+        slug: "sim-5g-taiou-hikaku",
+        label: "5G対応 格安SIM比較",
+      },
+      {
+        slug: "sim-senior-osusume",
+        label: "シニア向け格安SIM",
+      },
+      {
         slug: "sim-20gb-osusume",
         label: "20GBプランの選び方",
       },
       {
-        slug: "rakuten-mobile-switch",
-        label: "楽天モバイル乗り換え手順",
+        slug: "povo-data-yoryou-tsuika-houhou",
+        label: "povo データ容量追加",
       },
       {
-        slug: "sim-gakusei-osusume",
-        label: "学生向け格安SIM",
+        slug: "ahamo-oomori-option-moushikomi-tejun",
+        label: "ahamo 大盛りオプション手順",
       },
     ],
   },
@@ -81,6 +93,14 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "格安SIM 速度が遅いとき",
       },
       {
+        slug: "povo-speed-slow-fix",
+        label: "povo 速度が遅いとき",
+      },
+      {
+        slug: "iijmio-speed-slow-fix",
+        label: "IIJmio 速度が遅いとき",
+      },
+      {
         slug: "wifi-speed-slow-kaizen",
         label: "Wi-Fi速度の改善",
       },
@@ -91,10 +111,6 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "softbank-hikari-shogai-kakunin",
         label: "ソフトバンク光 障害確認",
-      },
-      {
-        slug: "au-hikari-kaiyaku-houhou",
-        label: "auひかり 解約方法",
       },
     ],
   },
