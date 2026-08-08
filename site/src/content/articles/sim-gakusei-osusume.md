@@ -90,16 +90,16 @@ povoは基本料とトッピングの組み合わせで総額が変わるため�
 - 2年縛りやオプション解約条件を見落とすと想定外の費用になる
 - 表の数値はあくまで比較観点であり、最新条件は公式が正
 
-<!-- internal-links:v2 -->
+<!-- internal-links:v4 -->
 
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】LINEMO評判・デメリット比較｜5つの注意点](/articles/linemo-hyoban-demerit)
-- [ahamo 大盛り オプション 申し込み 手順の手順【2026年版】5ステップで解説](/articles/ahamo-oomori-option-moushikomi-tejun)
-- [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
-- [Wi-Fi 速度 遅い 改善の原因と7つの対処法【2026年版】](/articles/wifi-speed-slow-kaizen)
+- [【2026年最新】格安SIM 副回線 おすすめ｜料金・速度を比較](/articles/sim-fukukaisen-osusume)
+- [【2026年最新】格安SIM 子供 おすすめ｜料金・速度を比較](/articles/sim-kodomo-osusume)
+- [【2026年最新】モバレコAir WiMAX 比較｜5社比較と選び方](/articles/mobareco-air-wimax-hikaku)
+- [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
 
 ## よくある質問
 

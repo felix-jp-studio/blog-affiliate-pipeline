@@ -91,15 +91,15 @@ ahamo光はahamoユーザー向けの光回線として案内されることが�
 - 集合住宅は管理規約・既存配線の有無を確認する
 - 表の数値は比較観点であり、最新条件は公式が正
 
-<!-- internal-links:v2 -->
+<!-- internal-links:v4 -->
 
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】NURO 光 料金 キャンペーン比較｜選び方と注意点](/articles/nuro-hikari-campaign)
-- [【2026年最新】工事 不要 光回線比較｜選び方と注意点](/articles/kouji-fuyou-hikari)
-- [【2026年最新】データ無制限 格安SIM比較｜選び方と注意点](/articles/sim-unlimited-data)
+- [【2026年最新】NURO 光 auひかり 比較｜5社比較と選び方](/articles/nuro-hikari-au-hikari-hikaku)
+- [【2026年最新】モバレコAir WiMAX 比較｜5社比較と選び方](/articles/mobareco-air-wimax-hikaku)
+- [ahamo 大盛り オプション 申し込み 手順の手順【2026年版】5ステップで解説](/articles/ahamo-oomori-option-moushikomi-tejun)
 - [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
 
 ## よくある質問

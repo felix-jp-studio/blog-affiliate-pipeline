@@ -89,7 +89,7 @@ A. サービスにより異なります。新住所での再契約・再連携�
 
 A. キャリア・電力会社の組み合わせによっては、光回線と電気のセット割やキャッシュバックがある場合があります。対象エリアと工事条件は公式で要確認です。
 
-<!-- internal-links:v2 -->
+<!-- internal-links:v4 -->
 
 ## あわせて読みたい
 
@@ -97,8 +97,8 @@ A. キャリア・電力会社の組み合わせによっては、光回線と�
 
 - [【2026年】auでんき 料金 比較で固定費を見直す｜比較ポイント3つ](/articles/au-denki-fee-hikaku)
 - [【2026年】楽天でんき 楽天モバイルで固定費を見直す｜比較ポイント3つ](/articles/rakuten-denki-rakuten-mobile)
-- [【2026年最新】格安SIM おすすめ 比較 2026｜5社比較と選び方](/articles/sim-osusume-hikaku-2026)
-- [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
+- [【2026年最新】格安SIM 乗り換え おすすめ｜料金・速度を比較](/articles/sim-norikae-osusume)
+- [【2026年最新】NURO 光 auひかり 比較｜5社比較と選び方](/articles/nuro-hikari-au-hikari-hikaku)
 
 > 本記事は AI 支援により作成されています。料金・キャンペーン・提供条件は変更される場合があります。申し込み前に各公式サイトで最新情報をご確認ください。
 

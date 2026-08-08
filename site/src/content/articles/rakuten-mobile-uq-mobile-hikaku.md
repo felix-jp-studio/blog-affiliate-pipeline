@@ -110,14 +110,14 @@ UQ mobileの料金体系・キャンペーン・オプションは公式サイ�
 - 速度は時間帯・場所・端末で変動する
 - 表の数値は比較観点であり、最新条件は公式が正
 
-<!-- internal-links:v2 -->
+<!-- internal-links:v4 -->
 
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】スマホ セット割 比較｜5社比較と選び方](/articles/smartphone-setwari-hikaku)
-- [【2026年最新】データ無制限 格安SIM比較｜選び方と注意点](/articles/sim-unlimited-data)
+- [【2026年最新】格安SIM 通話かけ放題 安い比較｜選び方と注意点](/articles/sim-kakehoudai-yasui)
+- [【2026年最新】格安SIM 法人 おすすめ｜料金・速度を比較](/articles/sim-houjin-osusume)
 - [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
 - [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
 

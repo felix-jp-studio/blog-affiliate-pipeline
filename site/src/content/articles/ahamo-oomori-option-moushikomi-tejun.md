@@ -63,16 +63,16 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - キャンペーン適用の有無（適用まで時間がかかる場合あり）
 - マイページでオプションが意図どおりか
 
-<!-- internal-links:v2 -->
+<!-- internal-links:v4 -->
 
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [eSIM 乗り換え 即日の手順【2026年版】5ステップで解説](/articles/esim-norikae-sokujitsu)
-- [【2026年最新】格安SIM 通話定額 比較｜5社比較と選び方](/articles/sim-tuuwa-teigaku-hikaku)
-- [【2026年最新】NURO 光 料金 キャンペーン比較｜選び方と注意点](/articles/nuro-hikari-campaign)
-- [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
+- [【2026年最新】ホームルーター 光回線 比較｜5社比較と選び方](/articles/home-router-hikari-hikaku)
+- [【2026年最新】スマホ セット割 比較｜5社比較と選び方](/articles/smartphone-setwari-hikaku)
+- [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
+- [格安SIM速度が遅い原因と7つの対処法【2026年版】](/articles/sim-speed-slow-fix)
 
 ## よくある質問
 

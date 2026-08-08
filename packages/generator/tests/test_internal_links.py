@@ -52,6 +52,24 @@ class InternalLinksTest(unittest.TestCase):
         )
         self.assertEqual([link.slug for link in picked], ["hikari-a", "trouble-a"])
 
+    def test_pick_cross_entity_trouble_includes_cost(self):
+        articles = [
+            _ref("trouble-a", "Trouble A", "trouble", 20, "troubleshoot"),
+            _ref("sim-a", "Sim A", "sim", 19, "howto"),
+            _ref("hikari-a", "Hikari A", "hikari", 18, "comparison"),
+            _ref("cost-a", "Cost A", "cost", 17, "crosssell"),
+        ]
+        picked = pick_cross_entity_links(
+            category="trouble",
+            exclude_slug="trouble-a",
+            articles=articles,
+            count=3,
+        )
+        self.assertEqual(
+            [link.slug for link in picked],
+            ["sim-a", "hikari-a", "cost-a"],
+        )
+
     def test_pick_v2_combines_same_and_cross(self):
         articles = [
             _ref("sim-a", "Sim A", "sim", 21),

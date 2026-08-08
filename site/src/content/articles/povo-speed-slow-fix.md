@@ -71,15 +71,15 @@ APN設定の誤り、古い端末、省電力モード、バックグラウン�
 - プランの速度制限条件を把握する
 - 定期的にマイページで利用状況を確認する
 
-<!-- internal-links:v2 -->
+<!-- internal-links:v4 -->
 
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
+- [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
 - [ソフトバンク光 障害 確認の原因と7つの対処法【2026年版】](/articles/softbank-hikari-shogai-kakunin)
-- [Wi-Fi 速度 遅い 改善の原因と7つの対処法【2026年版】](/articles/wifi-speed-slow-kaizen)
-- [【2026年最新】格安SIM 乗り換え おすすめ｜料金・速度を比較](/articles/sim-norikae-osusume)
+- [MNP予約番号の取得方法【2026年版】手順と注意点](/articles/mnp-reservation-number)
 - [引っ越し 光回線 手続きの手順【2026年版】5ステップで解説](/articles/hikkoshi-hikari-tetsuzuki)
 
 ## よくある質問

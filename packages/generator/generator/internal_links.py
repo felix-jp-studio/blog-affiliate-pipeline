@@ -9,23 +9,25 @@ from pathlib import Path
 
 SECTION_HEADING = "## あわせて読みたい"
 MARKER_V1 = "<!-- internal-links:v1 -->"
-MARKER = "<!-- internal-links:v2 -->"
-MARKERS = (MARKER, MARKER_V1)
+MARKER_V2 = "<!-- internal-links:v2 -->"
+MARKER = "<!-- internal-links:v4 -->"
+MARKERS = (MARKER, MARKER_V2, MARKER_V1)
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---", re.DOTALL)
 SECTION_RE = re.compile(
-    r"(?:<!-- internal-links:v[12] -->\s*)?## あわせて読みたい\n.*?(?=\n## |\n> 本記事は AI|\Z)",
+    r"(?:<!-- internal-links:v[124] -->\s*)?## あわせて読みたい\n.*?(?=\n## |\n> 本記事は AI|\Z)",
     re.DOTALL,
 )
 DEFAULT_ARTICLES_DIR = "site/src/content/articles"
 SAME_CATEGORY_COUNT = 2
 CROSS_ENTITY_COUNT = 2
+ROTATION_SALT = 4
 
 # Cross-entity mesh for visitability: SIM↔光, 障害↔乗り換え/セット, 固定費↔通信.
 RELATED_CATEGORIES: dict[str, tuple[str, ...]] = {
     "sim": ("hikari", "trouble", "cost"),
     "hikari": ("sim", "trouble", "cost"),
-    "trouble": ("sim", "hikari"),
-    "cost": ("sim", "hikari"),
+    "trouble": ("sim", "hikari", "cost"),
+    "cost": ("sim", "hikari", "trouble"),
 }
 
 # Prefer howto / switch-related peers when linking from trouble (障害→乗り換え).
@@ -115,7 +117,8 @@ def _type_rank(category: str, article_type: str) -> int:
 def _slug_rotation_offset(slug: str, pool_size: int) -> int:
     if pool_size <= 0:
         return 0
-    return sum(ord(char) for char in slug) % pool_size
+    base = sum(ord(char) for char in slug)
+    return (base + ROTATION_SALT * 31) % pool_size
 
 
 def _rotate_refs(articles: list[ArticleRef], offset: int) -> list[ArticleRef]:
@@ -331,11 +334,12 @@ def backfill_article_file(
     if not category:
         return False
 
-    has_v2 = MARKER in body
-    has_v1 = MARKER_V1 in body or (SECTION_HEADING in body and not has_v2)
-    if has_v2 and not force:
+    has_v4 = MARKER in body
+    has_v2 = MARKER_V2 in body
+    has_v1 = MARKER_V1 in body or (SECTION_HEADING in body and not has_v4 and not has_v2)
+    if has_v4 and not force:
         return False
-    if has_v1 and not upgrade_v1 and not force:
+    if (has_v2 or has_v1) and not upgrade_v1 and not force:
         return False
 
     articles = load_published_articles(root / DEFAULT_ARTICLES_DIR)
@@ -348,7 +352,7 @@ def backfill_article_file(
     if not section:
         return False
 
-    if has_v1 or has_v2:
+    if has_v1 or has_v2 or has_v4:
         new_body = replace_internal_links_section(body, section)
     else:
         new_body = insert_internal_links_section(body, section)

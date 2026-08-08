@@ -101,15 +101,15 @@ povoは基本料とトッピングの組み合わせで総額が変わるため�
 - 2年縛りやオプション解約条件を見落とすと想定外の費用になる
 - 表の数値はあくまで比較観点であり、最新条件は公式が正
 
-<!-- internal-links:v2 -->
+<!-- internal-links:v4 -->
 
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】ホームルーター おすすめ 一人暮らし｜料金・速度を比較](/articles/home-router-hitorigurashi)
-- [【2026年最新】家族 2 回線 安い比較｜選び方と注意点](/articles/family-2-lines-cheap)
-- [au ひかり 解約 方法の手順【2026年版】5ステップで解説](/articles/au-hikari-kaiyaku-houhou)
+- [楽天モバイル乗り換え手順【2026年版】5ステップで解説](/articles/rakuten-mobile-switch)
+- [MNP予約番号の取得方法【2026年版】手順と注意点](/articles/mnp-reservation-number)
+- [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
 - [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
 
 ## よくある質問
