@@ -2,14 +2,13 @@
 title: "【2026年最新】工事 不要 光回線比較｜選び方と注意点"
 description: "【2026年最新】工事 不要 光回線を5社比較。料金・速度・セット割の観点で選び方を解説。公式情報を参照し中立にまとめています。"
 pubDate: 2026-07-19
-dateModified: 2026-07-19
+dateModified: 2026-08-08
 category: hikari
 articleType: comparison
 keyword: "工事 不要 光回線"
 priority: 17
 draft: false
 ---
-
 ## 結論サマリ
 
 工事 不要 光回線を探す場合、NURO 光やauひかりのような工事が必要な回線ではなく、**工事不要で使える選択肢**に絞って比較するのが近道です。主な候補はマンション既設配線の光回線、WiMAX、ホーム5G（据置型）です。
@@ -73,15 +72,15 @@ draft: false
 - 表の数値は比較観点であり、最新条件は公式が正
 
 <!-- internal-links:v2 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [引っ越し 光回線 手続きの手順【2026年版】5ステップで解説](/articles/hikkoshi-hikari-tetsuzuki)
-- [au ひかり 解約 方法の手順【2026年版】5ステップで解説](/articles/au-hikari-kaiyaku-houhou)
-- [【2026年最新】格安SIM 子供 おすすめ｜料金・速度を比較](/articles/sim-kodomo-osusume)
-- [ソフトバンク光 障害 確認の原因と7つの対処法【2026年版】](/articles/softbank-hikari-shogai-kakunin)
+- [【2026年最新】NURO 光 auひかり 比較｜5社比較と選び方](/articles/nuro-hikari-au-hikari-hikaku)
+- [【2026年最新】モバレコAir WiMAX 比較｜5社比較と選び方](/articles/mobareco-air-wimax-hikaku)
+- [【2026年最新】格安SIM 乗り換え おすすめ｜料金・速度を比較](/articles/sim-norikae-osusume)
+- [格安SIM速度が遅い原因と7つの対処法【2026年版】](/articles/sim-speed-slow-fix)
+
 
 ## よくある質問
 
