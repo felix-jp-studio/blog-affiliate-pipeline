@@ -368,6 +368,18 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "uq-mobile-kaituu-dekinai-fix",
         label: "UQモバイル 開通できない",
       },
+      {
+        slug: "povo-kaituu-dekinai-fix",
+        label: "povo 開通できない",
+      },
+      {
+        slug: "wimax-speed-slow-fix",
+        label: "WiMAX 速度 遅い",
+      },
+      {
+        slug: "home-router-speed-slow-fix",
+        label: "ホームルーター 速度 遅い",
+      },
     ],
   },
   cost: {
