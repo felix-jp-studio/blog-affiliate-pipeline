@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T05:46:42.669Z",
+  "updatedAt": "2026-08-09T05:47:22.172Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -706,6 +706,24 @@
       "slug": "sim-1gb-fee-hikaku",
       "url": "https://sim-hikari-guide.com/articles/sim-1gb-fee-hikaku",
       "mergedAt": "2026-08-09T05:46:42.667Z",
+      "indexed": false
+    },
+    {
+      "slug": "nuro-hikari-mansion-hyoban",
+      "url": "https://sim-hikari-guide.com/articles/nuro-hikari-mansion-hyoban",
+      "mergedAt": "2026-08-09T05:47:22.166Z",
+      "indexed": false
+    },
+    {
+      "slug": "shinseikatsu-sim-hikaku",
+      "url": "https://sim-hikari-guide.com/articles/shinseikatsu-sim-hikaku",
+      "mergedAt": "2026-08-09T05:47:22.166Z",
+      "indexed": false
+    },
+    {
+      "slug": "shinseikatsu-tsushin-koteihi",
+      "url": "https://sim-hikari-guide.com/articles/shinseikatsu-tsushin-koteihi",
+      "mergedAt": "2026-08-09T05:47:22.166Z",
       "indexed": false
     }
   ]

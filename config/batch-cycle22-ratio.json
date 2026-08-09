@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 22 — comparison x2 + crosssell x1",
+  "items": [
+    {
+      "keyword": "NURO光 マンション 評判",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 350
+    },
+    {
+      "keyword": "新生活 格安SIM 比較",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 351
+    },
+    {
+      "keyword": "新生活 通信 固定費",
+      "articleType": "crosssell",
+      "category": "cost",
+      "priority": 352
+    }
+  ]
+}

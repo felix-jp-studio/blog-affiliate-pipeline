@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "光回線 電気 まとめて 節約",
+      "keyword": "NURO光 マンション 評判",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/hikari-denki-matomete-setsuyaku.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/nuro-hikari-mansion-hyoban.md",
       "error": null
     },
     {
-      "keyword": "通信費 固定費 見直し",
+      "keyword": "新生活 格安SIM 比較",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/tsushin-koteihi-minaoshi.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/shinseikatsu-sim-hikaku.md",
       "error": null
     },
     {
-      "keyword": "格安SIM 1GB 料金 比較",
+      "keyword": "新生活 通信 固定費",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-1gb-fee-hikaku.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/shinseikatsu-tsushin-koteihi.md",
       "error": null
     }
   ]
