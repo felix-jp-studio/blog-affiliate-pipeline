@@ -7,6 +7,7 @@ describe("playwright browser helpers", () => {
     assert.ok(SIGN_IN_PAGE.test("Sign in to continue to Google Search Console"));
     assert.ok(SIGN_IN_PAGE.test("https://accounts.google.com/signin/identifier"));
     assert.ok(SIGN_IN_PAGE.test("https://search.google.com/search-console/about"));
+    assert.ok(SIGN_IN_PAGE.test("このブラウザまたはアプリは安全でない可能性があります"));
     assert.ok(!SIGN_IN_PAGE.test("URL Inspection tool"));
   });
 });

@@ -1,8 +1,11 @@
 /**
  * Interactive login → save Playwright storage state for GSC UI automation.
  *
+ * Legacy path — Google often blocks this with「安全でない可能性があります」.
+ * Prefer: npm run gsc:auth:login (codegen).
+ *
  * Usage:
- *   npm run gsc:auth:login
+ *   npm run gsc:auth:login:legacy
  *   GSC_SITE_URL=https://sim-hikari-guide.com/ npm run gsc:auth:login
  *
  * Output: gsc-playwright-auth.json (gitignored)
@@ -32,6 +35,10 @@ async function main() {
   console.log("2. Log in with your Google account if prompted.");
   console.log("3. Confirm the Search Console property is visible.");
   console.log("4. Return here and press Enter to save the session.");
+  console.log("");
+  console.warn(
+    "Note: If Google shows「安全でない可能性があります」, stop and run: npm run gsc:auth:login",
+  );
   console.log("");
 
   const browser = await launchGscBrowser({ headless: false });

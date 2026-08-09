@@ -62,14 +62,21 @@ OAuth 代替: `GSC_OAUTH_CLIENT_ID` / `GSC_OAUTH_CLIENT_SECRET` / `GSC_OAUTH_REF
 
 ### 2. Playwright セッション（UI）
 
+Google は Playwright スクリプト起動の Chrome でログインを拒否することがあります（「安全でない可能性があります」）。**codegen 方式**を使ってください。
+
 ```bash
-npm run gsc:auth:login
-# Chrome でログイン → Secret 更新（Chromium ではなく Chrome 推奨）
-npm run gsc:verify-ui
+npx playwright install chrome   # 初回のみ
+npm run gsc:auth:login          # Chrome が開く → 手動ログイン → ウィンドウを閉じる
+npm run gsc:verify-ui           # OK になるまで Secret は更新しない
 base64 -i gsc-playwright-auth.json | tr -d '\n'  # → GSC_PLAYWRIGHT_STORAGE_STATE
 ```
 
-セッション失効時は `npm run gsc:auth:login` を再実行して Secret を更新する。
+| 症状                                       | 対処                                                                           |
+| ------------------------------------------ | ------------------------------------------------------------------------------ |
+| メール入力後「安全でない可能性があります」 | `gsc:auth:login:legacy` ではなく **`npm run gsc:auth:login`**（codegen）を使う |
+| verify-ui が FAILED                        | ログイン後に URL Inspection 画面まで進んでから Chrome を閉じる                 |
+
+セッション失効時は上記を再実行して Secret を更新する。
 
 ## キュー拡張フィールド
 
