@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T05:24:20.329Z",
+  "updatedAt": "2026-08-09T05:24:57.358Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -634,6 +634,24 @@
       "slug": "hikari-provider-henkou-tejun",
       "url": "https://sim-hikari-guide.com/articles/hikari-provider-henkou-tejun",
       "mergedAt": "2026-08-09T05:24:20.328Z",
+      "indexed": false
+    },
+    {
+      "slug": "rakuten-mobile-speed-slow-fix",
+      "url": "https://sim-hikari-guide.com/articles/rakuten-mobile-speed-slow-fix",
+      "mergedAt": "2026-08-09T05:24:57.267Z",
+      "indexed": false
+    },
+    {
+      "slug": "linemo-speed-slow-fix",
+      "url": "https://sim-hikari-guide.com/articles/linemo-speed-slow-fix",
+      "mergedAt": "2026-08-09T05:24:57.267Z",
+      "indexed": false
+    },
+    {
+      "slug": "uq-mobile-speed-slow-fix",
+      "url": "https://sim-hikari-guide.com/articles/uq-mobile-speed-slow-fix",
+      "mergedAt": "2026-08-09T05:24:57.267Z",
       "indexed": false
     }
   ]

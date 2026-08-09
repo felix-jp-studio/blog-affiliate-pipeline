@@ -416,6 +416,18 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "mineo-speed-slow-fix",
         label: "mineo 速度 遅い",
       },
+      {
+        slug: "rakuten-mobile-speed-slow-fix",
+        label: "楽天モバイル 速度 遅い",
+      },
+      {
+        slug: "linemo-speed-slow-fix",
+        label: "LINEMO 速度 遅い",
+      },
+      {
+        slug: "uq-mobile-speed-slow-fix",
+        label: "UQモバイル 速度 遅い",
+      },
     ],
   },
   cost: {
