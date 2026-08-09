@@ -2,7 +2,7 @@
 title: "au ひかり 解約 方法の手順【2026年版】5ステップで解説"
 description: "au ひかり 解約 方法を5ステップで解説。【2026年版】必要書類・所要時間・つまずきポイントを公式情報に基づき整理。"
 pubDate: 2026-07-28
-dateModified: 2026-08-08
+dateModified: 2026-08-09
 category: hikari
 articleType: howto
 keyword: "au ひかり 解約 方法"
@@ -63,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - キャンペーン適用の有無（適用まで時間がかかる場合あり）
 - マイページでオプションが意図どおりか
 
-<!-- internal-links:v4 -->
+<!-- internal-links:v5 -->
 
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】光回線 プロバイダ 違い比較｜選び方と注意点](/articles/hikari-provider-chigai)
-- [【2026年最新】光回線 マンション おすすめ｜料金・速度を比較](/articles/hikari-mansion-osusume)
-- [【2026年最新】格安SIM 乗り換え おすすめ｜料金・速度を比較](/articles/sim-norikae-osusume)
+- [【2026年最新】モバレコAir WiMAX 比較｜5社比較と選び方](/articles/mobareco-air-wimax-hikaku)
+- [【2026年最新】光回線 戸建て おすすめ｜料金・速度を比較](/articles/hikari-kodate-osusume)
+- [【2026年最新】ahamo povo 比較｜5社比較と選び方](/articles/ahamo-povo-hikaku)
 - [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
 
 ## よくある質問

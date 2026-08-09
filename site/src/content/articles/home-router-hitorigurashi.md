@@ -2,7 +2,7 @@
 title: "【2026年最新】ホームルーター おすすめ 一人暮らし｜料金・速度を比較"
 description: "【2026年最新】ホームルーター おすすめ 一人暮らしを5社比較。料金・速度・セット割の観点で選び方を解説。公式情報を参照し中立にまとめています。"
 pubDate: 2026-07-19
-dateModified: 2026-08-08
+dateModified: 2026-08-09
 category: sim
 articleType: comparison
 keyword: "ホームルーター おすすめ 一人暮らし"
@@ -80,16 +80,16 @@ draft: false
 - 光回線とのセット割対象外になる場合がある
 - 表の数値は比較観点であり、最新条件は公式が正
 
-<!-- internal-links:v4 -->
+<!-- internal-links:v5 -->
 
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】LINEMO ahamo 比較｜5社比較と選び方](/articles/linemo-ahamo-hikaku)
 - [【2026年最新】IIJmio 評判 料金比較｜選び方と注意点](/articles/iijmio-hyoban-fee)
-- [【2026年最新】光回線 乗り換え おすすめ｜料金・速度を比較](/articles/hikari-switch-osusume)
-- [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
+- [【2026年最新】家族 2 回線 安い比較｜選び方と注意点](/articles/family-2-lines-cheap)
+- [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
+- [Wi-Fi 速度 遅い 改善の原因と7つの対処法【2026年版】](/articles/wifi-speed-slow-kaizen)
 
 ## よくある質問
 

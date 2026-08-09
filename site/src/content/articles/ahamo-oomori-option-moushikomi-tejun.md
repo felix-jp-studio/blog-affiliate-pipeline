@@ -7,7 +7,7 @@ articleType: howto
 keyword: "ahamo 大盛り オプション 申し込み 手順"
 priority: 40
 draft: false
-dateModified: 2026-08-08
+dateModified: 2026-08-09
 ---
 
 ## 事前準備
@@ -63,16 +63,16 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - キャンペーン適用の有無（適用まで時間がかかる場合あり）
 - マイページでオプションが意図どおりか
 
-<!-- internal-links:v4 -->
+<!-- internal-links:v5 -->
 
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】ホームルーター 光回線 比較｜5社比較と選び方](/articles/home-router-hikari-hikaku)
 - [【2026年最新】スマホ セット割 比較｜5社比較と選び方](/articles/smartphone-setwari-hikaku)
-- [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
-- [格安SIM速度が遅い原因と7つの対処法【2026年版】](/articles/sim-speed-slow-fix)
+- [【2026年最新】データ無制限 格安SIM比較｜選び方と注意点](/articles/sim-unlimited-data)
+- [【2026年最新】光回線 マンション おすすめ｜料金・速度を比較](/articles/hikari-mansion-osusume)
+- [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
 
 ## よくある質問
 

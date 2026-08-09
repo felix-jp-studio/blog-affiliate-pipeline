@@ -2,7 +2,7 @@
 title: "【2026年最新】NURO 光 料金 キャンペーン比較｜選び方と注意点"
 description: "【2026年最新】NURO 光 料金 キャンペーンを5社比較。料金・速度・セット割の観点で選び方を解説。公式情報を参照し中立にまとめています。"
 pubDate: 2026-07-19
-dateModified: 2026-08-08
+dateModified: 2026-08-09
 category: hikari
 articleType: comparison
 keyword: "NURO 光 料金 キャンペーン"
@@ -91,15 +91,15 @@ ahamo光はahamoユーザー向けの光回線として案内されることが�
 - 集合住宅は管理規約・既存配線の有無を確認する
 - 表の数値は比較観点であり、最新条件は公式が正
 
-<!-- internal-links:v4 -->
+<!-- internal-links:v5 -->
 
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】光回線 プロバイダ 違い比較｜選び方と注意点](/articles/hikari-provider-chigai)
-- [【2026年最新】光回線 マンション おすすめ｜料金・速度を比較](/articles/hikari-mansion-osusume)
-- [【2026年最新】家族 2 回線 安い比較｜選び方と注意点](/articles/family-2-lines-cheap)
+- [【2026年最新】NURO 光 auひかり 比較｜5社比較と選び方](/articles/nuro-hikari-au-hikari-hikaku)
+- [【2026年最新】モバレコAir WiMAX 比較｜5社比較と選び方](/articles/mobareco-air-wimax-hikaku)
+- [MNP予約番号の取得方法【2026年版】手順と注意点](/articles/mnp-reservation-number)
 - [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
 
 ## よくある質問
