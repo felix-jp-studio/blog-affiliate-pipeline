@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "NURO光 マンション 評判",
+      "keyword": "格安SIM 乗り換え キャンペーン 比較",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/nuro-hikari-mansion-hyoban.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-norikae-campaign-hikaku.md",
       "error": null
     },
     {
-      "keyword": "新生活 格安SIM 比較",
+      "keyword": "新生活 光回線 比較",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/shinseikatsu-sim-hikaku.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/shinseikatsu-hikari-hikaku.md",
       "error": null
     },
     {
-      "keyword": "新生活 通信 固定費",
+      "keyword": "スマホ 電気 まとめて お得",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/shinseikatsu-tsushin-koteihi.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/smartphone-denki-matomete.md",
       "error": null
     }
   ]
