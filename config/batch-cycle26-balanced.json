@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 26 — comparison + crosssell + howto",
+  "items": [
+    {
+      "keyword": "NURO光 解約金 違約金",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 362
+    },
+    {
+      "keyword": "楽天経済圏 固定費 見直し",
+      "articleType": "crosssell",
+      "category": "cost",
+      "priority": 363
+    },
+    {
+      "keyword": "格安SIM APN 設定 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 364
+    }
+  ]
+}
