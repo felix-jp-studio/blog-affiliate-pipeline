@@ -289,6 +289,14 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "引っ越し 光回線手続き",
       },
       {
+        slug: "hikkoshi-wimax-osusume",
+        label: "引っ越し WiMAX おすすめ",
+      },
+      {
+        slug: "family-hikkoshi-hikari-hikaku",
+        label: "家族 引っ越し 光回線",
+      },
+      {
         slug: "hikari-kaituu-junbi-tejun",
         label: "光回線 開通準備",
       },
