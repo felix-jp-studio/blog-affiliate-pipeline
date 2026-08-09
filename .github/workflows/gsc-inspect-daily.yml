@@ -1,0 +1,97 @@
+name: GSC inspect daily
+
+# Daily URL inspection: GSC UI indexing request + URL Inspection API + queue commit.
+# Requires GSC_SERVICE_ACCOUNT_JSON (+ GSC_PLAYWRIGHT_STORAGE_STATE for UI requests).
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Max URLs per run"
+        required: false
+        default: "10"
+      api_only:
+        description: "Skip Playwright UI (API status check only)"
+        required: false
+        type: boolean
+        default: false
+  schedule:
+    # 09:00 JST = UTC 00:00
+    - cron: "0 0 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  inspect-batch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        if: ${{ !inputs.api_only }}
+        run: npx playwright install --with-deps chromium
+
+      - name: Run GSC inspect batch
+        id: inspect
+        env:
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          GSC_OAUTH_CLIENT_ID: ${{ secrets.GSC_OAUTH_CLIENT_ID }}
+          GSC_OAUTH_CLIENT_SECRET: ${{ secrets.GSC_OAUTH_CLIENT_SECRET }}
+          GSC_OAUTH_REFRESH_TOKEN: ${{ secrets.GSC_OAUTH_REFRESH_TOKEN }}
+          GSC_PLAYWRIGHT_STORAGE_STATE: ${{ secrets.GSC_PLAYWRIGHT_STORAGE_STATE }}
+          GSC_PLAYWRIGHT_HEADLESS: "true"
+        run: |
+          set -euo pipefail
+          LIMIT="${{ inputs.limit || '10' }}"
+          ARGS=(--week-first --limit="$LIMIT" --write-note --commit)
+          if [ "${{ inputs.api_only }}" = "true" ]; then
+            ARGS+=(--api-only)
+          fi
+          node scripts/gsc/inspect-batch.mjs "${ARGS[@]}" | tee /tmp/gsc-inspect.log
+          if [ -f "docs/operations/gsc-inspect-run-$(date -u -d '+9 hours' +%Y-%m-%d 2>/dev/null || date -u -v+9H +%Y-%m-%d).md" ]; then
+            REPORT="docs/operations/gsc-inspect-run-$(TZ=Asia/Tokyo date +%Y-%m-%d).md"
+            echo "report=$REPORT" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push queue commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git push origin HEAD || echo "Nothing to push (already up to date or no commit)."
+
+      - name: Write job summary
+        if: always()
+        run: |
+          {
+            echo "## GSC inspect daily"
+            echo ""
+            echo "- script: \`scripts/gsc/inspect-batch.mjs\`"
+            echo "- queue: \`data/gsc-index-queue.json\`"
+            echo "- docs: \`docs/gsc-inspect-automation.md\`"
+            echo ""
+            if [ -f /tmp/gsc-inspect.log ]; then
+              echo "### Log"
+              echo '```'
+              tail -n 40 /tmp/gsc-inspect.log
+              echo '```'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload UI failure screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gsc-inspect-screenshots
+          path: docs/operations/gsc-inspect-screenshots/
+          if-no-files-found: ignore

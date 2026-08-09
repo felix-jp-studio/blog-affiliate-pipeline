@@ -117,6 +117,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "LINEMO 解約手順",
       },
       {
+        slug: "sim-kishu-henkou-tejun",
+        label: "格安SIM 機種変更",
+      },
+      {
         slug: "iphone-sono-mama-sim",
         label: "iPhone そのまま 格安SIM",
       },
@@ -209,6 +213,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "引っ越し 光回線手続き",
       },
       {
+        slug: "hikari-kaituu-junbi-tejun",
+        label: "光回線 開通準備",
+      },
+      {
         slug: "au-hikari-kaiyaku-houhou",
         label: "auひかり 解約方法",
       },
@@ -283,6 +291,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "iijmio-kaituu-dekinai-fix",
         label: "IIJmio 開通できない",
+      },
+      {
+        slug: "tethering-dekinai-fix",
+        label: "テザリング できない",
       },
     ],
   },
