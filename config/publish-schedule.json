@@ -5,9 +5,9 @@
   "timezone": "Asia/Tokyo",
   "max_per_week": 7,
   "weekly_type_quota": {
-    "comparison": 1,
-    "howto": 3,
-    "troubleshoot": 3
+    "comparison": 2,
+    "howto": 2,
+    "troubleshoot": 2
   },
   "type_order": ["comparison", "howto", "troubleshoot"],
   "sunday_type": "crosssell",
