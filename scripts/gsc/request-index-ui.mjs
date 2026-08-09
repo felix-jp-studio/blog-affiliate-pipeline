@@ -1,16 +1,13 @@
 /**
  * Request Google Search Console indexing via UI (Playwright).
- *
- * Requires an authenticated storage state (see npm run gsc:auth:login).
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { siteUrlFromEnv } from "./auth.mjs";
 import { loadPlaywrightStorageState } from "./playwright-storage.mjs";
+import { navigateToUrlInspection, isGoogleInterstitial404 } from "./gsc-ui-nav.mjs";
 import {
   authRequiredResult,
   detectAuthRequired,
-  isGoogleInterstitial404,
   launchGscBrowser,
   newGscContext,
 } from "./playwright-browser.mjs";
@@ -29,43 +26,6 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function propertyResourceId(siteUrl) {
-  return encodeURIComponent(siteUrlFromEnv() || siteUrl);
-}
-
-/**
- * @param {import('playwright').Page} page
- * @param {string} url
- */
-async function openUrlInspection(page, url, siteUrl) {
-  const resourceId = propertyResourceId(siteUrl);
-  const directUrl = `https://search.google.com/search-console/inspect?resource_id=${resourceId}&id=${encodeURIComponent(url)}`;
-  await page.goto(directUrl, { waitUntil: "domcontentloaded", timeout: 90_000 });
-  await page.waitForLoadState("networkidle", { timeout: 60_000 }).catch(() => {});
-  await sleep(2500);
-
-  if (await detectAuthRequired(page)) {
-    return authRequiredResult(page);
-  }
-
-  const bodyAfterLoad =
-    (await page
-      .locator("body")
-      .innerText()
-      .catch(() => "")) ?? "";
-  if (isGoogleInterstitial404(bodyAfterLoad)) {
-    return {
-      status: "skipped",
-      message: `Google interstitial 404 for inspect URL — ${page.url()}`,
-    };
-  }
-
-  return null;
-}
-
-/**
- * @param {import('playwright').Page} page
- */
 async function clickRequestIndexing(page) {
   if (await detectAuthRequired(page)) {
     return authRequiredResult(page);
@@ -134,10 +94,6 @@ async function captureScreenshot(page, url, screenshotDir) {
   return shotPath;
 }
 
-/**
- * @param {string} url
- * @param {{ headless?: boolean, screenshotDir?: string, siteUrl?: string }} [options]
- */
 export async function requestIndexingViaUi(url, options = {}) {
   const storageState = loadPlaywrightStorageState();
   if (!storageState) {
@@ -146,32 +102,28 @@ export async function requestIndexingViaUi(url, options = {}) {
     );
   }
 
-  const siteUrl = options.siteUrl ?? siteUrlFromEnv();
   const screenshotDir =
     options.screenshotDir ?? join(repoRoot, "docs/operations/gsc-inspect-screenshots");
-
   const browser = await launchGscBrowser({ headless: options.headless });
   const context = await newGscContext(browser, storageState);
   const page = await context.newPage();
 
   try {
-    const authBlock = await openUrlInspection(page, url, siteUrl);
-    if (authBlock) {
+    const navBlock = await navigateToUrlInspection(page, url, options.siteUrl);
+    if (navBlock) {
       if (options.screenshotDir !== null) {
-        authBlock.screenshot = await captureScreenshot(page, url, screenshotDir);
+        navBlock.screenshot = await captureScreenshot(page, url, screenshotDir);
       }
-      return authBlock;
+      return navBlock;
     }
 
     const result = await clickRequestIndexing(page);
-
     if (
       (result.status === "skipped" || result.status === "auth_required") &&
       options.screenshotDir !== null
     ) {
       result.screenshot = await captureScreenshot(page, url, screenshotDir);
     }
-
     return result;
   } catch (error) {
     if (options.screenshotDir !== null) {
@@ -189,10 +141,6 @@ export async function requestIndexingViaUi(url, options = {}) {
   }
 }
 
-/**
- * @param {string[]} urls
- * @param {{ headless?: boolean, delayMs?: number, siteUrl?: string }} [options]
- */
 export async function requestIndexingBatchViaUi(urls, options = {}) {
   const storageState = loadPlaywrightStorageState();
   if (!storageState) {
@@ -201,21 +149,19 @@ export async function requestIndexingBatchViaUi(urls, options = {}) {
     );
   }
 
-  const siteUrl = options.siteUrl ?? siteUrlFromEnv();
   const delayMs = options.delayMs ?? 2000;
   const screenshotDir = join(repoRoot, "docs/operations/gsc-inspect-screenshots");
   const results = [];
-
   const browser = await launchGscBrowser({ headless: options.headless });
   const context = await newGscContext(browser, storageState);
   const page = await context.newPage();
 
   try {
     for (const url of urls) {
-      const authBlock = await openUrlInspection(page, url, siteUrl);
-      if (authBlock) {
-        authBlock.screenshot = await captureScreenshot(page, url, screenshotDir);
-        results.push({ url, ...authBlock });
+      const navBlock = await navigateToUrlInspection(page, url, options.siteUrl);
+      if (navBlock) {
+        navBlock.screenshot = await captureScreenshot(page, url, screenshotDir);
+        results.push({ url, ...navBlock });
         continue;
       }
 
