@@ -1,2 +1,3 @@
 # Touch this file and push to main to run GSC inspect daily once (limit=3, full UI+API).
 # 2026-08-09T05:56:00Z re-run after code fixes (raw JSON + sc-domain fallback)
+# 2026-08-09T06:00:00Z re-run after push rebase fix
