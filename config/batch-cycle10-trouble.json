@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 10 batch — priority 324, 59, 60",
+  "items": [
+    {
+      "keyword": "格安SIM 圏外 表示 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 324
+    },
+    {
+      "keyword": "光回線 WiFi 繋がらない 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 59
+    },
+    {
+      "keyword": "LINEMO 開通 できない 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 60
+    }
+  ]
+}
