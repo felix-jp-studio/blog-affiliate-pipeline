@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 9 howto batch — priority 321, 322, 323",
+  "items": [
+    {
+      "keyword": "docomo光 解約 手順",
+      "articleType": "howto",
+      "category": "hikari",
+      "priority": 321
+    },
+    {
+      "keyword": "ビッグローブ光 解約 手順",
+      "articleType": "howto",
+      "category": "hikari",
+      "priority": 322
+    },
+    {
+      "keyword": "ahamo eSIM 設定 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 323
+    }
+  ]
+}

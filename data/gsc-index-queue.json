@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T04:53:39.908Z",
+  "updatedAt": "2026-08-09T04:55:13.959Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -466,6 +466,24 @@
       "slug": "nuro-hikari-tsunagaranai-fix",
       "url": "https://sim-hikari-guide.com/articles/nuro-hikari-tsunagaranai-fix",
       "mergedAt": "2026-08-09T04:53:39.906Z",
+      "indexed": false
+    },
+    {
+      "slug": "docomo-kaiyaku-tejun",
+      "url": "https://sim-hikari-guide.com/articles/docomo-kaiyaku-tejun",
+      "mergedAt": "2026-08-09T04:55:13.956Z",
+      "indexed": false
+    },
+    {
+      "slug": "biglobe-hikari-kaiyaku-tejun",
+      "url": "https://sim-hikari-guide.com/articles/biglobe-hikari-kaiyaku-tejun",
+      "mergedAt": "2026-08-09T04:55:13.956Z",
+      "indexed": false
+    },
+    {
+      "slug": "ahamo-esim-settei-tejun",
+      "url": "https://sim-hikari-guide.com/articles/ahamo-esim-settei-tejun",
+      "mergedAt": "2026-08-09T04:55:13.956Z",
       "indexed": false
     }
   ]
