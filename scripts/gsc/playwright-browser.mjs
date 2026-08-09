@@ -52,8 +52,13 @@ export async function newGscContext(browser, storageState) {
 export const SIGN_IN_PAGE =
   /sign in to continue|ログイン|accounts\.google\.com|signin\/identifier|signin\/rejected|search-console\/about|安全でない可能性/i;
 
-export const GSC_ERROR_PAGE =
-  /404\.|That's an error|エラーが発生しました|That's all we know/i;
+/** Classic Google interstitial 404 — not GSC URL HTTP status in inspection panel. */
+export function isGoogleInterstitial404(bodyText) {
+  return (
+    /404\.\s*(That's an error|エラーが発生しました)/i.test(bodyText) &&
+    /That's all we know|その他の詳細は不明/i.test(bodyText)
+  );
+}
 
 /**
  * @param {import('playwright').Page} page
@@ -71,9 +76,6 @@ export async function detectAuthRequired(page) {
       .locator("body")
       .innerText()
       .catch(() => "")) ?? "";
-  if (GSC_ERROR_PAGE.test(bodyText)) {
-    return true;
-  }
   return SIGN_IN_PAGE.test(bodyText);
 }
 
