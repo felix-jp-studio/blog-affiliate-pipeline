@@ -265,33 +265,29 @@ async function main() {
     if (notePath) {
       paths.push(notePath);
     }
-    execFileSync(
-      "git",
-      ["add", ...paths.map((path) => path.replace(`${repoRoot}/`, ""))],
-      { cwd: repoRoot, stdio: "inherit" },
+    const relPaths = paths.map((path) =>
+      path.startsWith(`${repoRoot}/`) ? path.slice(repoRoot.length + 1) : path,
     );
-    const diff = execFileSync("git", ["diff", "--cached", "--quiet"], {
-      cwd: repoRoot,
-      stdio: ["ignore", "ignore", "ignore"],
-    });
-    if (diff?.status === 1 || diff === undefined) {
-      try {
-        execFileSync(
-          "git",
-          [
-            "commit",
-            "-m",
-            `chore(gsc): daily inspect batch ${todayJstDate()} (${results.length} URLs)`,
-          ],
-          { cwd: repoRoot, stdio: "inherit" },
-        );
-        console.log("gsc-inspect-batch: committed queue/report changes");
-      } catch {
-        execFileSync("git", ["diff", "--cached", "--quiet"], {
-          cwd: repoRoot,
-          stdio: "inherit",
-        });
-      }
+    execFileSync("git", ["add", ...relPaths], { cwd: repoRoot, stdio: "inherit" });
+
+    let hasStagedChanges = false;
+    try {
+      execFileSync("git", ["diff", "--cached", "--quiet"], { cwd: repoRoot });
+    } catch {
+      hasStagedChanges = true;
+    }
+
+    if (hasStagedChanges) {
+      execFileSync(
+        "git",
+        [
+          "commit",
+          "-m",
+          `chore(gsc): daily inspect batch ${todayJstDate()} (${results.length} URLs)`,
+        ],
+        { cwd: repoRoot, stdio: "inherit" },
+      );
+      console.log("gsc-inspect-batch: committed queue/report changes");
     } else {
       console.log("gsc-inspect-batch: no git changes to commit");
     }
@@ -301,6 +297,6 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error(error instanceof Error ? error.stack ?? error.message : error);
+  console.error(error instanceof Error ? (error.stack ?? error.message) : error);
   process.exit(2);
 });

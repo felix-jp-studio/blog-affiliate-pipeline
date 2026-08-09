@@ -9,7 +9,7 @@
   "scripts": {
     "wp:ping": "npm run wp:ping -w @blog-affiliate/publisher",
     "wp:post": "npm run wp:post -w @blog-affiliate/publisher",
-    "test": "npm run test -w @blog-affiliate/publisher && npm run test:generator && npm run test:comments",
+    "test": "npm run test -w @blog-affiliate/publisher && npm run test:generator && npm run test:comments && npm run test:gsc",
     "test:generator": "cd packages/generator && PYTHONPATH=. python3 -m unittest discover -s tests -q",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -27,6 +27,8 @@
     "test:e2e:changed-slugs": "node scripts/e2e/changed-slugs.mjs",
     "indexnow:ping": "node scripts/indexnow-ping.mjs",
     "gsc:inspection-batch": "node scripts/print-gsc-inspection-batch.mjs",
+    "gsc:auth:login": "node scripts/gsc/export-playwright-session.mjs",
+    "gsc:inspect-batch": "node scripts/gsc/inspect-batch.mjs",
     "audit:orphans": "node scripts/audit-orphan-articles.mjs",
     "audit:hub-mesh": "node scripts/audit-hub-mesh-coverage.mjs",
     "backfill:date-modified": "node scripts/backfill-date-modified.mjs",
@@ -48,9 +50,11 @@
     "test:e2e:visual:update:docker": "bash scripts/e2e/update-visual-baselines-docker.sh update",
     "test:e2e:all": "npm run test:e2e && npm run test:e2e:visual",
     "test:comments": "npm run test:unit --prefix site",
+    "test:gsc": "node --test scripts/gsc/*.test.mjs",
     "comments:moderate": "npm run comments:moderate --prefix site"
   },
   "devDependencies": {
+    "playwright": "^1.61.1",
     "prettier": "^3.5.3"
   }
 }
