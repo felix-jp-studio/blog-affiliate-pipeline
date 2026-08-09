@@ -52,6 +52,8 @@ export async function newGscContext(browser, storageState) {
 export const SIGN_IN_PAGE =
   /sign in to continue|ログイン|accounts\.google\.com|signin\/identifier|signin\/rejected|search-console\/about|安全でない可能性/i;
 
+export const GSC_ERROR_PAGE = /404\.|That's an error|エラーが発生しました|That's all we know/i;
+
 /**
  * @param {import('playwright').Page} page
  */
@@ -68,6 +70,9 @@ export async function detectAuthRequired(page) {
       .locator("body")
       .innerText()
       .catch(() => "")) ?? "";
+  if (GSC_ERROR_PAGE.test(bodyText)) {
+    return true;
+  }
   return SIGN_IN_PAGE.test(bodyText);
 }
 
