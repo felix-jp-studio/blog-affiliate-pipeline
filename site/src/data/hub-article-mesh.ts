@@ -272,6 +272,18 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "wimax-kaiyaku-dekinai-fix",
         label: "WiMAX 解約できない",
       },
+      {
+        slug: "sim-tsunagaranai-fix",
+        label: "格安SIM 繋がらない",
+      },
+      {
+        slug: "hikari-kaituu-slow-fix",
+        label: "光回線 開通遅い",
+      },
+      {
+        slug: "iijmio-kaituu-dekinai-fix",
+        label: "IIJmio 開通できない",
+      },
     ],
   },
   cost: {
