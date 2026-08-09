@@ -88,6 +88,15 @@ base64 -i gsc-playwright-auth.json | pbcopy
 - 公開直後は API が `NEUTRAL` のまま — 翌日以降に再検査
 - UI セレクタ変更時は `docs/operations/gsc-inspect-screenshots/` に失敗スクショ保存
 
+### API 403 (PERMISSION_DENIED) の対処
+
+1. `npm run gsc:verify-access` で SA が参照できるプロパティ一覧を確認
+2. 一覧にプロパティが **無い** → GSC「ユーザーと権限」に SA の `client_email` を **完全** 権限で追加
+3. 一覧にあるが 403 → `GSC_SITE_URL` の形式をプロパティ種類に合わせる:
+   - URL プレフィックス: `https://sim-hikari-guide.com/`（末尾 `/` 必須）
+   - ドメインプロパティ: `sc-domain:sim-hikari-guide.com`
+4. Playwright UI が `skipped` → `npm run gsc:auth:login` でセッション再取得し Secret を更新
+
 ## 関連
 
 - 手動バッチメモ（旧）: `docs/operations/gsc-inspection-batch-*.md`

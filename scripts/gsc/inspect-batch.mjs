@@ -212,7 +212,8 @@ async function main() {
         });
         await sleep(1200);
       } catch (error) {
-        note = `API error: ${error instanceof Error ? error.message : error}`;
+        const apiNote = `API error: ${error instanceof Error ? error.message : error}`;
+        note = note ? `${note}; ${apiNote}` : apiNote;
       }
     }
 
