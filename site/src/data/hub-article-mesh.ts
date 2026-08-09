@@ -392,6 +392,18 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "home-router-speed-slow-fix",
         label: "ホームルーター 速度 遅い",
       },
+      {
+        slug: "esim-profile-sakujo-dekinai-fix",
+        label: "eSIM プロファイル削除",
+      },
+      {
+        slug: "mnp-yoyaku-bangou-shutoku-dekinai-fix",
+        label: "MNP予約番号 取得できない",
+      },
+      {
+        slug: "mineo-speed-slow-fix",
+        label: "mineo 速度 遅い",
+      },
     ],
   },
   cost: {
