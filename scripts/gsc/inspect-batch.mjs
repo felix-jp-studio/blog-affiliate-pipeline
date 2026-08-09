@@ -108,6 +108,19 @@ function renderReport({ stats, batch, results, mode, pendingCount }) {
   return `${lines.join("\n")}\n`;
 }
 
+function formatMarkdownNote(notePath) {
+  try {
+    execFileSync("npx", ["prettier", "--write", notePath], {
+      cwd: repoRoot,
+      stdio: "pipe",
+    });
+  } catch (error) {
+    console.warn(
+      `gsc-inspect-batch: prettier failed on ops note — ${error instanceof Error ? error.message : error}`,
+    );
+  }
+}
+
 function applyResultToEntry(entry, { uiResult, apiResult, nowIso }) {
   const patch = {
     lastInspectedAt: nowIso,
@@ -256,6 +269,7 @@ async function main() {
   if (notePath) {
     mkdirSync(dirname(notePath), { recursive: true });
     writeFileSync(notePath, report, "utf8");
+    formatMarkdownNote(notePath);
     console.log(`Wrote ops note: ${notePath}`);
   } else {
     process.stdout.write(report);
