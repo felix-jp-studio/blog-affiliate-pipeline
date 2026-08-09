@@ -2,3 +2,4 @@
 # 2026-08-09T05:56:00Z re-run after code fixes (raw JSON + sc-domain fallback)
 # 2026-08-09T06:00:00Z re-run after push rebase fix
 # 2026-08-09T06:12:00Z re-run with preflight diagnostics (parallel setup)
+# 2026-08-09T06:32:00Z re-run after SA + GSC_SITE_URL + Playwright setup complete
