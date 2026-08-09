@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "eSIM プロファイル 削除 できない 対処",
+      "keyword": "ソフトバンク光 解約 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/esim-profile-sakujo-dekinai-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/softbank-hikari-kaiyaku-tejun.md",
       "error": null
     },
     {
-      "keyword": "MNP 予約番号 取得 できない 対処",
+      "keyword": "UQモバイル 機種変更 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/mnp-yoyaku-bangou-shutoku-dekinai-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/uq-mobile-kishu-henkou-tejun.md",
       "error": null
     },
     {
-      "keyword": "mineo 速度 遅い 対処",
+      "keyword": "光回線 プロバイダ 変更 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/mineo-speed-slow-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/hikari-provider-henkou-tejun.md",
       "error": null
     }
   ]

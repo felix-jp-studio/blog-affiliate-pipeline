@@ -157,6 +157,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "IIJmio eSIM 設定",
       },
       {
+        slug: "uq-mobile-kishu-henkou-tejun",
+        label: "UQモバイル 機種変更",
+      },
+      {
         slug: "iphone-sono-mama-sim",
         label: "iPhone そのまま 格安SIM",
       },
@@ -267,6 +271,14 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "nuro-hikari-kaiyaku-tejun",
         label: "NURO光 解約手順",
+      },
+      {
+        slug: "softbank-hikari-kaiyaku-tejun",
+        label: "ソフトバンク光 解約手順",
+      },
+      {
+        slug: "hikari-provider-henkou-tejun",
+        label: "光回線 プロバイダ変更",
       },
       {
         slug: "docomo-hikari-hikari-collab-hikaku",
