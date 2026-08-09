@@ -2,6 +2,7 @@
 title: "【2026年】楽天でんき 料金で固定費を見直す｜比較ポイント3つ"
 description: "【2026年】楽天でんき 料金のセット条件と3つの比較ポイント。固定費と通信をまとめて見直す方向けに公式情報を整理。"
 pubDate: 2026-08-09
+dateModified: 2026-08-09
 category: cost
 articleType: crosssell
 keyword: "楽天でんき 料金"
