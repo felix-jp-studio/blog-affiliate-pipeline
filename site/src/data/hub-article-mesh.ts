@@ -69,6 +69,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "新生活 格安SIM 比較",
       },
       {
+        slug: "sim-norikae-campaign-hikaku",
+        label: "格安SIM 乗換キャンペーン",
+      },
+      {
         slug: "sim-gakusei-osusume",
         label: "学生向け 格安SIM",
       },
@@ -239,6 +243,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "hikari-switch-osusume",
         label: "光回線の乗り換えおすすめ",
+      },
+      {
+        slug: "shinseikatsu-hikari-hikaku",
+        label: "新生活 光回線 比較",
       },
       {
         slug: "nuro-hikari-campaign",
@@ -499,6 +507,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "shinseikatsu-tsushin-koteihi",
         label: "新生活 通信 固定費",
+      },
+      {
+        slug: "smartphone-denki-matomete",
+        label: "スマホ 電気 まとめて",
       },
       {
         slug: "family-2-lines-cheap",

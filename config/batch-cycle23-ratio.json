@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 23 — comparison x2 + crosssell x1",
+  "items": [
+    {
+      "keyword": "格安SIM 乗り換え キャンペーン 比較",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 353
+    },
+    {
+      "keyword": "新生活 光回線 比較",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 354
+    },
+    {
+      "keyword": "スマホ 電気 まとめて お得",
+      "articleType": "crosssell",
+      "category": "cost",
+      "priority": 355
+    }
+  ]
+}
