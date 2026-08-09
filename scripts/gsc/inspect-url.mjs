@@ -1,7 +1,7 @@
 /**
  * Call Search Console URL Inspection API for one URL.
  */
-import { getAccessToken, siteUrlFromEnv } from "./auth.mjs";
+import { getAccessToken, siteUrlFromEnv, siteUrlCandidates } from "./auth.mjs";
 import { extractInspectionMeta } from "./inspect-result.mjs";
 
 const INSPECT_ENDPOINT =
@@ -70,6 +70,40 @@ export async function inspectUrl(accessToken, inspectionUrl, options = {}) {
   }
 
   throw lastError ?? new Error("URL Inspection API failed");
+}
+
+function isPermissionDenied(error) {
+  return error instanceof Error && error.message.includes("403");
+}
+
+/**
+ * Try primary siteUrl, then alternates (URL-prefix vs sc-domain) on 403.
+ * @param {string} accessToken
+ * @param {string} inspectionUrl
+ * @param {{ siteUrl?: string, languageCode?: string, retries?: number }} [options]
+ */
+export async function inspectUrlWithFallback(accessToken, inspectionUrl, options = {}) {
+  const candidates = options.siteUrl
+    ? [options.siteUrl, ...siteUrlCandidates().filter((url) => url !== options.siteUrl)]
+    : siteUrlCandidates();
+
+  let lastError;
+  for (const siteUrl of candidates) {
+    try {
+      return await inspectUrl(accessToken, inspectionUrl, {
+        ...options,
+        siteUrl,
+        retries: options.retries ?? 1,
+      });
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+      if (!isPermissionDenied(lastError)) {
+        throw lastError;
+      }
+    }
+  }
+
+  throw lastError ?? new Error("URL Inspection API failed for all siteUrl candidates");
 }
 
 /**

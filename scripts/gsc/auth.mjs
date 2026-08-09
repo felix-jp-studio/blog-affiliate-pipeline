@@ -28,7 +28,30 @@ export function hasApiCredentials() {
 
 export function siteUrlFromEnv() {
   const raw = process.env.GSC_SITE_URL?.trim() || "https://sim-hikari-guide.com/";
+  if (raw.startsWith("sc-domain:")) {
+    return raw;
+  }
   return raw.endsWith("/") ? raw : `${raw}/`;
+}
+
+/** Alternate GSC property identifiers to try when the primary siteUrl returns 403. */
+export function siteUrlCandidates() {
+  const primary = siteUrlFromEnv();
+  const candidates = [primary];
+
+  if (primary.startsWith("sc-domain:")) {
+    const domain = primary.slice("sc-domain:".length);
+    candidates.push(`https://${domain}/`);
+  } else {
+    try {
+      const hostname = new URL(primary).hostname;
+      candidates.push(`sc-domain:${hostname}`);
+    } catch {
+      // ignore invalid URL
+    }
+  }
+
+  return [...new Set(candidates)];
 }
 
 function base64url(value) {

@@ -15,13 +15,25 @@ export function hasPlaywrightStorage() {
   return existsSync(path);
 }
 
+function parseStorageStateEnv(raw) {
+  if (raw.startsWith("{")) {
+    return JSON.parse(raw);
+  }
+
+  const normalized = raw.replace(/\s/g, "");
+  const decoded = Buffer.from(normalized, "base64").toString("utf8");
+  return JSON.parse(decoded);
+}
+
 export function loadPlaywrightStorageState() {
   const encoded = process.env.GSC_PLAYWRIGHT_STORAGE_STATE?.trim();
   if (encoded) {
     try {
-      return JSON.parse(Buffer.from(encoded, "base64").toString("utf8"));
+      return parseStorageStateEnv(encoded);
     } catch {
-      throw new Error("GSC_PLAYWRIGHT_STORAGE_STATE is not valid base64 JSON");
+      throw new Error(
+        "GSC_PLAYWRIGHT_STORAGE_STATE must be raw JSON or base64-encoded JSON (use: base64 -i gsc-playwright-auth.json | tr -d '\\n')",
+      );
     }
   }
 
