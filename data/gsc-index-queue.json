@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T04:28:39.422Z",
+  "updatedAt": "2026-08-09T04:52:40.591Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -430,6 +430,24 @@
       "slug": "iijmio-kaituu-dekinai-fix",
       "url": "https://sim-hikari-guide.com/articles/iijmio-kaituu-dekinai-fix",
       "mergedAt": "2026-08-09T04:28:39.421Z",
+      "indexed": false
+    },
+    {
+      "slug": "hikari-kaituu-junbi-tejun",
+      "url": "https://sim-hikari-guide.com/articles/hikari-kaituu-junbi-tejun",
+      "mergedAt": "2026-08-09T04:52:40.582Z",
+      "indexed": false
+    },
+    {
+      "slug": "sim-kishu-henkou-tejun",
+      "url": "https://sim-hikari-guide.com/articles/sim-kishu-henkou-tejun",
+      "mergedAt": "2026-08-09T04:52:40.582Z",
+      "indexed": false
+    },
+    {
+      "slug": "tethering-dekinai-fix",
+      "url": "https://sim-hikari-guide.com/articles/tethering-dekinai-fix",
+      "mergedAt": "2026-08-09T04:52:40.582Z",
       "indexed": false
     }
   ]

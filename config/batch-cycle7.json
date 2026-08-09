@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 7 batch — priority 314, 315, 319",
+  "items": [
+    {
+      "keyword": "光回線 開通 準備 手順",
+      "articleType": "howto",
+      "category": "hikari",
+      "priority": 314
+    },
+    {
+      "keyword": "格安SIM 機種変更 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 315
+    },
+    {
+      "keyword": "テザリング できない 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 319
+    }
+  ]
+}
