@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T05:57:06.504Z",
+  "updatedAt": "2026-08-09T05:59:36.121Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -796,6 +796,24 @@
       "slug": "sim-apn-settei-tejun",
       "url": "https://sim-hikari-guide.com/articles/sim-apn-settei-tejun",
       "mergedAt": "2026-08-09T05:57:06.502Z",
+      "indexed": false
+    },
+    {
+      "slug": "sim-mnp-tejun",
+      "url": "https://sim-hikari-guide.com/articles/sim-mnp-tejun",
+      "mergedAt": "2026-08-09T05:59:36.118Z",
+      "indexed": false
+    },
+    {
+      "slug": "linemo-kishu-henkou-tejun",
+      "url": "https://sim-hikari-guide.com/articles/linemo-kishu-henkou-tejun",
+      "mergedAt": "2026-08-09T05:59:36.118Z",
+      "indexed": false
+    },
+    {
+      "slug": "mansion-hikari-slow-fix",
+      "url": "https://sim-hikari-guide.com/articles/mansion-hikari-slow-fix",
+      "mergedAt": "2026-08-09T05:59:36.118Z",
       "indexed": false
     }
   ]

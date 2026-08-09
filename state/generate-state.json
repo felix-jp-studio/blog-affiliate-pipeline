@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "NURO光 解約金 違約金",
+      "keyword": "格安SIM MNP 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/nuro-hikari-kaiyaku-kin-iyakukin.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-mnp-tejun.md",
       "error": null
     },
     {
-      "keyword": "楽天経済圏 固定費 見直し",
+      "keyword": "LINEMO 機種変更 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/rakuten-keizai-koteihi.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/linemo-kishu-henkou-tejun.md",
       "error": null
     },
     {
-      "keyword": "格安SIM APN 設定 手順",
+      "keyword": "マンション 光回線 遅い 対処",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-apn-settei-tejun.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/mansion-hikari-slow-fix.md",
       "error": null
     }
   ]

@@ -109,6 +109,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "MNP予約番号 取得方法",
       },
       {
+        slug: "sim-mnp-tejun",
+        label: "格安SIM MNP 手順",
+      },
+      {
         slug: "mnp-norikae-osusume-2026",
         label: "MNP 乗り換え 2026",
       },
@@ -143,6 +147,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "linemo-kaiyaku-tejun",
         label: "LINEMO 解約手順",
+      },
+      {
+        slug: "linemo-kishu-henkou-tejun",
+        label: "LINEMO 機種変更手順",
       },
       {
         slug: "sim-kishu-henkou-tejun",
@@ -491,6 +499,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "uq-mobile-speed-slow-fix",
         label: "UQモバイル 速度 遅い",
+      },
+      {
+        slug: "mansion-hikari-slow-fix",
+        label: "マンション 光回線 遅い",
       },
     ],
   },
