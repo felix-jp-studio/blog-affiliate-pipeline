@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 11 howto batch — priority 325, 326, 327",
+  "items": [
+    {
+      "keyword": "UQモバイル eSIM 設定 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 325
+    },
+    {
+      "keyword": "povo eSIM 設定 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 326
+    },
+    {
+      "keyword": "NURO光 解約 手順",
+      "articleType": "howto",
+      "category": "hikari",
+      "priority": 327
+    }
+  ]
+}
