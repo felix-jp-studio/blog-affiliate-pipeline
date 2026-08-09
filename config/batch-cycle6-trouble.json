@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 6 troubleshoot batch — priority 316, 317, 318",
+  "items": [
+    {
+      "keyword": "格安SIM 繋がらない 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 316
+    },
+    {
+      "keyword": "光回線 開通 遅い 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 317
+    },
+    {
+      "keyword": "IIJmio 開通 できない 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 318
+    }
+  ]
+}
