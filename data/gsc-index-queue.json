@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T05:12:09.898Z",
+  "updatedAt": "2026-08-09T05:13:28.153Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -556,6 +556,24 @@
       "slug": "povo-kaiyaku-tejun",
       "url": "https://sim-hikari-guide.com/articles/povo-kaiyaku-tejun",
       "mergedAt": "2026-08-09T05:12:09.895Z",
+      "indexed": false
+    },
+    {
+      "slug": "povo-kaituu-dekinai-fix",
+      "url": "https://sim-hikari-guide.com/articles/povo-kaituu-dekinai-fix",
+      "mergedAt": "2026-08-09T05:13:28.143Z",
+      "indexed": false
+    },
+    {
+      "slug": "wimax-speed-slow-fix",
+      "url": "https://sim-hikari-guide.com/articles/wimax-speed-slow-fix",
+      "mergedAt": "2026-08-09T05:13:28.143Z",
+      "indexed": false
+    },
+    {
+      "slug": "home-router-speed-slow-fix",
+      "url": "https://sim-hikari-guide.com/articles/home-router-speed-slow-fix",
+      "mergedAt": "2026-08-09T05:13:28.143Z",
       "indexed": false
     }
   ]
