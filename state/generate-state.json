@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "格安SIM 圏外 表示 対処",
+      "keyword": "UQモバイル eSIM 設定 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-kengai-hyoji-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/uq-mobile-esim-settei-tejun.md",
       "error": null
     },
     {
-      "keyword": "光回線 WiFi 繋がらない 対処",
+      "keyword": "povo eSIM 設定 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/hikari-wifi-tsunagaranai-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/povo-esim-settei-tejun.md",
       "error": null
     },
     {
-      "keyword": "LINEMO 開通 できない 対処",
+      "keyword": "NURO光 解約 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/linemo-kaituu-dekinai-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/nuro-hikari-kaiyaku-tejun.md",
       "error": null
     }
   ]

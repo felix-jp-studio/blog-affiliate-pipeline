@@ -125,6 +125,14 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "ahamo eSIM 設定",
       },
       {
+        slug: "uq-mobile-esim-settei-tejun",
+        label: "UQモバイル eSIM 設定",
+      },
+      {
+        slug: "povo-esim-settei-tejun",
+        label: "povo eSIM 設定",
+      },
+      {
         slug: "iphone-sono-mama-sim",
         label: "iPhone そのまま 格安SIM",
       },
@@ -231,6 +239,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "biglobe-hikari-kaiyaku-tejun",
         label: "ビッグローブ光 解約手順",
+      },
+      {
+        slug: "nuro-hikari-kaiyaku-tejun",
+        label: "NURO光 解約手順",
       },
       {
         slug: "docomo-hikari-hikari-collab-hikaku",
