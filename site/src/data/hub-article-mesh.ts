@@ -296,6 +296,18 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "tethering-dekinai-fix",
         label: "テザリング できない",
       },
+      {
+        slug: "mnp-error-fix",
+        label: "MNP エラー 対処",
+      },
+      {
+        slug: "ahamo-speed-slow-fix",
+        label: "ahamo 速度 遅い",
+      },
+      {
+        slug: "nuro-hikari-tsunagaranai-fix",
+        label: "NURO光 繋がらない",
+      },
     ],
   },
   cost: {

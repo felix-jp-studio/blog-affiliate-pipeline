@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T04:52:40.591Z",
+  "updatedAt": "2026-08-09T04:53:39.908Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -448,6 +448,24 @@
       "slug": "tethering-dekinai-fix",
       "url": "https://sim-hikari-guide.com/articles/tethering-dekinai-fix",
       "mergedAt": "2026-08-09T04:52:40.582Z",
+      "indexed": false
+    },
+    {
+      "slug": "mnp-error-fix",
+      "url": "https://sim-hikari-guide.com/articles/mnp-error-fix",
+      "mergedAt": "2026-08-09T04:53:39.906Z",
+      "indexed": false
+    },
+    {
+      "slug": "ahamo-speed-slow-fix",
+      "url": "https://sim-hikari-guide.com/articles/ahamo-speed-slow-fix",
+      "mergedAt": "2026-08-09T04:53:39.906Z",
+      "indexed": false
+    },
+    {
+      "slug": "nuro-hikari-tsunagaranai-fix",
+      "url": "https://sim-hikari-guide.com/articles/nuro-hikari-tsunagaranai-fix",
+      "mergedAt": "2026-08-09T04:53:39.906Z",
       "indexed": false
     }
   ]
