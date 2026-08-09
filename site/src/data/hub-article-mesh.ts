@@ -133,6 +133,18 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "povo eSIM 設定",
       },
       {
+        slug: "mineo-esim-settei-tejun",
+        label: "mineo eSIM 設定",
+      },
+      {
+        slug: "linemo-esim-settei-tejun",
+        label: "LINEMO eSIM 設定",
+      },
+      {
+        slug: "povo-kaiyaku-tejun",
+        label: "povo 解約手順",
+      },
+      {
         slug: "iphone-sono-mama-sim",
         label: "iPhone そのまま 格安SIM",
       },

@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 13 howto batch — priority 329, 330, 331",
+  "items": [
+    {
+      "keyword": "mineo eSIM 設定 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 329
+    },
+    {
+      "keyword": "LINEMO eSIM 設定 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 330
+    },
+    {
+      "keyword": "povo 解約 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 331
+    }
+  ]
+}
