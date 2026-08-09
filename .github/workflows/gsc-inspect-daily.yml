@@ -15,6 +15,10 @@ on:
         required: false
         type: boolean
         default: false
+  push:
+    branches: [main]
+    paths:
+      - ".github/trigger-gsc-inspect"
   schedule:
     # 09:00 JST = UTC 00:00
     - cron: "0 0 * * *"
@@ -38,7 +42,7 @@ jobs:
         run: npm ci
 
       - name: Install Playwright Chromium
-        if: ${{ !inputs.api_only }}
+        if: ${{ github.event_name != 'workflow_dispatch' || !inputs.api_only }}
         run: npx playwright install --with-deps chromium
 
       - name: Configure git author
@@ -58,9 +62,15 @@ jobs:
           GSC_PLAYWRIGHT_HEADLESS: "true"
         run: |
           set -euo pipefail
-          LIMIT="${{ inputs.limit || '10' }}"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            LIMIT="${{ inputs.limit || '10' }}"
+            API_ONLY="${{ inputs.api_only }}"
+          else
+            LIMIT="3"
+            API_ONLY="false"
+          fi
           ARGS=(--week-first --limit="$LIMIT" --write-note --commit)
-          if [ "${{ inputs.api_only }}" = "true" ]; then
+          if [ "$API_ONLY" = "true" ]; then
             ARGS+=(--api-only)
           fi
           node scripts/gsc/inspect-batch.mjs "${ARGS[@]}" | tee /tmp/gsc-inspect.log
