@@ -53,6 +53,14 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "データ無制限 格安SIM",
       },
       {
+        slug: "sim-museigen-hikaku-osusume",
+        label: "格安SIM 無制限 比較",
+      },
+      {
+        slug: "povo-fee-hikaku-2026",
+        label: "povo 料金 比較 2026",
+      },
+      {
         slug: "sim-gakusei-osusume",
         label: "学生向け 格安SIM",
       },
@@ -463,6 +471,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "hikkoshi-tsushin-osusume",
         label: "引越し 通信 おすすめ",
+      },
+      {
+        slug: "koteihi-tsushin-setsuyaku",
+        label: "固定費 通信 節約",
       },
       {
         slug: "family-2-lines-cheap",
