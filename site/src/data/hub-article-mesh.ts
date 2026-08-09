@@ -298,7 +298,9 @@ export function getHomeFeaturedArticles(): Array<
     const slugIndex = new Map(
       mesh.featured.map((item) => [item.slug, item] as const),
     );
-    const picks = homeFeaturedSlugs[category] ?? mesh.featured.slice(0, 2).map((item) => item.slug);
+    const picks =
+      homeFeaturedSlugs[category] ??
+      mesh.featured.slice(0, 2).map((item) => item.slug);
 
     for (const slug of picks) {
       const item = slugIndex.get(slug);

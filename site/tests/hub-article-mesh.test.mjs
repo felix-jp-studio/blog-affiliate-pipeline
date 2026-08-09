@@ -25,11 +25,10 @@ describe("hub article mesh", () => {
 
   it("lists every published article in hub mesh featured", async () => {
     const { spawnSync } = await import("node:child_process");
-    const result = spawnSync(
-      "node",
-      ["scripts/audit-hub-mesh-coverage.mjs"],
-      { cwd: new URL("../..", import.meta.url).pathname, encoding: "utf8" },
-    );
+    const result = spawnSync("node", ["scripts/audit-hub-mesh-coverage.mjs"], {
+      cwd: new URL("../..", import.meta.url).pathname,
+      encoding: "utf8",
+    });
     assert.equal(
       result.status,
       0,
