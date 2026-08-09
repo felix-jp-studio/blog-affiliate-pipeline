@@ -10,17 +10,17 @@ from pathlib import Path
 SECTION_HEADING = "## あわせて読みたい"
 MARKER_V1 = "<!-- internal-links:v1 -->"
 MARKER_V2 = "<!-- internal-links:v2 -->"
-MARKER = "<!-- internal-links:v4 -->"
-MARKERS = (MARKER, MARKER_V2, MARKER_V1)
+MARKER = "<!-- internal-links:v5 -->"
+MARKERS = (MARKER, "<!-- internal-links:v4 -->", MARKER_V2, MARKER_V1)
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---", re.DOTALL)
 SECTION_RE = re.compile(
-    r"(?:<!-- internal-links:v[124] -->\s*)?## あわせて読みたい\n.*?(?=\n## |\n> 本記事は AI|\Z)",
+    r"(?:<!-- internal-links:v[1245] -->\s*)?## あわせて読みたい\n.*?(?=\n## |\n> 本記事は AI|\Z)",
     re.DOTALL,
 )
 DEFAULT_ARTICLES_DIR = "site/src/content/articles"
 SAME_CATEGORY_COUNT = 2
 CROSS_ENTITY_COUNT = 2
-ROTATION_SALT = 4
+ROTATION_SALT = 5
 
 # Cross-entity mesh for visitability: SIM↔光, 障害↔乗り換え/セット, 固定費↔通信.
 RELATED_CATEGORIES: dict[str, tuple[str, ...]] = {

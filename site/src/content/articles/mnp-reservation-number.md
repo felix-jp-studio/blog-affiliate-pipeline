@@ -2,7 +2,7 @@
 title: "MNP予約番号の取得方法【2026年版】手順と注意点"
 description: "MNP 予約番号 取得方法を5ステップで解説。【2026年版】必要書類・所要時間・つまずきポイントを公式情報に基づき整理。"
 pubDate: 2026-07-17
-dateModified: 2026-08-08
+dateModified: 2026-08-09
 category: sim
 articleType: howto
 keyword: "MNP 予約番号 取得方法"
@@ -75,15 +75,15 @@ MNP転入先として検討する主要キャリアの公式申し込みペー�
 
 [LINEMOの公式を見る]({AFFILIATE:linemo})
 
-<!-- internal-links:v4 -->
+<!-- internal-links:v5 -->
 
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】ahamo povo 比較｜5社比較と選び方](/articles/ahamo-povo-hikaku)
 - [【2026年最新】格安SIM 20GB比較｜5社の選び方と料金](/articles/sim-20gb-osusume)
-- [【2026年最新】NURO 光 auひかり 比較｜5社比較と選び方](/articles/nuro-hikari-au-hikari-hikaku)
+- [楽天モバイル乗り換え手順【2026年版】5ステップで解説](/articles/rakuten-mobile-switch)
+- [【2026年最新】モバレコAir WiMAX 比較｜5社比較と選び方](/articles/mobareco-air-wimax-hikaku)
 - [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
 
 ## よくある質問

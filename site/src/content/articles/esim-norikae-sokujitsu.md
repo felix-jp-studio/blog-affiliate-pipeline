@@ -2,7 +2,7 @@
 title: "eSIM 乗り換え 即日の手順【2026年版】5ステップで解説"
 description: "eSIM 乗り換え 即日を5ステップで解説。【2026年版】必要書類・所要時間・つまずきポイントを公式情報に基づき整理。"
 pubDate: 2026-07-22
-dateModified: 2026-08-08
+dateModified: 2026-08-09
 category: sim
 articleType: howto
 keyword: "eSIM 乗り換え 即日"
@@ -63,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - キャンペーン適用の有無（適用まで時間がかかる場合あり）
 - マイページでオプションが意図どおりか
 
-<!-- internal-links:v4 -->
+<!-- internal-links:v5 -->
 
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [MNP予約番号の取得方法【2026年版】手順と注意点](/articles/mnp-reservation-number)
 - [【2026年最新】LINEMO評判・デメリット比較｜5つの注意点](/articles/linemo-hyoban-demerit)
-- [【2026年最新】光回線 マンション おすすめ｜料金・速度を比較](/articles/hikari-mansion-osusume)
+- [ahamo 大盛り オプション 申し込み 手順の手順【2026年版】5ステップで解説](/articles/ahamo-oomori-option-moushikomi-tejun)
+- [【2026年最新】ソフトバンク光 ビッグローブ光 比較｜5社比較と選び方](/articles/softbank-hikari-biglobe-hikari-hikaku)
 - [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
 
 ## よくある質問

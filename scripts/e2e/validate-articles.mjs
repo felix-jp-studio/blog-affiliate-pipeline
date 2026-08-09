@@ -15,6 +15,7 @@ import {
 
 const MIN_DESCRIPTION_LENGTH = 50;
 const INTERNAL_LINKS_MARKERS = [
+  "<!-- internal-links:v5 -->",
   "<!-- internal-links:v4 -->",
   "<!-- internal-links:v2 -->",
 ];
@@ -75,7 +76,7 @@ for (const filePath of listArticleFiles()) {
     !article.draft &&
     !INTERNAL_LINKS_MARKERS.some((marker) => content.includes(marker))
   ) {
-    errors.push(`${slug}: missing internal-links marker (v4 or v2)`);
+    errors.push(`${slug}: missing internal-links marker (v5, v4, or v2)`);
   }
   if (!article.draft && articleRequiresAffiliate(article)) {
     const missingPatterns = missingAffiliatePatterns(content, undefined, {

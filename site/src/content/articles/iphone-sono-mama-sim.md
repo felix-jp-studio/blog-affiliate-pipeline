@@ -2,7 +2,7 @@
 title: "iPhone そのまま 格安SIMの手順【2026年版】5ステップで解説"
 description: "iPhone そのまま 格安SIMを5ステップで解説。【2026年版】必要書類・所要時間・つまずきポイントを公式情報に基づき整理。"
 pubDate: 2026-07-25
-dateModified: 2026-08-08
+dateModified: 2026-08-09
 category: sim
 articleType: howto
 keyword: "iPhone そのまま 格安SIM"
@@ -63,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - キャンペーン適用の有無（適用まで時間がかかる場合あり）
 - マイページでオプションが意図どおりか
 
-<!-- internal-links:v4 -->
+<!-- internal-links:v5 -->
 
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】楽天モバイル UQモバイル 比較｜5社比較と選び方](/articles/rakuten-mobile-uq-mobile-hikaku)
 - [【2026年最新】LINEMO ahamo 比較｜5社比較と選び方](/articles/linemo-ahamo-hikaku)
-- [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
+- [【2026年最新】IIJmio 評判 料金比較｜選び方と注意点](/articles/iijmio-hyoban-fee)
+- [【2026年最新】工事 不要 光回線比較｜選び方と注意点](/articles/kouji-fuyou-hikari)
 - [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
 
 ## よくある質問

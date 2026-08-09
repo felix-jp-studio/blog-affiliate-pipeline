@@ -7,7 +7,7 @@ articleType: troubleshoot
 keyword: "IIJmio 速度 遅い 対処"
 priority: 56
 draft: false
-dateModified: 2026-08-08
+dateModified: 2026-08-09
 ---
 
 ## 症状の確認
@@ -71,16 +71,16 @@ APN設定の誤り、古い端末、省電力モード、バックグラウン�
 - プランの速度制限条件を把握する
 - 定期的にマイページで利用状況を確認する
 
-<!-- internal-links:v4 -->
+<!-- internal-links:v5 -->
 
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [格安SIM速度が遅い原因と7つの対処法【2026年版】](/articles/sim-speed-slow-fix)
 - [povo 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/povo-speed-slow-fix)
-- [povo データ容量 追加 方法の手順【2026年版】5ステップで解説](/articles/povo-data-yoryou-tsuika-houhou)
-- [引っ越し 光回線 手続きの手順【2026年版】5ステップで解説](/articles/hikkoshi-hikari-tetsuzuki)
+- [ソフトバンク光 障害 確認の原因と7つの対処法【2026年版】](/articles/softbank-hikari-shogai-kakunin)
+- [ahamo 大盛り オプション 申し込み 手順の手順【2026年版】5ステップで解説](/articles/ahamo-oomori-option-moushikomi-tejun)
+- [【2026年最新】光回線 戸建て おすすめ｜料金・速度を比較](/articles/hikari-kodate-osusume)
 
 ## よくある質問
 

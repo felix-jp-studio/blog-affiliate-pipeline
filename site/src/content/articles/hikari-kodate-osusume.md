@@ -2,7 +2,7 @@
 title: "【2026年最新】光回線 戸建て おすすめ｜料金・速度を比較"
 description: "【2026年最新】光回線 戸建て おすすめを5社比較。料金・速度・セット割の観点で選び方を解説。公式情報を参照し中立にまとめています。"
 pubDate: 2026-07-21
-dateModified: 2026-08-08
+dateModified: 2026-08-09
 category: hikari
 articleType: comparison
 keyword: "光回線 戸建て おすすめ"
@@ -91,15 +91,15 @@ ahamo光はahamoユーザー向けの光回線として案内されることが�
 - 集合住宅は管理規約・既存配線の有無を確認する
 - 表の数値は比較観点であり、最新条件は公式が正
 
-<!-- internal-links:v4 -->
+<!-- internal-links:v5 -->
 
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [au ひかり 解約 方法の手順【2026年版】5ステップで解説](/articles/au-hikari-kaiyaku-houhou)
-- [【2026年最新】ソフトバンク光 ビッグローブ光 比較｜5社比較と選び方](/articles/softbank-hikari-biglobe-hikari-hikaku)
-- [【2026年最新】LINEMO評判・デメリット比較｜5つの注意点](/articles/linemo-hyoban-demerit)
+- [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
+- [【2026年最新】WiMAX 料金 比較 2026｜5社比較と選び方](/articles/wimax-fee-hikaku-2026)
+- [【2026年最新】格安SIM 乗り換え おすすめ｜料金・速度を比較](/articles/sim-norikae-osusume)
 - [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
 
 ## よくある質問

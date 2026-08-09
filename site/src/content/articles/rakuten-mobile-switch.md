@@ -2,7 +2,7 @@
 title: "楽天モバイル乗り換え手順【2026年版】5ステップで解説"
 description: "楽天モバイル 乗り換え 手順を5ステップで解説。【2026年版】必要書類・所要時間・つまずきポイントを公式情報に基づき整理。"
 pubDate: 2026-07-17
-dateModified: 2026-08-08
+dateModified: 2026-08-09
 category: sim
 articleType: howto
 keyword: "楽天モバイル 乗り換え 手順"
@@ -63,16 +63,16 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - キャンペーン適用の有無（適用まで時間がかかる場合あり）
 - マイページでオプションが意図どおりか
 
-<!-- internal-links:v4 -->
+<!-- internal-links:v5 -->
 
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】格安SIM おすすめ 比較 2026｜5社比較と選び方](/articles/sim-osusume-hikaku-2026)
 - [【2026年最新】格安SIM 通話かけ放題 安い比較｜選び方と注意点](/articles/sim-kakehoudai-yasui)
-- [引っ越し 光回線 手続きの手順【2026年版】5ステップで解説](/articles/hikkoshi-hikari-tetsuzuki)
-- [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
+- [【2026年最新】格安SIM 法人 おすすめ｜料金・速度を比較](/articles/sim-houjin-osusume)
+- [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
+- [Wi-Fi 速度 遅い 改善の原因と7つの対処法【2026年版】](/articles/wifi-speed-slow-kaizen)
 
 ## よくある質問
 
