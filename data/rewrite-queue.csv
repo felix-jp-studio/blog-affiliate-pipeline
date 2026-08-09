@@ -1,5 +1,5 @@
 slug,query,position,priority,status,notes
-ahamo-povo-hikaku,ahamo povo 比較,,1,pending,heuristic-stale-meta
+ahamo-povo-hikaku,ahamo povo 比較,,1,done,heuristic-stale-meta
 docomo-hikari-hikari-collab-hikaku,ドコモ光 光コラボ 比較,,2,pending,heuristic-stale-meta
 family-2-lines-cheap,家族 2 回線 安い,,3,pending,heuristic-stale-meta
 hikari-1gbps-yasui,光回線 1Gbps 安い,,4,pending,heuristic-stale-meta
