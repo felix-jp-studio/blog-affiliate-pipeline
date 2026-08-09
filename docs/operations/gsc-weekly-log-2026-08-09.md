@@ -1,10 +1,10 @@
-# GSC 週次ログ（2026-08-08 / Week 5）
+# GSC 週次ログ（2026-08-09 / Week 6）
 
 > **User 入力待ち** — 下記メトリクスを Search Console から共有してください。
 
 ## 記録日
 
-- 記録日: 2026-08-08
+- 記録日: 2026-08-09
 - 対象期間: 直近 28 日（GSC デフォルト）
 
 ## サイト全体
@@ -20,10 +20,18 @@
 
 | 項目             | 値                                                   |
 | ---------------- | ---------------------------------------------------- |
-| キュー合計       | 55（8/9 時点）                                       |
+| キュー合計       | 55                                                   |
 | indexed          | 28                                                   |
 | pending          | 27                                                   |
 | 今週の検査バッチ | `docs/operations/gsc-inspection-batch-2026-08-08.md` |
+
+## 記事・供給（Agent）
+
+| 項目       | 値                                     |
+| ---------- | -------------------------------------- |
+| 公開記事数 | 55（+1: `rakuten-denki-fee` 8/9 公開） |
+| KW 在庫    | 300 → 310（#153 + 本 PR）              |
+| orphan     | 0                                      |
 
 ## 上位クエリ TOP5（クリック順）
 
@@ -37,10 +45,9 @@
 
 - [ ] GSC バッチ1（10 URL）→ [batch1](./gsc-inspection-batch-2026-08-08.md)
 - [ ] GSC バッチ2（10 URL）→ [batch2](./gsc-inspection-batch-2026-08-08-batch2.md)
-- [ ] GSC バッチ4（残り6 URL）→ [batch4](./gsc-inspection-batch-2026-08-08-batch4.md)
+- [ ] GSC バッチ4（残り7 URL）→ [batch4](./gsc-inspection-batch-2026-08-08-batch4.md)
 - [ ] いずれか完了後 Agent に「全N件検査完了」+ slug 一覧
-- [ ] 表示 > 0 になったクエリがあれば rewrite-queue 候補に追加
-- [ ] #153 マージ済 — クラスタ KW +15 / rakuten-denki-fee hub
+- [ ] GSC 28日 CSV → `npm run gsc:import-rewrite-queue`
 
 ## 再生成コマンド
 
@@ -48,4 +55,5 @@
 npm run gsc:inspection-batch -- --format=md --limit=10
 npm run gsc:inspection-batch -- --write-note=docs/operations/gsc-inspection-batch-YYYY-MM-DD.md
 npm run audit:orphans
+npm run report:article-type-ratio
 ```

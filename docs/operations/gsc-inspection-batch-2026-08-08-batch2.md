@@ -1,4 +1,4 @@
-# GSC URL 検査バッチ（2026-08-08）
+# GSC URL 検査バッチ（2026-08-09）
 
 > **Agent prep only** — `indexed: true` は User 確認後のみ更新する。
 
@@ -13,11 +13,11 @@
 
 | 項目             | 値                  |
 | ---------------- | ------------------- |
-| キュー合計       | 54                  |
-| pending          | 26                  |
+| キュー合計       | 55                  |
+| pending          | 27                  |
 | indexed          | 28                  |
 | 今週追加 pending | 7                   |
-| 今回バッチ       | 10 / 26 (offset 10) |
+| 今回バッチ       | 10 / 27 (offset 10) |
 
 ## 本日の検査リスト
 
@@ -30,7 +30,7 @@
 7. [sim-kodomo-osusume](https://sim-hikari-guide.com/articles/sim-kodomo-osusume) — merged 2026-07-30
 8. [hikkoshi-hikari-tetsuzuki](https://sim-hikari-guide.com/articles/hikkoshi-hikari-tetsuzuki) — merged 2026-07-31
 9. [softbank-hikari-shogai-kakunin](https://sim-hikari-guide.com/articles/softbank-hikari-shogai-kakunin) — merged 2026-08-01
-10. [au-denki-fee-hikaku](https://sim-hikari-guide.com/articles/au-denki-fee-hikaku) — merged 2026-08-02 🆕
+10. [au-denki-fee-hikaku](https://sim-hikari-guide.com/articles/au-denki-fee-hikaku) — merged 2026-08-02
 
 User 確認後のみ: `npm run gsc:inspection-batch -- --mark-indexed=slug1,slug2`
 
