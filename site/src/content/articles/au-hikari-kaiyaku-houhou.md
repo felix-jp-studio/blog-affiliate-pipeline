@@ -9,7 +9,6 @@ keyword: "au ひかり 解約 方法"
 priority: 46
 draft: false
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
 - [【2026年最新】モバレコAir WiMAX 比較｜5社比較と選び方](/articles/mobareco-air-wimax-hikaku)
 - [【2026年最新】光回線 戸建て おすすめ｜料金・速度を比較](/articles/hikari-kodate-osusume)
-- [【2026年最新】ahamo povo 比較｜5社比較と選び方](/articles/ahamo-povo-hikaku)
+- [【2026年最新】格安SIM 乗り換え おすすめ｜料金・速度を比較](/articles/sim-norikae-osusume)
 - [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
+
 
 ## よくある質問
 

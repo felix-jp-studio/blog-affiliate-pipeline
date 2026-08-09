@@ -9,7 +9,6 @@ keyword: "ソフトバンク光 障害 確認"
 priority: 79
 draft: false
 ---
-
 ## 症状の確認
 
 ソフトバンク光 障害 確認で検索する方は、次のような状態に当てはまることが多いです。
@@ -72,15 +71,15 @@ APN設定の誤り、古い端末、省電力モード、バックグラウン�
 - 定期的にマイページで利用状況を確認する
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
 - [povo 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/povo-speed-slow-fix)
 - [Wi-Fi 速度 遅い 改善の原因と7つの対処法【2026年版】](/articles/wifi-speed-slow-kaizen)
-- [【2026年最新】格安SIM 20GB比較｜5社の選び方と料金](/articles/sim-20gb-osusume)
-- [引っ越し 光回線 手続きの手順【2026年版】5ステップで解説](/articles/hikkoshi-hikari-tetsuzuki)
+- [ahamo 解約 手順の手順【2026年版】5ステップで解説](/articles/ahamo-kaiyaku-tejun)
+- [【2026年最新】NURO 光 料金 キャンペーン比較｜選び方と注意点](/articles/nuro-hikari-campaign)
+
 
 ## よくある質問
 
