@@ -320,6 +320,18 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "nuro-hikari-tsunagaranai-fix",
         label: "NURO光 繋がらない",
       },
+      {
+        slug: "sim-kengai-hyoji-fix",
+        label: "格安SIM 圏外表示",
+      },
+      {
+        slug: "hikari-wifi-tsunagaranai-fix",
+        label: "光回線 WiFi 繋がらない",
+      },
+      {
+        slug: "linemo-kaituu-dekinai-fix",
+        label: "LINEMO 開通できない",
+      },
     ],
   },
   cost: {

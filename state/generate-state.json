@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "docomo光 解約 手順",
+      "keyword": "格安SIM 圏外 表示 対処",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/docomo-kaiyaku-tejun.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-kengai-hyoji-fix.md",
       "error": null
     },
     {
-      "keyword": "ビッグローブ光 解約 手順",
+      "keyword": "光回線 WiFi 繋がらない 対処",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/biglobe-hikari-kaiyaku-tejun.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/hikari-wifi-tsunagaranai-fix.md",
       "error": null
     },
     {
-      "keyword": "ahamo eSIM 設定 手順",
+      "keyword": "LINEMO 開通 できない 対処",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/ahamo-esim-settei-tejun.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/linemo-kaituu-dekinai-fix.md",
       "error": null
     }
   ]
