@@ -41,6 +41,11 @@ jobs:
         if: ${{ !inputs.api_only }}
         run: npx playwright install --with-deps chromium
 
+      - name: Configure git author
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Run GSC inspect batch
         id: inspect
         env:
@@ -59,10 +64,6 @@ jobs:
             ARGS+=(--api-only)
           fi
           node scripts/gsc/inspect-batch.mjs "${ARGS[@]}" | tee /tmp/gsc-inspect.log
-          if [ -f "docs/operations/gsc-inspect-run-$(date -u -d '+9 hours' +%Y-%m-%d 2>/dev/null || date -u -v+9H +%Y-%m-%d).md" ]; then
-            REPORT="docs/operations/gsc-inspect-run-$(TZ=Asia/Tokyo date +%Y-%m-%d).md"
-            echo "report=$REPORT" >> "$GITHUB_OUTPUT"
-          fi
 
       - name: Push queue commit
         env:

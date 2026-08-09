@@ -9,6 +9,8 @@ site/playwright-report/
 .env
 .env.*
 !.env.example
+gsc-playwright-auth.json
+docs/operations/gsc-inspect-screenshots/
 data/keywords.db
 drafts/*
 !drafts/.gitkeep
