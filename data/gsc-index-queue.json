@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T05:18:56.243Z",
+  "updatedAt": "2026-08-09T05:19:52.005Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -598,6 +598,24 @@
       "slug": "iijmio-esim-settei-tejun",
       "url": "https://sim-hikari-guide.com/articles/iijmio-esim-settei-tejun",
       "mergedAt": "2026-08-09T05:18:43.703Z",
+      "indexed": false
+    },
+    {
+      "slug": "esim-profile-sakujo-dekinai-fix",
+      "url": "https://sim-hikari-guide.com/articles/esim-profile-sakujo-dekinai-fix",
+      "mergedAt": "2026-08-09T05:19:52.004Z",
+      "indexed": false
+    },
+    {
+      "slug": "mnp-yoyaku-bangou-shutoku-dekinai-fix",
+      "url": "https://sim-hikari-guide.com/articles/mnp-yoyaku-bangou-shutoku-dekinai-fix",
+      "mergedAt": "2026-08-09T05:19:52.004Z",
+      "indexed": false
+    },
+    {
+      "slug": "mineo-speed-slow-fix",
+      "url": "https://sim-hikari-guide.com/articles/mineo-speed-slow-fix",
+      "mergedAt": "2026-08-09T05:19:52.004Z",
       "indexed": false
     }
   ]

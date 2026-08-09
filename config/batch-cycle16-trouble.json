@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 16 batch — priority 336, 65, 66",
+  "items": [
+    {
+      "keyword": "eSIM プロファイル 削除 できない 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 336
+    },
+    {
+      "keyword": "MNP 予約番号 取得 できない 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 65
+    },
+    {
+      "keyword": "mineo 速度 遅い 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 66
+    }
+  ]
+}
