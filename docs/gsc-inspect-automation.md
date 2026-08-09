@@ -90,6 +90,8 @@ base64 -i gsc-playwright-auth.json | pbcopy
 
 ### API 403 (PERMISSION_DENIED) の対処
 
+並行セットアップ: [operations/gsc-parallel-setup.md](./operations/gsc-parallel-setup.md)
+
 1. `npm run gsc:verify-access` で SA が参照できるプロパティ一覧を確認
 2. 一覧にプロパティが **無い** → GSC「ユーザーと権限」に SA の `client_email` を **完全** 権限で追加
 3. 一覧にあるが 403 → `GSC_SITE_URL` の形式をプロパティ種類に合わせる:

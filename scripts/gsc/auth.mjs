@@ -17,13 +17,43 @@ export function hasServiceAccount() {
 export function hasOAuth() {
   return Boolean(
     process.env.GSC_OAUTH_CLIENT_ID?.trim() &&
-      process.env.GSC_OAUTH_CLIENT_SECRET?.trim() &&
-      process.env.GSC_OAUTH_REFRESH_TOKEN?.trim(),
+    process.env.GSC_OAUTH_CLIENT_SECRET?.trim() &&
+    process.env.GSC_OAUTH_REFRESH_TOKEN?.trim(),
   );
 }
 
 export function hasApiCredentials() {
   return hasServiceAccount() || hasOAuth();
+}
+
+/** @returns {string | null} Service account client_email from GSC_SERVICE_ACCOUNT_JSON */
+export function serviceAccountEmailFromEnv() {
+  const raw = process.env.GSC_SERVICE_ACCOUNT_JSON?.trim();
+  if (!raw) {
+    return null;
+  }
+  try {
+    const serviceAccount = JSON.parse(raw);
+    return typeof serviceAccount.client_email === "string"
+      ? serviceAccount.client_email
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Pick the best GSC_SITE_URL secret value from Sites API results. */
+export function suggestSiteUrlFromSites(sites, domain = "sim-hikari-guide.com") {
+  const urls = sites.map((site) => site.siteUrl);
+  const scDomain = `sc-domain:${domain}`;
+  const urlPrefix = `https://${domain}/`;
+  if (urls.includes(scDomain)) {
+    return scDomain;
+  }
+  if (urls.includes(urlPrefix)) {
+    return urlPrefix;
+  }
+  return urls.find((url) => url.includes(domain)) ?? null;
 }
 
 export function siteUrlFromEnv() {

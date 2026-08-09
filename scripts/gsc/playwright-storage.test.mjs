@@ -1,6 +1,11 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { siteUrlCandidates, siteUrlFromEnv } from "./auth.mjs";
+import {
+  siteUrlCandidates,
+  siteUrlFromEnv,
+  suggestSiteUrlFromSites,
+  serviceAccountEmailFromEnv,
+} from "./auth.mjs";
 
 describe("auth siteUrl", () => {
   it("preserves sc-domain without trailing slash", () => {
@@ -17,6 +22,30 @@ describe("auth siteUrl", () => {
     assert.ok(candidates.includes("https://sim-hikari-guide.com/"));
     assert.ok(candidates.includes("sc-domain:sim-hikari-guide.com"));
     process.env.GSC_SITE_URL = prev;
+  });
+
+  it("suggests sc-domain when listed in sites API", () => {
+    const sites = [
+      { siteUrl: "sc-domain:sim-hikari-guide.com", permissionLevel: "siteFullUser" },
+    ];
+    assert.equal(suggestSiteUrlFromSites(sites), "sc-domain:sim-hikari-guide.com");
+  });
+
+  it("suggests url-prefix when only prefix property exists", () => {
+    const sites = [
+      { siteUrl: "https://sim-hikari-guide.com/", permissionLevel: "siteFullUser" },
+    ];
+    assert.equal(suggestSiteUrlFromSites(sites), "https://sim-hikari-guide.com/");
+  });
+
+  it("reads client_email from service account JSON env", () => {
+    const prev = process.env.GSC_SERVICE_ACCOUNT_JSON;
+    process.env.GSC_SERVICE_ACCOUNT_JSON = JSON.stringify({
+      client_email: "gsc-bot@example.iam.gserviceaccount.com",
+      private_key: "x",
+    });
+    assert.equal(serviceAccountEmailFromEnv(), "gsc-bot@example.iam.gserviceaccount.com");
+    process.env.GSC_SERVICE_ACCOUNT_JSON = prev;
   });
 });
 
