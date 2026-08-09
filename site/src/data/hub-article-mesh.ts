@@ -45,8 +45,80 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "20GBプランの選び方",
       },
       {
+        slug: "sim-unlimited-data",
+        label: "データ無制限 格安SIM",
+      },
+      {
+        slug: "sim-gakusei-osusume",
+        label: "学生向け 格安SIM",
+      },
+      {
+        slug: "sim-kodomo-osusume",
+        label: "子供向け 格安SIM",
+      },
+      {
+        slug: "sim-houjin-osusume",
+        label: "法人向け 格安SIM",
+      },
+      {
+        slug: "sim-fukukaisen-osusume",
+        label: "格安SIM 副回線",
+      },
+      {
+        slug: "sim-tethering-osusume",
+        label: "テザリング 格安SIM",
+      },
+      {
+        slug: "sim-kakehoudai-yasui",
+        label: "通話かけ放題 安い比較",
+      },
+      {
+        slug: "sim-tuuwa-teigaku-hikaku",
+        label: "通話定額 比較",
+      },
+      {
+        slug: "smartphone-setwari-hikaku",
+        label: "スマホ セット割 比較",
+      },
+      {
+        slug: "mnp-reservation-number",
+        label: "MNP予約番号 取得方法",
+      },
+      {
+        slug: "rakuten-mobile-switch",
+        label: "楽天モバイル 乗り換え",
+      },
+      {
+        slug: "esim-norikae-sokujitsu",
+        label: "eSIM 乗り換え 即日",
+      },
+      {
+        slug: "iphone-sono-mama-sim",
+        label: "iPhone そのまま 格安SIM",
+      },
+      {
+        slug: "ahamo-povo-hikaku",
+        label: "ahamo vs povo 比較",
+      },
+      {
+        slug: "linemo-ahamo-hikaku",
+        label: "LINEMO vs ahamo 比較",
+      },
+      {
+        slug: "rakuten-mobile-uq-mobile-hikaku",
+        label: "楽天モバイル vs UQ",
+      },
+      {
         slug: "mineo-hyoban-demerit",
         label: "mineo 評判・デメリット",
+      },
+      {
+        slug: "linemo-hyoban-demerit",
+        label: "LINEMO 評判・デメリット",
+      },
+      {
+        slug: "iijmio-hyoban-fee",
+        label: "IIJmio 評判・料金",
       },
       {
         slug: "nihon-tsushin-sim-hyoban",
@@ -59,6 +131,14 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "ahamo-oomori-option-moushikomi-tejun",
         label: "ahamo 大盛りオプション手順",
+      },
+      {
+        slug: "home-router-hikari-hikaku",
+        label: "ホームルーター vs 光回線",
+      },
+      {
+        slug: "home-router-hitorigurashi",
+        label: "一人暮らし ホームルーター",
       },
     ],
   },
@@ -91,6 +171,38 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "hikari-1gbps-yasui",
         label: "1Gbps 安い光回線",
+      },
+      {
+        slug: "hikari-provider-chigai",
+        label: "プロバイダの違い",
+      },
+      {
+        slug: "kouji-fuyou-hikari",
+        label: "工事不要 光回線",
+      },
+      {
+        slug: "hikkoshi-hikari-tetsuzuki",
+        label: "引っ越し 光回線手続き",
+      },
+      {
+        slug: "au-hikari-kaiyaku-houhou",
+        label: "auひかり 解約方法",
+      },
+      {
+        slug: "docomo-hikari-hikari-collab-hikaku",
+        label: "ドコモ光 vs 光コラボ",
+      },
+      {
+        slug: "softbank-hikari-biglobe-hikari-hikaku",
+        label: "SB光 vs ビッグローブ光",
+      },
+      {
+        slug: "wimax-fee-hikaku-2026",
+        label: "WiMAX 料金比較 2026",
+      },
+      {
+        slug: "mobareco-air-wimax-hikaku",
+        label: "モバレコAir vs WiMAX",
       },
     ],
   },
@@ -156,13 +268,21 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
   },
 };
 
+/** Homepage picks: 2 per category, howto/troubleshoot prioritized where available. */
+const homeFeaturedSlugs: Partial<Record<CategorySlug, string[]>> = {
+  sim: ["sim-osusume-hikaku-2026", "mnp-reservation-number"],
+  hikari: ["hikari-switch-osusume", "hikkoshi-hikari-tetsuzuki"],
+  trouble: ["sim-speed-slow-fix", "wifi-speed-slow-kaizen"],
+  cost: ["au-denki-setwari", "rakuten-denki-fee"],
+};
+
 export function getHubArticleMesh(
   category: CategorySlug,
 ): HubArticleMesh | undefined {
   return hubArticleMesh[category];
 }
 
-/** One top featured article per category for the homepage. */
+/** Two featured articles per category for the homepage (8 total). */
 export function getHomeFeaturedArticles(): Array<
   HubFeaturedArticle & { category: CategorySlug }
 > {
@@ -171,9 +291,22 @@ export function getHomeFeaturedArticles(): Array<
 
   for (const category of categories) {
     const mesh = hubArticleMesh[category];
-    const top = mesh?.featured[0];
-    if (top) {
-      featured.push({ ...top, category });
+    if (!mesh) {
+      continue;
+    }
+
+    const slugIndex = new Map(
+      mesh.featured.map((item) => [item.slug, item] as const),
+    );
+    const picks =
+      homeFeaturedSlugs[category] ??
+      mesh.featured.slice(0, 2).map((item) => item.slug);
+
+    for (const slug of picks) {
+      const item = slugIndex.get(slug);
+      if (item) {
+        featured.push({ ...item, category });
+      }
     }
   }
 

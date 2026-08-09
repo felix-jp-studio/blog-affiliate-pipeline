@@ -46,6 +46,8 @@
 - [ ] GSC バッチ1（10 URL）→ [batch1](./gsc-inspection-batch-2026-08-08.md)
 - [ ] GSC バッチ2（10 URL）→ [batch2](./gsc-inspection-batch-2026-08-08-batch2.md)
 - [ ] GSC バッチ4（残り7 URL）→ [batch4](./gsc-inspection-batch-2026-08-08-batch4.md)
+- [ ] GSC バッチ5（offset 20）→ [batch5](./gsc-inspection-batch-2026-08-09-batch5.md)
+- [ ] rewrite-queue: 8件 heuristic seed 済（`npm run seed:rewrite-queue`）
 - [ ] いずれか完了後 Agent に「全N件検査完了」+ slug 一覧
 - [ ] GSC 28日 CSV → `npm run gsc:import-rewrite-queue`
 

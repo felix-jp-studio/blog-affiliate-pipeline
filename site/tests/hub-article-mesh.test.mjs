@@ -15,11 +15,24 @@ describe("hub article mesh", () => {
     }
   });
 
-  it("returns one featured article per category for the homepage", () => {
+  it("returns two featured articles per category for the homepage", () => {
     const featured = getHomeFeaturedArticles();
-    assert.equal(featured.length, 4);
+    assert.equal(featured.length, 8);
     assert.ok(
       featured.every((item) => item.slug && item.label && item.category),
+    );
+  });
+
+  it("lists every published article in hub mesh featured", async () => {
+    const { spawnSync } = await import("node:child_process");
+    const result = spawnSync("node", ["scripts/audit-hub-mesh-coverage.mjs"], {
+      cwd: new URL("../..", import.meta.url).pathname,
+      encoding: "utf8",
+    });
+    assert.equal(
+      result.status,
+      0,
+      result.stdout + result.stderr || "hub mesh coverage failed",
     );
   });
 });
