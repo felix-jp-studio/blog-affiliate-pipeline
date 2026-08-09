@@ -10,15 +10,15 @@
 | pending | 102 |
 | indexed | 28 |
 | 今回バッチ | 3 / 102 |
-| 生成日時 (UTC) | 2026-08-09T06:04:19.995Z |
+| 生成日時 (UTC) | 2026-08-09T06:13:49.057Z |
 
 ## 結果
 
 | # | slug | UI | API verdict | indexed | 備考 |
 | -: | --- | --- | --- | :---: | --- |
-| 1 | sim-fukukaisen-osusume | skipped | — | ⏳ | API error: URL Inspection API 403: {"error":{"code":403,"message":"You do not own this site, or the inspected URL is not part of this property.","status":"PERMISSION_DENIED"}} |
-| 2 | povo-data-yoryou-tsuika-houhou | skipped | — | ⏳ | API error: URL Inspection API 403: {"error":{"code":403,"message":"You do not own this site, or the inspected URL is not part of this property.","status":"PERMISSION_DENIED"}} |
-| 3 | povo-speed-slow-fix | skipped | — | ⏳ | API error: URL Inspection API 403: {"error":{"code":403,"message":"You do not own this site, or the inspected URL is not part of this property.","status":"PERMISSION_DENIED"}} |
+| 1 | sim-fukukaisen-osusume | skipped | — | ⏳ | Request indexing button not found (quota, permissions, or UI change); API error: URL Inspection API 403: {"error":{"code":403,"message":"You do not own this site, or the inspected URL is not part of this property.","status":"PERMISSION_DENIED"}} |
+| 2 | povo-data-yoryou-tsuika-houhou | skipped | — | ⏳ | Request indexing button not found (quota, permissions, or UI change); API error: URL Inspection API 403: {"error":{"code":403,"message":"You do not own this site, or the inspected URL is not part of this property.","status":"PERMISSION_DENIED"}} |
+| 3 | povo-speed-slow-fix | skipped | — | ⏳ | Request indexing button not found (quota, permissions, or UI change); API error: URL Inspection API 403: {"error":{"code":403,"message":"You do not own this site, or the inspected URL is not part of this property.","status":"PERMISSION_DENIED"}} |
 
 ## コマンド
 
