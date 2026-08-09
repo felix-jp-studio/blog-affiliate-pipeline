@@ -9,7 +9,6 @@ keyword: "光回線 1Gbps 安い"
 priority: 31
 draft: false
 ---
-
 ## 結論サマリ
 
 光回線 1Gbps 安いを検討する場合、まず「マンション・戸建てのどちらか」「現在のプロバイダとセット契約か」「工事の可否」を整理するのが近道です。光回線は初期費用・工事期間・解約金・セット割の組み合わせで実質料金が大きく変わるため、月額だけでなく総コストで比較してください。
@@ -92,15 +91,15 @@ ahamo光はahamoユーザー向けの光回線として案内されることが�
 - 表の数値は比較観点であり、最新条件は公式が正
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】モバレコAir WiMAX 比較｜5社比較と選び方](/articles/mobareco-air-wimax-hikaku)
-- [【2026年最新】光回線 戸建て おすすめ｜料金・速度を比較](/articles/hikari-kodate-osusume)
-- [【2026年最新】格安SIM 乗り換え おすすめ｜料金・速度を比較](/articles/sim-norikae-osusume)
-- [光回線 開通 遅い 対処の原因と7つの対処法【2026年版】](/articles/hikari-kaituu-slow-fix)
+- [docomo光 解約 手順の手順【2026年版】5ステップで解説](/articles/docomo-kaiyaku-tejun)
+- [ビッグローブ光 解約 手順の手順【2026年版】5ステップで解説](/articles/biglobe-hikari-kaiyaku-tejun)
+- [eSIM 乗り換え 即日の手順【2026年版】5ステップで解説](/articles/esim-norikae-sokujitsu)
+- [ahamo 開通 できない 対処の原因と7つの対処法【2026年版】](/articles/ahamo-kaituu-dekinai-fix)
+
 
 ## よくある質問
 

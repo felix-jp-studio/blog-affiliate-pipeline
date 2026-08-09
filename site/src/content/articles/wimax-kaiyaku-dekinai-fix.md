@@ -9,7 +9,6 @@ priority: 310
 draft: false
 dateModified: 2026-08-09
 ---
-
 ## 症状の確認
 
 WiMAX 解約 できない 対処で検索する方は、次のような状態に当てはまることが多いです。
@@ -72,15 +71,15 @@ APN設定の誤り、古い端末、省電力モード、バックグラウン�
 - 定期的にマイページで利用状況を確認する
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [IIJmio 開通 できない 対処の原因と7つの対処法【2026年版】](/articles/iijmio-kaituu-dekinai-fix)
-- [光回線 開通 遅い 対処の原因と7つの対処法【2026年版】](/articles/hikari-kaituu-slow-fix)
-- [【2026年最新】格安SIM 通話定額 比較｜5社比較と選び方](/articles/sim-tuuwa-teigaku-hikaku)
-- [光回線 開通 準備 手順の手順【2026年版】5ステップで解説](/articles/hikari-kaituu-junbi-tejun)
+- [ホームルーター 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/home-router-speed-slow-fix)
+- [光回線 WiFi 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/hikari-wifi-tsunagaranai-fix)
+- [eSIM 乗り換え 即日の手順【2026年版】5ステップで解説](/articles/esim-norikae-sokujitsu)
+- [ビッグローブ光 解約 手順の手順【2026年版】5ステップで解説](/articles/biglobe-hikari-kaiyaku-tejun)
+
 
 ## よくある質問
 

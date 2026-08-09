@@ -9,7 +9,6 @@ keyword: "iPhone そのまま 格安SIM"
 priority: 45
 draft: false
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】格安SIM シニア おすすめ｜料金・速度を比較](/articles/sim-senior-osusume)
-- [【2026年最新】格安SIM 5G 対応 比較｜5社比較と選び方](/articles/sim-5g-taiou-hikaku)
-- [【2026年最新】工事 不要 光回線比較｜選び方と注意点](/articles/kouji-fuyou-hikari)
-- [ahamo 申し込み エラー 対処の原因と7つの対処法【2026年版】](/articles/ahamo-moushikomi-error-fix)
+- [楽天モバイル MNP 手順の手順【2026年版】5ステップで解説](/articles/rakuten-mobile-mnp-tejun)
+- [楽天モバイル eSIM 設定 手順の手順【2026年版】5ステップで解説](/articles/rakuten-mobile-esim-settei-tejun)
+- [【2026年最新】家族 引っ越し 光回線 比較｜5社比較と選び方](/articles/family-hikkoshi-hikari-hikaku)
+- [ホームルーター 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/home-router-speed-slow-fix)
+
 
 ## よくある質問
 

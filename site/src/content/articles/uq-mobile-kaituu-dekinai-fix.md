@@ -9,7 +9,6 @@ priority: 62
 draft: false
 dateModified: 2026-08-09
 ---
-
 ## 症状の確認
 
 UQモバイル 開通 できない 対処で検索する方は、次のような状態に当てはまることが多いです。
@@ -72,15 +71,15 @@ APN設定の誤り、古い端末、省電力モード、バックグラウン�
 - 定期的にマイページで利用状況を確認する
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [光回線 WiFi 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/hikari-wifi-tsunagaranai-fix)
-- [光回線 開通 遅い 対処の原因と7つの対処法【2026年版】](/articles/hikari-kaituu-slow-fix)
-- [ahamo 大盛り オプション 申し込み 手順の手順【2026年版】5ステップで解説](/articles/ahamo-oomori-option-moushikomi-tejun)
+- [ソフトバンク光 障害 確認の原因と7つの対処法【2026年版】](/articles/softbank-hikari-shogai-kakunin)
+- [Wi-Fi 速度 遅い 改善の原因と7つの対処法【2026年版】](/articles/wifi-speed-slow-kaizen)
+- [ahamo eSIM 設定 手順の手順【2026年版】5ステップで解説](/articles/ahamo-esim-settei-tejun)
 - [ビッグローブ光 解約 手順の手順【2026年版】5ステップで解説](/articles/biglobe-hikari-kaiyaku-tejun)
+
 
 ## よくある質問
 

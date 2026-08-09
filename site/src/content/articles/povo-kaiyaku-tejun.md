@@ -9,7 +9,6 @@ priority: 331
 draft: false
 dateModified: 2026-08-09
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [eSIM 乗り換え 即日の手順【2026年版】5ステップで解説](/articles/esim-norikae-sokujitsu)
-- [【2026年最新】格安SIM 通話定額 比較｜5社比較と選び方](/articles/sim-tuuwa-teigaku-hikaku)
-- [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
-- [ahamo 開通 できない 対処の原因と7つの対処法【2026年版】](/articles/ahamo-kaituu-dekinai-fix)
+- [格安SIM テザリング 設定 方法の手順【2026年版】5ステップで解説](/articles/sim-tethering-settei-houhou)
+- [【2026年最新】格安SIM 乗り換え キャンペーン 比較｜5社比較と選び方](/articles/sim-norikae-campaign-hikaku)
+- [【2026年最新】家族 引っ越し 光回線 比較｜5社比較と選び方](/articles/family-hikkoshi-hikari-hikaku)
+- [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
+
 
 ## よくある質問
 

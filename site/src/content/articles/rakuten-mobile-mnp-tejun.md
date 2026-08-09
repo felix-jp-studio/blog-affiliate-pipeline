@@ -9,7 +9,6 @@ priority: 311
 draft: false
 dateModified: 2026-08-09
 ---
-
 ## MNP予約番号とは
 
 MNP（モバイル番号ポータビリティ）予約番号は、電話番号を変えずに別のキャリアへ乗り換えるために必要な10桁の番号です。有効期限があり、期限切れの場合は再取得が必要です。
@@ -68,15 +67,15 @@ MNP（モバイル番号ポータビリティ）予約番号は、電話番号�
 4. 番号引き継ぎが完了したかテスト発信で確認
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [iPhone そのまま 格安SIMの手順【2026年版】5ステップで解説](/articles/iphone-sono-mama-sim)
-- [【2026年最新】格安SIM 5G 対応 比較｜5社比較と選び方](/articles/sim-5g-taiou-hikaku)
-- [【2026年最新】ソフトバンク光 ビッグローブ光 比較｜5社比較と選び方](/articles/softbank-hikari-biglobe-hikari-hikaku)
-- [ahamo 申し込み エラー 対処の原因と7つの対処法【2026年版】](/articles/ahamo-moushikomi-error-fix)
+- [UQモバイル 機種変更 手順の手順【2026年版】5ステップで解説](/articles/uq-mobile-kishu-henkou-tejun)
+- [UQモバイル 解約 手順の手順【2026年版】5ステップで解説](/articles/uq-mobile-kaiyaku-tejun)
+- [【2026年最新】家族 引っ越し 光回線 比較｜5社比較と選び方](/articles/family-hikkoshi-hikari-hikaku)
+- [楽天モバイル 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/rakuten-mobile-speed-slow-fix)
+
 
 ## よくある質問
 

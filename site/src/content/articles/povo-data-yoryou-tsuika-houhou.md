@@ -9,7 +9,6 @@ priority: 39
 draft: false
 dateModified: 2026-08-09
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】家族 2 回線 安い比較｜選び方と注意点](/articles/family-2-lines-cheap)
-- [【2026年最新】ahamo povo 比較｜5社比較と選び方](/articles/ahamo-povo-hikaku)
-- [引っ越し 光回線 手続きの手順【2026年版】5ステップで解説](/articles/hikkoshi-hikari-tetsuzuki)
-- [ahamo 申し込み エラー 対処の原因と7つの対処法【2026年版】](/articles/ahamo-moushikomi-error-fix)
+- [LINEMO 解約 手順の手順【2026年版】5ステップで解説](/articles/linemo-kaiyaku-tejun)
+- [LINEMO eSIM 設定 手順の手順【2026年版】5ステップで解説](/articles/linemo-esim-settei-tejun)
+- [【2026年最新】家族 引っ越し 光回線 比較｜5社比較と選び方](/articles/family-hikkoshi-hikari-hikaku)
+- [楽天モバイル 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/rakuten-mobile-speed-slow-fix)
+
 
 ## よくある質問
 
