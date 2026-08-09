@@ -145,6 +145,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "auでんき 料金比較",
       },
       {
+        slug: "rakuten-denki-fee",
+        label: "楽天でんき 料金",
+      },
+      {
         slug: "family-2-lines-cheap",
         label: "家族2回線を安くする",
       },
