@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 20 — comparison x2 + crosssell x1 (win-KW cluster)",
+  "items": [
+    {
+      "keyword": "格安SIM 無制限 比較 おすすめ",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 344
+    },
+    {
+      "keyword": "povo 料金 比較 2026",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 345
+    },
+    {
+      "keyword": "固定費 通信 節約",
+      "articleType": "crosssell",
+      "category": "cost",
+      "priority": 346
+    }
+  ]
+}
