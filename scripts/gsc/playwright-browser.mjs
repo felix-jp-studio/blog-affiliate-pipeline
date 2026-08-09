@@ -18,7 +18,10 @@ export function gscBrowserChannel() {
 export async function launchGscBrowser(options = {}) {
   const headless = options.headless ?? gscHeadless();
   const channel = options.channel ?? gscBrowserChannel();
-  const launchOptions = { headless };
+  const launchOptions = {
+    headless,
+    args: ["--disable-blink-features=AutomationControlled"],
+  };
 
   try {
     return await chromium.launch({ ...launchOptions, channel });
@@ -47,7 +50,7 @@ export async function newGscContext(browser, storageState) {
 }
 
 export const SIGN_IN_PAGE =
-  /sign in to continue|ログイン|accounts\.google\.com|signin\/identifier/i;
+  /sign in to continue|ログイン|accounts\.google\.com|signin\/identifier|search-console\/about/i;
 
 /**
  * @param {import('playwright').Page} page
@@ -55,6 +58,9 @@ export const SIGN_IN_PAGE =
 export async function detectAuthRequired(page) {
   const currentUrl = page.url();
   if (/accounts\.google\.com/i.test(currentUrl)) {
+    return true;
+  }
+  if (/\/search-console\/about\b/i.test(currentUrl)) {
     return true;
   }
   const bodyText =

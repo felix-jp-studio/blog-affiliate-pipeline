@@ -1,14 +1,11 @@
 /**
- * Verify Playwright storage state can reach GSC without Google sign-in.
+ * Verify Playwright storage state can reach GSC URL Inspection without sign-in.
  *
  * Usage:
  *   npm run gsc:verify-ui
  */
 import { siteUrlFromEnv } from "./auth.mjs";
-import {
-  hasPlaywrightStorage,
-  loadPlaywrightStorageState,
-} from "./playwright-storage.mjs";
+import { hasPlaywrightStorage, loadPlaywrightStorageState } from "./playwright-storage.mjs";
 import {
   authRequiredResult,
   detectAuthRequired,
@@ -27,17 +24,20 @@ async function main() {
   const storageState = loadPlaywrightStorageState();
   const siteUrl = siteUrlFromEnv();
   const resourceId = encodeURIComponent(siteUrl);
-  const startUrl = `https://search.google.com/search-console?resource_id=${resourceId}`;
+  const samplePath =
+    process.argv[2]?.trim() || "https://sim-hikari-guide.com/articles/sim-fukukaisen-osusume";
+  const inspectUrl = `https://search.google.com/search-console/inspect?resource_id=${resourceId}&id=${encodeURIComponent(samplePath)}`;
 
   console.log(`Property: ${siteUrl}`);
-  console.log(`Opening: ${startUrl}`);
+  console.log(`Opening inspect URL (same as batch):`);
+  console.log(`  ${inspectUrl}`);
 
   const browser = await launchGscBrowser();
   const context = await newGscContext(browser, storageState);
   const page = await context.newPage();
 
   try {
-    await page.goto(startUrl, { waitUntil: "domcontentloaded", timeout: 90_000 });
+    await page.goto(inspectUrl, { waitUntil: "domcontentloaded", timeout: 90_000 });
     await page.waitForLoadState("networkidle", { timeout: 60_000 }).catch(() => {});
 
     if (await detectAuthRequired(page)) {
@@ -45,12 +45,13 @@ async function main() {
       console.error(`FAILED — ${result.message}`);
       console.error("");
       console.error("Fix:");
-      console.error("  1. npm run gsc:auth:login  (uses Chrome — same browser as CI)");
-      console.error("  2. Update GSC_PLAYWRIGHT_STORAGE_STATE secret");
+      console.error("  1. npm run gsc:auth:login  (Chrome opens — log in to GSC)");
+      console.error("  2. npm run gsc:verify-ui     (must OK before updating Secret)");
+      console.error("  3. Update GSC_PLAYWRIGHT_STORAGE_STATE");
       return 2;
     }
 
-    console.log(`OK — GSC loaded (${page.url()})`);
+    console.log(`OK — URL Inspection loaded (${page.url()})`);
     return 0;
   } finally {
     await context.close();

@@ -205,7 +205,7 @@ export async function requestIndexingBatchViaUi(urls, options = {}) {
       if (authBlock) {
         authBlock.screenshot = await captureScreenshot(page, url, screenshotDir);
         results.push({ url, ...authBlock });
-        break;
+        continue;
       }
 
       const outcome = await clickRequestIndexing(page);
