@@ -7,18 +7,18 @@
 | モード | ui+api |
 | プロパティ | `https://sim-hikari-guide.com/` |
 | キュー合計 | 130 |
-| pending | 102 |
-| indexed | 28 |
+| pending | 101 |
+| indexed | 29 |
 | 今回バッチ | 3 / 102 |
-| 生成日時 (UTC) | 2026-08-09T06:13:49.057Z |
+| 生成日時 (UTC) | 2026-08-09T06:33:11.251Z |
 
 ## 結果
 
 | # | slug | UI | API verdict | indexed | 備考 |
 | -: | --- | --- | --- | :---: | --- |
-| 1 | sim-fukukaisen-osusume | skipped | — | ⏳ | Request indexing button not found (quota, permissions, or UI change); API error: URL Inspection API 403: {"error":{"code":403,"message":"You do not own this site, or the inspected URL is not part of this property.","status":"PERMISSION_DENIED"}} |
-| 2 | povo-data-yoryou-tsuika-houhou | skipped | — | ⏳ | Request indexing button not found (quota, permissions, or UI change); API error: URL Inspection API 403: {"error":{"code":403,"message":"You do not own this site, or the inspected URL is not part of this property.","status":"PERMISSION_DENIED"}} |
-| 3 | povo-speed-slow-fix | skipped | — | ⏳ | Request indexing button not found (quota, permissions, or UI change); API error: URL Inspection API 403: {"error":{"code":403,"message":"You do not own this site, or the inspected URL is not part of this property.","status":"PERMISSION_DENIED"}} |
+| 1 | sim-fukukaisen-osusume | skipped | NEUTRAL | ⏳ | Request indexing button not found (quota, permissions, or UI change) |
+| 2 | povo-data-yoryou-tsuika-houhou | skipped | PASS | ✅ | Request indexing button not found (quota, permissions, or UI change) |
+| 3 | povo-speed-slow-fix | skipped | NEUTRAL | ⏳ | Request indexing button not found (quota, permissions, or UI change) |
 
 ## コマンド
 
