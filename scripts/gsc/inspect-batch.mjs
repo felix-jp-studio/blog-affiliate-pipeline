@@ -17,7 +17,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { execFileSync } from "node:child_process";
 import { hasApiCredentials, getAccessToken, siteUrlFromEnv } from "./auth.mjs";
-import { inspectUrl } from "./inspect-url.mjs";
+import { inspectUrlWithFallback } from "./inspect-url.mjs";
 import { hasPlaywrightStorage } from "./playwright-storage.mjs";
 import { requestIndexingBatchViaUi } from "./request-index-ui.mjs";
 import {
@@ -207,7 +207,7 @@ async function main() {
 
     if (accessToken) {
       try {
-        apiResult = await inspectUrl(accessToken, entry.url, {
+        apiResult = await inspectUrlWithFallback(accessToken, entry.url, {
           siteUrl: siteUrlFromEnv(),
         });
         await sleep(1200);
