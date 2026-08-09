@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 24 — comparison x2 + crosssell x1",
+  "items": [
+    {
+      "keyword": "引っ越し WiMAX おすすめ",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 356
+    },
+    {
+      "keyword": "家族 引っ越し 光回線 比較",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 357
+    },
+    {
+      "keyword": "格安SIM 光回線 固定費 節約",
+      "articleType": "crosssell",
+      "category": "cost",
+      "priority": 358
+    }
+  ]
+}

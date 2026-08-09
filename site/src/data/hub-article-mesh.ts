@@ -513,6 +513,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "スマホ 電気 まとめて",
       },
       {
+        slug: "sim-hikari-koteihi-setsuyaku",
+        label: "格安SIM 光回線 固定費節約",
+      },
+      {
         slug: "family-2-lines-cheap",
         label: "家族2回線を安くする",
       },
