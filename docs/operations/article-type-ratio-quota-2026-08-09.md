@@ -10,17 +10,17 @@
 | howto        | 14.5% | 25%  | +10.5pt |
 | troubleshoot | 10.9% | 25%  | +14.1pt |
 
-## 変更
+## 変更（2026-08-09 復旧）
 
-`config/publish-schedule.json` の週次クォータ:
+howto/troubleshoot が目標を上回ったため（各 gap ≈ -5pt）、週次クォータを均衡へ戻す:
 
-| タイプ       | 旧  | 新    |
-| ------------ | --- | ----- |
-| comparison   | 2   | **1** |
-| howto        | 2   | **3** |
-| troubleshoot | 2   | **3** |
+| タイプ       | 偏り調整中 | **復旧後** |
+| ------------ | ---------- | ---------- |
+| comparison   | 1          | **2**      |
+| howto        | 3          | **2**      |
+| troubleshoot | 3          | **2**      |
 
-Sun crosssell（1本/週）は変更なし。月〜土6枠で howto/troubleshoot 優先。
+Sun crosssell（1本/週）は変更なし。
 
 ## 復旧条件
 
