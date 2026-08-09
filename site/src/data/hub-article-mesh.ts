@@ -248,6 +248,18 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "softbank-hikari-shogai-kakunin",
         label: "ソフトバンク光 障害確認",
       },
+      {
+        slug: "ahamo-moushikomi-error-fix",
+        label: "ahamo 申し込みエラー",
+      },
+      {
+        slug: "povo-seikyu-kingaku-awanai-fix",
+        label: "povo 請求金額不一致",
+      },
+      {
+        slug: "wimax-kaiyaku-dekinai-fix",
+        label: "WiMAX 解約できない",
+      },
     ],
   },
   cost: {

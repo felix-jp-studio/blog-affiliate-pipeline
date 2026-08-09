@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 4 troubleshoot batch — priority 307, 309, 310",
+  "items": [
+    {
+      "keyword": "ahamo 申し込み エラー 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 307
+    },
+    {
+      "keyword": "povo 請求 金額 合わない 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 309
+    },
+    {
+      "keyword": "WiMAX 解約 できない 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 310
+    }
+  ]
+}

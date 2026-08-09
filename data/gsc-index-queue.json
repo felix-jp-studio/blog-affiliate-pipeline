@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T03:26:37.719Z",
+  "updatedAt": "2026-08-09T04:24:53.061Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -376,6 +376,24 @@
       "slug": "esim-kishu-henkou-tejun",
       "url": "https://sim-hikari-guide.com/articles/esim-kishu-henkou-tejun",
       "mergedAt": "2026-08-09T03:26:37.718Z",
+      "indexed": false
+    },
+    {
+      "slug": "ahamo-moushikomi-error-fix",
+      "url": "https://sim-hikari-guide.com/articles/ahamo-moushikomi-error-fix",
+      "mergedAt": "2026-08-09T04:24:53.059Z",
+      "indexed": false
+    },
+    {
+      "slug": "povo-seikyu-kingaku-awanai-fix",
+      "url": "https://sim-hikari-guide.com/articles/povo-seikyu-kingaku-awanai-fix",
+      "mergedAt": "2026-08-09T04:24:53.059Z",
+      "indexed": false
+    },
+    {
+      "slug": "wimax-kaiyaku-dekinai-fix",
+      "url": "https://sim-hikari-guide.com/articles/wimax-kaiyaku-dekinai-fix",
+      "mergedAt": "2026-08-09T04:24:53.059Z",
       "indexed": false
     }
   ]
