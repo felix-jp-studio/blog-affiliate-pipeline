@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 15 howto batch — priority 333, 334, 335",
+  "items": [
+    {
+      "keyword": "mineo 解約 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 333
+    },
+    {
+      "keyword": "楽天モバイル eSIM 設定 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 334
+    },
+    {
+      "keyword": "IIJmio eSIM 設定 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 335
+    }
+  ]
+}
