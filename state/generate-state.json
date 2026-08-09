@@ -2,57 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "日本通信SIM 評判",
+      "keyword": "ahamo 解約 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/nihon-tsushin-sim-hyoban.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/ahamo-kaiyaku-tejun.md",
       "error": null
     },
     {
-      "keyword": "NURO 光 auひかり 比較",
+      "keyword": "UQモバイル 解約 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/nuro-hikari-au-hikari-hikaku.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/uq-mobile-kaiyaku-tejun.md",
       "error": null
     },
     {
-      "keyword": "ソフトバンク光 ビッグローブ光 比較",
+      "keyword": "eSIM 機種変更 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/softbank-hikari-biglobe-hikari-hikaku.md",
-      "error": null
-    },
-    {
-      "keyword": "ドコモ光 光コラボ 比較",
-      "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/docomo-hikari-hikari-collab-hikaku.md",
-      "error": null
-    },
-    {
-      "keyword": "光回線 1Gbps 安い",
-      "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/hikari-1gbps-yasui.md",
-      "error": null
-    },
-    {
-      "keyword": "光回線 戸建て おすすめ",
-      "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/hikari-kodate-osusume.md",
-      "error": null
-    },
-    {
-      "keyword": "モバレコAir WiMAX 比較",
-      "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/mobareco-air-wimax-hikaku.md",
-      "error": null
-    },
-    {
-      "keyword": "ホームルーター 光回線 比較",
-      "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/home-router-hikari-hikaku.md",
-      "error": null
-    },
-    {
-      "keyword": "格安SIM 通話定額 比較",
-      "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-tuuwa-teigaku-hikaku.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/esim-kishu-henkou-tejun.md",
       "error": null
     }
   ]
