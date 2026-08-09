@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T05:11:00.957Z",
+  "updatedAt": "2026-08-09T05:12:09.898Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -538,6 +538,24 @@
       "slug": "uq-mobile-kaituu-dekinai-fix",
       "url": "https://sim-hikari-guide.com/articles/uq-mobile-kaituu-dekinai-fix",
       "mergedAt": "2026-08-09T05:11:00.948Z",
+      "indexed": false
+    },
+    {
+      "slug": "mineo-esim-settei-tejun",
+      "url": "https://sim-hikari-guide.com/articles/mineo-esim-settei-tejun",
+      "mergedAt": "2026-08-09T05:12:09.895Z",
+      "indexed": false
+    },
+    {
+      "slug": "linemo-esim-settei-tejun",
+      "url": "https://sim-hikari-guide.com/articles/linemo-esim-settei-tejun",
+      "mergedAt": "2026-08-09T05:12:09.895Z",
+      "indexed": false
+    },
+    {
+      "slug": "povo-kaiyaku-tejun",
+      "url": "https://sim-hikari-guide.com/articles/povo-kaiyaku-tejun",
+      "mergedAt": "2026-08-09T05:12:09.895Z",
       "indexed": false
     }
   ]
