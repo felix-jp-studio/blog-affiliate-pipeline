@@ -103,7 +103,9 @@ export async function inspectUrlWithFallback(accessToken, inspectionUrl, options
     }
   }
 
-  throw lastError ?? new Error("URL Inspection API failed for all siteUrl candidates");
+  throw lastError ?? new Error(
+    `URL Inspection API failed for all siteUrl candidates: ${candidates.join(", ")}`,
+  );
 }
 
 /**

@@ -48,7 +48,11 @@ async function openUrlInspection(page, url, siteUrl) {
  * @param {import('playwright').Page} page
  */
 async function clickRequestIndexing(page) {
-  const bodyText = (await page.locator("body").innerText().catch(() => "")) ?? "";
+  const bodyText =
+    (await page
+      .locator("body")
+      .innerText()
+      .catch(() => "")) ?? "";
   if (ALREADY_INDEXED.test(bodyText)) {
     return { status: "already_indexed", message: "URL appears indexed in GSC UI" };
   }
@@ -66,7 +70,11 @@ async function clickRequestIndexing(page) {
     return { status: "requested", message: "Indexing request submitted in GSC UI" };
   }
 
-  const refreshedText = (await page.locator("body").innerText().catch(() => "")) ?? "";
+  const refreshedText =
+    (await page
+      .locator("body")
+      .innerText()
+      .catch(() => "")) ?? "";
   if (ALREADY_INDEXED.test(refreshedText)) {
     return { status: "already_indexed", message: "URL appears indexed after live test" };
   }
@@ -119,7 +127,7 @@ export async function requestIndexingViaUi(url, options = {}) {
       await page.screenshot({ path: shotPath, fullPage: true }).catch(() => {});
       writeFileSync(
         shotPath.replace(/\.png$/, ".txt"),
-        error instanceof Error ? error.stack ?? error.message : String(error),
+        error instanceof Error ? (error.stack ?? error.message) : String(error),
         "utf8",
       );
     }
@@ -145,6 +153,7 @@ export async function requestIndexingBatchViaUi(urls, options = {}) {
   const siteUrl = options.siteUrl ?? siteUrlFromEnv();
   const headless = options.headless ?? process.env.GSC_PLAYWRIGHT_HEADLESS !== "false";
   const delayMs = options.delayMs ?? 2000;
+  const screenshotDir = join(repoRoot, "docs/operations/gsc-inspect-screenshots");
   const results = [];
 
   const browser = await chromium.launch({ headless });
@@ -155,6 +164,13 @@ export async function requestIndexingBatchViaUi(urls, options = {}) {
     for (const url of urls) {
       await openUrlInspection(page, url, siteUrl);
       const outcome = await clickRequestIndexing(page);
+      if (outcome.status === "skipped") {
+        mkdirSync(screenshotDir, { recursive: true });
+        const slug = url.split("/").pop() ?? "unknown";
+        const shotPath = join(screenshotDir, `${slug}-${Date.now()}.png`);
+        await page.screenshot({ path: shotPath, fullPage: true }).catch(() => {});
+        outcome.screenshot = shotPath;
+      }
       results.push({ url, ...outcome });
       await sleep(delayMs);
     }
