@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T04:24:53.061Z",
+  "updatedAt": "2026-08-09T04:28:11.950Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -394,6 +394,24 @@
       "slug": "wimax-kaiyaku-dekinai-fix",
       "url": "https://sim-hikari-guide.com/articles/wimax-kaiyaku-dekinai-fix",
       "mergedAt": "2026-08-09T04:24:53.059Z",
+      "indexed": false
+    },
+    {
+      "slug": "sim-tethering-settei-houhou",
+      "url": "https://sim-hikari-guide.com/articles/sim-tethering-settei-houhou",
+      "mergedAt": "2026-08-09T04:28:11.948Z",
+      "indexed": false
+    },
+    {
+      "slug": "rakuten-mobile-mnp-tejun",
+      "url": "https://sim-hikari-guide.com/articles/rakuten-mobile-mnp-tejun",
+      "mergedAt": "2026-08-09T04:28:11.948Z",
+      "indexed": false
+    },
+    {
+      "slug": "linemo-kaiyaku-tejun",
+      "url": "https://sim-hikari-guide.com/articles/linemo-kaiyaku-tejun",
+      "mergedAt": "2026-08-09T04:28:11.948Z",
       "indexed": false
     }
   ]

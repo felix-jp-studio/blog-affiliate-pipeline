@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "ahamo 申し込み エラー 対処",
+      "keyword": "格安SIM テザリング 設定 方法",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/ahamo-moushikomi-error-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-tethering-settei-houhou.md",
       "error": null
     },
     {
-      "keyword": "povo 請求 金額 合わない 対処",
+      "keyword": "楽天モバイル MNP 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/povo-seikyu-kingaku-awanai-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/rakuten-mobile-mnp-tejun.md",
       "error": null
     },
     {
-      "keyword": "WiMAX 解約 できない 対処",
+      "keyword": "LINEMO 解約 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/wimax-kaiyaku-dekinai-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/linemo-kaiyaku-tejun.md",
       "error": null
     }
   ]
