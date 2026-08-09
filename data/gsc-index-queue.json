@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T05:18:43.737Z",
+  "updatedAt": "2026-08-09T05:18:56.243Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -322,19 +322,25 @@
       "slug": "sim-fukukaisen-osusume",
       "url": "https://sim-hikari-guide.com/articles/sim-fukukaisen-osusume",
       "mergedAt": "2026-08-03T02:27:04.533Z",
-      "indexed": false
+      "indexed": false,
+      "lastInspectedAt": "2026-08-09T05:18:31.690Z",
+      "inspection": null
     },
     {
       "slug": "povo-data-yoryou-tsuika-houhou",
       "url": "https://sim-hikari-guide.com/articles/povo-data-yoryou-tsuika-houhou",
       "mergedAt": "2026-08-04T02:07:14.764Z",
-      "indexed": false
+      "indexed": false,
+      "lastInspectedAt": "2026-08-09T05:18:31.690Z",
+      "inspection": null
     },
     {
       "slug": "povo-speed-slow-fix",
       "url": "https://sim-hikari-guide.com/articles/povo-speed-slow-fix",
       "mergedAt": "2026-08-05T02:06:11.082Z",
-      "indexed": false
+      "indexed": false,
+      "lastInspectedAt": "2026-08-09T05:18:31.690Z",
+      "inspection": null
     },
     {
       "slug": "sim-norikae-osusume",
