@@ -10,7 +10,7 @@ import { loadPlaywrightStorageState } from "./playwright-storage.mjs";
 import {
   authRequiredResult,
   detectAuthRequired,
-  GSC_ERROR_PAGE,
+  isGoogleInterstitial404,
   launchGscBrowser,
   newGscContext,
 } from "./playwright-browser.mjs";
@@ -45,18 +45,19 @@ async function openUrlInspection(page, url, siteUrl) {
   await sleep(2500);
 
   if (await detectAuthRequired(page)) {
-    const bodyText =
-      (await page
-        .locator("body")
-        .innerText()
-        .catch(() => "")) ?? "";
-    if (GSC_ERROR_PAGE.test(bodyText)) {
-      return {
-        status: "skipped",
-        message: `GSC returned error page (404?) for inspect URL — ${page.url()}`,
-      };
-    }
     return authRequiredResult(page);
+  }
+
+  const bodyAfterLoad =
+    (await page
+      .locator("body")
+      .innerText()
+      .catch(() => "")) ?? "";
+  if (isGoogleInterstitial404(bodyAfterLoad)) {
+    return {
+      status: "skipped",
+      message: `Google interstitial 404 for inspect URL — ${page.url()}`,
+    };
   }
 
   return null;
@@ -75,10 +76,10 @@ async function clickRequestIndexing(page) {
       .locator("body")
       .innerText()
       .catch(() => "")) ?? "";
-  if (GSC_ERROR_PAGE.test(bodyText)) {
+  if (isGoogleInterstitial404(bodyText)) {
     return {
       status: "skipped",
-      message: "GSC error page — inspect URL may be invalid",
+      message: "Google interstitial 404 — inspect URL may be invalid",
     };
   }
   if (ALREADY_INDEXED.test(bodyText)) {
