@@ -109,6 +109,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "MNP予約番号 取得方法",
       },
       {
+        slug: "mnp-norikae-osusume-2026",
+        label: "MNP 乗り換え 2026",
+      },
+      {
         slug: "rakuten-mobile-switch",
         label: "楽天モバイル 乗り換え",
       },
@@ -337,6 +341,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "WiMAX 料金比較 2026",
       },
       {
+        slug: "wimax-kaiyaku-tejun",
+        label: "WiMAX 解約手順",
+      },
+      {
         slug: "mobareco-air-wimax-hikaku",
         label: "モバレコAir vs WiMAX",
       },
@@ -459,6 +467,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "mineo-speed-slow-fix",
         label: "mineo 速度 遅い",
+      },
+      {
+        slug: "sim-norikae-demerit",
+        label: "格安SIM 乗換デメリット",
       },
       {
         slug: "rakuten-mobile-speed-slow-fix",
