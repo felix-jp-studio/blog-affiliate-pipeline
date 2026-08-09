@@ -8,11 +8,11 @@
  * Output: gsc-playwright-auth.json (gitignored)
  * GitHub Secret: base64 -i gsc-playwright-auth.json | pbcopy → GSC_PLAYWRIGHT_STORAGE_STATE
  */
-import { chromium } from "playwright";
 import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import { siteUrlFromEnv } from "./auth.mjs";
 import { defaultStoragePath, savePlaywrightStorageState } from "./playwright-storage.mjs";
+import { launchGscBrowser } from "./playwright-browser.mjs";
 
 function waitForEnter(message) {
   const rl = createInterface({ input, output });
@@ -28,13 +28,13 @@ async function main() {
   console.log(`- property: ${siteUrl}`);
   console.log(`- output:   ${defaultStoragePath}`);
   console.log("");
-  console.log("1. A browser window will open.");
+  console.log("1. Chrome will open (same browser family as CI).");
   console.log("2. Log in with your Google account if prompted.");
   console.log("3. Confirm the Search Console property is visible.");
   console.log("4. Return here and press Enter to save the session.");
   console.log("");
 
-  const browser = await chromium.launch({ headless: false });
+  const browser = await launchGscBrowser({ headless: false });
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto(startUrl, { waitUntil: "domcontentloaded" });

@@ -49,9 +49,7 @@ export async function inspectUrl(accessToken, inspectionUrl, options = {}) {
       }
 
       if (!response.ok) {
-        throw new Error(
-          `URL Inspection API ${response.status}: ${JSON.stringify(body)}`,
-        );
+        throw new Error(`URL Inspection API ${response.status}: ${JSON.stringify(body)}`);
       }
 
       const inspectionResult = body.inspectionResult ?? {};
@@ -103,8 +101,11 @@ export async function inspectUrlWithFallback(accessToken, inspectionUrl, options
     }
   }
 
-  throw lastError ?? new Error(
-    `URL Inspection API failed for all siteUrl candidates: ${candidates.join(", ")}`,
+  throw (
+    lastError ??
+    new Error(
+      `URL Inspection API failed for all siteUrl candidates: ${candidates.join(", ")}`,
+    )
   );
 }
 

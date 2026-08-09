@@ -43,9 +43,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright Chromium
+      - name: Install Playwright Chrome
         if: ${{ github.event_name != 'workflow_dispatch' || !inputs.api_only }}
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps chrome
 
       - name: Configure git author
         run: |
@@ -63,6 +63,17 @@ jobs:
           GSC_OAUTH_REFRESH_TOKEN: ${{ secrets.GSC_OAUTH_REFRESH_TOKEN }}
         run: |
           node scripts/gsc/verify-access.mjs | tee /tmp/gsc-preflight.log
+
+      - name: GSC UI session preflight
+        id: ui_preflight
+        if: ${{ github.event_name != 'workflow_dispatch' || !inputs.api_only }}
+        continue-on-error: true
+        env:
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+          GSC_PLAYWRIGHT_STORAGE_STATE: ${{ secrets.GSC_PLAYWRIGHT_STORAGE_STATE }}
+          GSC_PLAYWRIGHT_HEADLESS: "true"
+        run: |
+          node scripts/gsc/verify-ui-session.mjs | tee /tmp/gsc-ui-preflight.log
 
       - name: Run GSC inspect batch
         id: inspect
@@ -122,6 +133,13 @@ jobs:
             echo "- docs: \`docs/gsc-inspect-automation.md\`"
             echo "- setup: \`docs/operations/gsc-parallel-setup.md\`"
             echo ""
+            if [ -f /tmp/gsc-ui-preflight.log ]; then
+              echo "### UI preflight (verify-ui-session)"
+              echo '```'
+              cat /tmp/gsc-ui-preflight.log
+              echo '```'
+              echo ""
+            fi
             if [ -f /tmp/gsc-preflight.log ]; then
               echo "### Preflight (verify-access)"
               echo '```'

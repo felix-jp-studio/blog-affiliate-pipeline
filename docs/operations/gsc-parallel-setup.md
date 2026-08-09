@@ -32,13 +32,16 @@ API 403 と UI skipped を **同時に** 解消するための手順。どちら
 
 ## トラック C: Playwright セッション更新（UI skipped 対策）
 
-|  #  | 作業               | 詳細                                                                                               |
-| :-: | ------------------ | -------------------------------------------------------------------------------------------------- |
-| C1  | ローカルでログイン | `npm run gsc:auth:login`（Chrome で Google ログイン）                                              |
-| C2  | Secret 更新        | `base64 -i gsc-playwright-auth.json \| tr -d '\\n'` の出力を `GSC_PLAYWRIGHT_STORAGE_STATE` に登録 |
-| C3  | 確認               | 次回 Run で UI 列が `requested` / `already_indexed` になること                                     |
+|  #  | 作業               | 詳細                                                       |
+| :-: | ------------------ | ---------------------------------------------------------- |
+| C1  | ローカルでログイン | `npm run gsc:auth:login`（**Chrome** — CI と同じブラウザ） |
+| C2  | セッション確認     | `npm run gsc:verify-ui` が `OK` になること                 |
+| C3  | Secret 更新        | `GSC_PLAYWRIGHT_STORAGE_STATE` に base64 JSON を登録       |
+| C4  | 確認               | 次回 Run で UI 列が `requested` / `already_indexed`        |
 
 ```bash
+npm run gsc:auth:login
+npm run gsc:verify-ui
 ./scripts/gh-user.sh secret set GSC_PLAYWRIGHT_STORAGE_STATE < <(base64 -i gsc-playwright-auth.json | tr -d '\n')
 ```
 

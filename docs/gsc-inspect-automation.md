@@ -64,9 +64,9 @@ OAuth 代替: `GSC_OAUTH_CLIENT_ID` / `GSC_OAUTH_CLIENT_SECRET` / `GSC_OAUTH_REF
 
 ```bash
 npm run gsc:auth:login
-# ブラウザで Google ログイン → Enter
-base64 -i gsc-playwright-auth.json | pbcopy
-# → GitHub Secret: GSC_PLAYWRIGHT_STORAGE_STATE
+# Chrome でログイン → Secret 更新（Chromium ではなく Chrome 推奨）
+npm run gsc:verify-ui
+base64 -i gsc-playwright-auth.json | tr -d '\n'  # → GSC_PLAYWRIGHT_STORAGE_STATE
 ```
 
 セッション失効時は `npm run gsc:auth:login` を再実行して Secret を更新する。
