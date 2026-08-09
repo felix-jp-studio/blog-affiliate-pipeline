@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 27 — howto x2 + trouble x1",
+  "items": [
+    {
+      "keyword": "格安SIM MNP 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 371
+    },
+    {
+      "keyword": "LINEMO 機種変更 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 372
+    },
+    {
+      "keyword": "マンション 光回線 遅い 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 373
+    }
+  ]
+}
