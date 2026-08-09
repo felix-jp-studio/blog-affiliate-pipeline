@@ -9,7 +9,6 @@ keyword: "楽天モバイル 乗り換え 手順"
 priority: 2
 draft: false
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】IIJmio 評判 料金比較｜選び方と注意点](/articles/iijmio-hyoban-fee)
-- [【2026年最新】ホームルーター おすすめ 一人暮らし｜料金・速度を比較](/articles/home-router-hitorigurashi)
+- [楽天モバイル MNP 手順の手順【2026年版】5ステップで解説](/articles/rakuten-mobile-mnp-tejun)
+- [LINEMO 解約 手順の手順【2026年版】5ステップで解説](/articles/linemo-kaiyaku-tejun)
 - [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
-- [povo 請求 金額 合わない 対処の原因と7つの対処法【2026年版】](/articles/povo-seikyu-kingaku-awanai-fix)
+- [Wi-Fi 速度 遅い 改善の原因と7つの対処法【2026年版】](/articles/wifi-speed-slow-kaizen)
+
 
 ## よくある質問
 

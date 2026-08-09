@@ -9,7 +9,6 @@ priority: 317
 draft: false
 dateModified: 2026-08-09
 ---
-
 ## 症状の確認
 
 光回線 開通 遅い 対処で検索する方は、次のような状態に当てはまることが多いです。
@@ -72,15 +71,15 @@ APN設定の誤り、古い端末、省電力モード、バックグラウン�
 - 定期的にマイページで利用状況を確認する
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [ソフトバンク光 障害 確認の原因と7つの対処法【2026年版】](/articles/softbank-hikari-shogai-kakunin)
 - [Wi-Fi 速度 遅い 改善の原因と7つの対処法【2026年版】](/articles/wifi-speed-slow-kaizen)
-- [ahamo 解約 手順の手順【2026年版】5ステップで解説](/articles/ahamo-kaiyaku-tejun)
-- [引っ越し 光回線 手続きの手順【2026年版】5ステップで解説](/articles/hikkoshi-hikari-tetsuzuki)
+- [光回線 開通 いつの原因と7つの対処法【2026年版】](/articles/hikari-kaituu-itsu)
+- [【2026年最新】ホームルーター おすすめ 一人暮らし｜料金・速度を比較](/articles/home-router-hitorigurashi)
+- [光回線 開通 準備 手順の手順【2026年版】5ステップで解説](/articles/hikari-kaituu-junbi-tejun)
+
 
 ## よくある質問
 
