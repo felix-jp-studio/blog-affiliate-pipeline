@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "格安SIM 乗り換え キャンペーン 比較",
+      "keyword": "引っ越し WiMAX おすすめ",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-norikae-campaign-hikaku.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/hikkoshi-wimax-osusume.md",
       "error": null
     },
     {
-      "keyword": "新生活 光回線 比較",
+      "keyword": "家族 引っ越し 光回線 比較",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/shinseikatsu-hikari-hikaku.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/family-hikkoshi-hikari-hikaku.md",
       "error": null
     },
     {
-      "keyword": "スマホ 電気 まとめて お得",
+      "keyword": "格安SIM 光回線 固定費 節約",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/smartphone-denki-matomete.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-hikari-koteihi-setsuyaku.md",
       "error": null
     }
   ]
