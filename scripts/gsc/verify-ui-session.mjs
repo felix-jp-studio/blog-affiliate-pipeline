@@ -5,7 +5,10 @@
  *   npm run gsc:verify-ui
  */
 import { siteUrlFromEnv } from "./auth.mjs";
-import { hasPlaywrightStorage, loadPlaywrightStorageState } from "./playwright-storage.mjs";
+import {
+  hasPlaywrightStorage,
+  loadPlaywrightStorageState,
+} from "./playwright-storage.mjs";
 import {
   authRequiredResult,
   detectAuthRequired,
@@ -25,7 +28,8 @@ async function main() {
   const siteUrl = siteUrlFromEnv();
   const resourceId = encodeURIComponent(siteUrl);
   const samplePath =
-    process.argv[2]?.trim() || "https://sim-hikari-guide.com/articles/sim-fukukaisen-osusume";
+    process.argv[2]?.trim() ||
+    "https://sim-hikari-guide.com/articles/sim-fukukaisen-osusume";
   const inspectUrl = `https://search.google.com/search-console/inspect?resource_id=${resourceId}&id=${encodeURIComponent(samplePath)}`;
 
   console.log(`Property: ${siteUrl}`);
@@ -45,7 +49,9 @@ async function main() {
       console.error(`FAILED — ${result.message}`);
       console.error("");
       console.error("Fix:");
-      console.error("  1. npm run gsc:auth:login  (Chrome opens — log in to GSC)");
+      console.error(
+        "  1. npm run gsc:auth:login  (codegen — log in manually, close Chrome)",
+      );
       console.error("  2. npm run gsc:verify-ui     (must OK before updating Secret)");
       console.error("  3. Update GSC_PLAYWRIGHT_STORAGE_STATE");
       return 2;

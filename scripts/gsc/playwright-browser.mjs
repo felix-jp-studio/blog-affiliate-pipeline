@@ -50,7 +50,7 @@ export async function newGscContext(browser, storageState) {
 }
 
 export const SIGN_IN_PAGE =
-  /sign in to continue|ログイン|accounts\.google\.com|signin\/identifier|search-console\/about/i;
+  /sign in to continue|ログイン|accounts\.google\.com|signin\/identifier|signin\/rejected|search-console\/about|安全でない可能性/i;
 
 /**
  * @param {import('playwright').Page} page

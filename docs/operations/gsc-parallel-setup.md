@@ -32,18 +32,21 @@ API 403 と UI skipped を **同時に** 解消するための手順。どちら
 
 ## トラック C: Playwright セッション更新（UI skipped 対策）
 
-|  #  | 作業               | 詳細                                                       |
-| :-: | ------------------ | ---------------------------------------------------------- |
-| C1  | ローカルでログイン | `npm run gsc:auth:login`（**Chrome** — CI と同じブラウザ） |
-| C2  | セッション確認     | `npm run gsc:verify-ui` が `OK` になること                 |
-| C3  | Secret 更新        | `GSC_PLAYWRIGHT_STORAGE_STATE` に base64 JSON を登録       |
-| C4  | 確認               | 次回 Run で UI 列が `requested` / `already_indexed`        |
+|  #  | 作業           | 詳細                                                                     |
+| :-: | -------------- | ------------------------------------------------------------------------ |
+| C1  | セッション取得 | `npm run gsc:auth:login`（**codegen** — 手動ログイン後 Chrome を閉じる） |
+| C2  | セッション確認 | `npm run gsc:verify-ui` が `OK` になること                               |
+| C3  | Secret 更新    | `GSC_PLAYWRIGHT_STORAGE_STATE` に base64 JSON を登録                     |
+| C4  | 確認           | 次回 Run で UI 列が `requested` / `already_indexed`                      |
 
 ```bash
+npx playwright install chrome
 npm run gsc:auth:login
 npm run gsc:verify-ui
 ./scripts/gh-user.sh secret set GSC_PLAYWRIGHT_STORAGE_STATE < <(base64 -i gsc-playwright-auth.json | tr -d '\n')
 ```
+
+**「安全でない可能性があります」が出る場合** — 旧スクリプト起動の Chrome です。上記 codegen コマンドを使ってください（`gsc:auth:login:legacy` は使わない）。
 
 ## 完了後: 再実行
 
