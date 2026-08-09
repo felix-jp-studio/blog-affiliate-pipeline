@@ -27,11 +27,11 @@
 
 ## 記事・供給（Agent）
 
-| 項目       | 値                                     |
-| ---------- | -------------------------------------- |
-| 公開記事数 | 55（+1: `rakuten-denki-fee` 8/9 公開） |
-| KW 在庫    | 300 → 310（#153 + 本 PR）              |
-| orphan     | 0                                      |
+| 項目       | 値                                            |
+| ---------- | --------------------------------------------- |
+| 公開記事数 | 55（+1: `rakuten-denki-fee` 8/9 公開）        |
+| KW 在庫    | 320 → 330（#158 予定）+ crosssell 33（本 PR） |
+| orphan     | 0                                             |
 
 ## 上位クエリ TOP5（クリック順）
 
@@ -48,6 +48,7 @@
 - [ ] GSC バッチ4（残り7 URL）→ [batch4](./gsc-inspection-batch-2026-08-08-batch4.md)
 - [ ] GSC バッチ5（offset 20）→ [batch5](./gsc-inspection-batch-2026-08-09-batch5.md)
 - [ ] rewrite-queue: 8件 heuristic seed 済（`npm run seed:rewrite-queue`）
+- [ ] 週次クォータ ratio bias 適用 → [quota note](./article-type-ratio-quota-2026-08-09.md)（#158）
 - [ ] いずれか完了後 Agent に「全N件検査完了」+ slug 一覧
 - [ ] GSC 28日 CSV → `npm run gsc:import-rewrite-queue`
 
