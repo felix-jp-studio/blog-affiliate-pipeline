@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "MNP エラー 対処",
+      "keyword": "docomo光 解約 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/mnp-error-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/docomo-kaiyaku-tejun.md",
       "error": null
     },
     {
-      "keyword": "ahamo 速度 遅い 対処",
+      "keyword": "ビッグローブ光 解約 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/ahamo-speed-slow-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/biglobe-hikari-kaiyaku-tejun.md",
       "error": null
     },
     {
-      "keyword": "NURO 光 繋がらない 対処",
+      "keyword": "ahamo eSIM 設定 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/nuro-hikari-tsunagaranai-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/ahamo-esim-settei-tejun.md",
       "error": null
     }
   ]
