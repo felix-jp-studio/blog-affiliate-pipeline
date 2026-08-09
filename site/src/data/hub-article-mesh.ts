@@ -157,6 +157,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "UQモバイル eSIM 設定",
       },
       {
+        slug: "sim-apn-settei-tejun",
+        label: "格安SIM APN 設定手順",
+      },
+      {
         slug: "povo-esim-settei-tejun",
         label: "povo eSIM 設定",
       },
@@ -319,6 +323,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "nuro-hikari-kaiyaku-tejun",
         label: "NURO光 解約手順",
+      },
+      {
+        slug: "nuro-hikari-kaiyaku-kin-iyakukin",
+        label: "NURO光 解約金 違約金",
       },
       {
         slug: "softbank-hikari-kaiyaku-tejun",
@@ -539,6 +547,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "family-2-lines-cheap",
         label: "家族2回線を安くする",
+      },
+      {
+        slug: "rakuten-keizai-koteihi",
+        label: "楽天経済圏 固定費 見直し",
       },
     ],
   },
