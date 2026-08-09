@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "引っ越し WiMAX おすすめ",
+      "keyword": "MNP 乗り換え おすすめ 2026",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/hikkoshi-wimax-osusume.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/mnp-norikae-osusume-2026.md",
       "error": null
     },
     {
-      "keyword": "家族 引っ越し 光回線 比較",
+      "keyword": "WiMAX 解約 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/family-hikkoshi-hikari-hikaku.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/wimax-kaiyaku-tejun.md",
       "error": null
     },
     {
-      "keyword": "格安SIM 光回線 固定費 節約",
+      "keyword": "格安SIM 乗り換え デメリット",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-hikari-koteihi-setsuyaku.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-norikae-demerit.md",
       "error": null
     }
   ]

@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 25 — howto x2 + trouble x1",
+  "items": [
+    {
+      "keyword": "MNP 乗り換え おすすめ 2026",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 359
+    },
+    {
+      "keyword": "WiMAX 解約 手順",
+      "articleType": "howto",
+      "category": "hikari",
+      "priority": 360
+    },
+    {
+      "keyword": "格安SIM 乗り換え デメリット",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 361
+    }
+  ]
+}

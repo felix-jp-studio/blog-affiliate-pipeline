@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T05:52:06.656Z",
+  "updatedAt": "2026-08-09T05:56:18.692Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -760,6 +760,24 @@
       "slug": "sim-hikari-koteihi-setsuyaku",
       "url": "https://sim-hikari-guide.com/articles/sim-hikari-koteihi-setsuyaku",
       "mergedAt": "2026-08-09T05:52:06.580Z",
+      "indexed": false
+    },
+    {
+      "slug": "mnp-norikae-osusume-2026",
+      "url": "https://sim-hikari-guide.com/articles/mnp-norikae-osusume-2026",
+      "mergedAt": "2026-08-09T05:56:18.688Z",
+      "indexed": false
+    },
+    {
+      "slug": "wimax-kaiyaku-tejun",
+      "url": "https://sim-hikari-guide.com/articles/wimax-kaiyaku-tejun",
+      "mergedAt": "2026-08-09T05:56:18.688Z",
+      "indexed": false
+    },
+    {
+      "slug": "sim-norikae-demerit",
+      "url": "https://sim-hikari-guide.com/articles/sim-norikae-demerit",
+      "mergedAt": "2026-08-09T05:56:18.688Z",
       "indexed": false
     }
   ]
