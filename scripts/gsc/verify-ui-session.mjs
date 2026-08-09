@@ -1,20 +1,13 @@
 /**
  * Verify Playwright storage state can reach GSC URL Inspection without sign-in.
- *
- * Usage:
- *   npm run gsc:verify-ui
  */
 import { siteUrlFromEnv } from "./auth.mjs";
 import {
   hasPlaywrightStorage,
   loadPlaywrightStorageState,
 } from "./playwright-storage.mjs";
-import {
-  authRequiredResult,
-  detectAuthRequired,
-  launchGscBrowser,
-  newGscContext,
-} from "./playwright-browser.mjs";
+import { navigateToUrlInspection, isGscInspectLoaded } from "./gsc-ui-nav.mjs";
+import { launchGscBrowser, newGscContext } from "./playwright-browser.mjs";
 
 async function main() {
   if (!hasPlaywrightStorage()) {
@@ -26,27 +19,26 @@ async function main() {
 
   const storageState = loadPlaywrightStorageState();
   const siteUrl = siteUrlFromEnv();
-  const resourceId = encodeURIComponent(siteUrl);
   const samplePath =
     process.argv[2]?.trim() ||
     "https://sim-hikari-guide.com/articles/sim-fukukaisen-osusume";
-  const inspectUrl = `https://search.google.com/search-console/inspect?resource_id=${resourceId}&id=${encodeURIComponent(samplePath)}`;
 
   console.log(`Property: ${siteUrl}`);
-  console.log(`Opening inspect URL (same as batch):`);
-  console.log(`  ${inspectUrl}`);
+  console.log(`Test URL: ${samplePath}`);
+  console.log("Navigate: property home → URL Inspection → search");
 
   const browser = await launchGscBrowser();
   const context = await newGscContext(browser, storageState);
   const page = await context.newPage();
 
   try {
-    await page.goto(inspectUrl, { waitUntil: "domcontentloaded", timeout: 90_000 });
-    await page.waitForLoadState("networkidle", { timeout: 60_000 }).catch(() => {});
-
-    if (await detectAuthRequired(page)) {
-      const result = authRequiredResult(page);
-      console.error(`FAILED — ${result.message}`);
+    const block = await navigateToUrlInspection(page, samplePath, siteUrl);
+    if (block) {
+      if (block.status === "auth_required") {
+        console.error(`FAILED — ${block.message}`);
+      } else {
+        console.error(`FAILED — ${block.message}`);
+      }
       console.error("");
       console.error("Fix:");
       console.error(
@@ -54,6 +46,16 @@ async function main() {
       );
       console.error("  2. npm run gsc:verify-ui     (must OK before updating Secret)");
       console.error("  3. Update GSC_PLAYWRIGHT_STORAGE_STATE");
+      return 2;
+    }
+
+    const bodyText =
+      (await page
+        .locator("body")
+        .innerText()
+        .catch(() => "")) ?? "";
+    if (!isGscInspectLoaded(bodyText)) {
+      console.error("FAILED — URL Inspection panel text not found");
       return 2;
     }
 
