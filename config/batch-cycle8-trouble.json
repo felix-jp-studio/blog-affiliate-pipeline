@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 8 batch — priority 320, 57, 58",
+  "items": [
+    {
+      "keyword": "MNP エラー 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 320
+    },
+    {
+      "keyword": "ahamo 速度 遅い 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 57
+    },
+    {
+      "keyword": "NURO 光 繋がらない 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 58
+    }
+  ]
+}

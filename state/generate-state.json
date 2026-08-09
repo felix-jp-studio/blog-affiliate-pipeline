@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "光回線 開通 準備 手順",
+      "keyword": "MNP エラー 対処",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/hikari-kaituu-junbi-tejun.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/mnp-error-fix.md",
       "error": null
     },
     {
-      "keyword": "格安SIM 機種変更 手順",
+      "keyword": "ahamo 速度 遅い 対処",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-kishu-henkou-tejun.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/ahamo-speed-slow-fix.md",
       "error": null
     },
     {
-      "keyword": "テザリング できない 対処",
+      "keyword": "NURO 光 繋がらない 対処",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/tethering-dekinai-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/nuro-hikari-tsunagaranai-fix.md",
       "error": null
     }
   ]
