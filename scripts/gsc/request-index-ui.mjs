@@ -20,7 +20,8 @@ const REQUEST_BUTTON =
   /request indexing|インデックス登録をリクエスト|インデックス登録を要求|登録をリクエスト|インデックス作成をリクエスト|索引付けをリクエスト/i;
 const ALREADY_INDEXED =
   /url is on google|google に登録|インデックス登録済|登録されています|送信して登録されました|URL は Google に登録/i;
-const TEST_LIVE_BUTTON = /test live url|ライブ url をテスト|ライブ URL|ライブ URL をテスト/i;
+const TEST_LIVE_BUTTON =
+  /test live url|ライブ url をテスト|ライブ URL|ライブ URL をテスト/i;
 const NOT_INDEXED =
   /not on google|google に登録されていません|インデックス未登録|インデックスに登録/i;
 
