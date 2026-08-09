@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-08T01:16:34.130Z",
+  "updatedAt": "2026-08-09T01:21:52.808Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -352,6 +352,12 @@
       "slug": "iijmio-speed-slow-fix",
       "url": "https://sim-hikari-guide.com/articles/iijmio-speed-slow-fix",
       "mergedAt": "2026-08-08T01:16:34.130Z",
+      "indexed": false
+    },
+    {
+      "slug": "rakuten-denki-fee",
+      "url": "https://sim-hikari-guide.com/articles/rakuten-denki-fee",
+      "mergedAt": "2026-08-09T01:21:52.808Z",
       "indexed": false
     }
   ]
