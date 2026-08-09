@@ -93,6 +93,18 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "eSIM 乗り換え 即日",
       },
       {
+        slug: "ahamo-kaiyaku-tejun",
+        label: "ahamo 解約手順",
+      },
+      {
+        slug: "uq-mobile-kaiyaku-tejun",
+        label: "UQモバイル 解約手順",
+      },
+      {
+        slug: "esim-kishu-henkou-tejun",
+        label: "eSIM 機種変更手順",
+      },
+      {
         slug: "iphone-sono-mama-sim",
         label: "iPhone そのまま 格安SIM",
       },

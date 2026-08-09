@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T01:21:52.808Z",
+  "updatedAt": "2026-08-09T03:26:37.719Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -358,6 +358,24 @@
       "slug": "rakuten-denki-fee",
       "url": "https://sim-hikari-guide.com/articles/rakuten-denki-fee",
       "mergedAt": "2026-08-09T01:21:52.808Z",
+      "indexed": false
+    },
+    {
+      "slug": "ahamo-kaiyaku-tejun",
+      "url": "https://sim-hikari-guide.com/articles/ahamo-kaiyaku-tejun",
+      "mergedAt": "2026-08-09T03:26:37.718Z",
+      "indexed": false
+    },
+    {
+      "slug": "uq-mobile-kaiyaku-tejun",
+      "url": "https://sim-hikari-guide.com/articles/uq-mobile-kaiyaku-tejun",
+      "mergedAt": "2026-08-09T03:26:37.718Z",
+      "indexed": false
+    },
+    {
+      "slug": "esim-kishu-henkou-tejun",
+      "url": "https://sim-hikari-guide.com/articles/esim-kishu-henkou-tejun",
+      "mergedAt": "2026-08-09T03:26:37.718Z",
       "indexed": false
     }
   ]

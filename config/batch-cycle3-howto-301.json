@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 3 howto batch — priority 301, 302, 305",
+  "items": [
+    {
+      "keyword": "ahamo 解約 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 301
+    },
+    {
+      "keyword": "UQモバイル 解約 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 302
+    },
+    {
+      "keyword": "eSIM 機種変更 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 305
+    }
+  ]
+}
