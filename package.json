@@ -30,6 +30,7 @@
     "gsc:auth:login": "node scripts/gsc/export-playwright-session.mjs",
     "gsc:inspect-batch": "node scripts/gsc/inspect-batch.mjs",
     "gsc:verify-access": "node scripts/gsc/verify-access.mjs",
+    "gsc:verify-ui": "node scripts/gsc/verify-ui-session.mjs",
     "audit:orphans": "node scripts/audit-orphan-articles.mjs",
     "audit:hub-mesh": "node scripts/audit-hub-mesh-coverage.mjs",
     "backfill:date-modified": "node scripts/backfill-date-modified.mjs",
