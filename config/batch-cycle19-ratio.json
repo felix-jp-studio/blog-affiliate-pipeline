@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 19 ratio-balanced — comparison x2 + crosssell x1",
+  "items": [
+    {
+      "keyword": "格安SIM 20GB 比較 2026",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 341
+    },
+    {
+      "keyword": "NURO光 評判 デメリット 2026",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 342
+    },
+    {
+      "keyword": "引越し 通信 おすすめ",
+      "articleType": "crosssell",
+      "category": "cost",
+      "priority": 343
+    }
+  ]
+}

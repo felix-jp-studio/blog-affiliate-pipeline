@@ -45,6 +45,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "20GBプランの選び方",
       },
       {
+        slug: "sim-20gb-hikaku-2026",
+        label: "格安SIM 20GB 比較 2026",
+      },
+      {
         slug: "sim-unlimited-data",
         label: "データ無制限 格安SIM",
       },
@@ -223,6 +227,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "nuro-hikari-campaign",
         label: "NURO光 料金・キャンペーン",
+      },
+      {
+        slug: "nuro-hikari-hyoban-demerit-2026",
+        label: "NURO光 評判 2026",
       },
       {
         slug: "hikari-mansion-osusume",
@@ -453,6 +461,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "楽天でんき 料金",
       },
       {
+        slug: "hikkoshi-tsushin-osusume",
+        label: "引越し 通信 おすすめ",
+      },
+      {
         slug: "family-2-lines-cheap",
         label: "家族2回線を安くする",
       },
@@ -462,10 +474,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
 
 /** Homepage picks: 2 per category, howto/troubleshoot prioritized where available. */
 const homeFeaturedSlugs: Partial<Record<CategorySlug, string[]>> = {
-  sim: ["sim-osusume-hikaku-2026", "mnp-reservation-number"],
-  hikari: ["hikari-switch-osusume", "hikkoshi-hikari-tetsuzuki"],
-  trouble: ["sim-speed-slow-fix", "wifi-speed-slow-kaizen"],
-  cost: ["au-denki-setwari", "rakuten-denki-fee"],
+  sim: ["sim-osusume-hikaku-2026", "sim-20gb-hikaku-2026"],
+  hikari: ["nuro-hikari-hyoban-demerit-2026", "hikari-switch-osusume"],
+  trouble: ["mnp-error-fix", "ahamo-speed-slow-fix"],
+  cost: ["hikkoshi-tsushin-osusume", "au-denki-setwari"],
 };
 
 export function getHubArticleMesh(
