@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T05:45:12.168Z",
+  "updatedAt": "2026-08-09T05:46:42.669Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -688,6 +688,24 @@
       "slug": "koteihi-tsushin-setsuyaku",
       "url": "https://sim-hikari-guide.com/articles/koteihi-tsushin-setsuyaku",
       "mergedAt": "2026-08-09T05:34:10.737Z",
+      "indexed": false
+    },
+    {
+      "slug": "hikari-denki-matomete-setsuyaku",
+      "url": "https://sim-hikari-guide.com/articles/hikari-denki-matomete-setsuyaku",
+      "mergedAt": "2026-08-09T05:46:42.667Z",
+      "indexed": false
+    },
+    {
+      "slug": "tsushin-koteihi-minaoshi",
+      "url": "https://sim-hikari-guide.com/articles/tsushin-koteihi-minaoshi",
+      "mergedAt": "2026-08-09T05:46:42.667Z",
+      "indexed": false
+    },
+    {
+      "slug": "sim-1gb-fee-hikaku",
+      "url": "https://sim-hikari-guide.com/articles/sim-1gb-fee-hikaku",
+      "mergedAt": "2026-08-09T05:46:42.667Z",
       "indexed": false
     }
   ]

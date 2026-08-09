@@ -61,6 +61,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "povo 料金 比較 2026",
       },
       {
+        slug: "sim-1gb-fee-hikaku",
+        label: "格安SIM 1GB 料金比較",
+      },
+      {
         slug: "sim-gakusei-osusume",
         label: "学生向け 格安SIM",
       },
@@ -475,6 +479,14 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "koteihi-tsushin-setsuyaku",
         label: "固定費 通信 節約",
+      },
+      {
+        slug: "hikari-denki-matomete-setsuyaku",
+        label: "光回線 電気 まとめて節約",
+      },
+      {
+        slug: "tsushin-koteihi-minaoshi",
+        label: "通信費 固定費 見直し",
       },
       {
         slug: "family-2-lines-cheap",

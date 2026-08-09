@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 21 — crosssell x2 + comparison x1",
+  "items": [
+    {
+      "keyword": "光回線 電気 まとめて 節約",
+      "articleType": "crosssell",
+      "category": "cost",
+      "priority": 347
+    },
+    {
+      "keyword": "通信費 固定費 見直し",
+      "articleType": "crosssell",
+      "category": "cost",
+      "priority": 348
+    },
+    {
+      "keyword": "格安SIM 1GB 料金 比較",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 349
+    }
+  ]
+}
