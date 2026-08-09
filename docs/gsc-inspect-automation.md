@@ -2,12 +2,14 @@
 
 Search Console の **URL 検査 + インデックス登録リクエスト + キュー更新** を日次で自動実行する。
 
+**本番運用中** — 毎日 09:00 JST、10 URL/回。詳細: [operations/gsc-inspect-production.md](./operations/gsc-inspect-production.md)
+
 ## コマンド
 
 ```bash
-# Playwright セッション取得（初回のみ・手動ログイン）
+# Playwright セッション取得（初回・失効時）
 npm install
-npx playwright install chromium
+npx playwright install chrome
 npm run gsc:auth:login
 
 # 日次バッチ（UI + API + キュー更新）
@@ -28,8 +30,8 @@ npm run gsc:inspect-batch -- --week-first --limit=10 --write-note --commit
 ## アーキテクチャ
 
 ```
-日次 cron (09:00 JST)
-  → pending 10件取得 (data/gsc-index-queue.json)
+日次 cron (09:00 JST, limit=10)
+  → pending 10件取得 (data/gsc-index-queue.json, --week-first)
   → Playwright: GSC UI でインデックス登録リクエスト
   → URL Inspection API: 状態確認
   → verdict PASS → indexed: true 自動更新
@@ -108,6 +110,7 @@ base64 -i gsc-playwright-auth.json | tr -d '\n'  # → GSC_PLAYWRIGHT_STORAGE_ST
 
 ## 関連
 
+- **本番運用**: [operations/gsc-inspect-production.md](./operations/gsc-inspect-production.md)
 - 手動バッチメモ（旧）: `docs/operations/gsc-inspection-batch-*.md`
 - 週次サマリー: `.github/workflows/gsc-inspection-weekly.yml`
 - 公開後キュー投入: `.github/workflows/post-publish-index-queue.yml`

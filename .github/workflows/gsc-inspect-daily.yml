@@ -1,7 +1,7 @@
 name: GSC inspect daily
 
-# Daily URL inspection: GSC UI indexing request + URL Inspection API + queue commit.
-# Requires GSC_SERVICE_ACCOUNT_JSON (+ GSC_PLAYWRIGHT_STORAGE_STATE for UI requests).
+# Production: daily UI indexing request + URL Inspection API + queue commit/push.
+# Schedule 09:00 JST — limit 10 URLs/run (GSC UI daily quota ~10).
 
 on:
   workflow_dispatch:
@@ -25,6 +25,13 @@ on:
 
 permissions:
   contents: write
+
+concurrency:
+  group: gsc-inspect-daily
+  cancel-in-progress: false
+
+env:
+  GSC_DAILY_LIMIT: "10"
 
 jobs:
   inspect-batch:
@@ -90,8 +97,11 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             LIMIT="${{ inputs.limit || '10' }}"
             API_ONLY="${{ inputs.api_only }}"
-          else
+          elif [ "${{ github.event_name }}" = "push" ]; then
             LIMIT="3"
+            API_ONLY="false"
+          else
+            LIMIT="${GSC_DAILY_LIMIT:-10}"
             API_ONLY="false"
           fi
           ARGS=(--week-first --limit="$LIMIT" --write-note --commit)
