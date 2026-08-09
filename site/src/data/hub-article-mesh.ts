@@ -105,6 +105,18 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "eSIM 機種変更手順",
       },
       {
+        slug: "sim-tethering-settei-houhou",
+        label: "格安SIM テザリング設定",
+      },
+      {
+        slug: "rakuten-mobile-mnp-tejun",
+        label: "楽天モバイル MNP手順",
+      },
+      {
+        slug: "linemo-kaiyaku-tejun",
+        label: "LINEMO 解約手順",
+      },
+      {
         slug: "iphone-sono-mama-sim",
         label: "iPhone そのまま 格安SIM",
       },

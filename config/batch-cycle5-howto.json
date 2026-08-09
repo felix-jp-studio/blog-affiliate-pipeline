@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 5 howto batch — priority 303, 311, 312",
+  "items": [
+    {
+      "keyword": "格安SIM テザリング 設定 方法",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 303
+    },
+    {
+      "keyword": "楽天モバイル MNP 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 311
+    },
+    {
+      "keyword": "LINEMO 解約 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 312
+    }
+  ]
+}
