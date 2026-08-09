@@ -65,6 +65,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "格安SIM 1GB 料金比較",
       },
       {
+        slug: "shinseikatsu-sim-hikaku",
+        label: "新生活 格安SIM 比較",
+      },
+      {
         slug: "sim-gakusei-osusume",
         label: "学生向け 格安SIM",
       },
@@ -243,6 +247,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "nuro-hikari-hyoban-demerit-2026",
         label: "NURO光 評判 2026",
+      },
+      {
+        slug: "nuro-hikari-mansion-hyoban",
+        label: "NURO光 マンション 評判",
       },
       {
         slug: "hikari-mansion-osusume",
@@ -487,6 +495,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "tsushin-koteihi-minaoshi",
         label: "通信費 固定費 見直し",
+      },
+      {
+        slug: "shinseikatsu-tsushin-koteihi",
+        label: "新生活 通信 固定費",
       },
       {
         slug: "family-2-lines-cheap",
