@@ -97,6 +97,9 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             LIMIT="${{ inputs.limit || '10' }}"
             API_ONLY="${{ inputs.api_only }}"
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            LIMIT="3"
+            API_ONLY="false"
           else
             LIMIT="${GSC_DAILY_LIMIT:-10}"
             API_ONLY="false"

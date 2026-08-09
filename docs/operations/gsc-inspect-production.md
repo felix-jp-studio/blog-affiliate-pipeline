@@ -13,6 +13,8 @@
 
 手動実行: GitHub Actions → **GSC inspect daily** → Run workflow
 
+手動 retrigger（`.github/trigger-gsc-inspect` push）は **limit=3**（UI クォータ節約）。本番日次は cron のみ limit=10。
+
 ## 監視
 
 | 確認項目     | 場所                                            |
