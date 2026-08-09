@@ -1,3 +1,4 @@
 # Touch this file and push to main to run GSC inspect daily once (limit=3, full UI+API).
 # 2026-08-09T05:18:00Z initial secrets verification run
 # 2026-08-09T05:31:00Z re-run after secrets fix
+# 2026-08-09T05:44:00Z re-run after GSC_PLAYWRIGHT_STORAGE_STATE saved
