@@ -9,7 +9,6 @@ keyword: "Wi-Fi 速度 遅い 改善"
 priority: 78
 draft: false
 ---
-
 ## 症状の確認
 
 Wi-Fi 速度 遅い 改善で検索する方は、次のような状態に当てはまることが多いです。
@@ -72,15 +71,15 @@ APN設定の誤り、古い端末、省電力モード、バックグラウン�
 - 定期的にマイページで利用状況を確認する
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
-- [povo 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/povo-speed-slow-fix)
+- [povo 請求 金額 合わない 対処の原因と7つの対処法【2026年版】](/articles/povo-seikyu-kingaku-awanai-fix)
+- [ahamo 申し込み エラー 対処の原因と7つの対処法【2026年版】](/articles/ahamo-moushikomi-error-fix)
 - [iPhone そのまま 格安SIMの手順【2026年版】5ステップで解説](/articles/iphone-sono-mama-sim)
 - [引っ越し 光回線 手続きの手順【2026年版】5ステップで解説](/articles/hikkoshi-hikari-tetsuzuki)
+
 
 ## よくある質問
 
