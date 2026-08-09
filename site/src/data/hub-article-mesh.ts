@@ -344,6 +344,18 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "linemo-kaituu-dekinai-fix",
         label: "LINEMO 開通できない",
       },
+      {
+        slug: "mineo-kaituu-dekinai-fix",
+        label: "mineo 開通できない",
+      },
+      {
+        slug: "ahamo-kaituu-dekinai-fix",
+        label: "ahamo 開通できない",
+      },
+      {
+        slug: "uq-mobile-kaituu-dekinai-fix",
+        label: "UQモバイル 開通できない",
+      },
     ],
   },
   cost: {

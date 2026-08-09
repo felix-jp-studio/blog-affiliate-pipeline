@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "UQモバイル eSIM 設定 手順",
+      "keyword": "mineo 開通 できない 対処",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/uq-mobile-esim-settei-tejun.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/mineo-kaituu-dekinai-fix.md",
       "error": null
     },
     {
-      "keyword": "povo eSIM 設定 手順",
+      "keyword": "ahamo 開通 できない 対処",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/povo-esim-settei-tejun.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/ahamo-kaituu-dekinai-fix.md",
       "error": null
     },
     {
-      "keyword": "NURO光 解約 手順",
+      "keyword": "UQモバイル 開通 できない 対処",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/nuro-hikari-kaiyaku-tejun.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/uq-mobile-kaituu-dekinai-fix.md",
       "error": null
     }
   ]
