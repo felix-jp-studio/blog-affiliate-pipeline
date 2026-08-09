@@ -10,16 +10,20 @@ import { loadPlaywrightStorageState } from "./playwright-storage.mjs";
 import {
   authRequiredResult,
   detectAuthRequired,
+  GSC_ERROR_PAGE,
   launchGscBrowser,
   newGscContext,
 } from "./playwright-browser.mjs";
 import { repoRoot } from "../e2e/e2e-utils.mjs";
 
 const REQUEST_BUTTON =
-  /request indexing|インデックス登録をリクエスト|登録をリクエスト|インデックス作成をリクエスト/i;
+  /request indexing|インデックス登録をリクエスト|インデックス登録を要求|登録をリクエスト|インデックス作成をリクエスト|索引付けをリクエスト/i;
 const ALREADY_INDEXED =
-  /url is on google|google に登録|インデックス登録済|登録されています|送信して登録されました/i;
-const TEST_LIVE_BUTTON = /test live url|ライブ url をテスト|ライブ URL/i;
+  /url is on google|google に登録|インデックス登録済|登録されています|送信して登録されました|URL は Google に登録/i;
+const TEST_LIVE_BUTTON =
+  /test live url|ライブ url をテスト|ライブ URL|ライブ URL をテスト/i;
+const NOT_INDEXED =
+  /not on google|google に登録されていません|インデックス未登録|インデックスに登録/i;
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -38,22 +42,20 @@ async function openUrlInspection(page, url, siteUrl) {
   const directUrl = `https://search.google.com/search-console/inspect?resource_id=${resourceId}&id=${encodeURIComponent(url)}`;
   await page.goto(directUrl, { waitUntil: "domcontentloaded", timeout: 90_000 });
   await page.waitForLoadState("networkidle", { timeout: 60_000 }).catch(() => {});
-  await sleep(1500);
+  await sleep(2500);
 
   if (await detectAuthRequired(page)) {
-    return authRequiredResult(page);
-  }
-
-  const searchInput = page
-    .locator('input[type="url"], input[aria-label*="Inspect"], input[aria-label*="検査"]')
-    .first();
-  if (await searchInput.isVisible({ timeout: 8000 }).catch(() => false)) {
-    await searchInput.fill(url);
-    await searchInput.press("Enter");
-    await sleep(3500);
-  }
-
-  if (await detectAuthRequired(page)) {
+    const bodyText =
+      (await page
+        .locator("body")
+        .innerText()
+        .catch(() => "")) ?? "";
+    if (GSC_ERROR_PAGE.test(bodyText)) {
+      return {
+        status: "skipped",
+        message: `GSC returned error page (404?) for inspect URL — ${page.url()}`,
+      };
+    }
     return authRequiredResult(page);
   }
 
@@ -73,6 +75,12 @@ async function clickRequestIndexing(page) {
       .locator("body")
       .innerText()
       .catch(() => "")) ?? "";
+  if (GSC_ERROR_PAGE.test(bodyText)) {
+    return {
+      status: "skipped",
+      message: "GSC error page — inspect URL may be invalid",
+    };
+  }
   if (ALREADY_INDEXED.test(bodyText)) {
     return { status: "already_indexed", message: "URL appears indexed in GSC UI" };
   }
@@ -81,6 +89,8 @@ async function clickRequestIndexing(page) {
   if (await liveTest.isVisible({ timeout: 5000 }).catch(() => false)) {
     await liveTest.click();
     await sleep(5000);
+  } else if (NOT_INDEXED.test(bodyText)) {
+    await sleep(2000);
   }
 
   const requestButton = page.getByRole("button", { name: REQUEST_BUTTON }).first();
