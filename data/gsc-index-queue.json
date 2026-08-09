@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T05:13:28.153Z",
+  "updatedAt": "2026-08-09T05:18:43.737Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -574,6 +574,24 @@
       "slug": "home-router-speed-slow-fix",
       "url": "https://sim-hikari-guide.com/articles/home-router-speed-slow-fix",
       "mergedAt": "2026-08-09T05:13:28.143Z",
+      "indexed": false
+    },
+    {
+      "slug": "mineo-kaiyaku-tejun",
+      "url": "https://sim-hikari-guide.com/articles/mineo-kaiyaku-tejun",
+      "mergedAt": "2026-08-09T05:18:43.703Z",
+      "indexed": false
+    },
+    {
+      "slug": "rakuten-mobile-esim-settei-tejun",
+      "url": "https://sim-hikari-guide.com/articles/rakuten-mobile-esim-settei-tejun",
+      "mergedAt": "2026-08-09T05:18:43.703Z",
+      "indexed": false
+    },
+    {
+      "slug": "iijmio-esim-settei-tejun",
+      "url": "https://sim-hikari-guide.com/articles/iijmio-esim-settei-tejun",
+      "mergedAt": "2026-08-09T05:18:43.703Z",
       "indexed": false
     }
   ]

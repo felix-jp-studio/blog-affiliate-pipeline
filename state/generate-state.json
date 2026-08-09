@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "povo 開通 できない 対処",
+      "keyword": "mineo 解約 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/povo-kaituu-dekinai-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/mineo-kaiyaku-tejun.md",
       "error": null
     },
     {
-      "keyword": "WiMAX 速度 遅い 対処",
+      "keyword": "楽天モバイル eSIM 設定 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/wimax-speed-slow-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/rakuten-mobile-esim-settei-tejun.md",
       "error": null
     },
     {
-      "keyword": "ホームルーター 速度 遅い 対処",
+      "keyword": "IIJmio eSIM 設定 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/home-router-speed-slow-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/iijmio-esim-settei-tejun.md",
       "error": null
     }
   ]
