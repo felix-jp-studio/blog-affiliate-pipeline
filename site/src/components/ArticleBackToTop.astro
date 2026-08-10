@@ -1,0 +1,53 @@
+<button
+  type="button"
+  class="article-back-to-top"
+  aria-label="ページ上部へ戻る"
+  hidden
+>
+  ↑ 上部へ
+</button>
+
+<script src="./article-back-to-top-client.ts"></script>
+
+<style>
+  .article-back-to-top {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 40;
+    min-height: 44px;
+    padding: 0.55rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg-article);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 700;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .article-back-to-top:hover {
+    color: var(--accent);
+    border-color: var(--accent-soft);
+  }
+
+  .article-back-to-top:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .article-back-to-top[hidden] {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .article-back-to-top {
+      right: 1.5rem;
+      bottom: 1.5rem;
+    }
+  }
+</style>
