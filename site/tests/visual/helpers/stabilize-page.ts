@@ -26,8 +26,35 @@ export async function stabilizePage(page: Page): Promise<void> {
     `,
   });
   await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.waitForLoadState("networkidle");
   await page.evaluate(async () => {
     await document.fonts.ready;
+    const delay = (ms: number) =>
+      new Promise<void>((resolve) => {
+        window.setTimeout(resolve, ms);
+      });
+    const images = Array.from(document.images);
+    await Promise.all(
+      images.map(
+        (image) =>
+          new Promise<void>((resolve) => {
+            if (image.complete) {
+              resolve();
+              return;
+            }
+            image.addEventListener("load", () => resolve(), { once: true });
+            image.addEventListener("error", () => resolve(), { once: true });
+          }),
+      ),
+    );
+    const maxScroll = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+    );
+    window.scrollTo(0, maxScroll);
+    await delay(150);
+    window.scrollTo(0, 0);
+    await delay(150);
   });
 }
 
