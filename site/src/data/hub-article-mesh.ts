@@ -137,6 +137,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "UQモバイル 解約手順",
       },
       {
+        slug: "ymobile-kaiyaku-tejun",
+        label: "ワイモバイル 解約手順",
+      },
+      {
         slug: "esim-kishu-henkou-tejun",
         label: "eSIM 機種変更手順",
       },
@@ -151,6 +155,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "rakuten-mobile-mnp-tejun",
         label: "楽天モバイル MNP手順",
+      },
+      {
+        slug: "rakuten-mobile-kaiyaku-tejun",
+        label: "楽天モバイル 解約手順",
       },
       {
         slug: "linemo-kaiyaku-tejun",
@@ -459,6 +467,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "nuro-hikari-tsunagaranai-fix",
         label: "NURO光 繋がらない",
+      },
+      {
+        slug: "biglobe-hikari-tsunagaranai-fix",
+        label: "ビッグローブ光 繋がらない",
       },
       {
         slug: "sim-kengai-hyoji-fix",

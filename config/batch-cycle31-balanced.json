@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 31 — howto x2 + trouble x1",
+  "items": [
+    {
+      "keyword": "ワイモバイル 解約 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 383
+    },
+    {
+      "keyword": "楽天モバイル 解約 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 384
+    },
+    {
+      "keyword": "ビッグローブ光 繋がらない 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 385
+    }
+  ]
+}

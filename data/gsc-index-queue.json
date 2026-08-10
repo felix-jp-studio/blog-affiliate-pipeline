@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-10T05:42:58.025Z",
+  "updatedAt": "2026-08-10T05:43:51.625Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -984,6 +984,24 @@
       "slug": "povo-koteihi-minaoshi",
       "url": "https://sim-hikari-guide.com/articles/povo-koteihi-minaoshi",
       "mergedAt": "2026-08-10T05:42:58.024Z",
+      "indexed": false
+    },
+    {
+      "slug": "ymobile-kaiyaku-tejun",
+      "url": "https://sim-hikari-guide.com/articles/ymobile-kaiyaku-tejun",
+      "mergedAt": "2026-08-10T05:43:51.623Z",
+      "indexed": false
+    },
+    {
+      "slug": "rakuten-mobile-kaiyaku-tejun",
+      "url": "https://sim-hikari-guide.com/articles/rakuten-mobile-kaiyaku-tejun",
+      "mergedAt": "2026-08-10T05:43:51.623Z",
+      "indexed": false
+    },
+    {
+      "slug": "biglobe-hikari-tsunagaranai-fix",
+      "url": "https://sim-hikari-guide.com/articles/biglobe-hikari-tsunagaranai-fix",
+      "mergedAt": "2026-08-10T05:43:51.623Z",
       "indexed": false
     }
   ]

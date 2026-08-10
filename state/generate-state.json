@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "2月 引っ越し 光回線 キャンペーン",
+      "keyword": "ワイモバイル 解約 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/2-hikkoshi-hikari-campaign.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/ymobile-kaiyaku-tejun.md",
       "error": null
     },
     {
-      "keyword": "ワイモバイル UQモバイル 比較",
+      "keyword": "楽天モバイル 解約 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/ymobile-uq-mobile-hikaku.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/rakuten-mobile-kaiyaku-tejun.md",
       "error": null
     },
     {
-      "keyword": "povo 固定費 見直し",
+      "keyword": "ビッグローブ光 繋がらない 対処",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/povo-koteihi-minaoshi.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/biglobe-hikari-tsunagaranai-fix.md",
       "error": null
     }
   ]
