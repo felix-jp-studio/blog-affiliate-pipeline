@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "格安SIM MNP 手順",
+      "keyword": "光回線 10G 比較 おすすめ",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/sim-mnp-tejun.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/hikari-10g-hikaku-osusume.md",
       "error": null
     },
     {
-      "keyword": "LINEMO 機種変更 手順",
+      "keyword": "3月 引っ越し 格安SIM キャンペーン",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/linemo-kishu-henkou-tejun.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/3-hikkoshi-sim-campaign.md",
       "error": null
     },
     {
-      "keyword": "マンション 光回線 遅い 対処",
+      "keyword": "auスマートバリュー でんき",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/mansion-hikari-slow-fix.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/au-smart-value-denki.md",
       "error": null
     }
   ]
