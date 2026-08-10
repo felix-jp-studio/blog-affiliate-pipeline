@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-10T05:23:57.110Z",
+  "updatedAt": "2026-08-10T05:24:55.317Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -948,6 +948,24 @@
       "slug": "au-smart-value-denki",
       "url": "https://sim-hikari-guide.com/articles/au-smart-value-denki",
       "mergedAt": "2026-08-10T05:23:57.101Z",
+      "indexed": false
+    },
+    {
+      "slug": "iijmio-kaiyaku-tejun",
+      "url": "https://sim-hikari-guide.com/articles/iijmio-kaiyaku-tejun",
+      "mergedAt": "2026-08-10T05:24:55.316Z",
+      "indexed": false
+    },
+    {
+      "slug": "esim-saihakko-tejun",
+      "url": "https://sim-hikari-guide.com/articles/esim-saihakko-tejun",
+      "mergedAt": "2026-08-10T05:24:55.316Z",
+      "indexed": false
+    },
+    {
+      "slug": "docomo-hikari-tsunagaranai-fix",
+      "url": "https://sim-hikari-guide.com/articles/docomo-hikari-tsunagaranai-fix",
+      "mergedAt": "2026-08-10T05:24:55.316Z",
       "indexed": false
     }
   ]

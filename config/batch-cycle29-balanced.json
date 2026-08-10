@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 29 — howto x2 + trouble x1",
+  "items": [
+    {
+      "keyword": "IIJmio 解約 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 377
+    },
+    {
+      "keyword": "eSIM 再発行 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 378
+    },
+    {
+      "keyword": "ドコモ光 繋がらない 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 379
+    }
+  ]
+}
