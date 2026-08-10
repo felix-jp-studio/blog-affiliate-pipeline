@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-09T08:56:47.414Z",
+  "updatedAt": "2026-08-10T00:52:07.682Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -323,10 +323,10 @@
       "url": "https://sim-hikari-guide.com/articles/sim-fukukaisen-osusume",
       "mergedAt": "2026-08-03T02:27:04.533Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-09T08:55:45.348Z",
+      "lastInspectedAt": "2026-08-10T00:48:11.641Z",
       "inspection": {
         "verdict": "NEUTRAL",
-        "coverageState": "URL が Google に認識されていません",
+        "coverageState": "検出 - インデックス未登録",
         "indexingState": "INDEXING_STATE_UNSPECIFIED",
         "lastCrawlTime": null,
         "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
@@ -358,7 +358,7 @@
       "url": "https://sim-hikari-guide.com/articles/povo-speed-slow-fix",
       "mergedAt": "2026-08-05T02:06:11.082Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-09T08:55:45.348Z",
+      "lastInspectedAt": "2026-08-10T00:48:11.641Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -375,7 +375,7 @@
       "url": "https://sim-hikari-guide.com/articles/sim-norikae-osusume",
       "mergedAt": "2026-08-06T02:10:22.074Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-09T08:55:45.348Z",
+      "lastInspectedAt": "2026-08-10T00:48:11.641Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "URL が Google に認識されていません",
@@ -391,43 +391,120 @@
       "slug": "ahamo-oomori-option-moushikomi-tejun",
       "url": "https://sim-hikari-guide.com/articles/ahamo-oomori-option-moushikomi-tejun",
       "mergedAt": "2026-08-07T02:29:15.721Z",
-      "indexed": false
+      "indexed": false,
+      "lastInspectedAt": "2026-08-10T00:48:11.641Z",
+      "inspection": {
+        "verdict": "NEUTRAL",
+        "coverageState": "URL が Google に認識されていません",
+        "indexingState": "INDEXING_STATE_UNSPECIFIED",
+        "lastCrawlTime": null,
+        "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+        "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+        "indexed": false,
+        "source": "api"
+      }
     },
     {
       "slug": "iijmio-speed-slow-fix",
       "url": "https://sim-hikari-guide.com/articles/iijmio-speed-slow-fix",
       "mergedAt": "2026-08-08T01:16:34.130Z",
-      "indexed": false
+      "indexed": false,
+      "lastInspectedAt": "2026-08-10T00:48:11.641Z",
+      "inspection": {
+        "verdict": "NEUTRAL",
+        "coverageState": "URL が Google に認識されていません",
+        "indexingState": "INDEXING_STATE_UNSPECIFIED",
+        "lastCrawlTime": null,
+        "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+        "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+        "indexed": false,
+        "source": "api"
+      }
     },
     {
       "slug": "rakuten-denki-fee",
       "url": "https://sim-hikari-guide.com/articles/rakuten-denki-fee",
       "mergedAt": "2026-08-09T01:21:52.808Z",
-      "indexed": false
+      "indexed": false,
+      "lastInspectedAt": "2026-08-10T00:48:11.641Z",
+      "inspection": {
+        "verdict": "NEUTRAL",
+        "coverageState": "URL が Google に認識されていません",
+        "indexingState": "INDEXING_STATE_UNSPECIFIED",
+        "lastCrawlTime": null,
+        "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+        "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+        "indexed": false,
+        "source": "api"
+      }
     },
     {
       "slug": "ahamo-kaiyaku-tejun",
       "url": "https://sim-hikari-guide.com/articles/ahamo-kaiyaku-tejun",
       "mergedAt": "2026-08-09T03:26:37.718Z",
-      "indexed": false
+      "indexed": false,
+      "lastInspectedAt": "2026-08-10T00:48:11.641Z",
+      "inspection": {
+        "verdict": "NEUTRAL",
+        "coverageState": "URL が Google に認識されていません",
+        "indexingState": "INDEXING_STATE_UNSPECIFIED",
+        "lastCrawlTime": null,
+        "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+        "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+        "indexed": false,
+        "source": "api"
+      }
     },
     {
       "slug": "uq-mobile-kaiyaku-tejun",
       "url": "https://sim-hikari-guide.com/articles/uq-mobile-kaiyaku-tejun",
       "mergedAt": "2026-08-09T03:26:37.718Z",
-      "indexed": false
+      "indexed": false,
+      "lastInspectedAt": "2026-08-10T00:48:11.641Z",
+      "inspection": {
+        "verdict": "NEUTRAL",
+        "coverageState": "URL が Google に認識されていません",
+        "indexingState": "INDEXING_STATE_UNSPECIFIED",
+        "lastCrawlTime": null,
+        "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+        "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+        "indexed": false,
+        "source": "api"
+      }
     },
     {
       "slug": "esim-kishu-henkou-tejun",
       "url": "https://sim-hikari-guide.com/articles/esim-kishu-henkou-tejun",
       "mergedAt": "2026-08-09T03:26:37.718Z",
-      "indexed": false
+      "indexed": false,
+      "lastInspectedAt": "2026-08-10T00:48:11.641Z",
+      "inspection": {
+        "verdict": "NEUTRAL",
+        "coverageState": "URL が Google に認識されていません",
+        "indexingState": "INDEXING_STATE_UNSPECIFIED",
+        "lastCrawlTime": null,
+        "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+        "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+        "indexed": false,
+        "source": "api"
+      }
     },
     {
       "slug": "ahamo-moushikomi-error-fix",
       "url": "https://sim-hikari-guide.com/articles/ahamo-moushikomi-error-fix",
       "mergedAt": "2026-08-09T04:24:53.059Z",
-      "indexed": false
+      "indexed": false,
+      "lastInspectedAt": "2026-08-10T00:48:11.641Z",
+      "inspection": {
+        "verdict": "NEUTRAL",
+        "coverageState": "URL が Google に認識されていません",
+        "indexingState": "INDEXING_STATE_UNSPECIFIED",
+        "lastCrawlTime": null,
+        "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+        "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+        "indexed": false,
+        "source": "api"
+      }
     },
     {
       "slug": "povo-seikyu-kingaku-awanai-fix",
