@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 28 — comparison x2 + crosssell x1",
+  "items": [
+    {
+      "keyword": "光回線 10G 比較 おすすめ",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 374
+    },
+    {
+      "keyword": "3月 引っ越し 格安SIM キャンペーン",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 375
+    },
+    {
+      "keyword": "auスマートバリュー でんき",
+      "articleType": "crosssell",
+      "category": "cost",
+      "priority": 376
+    }
+  ]
+}

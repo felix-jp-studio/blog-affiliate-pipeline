@@ -73,6 +73,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "格安SIM 乗換キャンペーン",
       },
       {
+        slug: "3-hikkoshi-sim-campaign",
+        label: "3月 引っ越し 格安SIM",
+      },
+      {
         slug: "sim-gakusei-osusume",
         label: "学生向け 格安SIM",
       },
@@ -291,6 +295,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "hikari-1gbps-yasui",
         label: "1Gbps 安い光回線",
+      },
+      {
+        slug: "hikari-10g-hikaku-osusume",
+        label: "光回線 10G 比較",
       },
       {
         slug: "hikari-provider-chigai",
@@ -515,6 +523,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "au-denki-setwari",
         label: "auでんき セット割",
+      },
+      {
+        slug: "au-smart-value-denki",
+        label: "auスマートバリュー でんき",
       },
       {
         slug: "rakuten-denki-rakuten-mobile",
