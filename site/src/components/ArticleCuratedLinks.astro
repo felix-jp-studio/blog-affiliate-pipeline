@@ -1,0 +1,110 @@
+---
+import type { CategorySlug } from "../data/category-meta";
+import { getHubArticleMesh } from "../data/hub-article-mesh";
+
+interface Props {
+  category: CategorySlug;
+  currentSlug: string;
+  limit?: number;
+}
+
+const { category, currentSlug, limit = 6 } = Astro.props;
+const mesh = getHubArticleMesh(category);
+
+if (!mesh) {
+  return null;
+}
+
+const links = mesh.featured
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, limit);
+
+if (links.length === 0) {
+  return null;
+}
+---
+
+<nav
+  class="article-curated-links"
+  aria-labelledby="article-curated-links-title"
+>
+  <h2 id="article-curated-links-title" class="article-curated-links__title">
+    {mesh.hubLabel}のおすすめ記事
+  </h2>
+  <ul class="article-curated-links__list">
+    {
+      links.map((item) => (
+        <li>
+          <a href={`/articles/${item.slug}`}>{item.label}</a>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="article-curated-links__hub">
+    <a href={mesh.hubHref}>→ {mesh.hubLabel}一覧を見る</a>
+  </p>
+</nav>
+
+<style>
+  .article-curated-links {
+    margin: 2rem 2.25rem 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+
+  .article-curated-links__title {
+    margin: 0 0 0.85rem;
+    font-size: 1rem;
+    line-height: var(--line-heading);
+    color: var(--text-primary);
+  }
+
+  .article-curated-links__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .article-curated-links__list a {
+    display: block;
+    padding: 0.45rem 0.65rem;
+    border-radius: var(--radius-sm);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    border: 1px solid transparent;
+  }
+
+  .article-curated-links__list a:hover {
+    background: var(--bg-article);
+    border-color: var(--border);
+    text-decoration: none;
+  }
+
+  .article-curated-links__hub {
+    margin: 0.85rem 0 0;
+    font-size: 0.875rem;
+  }
+
+  .article-curated-links__hub a {
+    color: var(--text-secondary);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .article-curated-links__hub a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .article-curated-links {
+      margin-inline: 1.25rem;
+    }
+  }
+</style>

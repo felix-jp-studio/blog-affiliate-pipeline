@@ -6,6 +6,13 @@ interface Props {
 }
 
 const { items } = Astro.props;
+
+const MAX_CURRENT_LABEL = 28;
+
+function truncateLabel(label: string, maxLength: number): string {
+  if (label.length <= maxLength) return label;
+  return `${label.slice(0, maxLength)}…`;
+}
 ---
 
 <nav aria-label="パンくずリスト" class="breadcrumbs">
@@ -18,8 +25,18 @@ const { items } = Astro.props;
             {item.href && !isLast ? (
               <a href={item.href}>{item.label}</a>
             ) : (
-              <span aria-current={isLast ? "page" : undefined}>
-                {item.label}
+              <span
+                aria-current={isLast ? "page" : undefined}
+                class={isLast ? "breadcrumbs__current" : undefined}
+                title={
+                  isLast && item.label.length > MAX_CURRENT_LABEL
+                    ? item.label
+                    : undefined
+                }
+              >
+                {isLast
+                  ? truncateLabel(item.label, MAX_CURRENT_LABEL)
+                  : item.label}
               </span>
             )}
           </li>
@@ -61,5 +78,19 @@ const { items } = Astro.props;
 
   span[aria-current="page"] {
     color: var(--text);
+  }
+
+  .breadcrumbs__current {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: min(100%, 16rem);
+  }
+
+  @media (min-width: 640px) {
+    .breadcrumbs__current {
+      max-width: none;
+      white-space: normal;
+    }
   }
 </style>

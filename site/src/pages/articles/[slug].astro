@@ -6,6 +6,8 @@ import ArticleHubLink from "../../components/ArticleHubLink.astro";
 import ArticleToc from "../../components/ArticleToc.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import RelatedArticles from "../../components/RelatedArticles.astro";
+import ArticleBackToTop from "../../components/ArticleBackToTop.astro";
+import ArticleCuratedLinks from "../../components/ArticleCuratedLinks.astro";
 import ArticleComments from "../../components/ArticleComments.astro";
 import SitePublisherBox from "../../components/SitePublisherBox.astro";
 import { categoryMeta } from "../../data/category-meta";
@@ -141,10 +143,12 @@ const jsonLd = [articleJsonLd, breadcrumbJsonLd, faqJsonLd, howToJsonLd].filter(
         <Content />
       </div>
     </div>
+    <ArticleCuratedLinks category={entry.data.category} currentSlug={slug} />
     <SitePublisherBox />
     <ArticleComments slug={slug} articleTitle={entry.data.title} />
     <RelatedArticles articles={sameCategoryArticles} currentSlug={slug} />
   </article>
+  <ArticleBackToTop />
 </BaseLayout>
 
 <style>
