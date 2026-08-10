@@ -141,6 +141,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "eSIM 機種変更手順",
       },
       {
+        slug: "esim-saihakko-tejun",
+        label: "eSIM 再発行手順",
+      },
+      {
         slug: "sim-tethering-settei-houhou",
         label: "格安SIM テザリング設定",
       },
@@ -199,6 +203,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "iijmio-esim-settei-tejun",
         label: "IIJmio eSIM 設定",
+      },
+      {
+        slug: "iijmio-kaiyaku-tejun",
+        label: "IIJmio 解約手順",
       },
       {
         slug: "uq-mobile-kishu-henkou-tejun",
@@ -451,6 +459,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "hikari-wifi-tsunagaranai-fix",
         label: "光回線 WiFi 繋がらない",
+      },
+      {
+        slug: "docomo-hikari-tsunagaranai-fix",
+        label: "ドコモ光 繋がらない",
       },
       {
         slug: "linemo-kaituu-dekinai-fix",

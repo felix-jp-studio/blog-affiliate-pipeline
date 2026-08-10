@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "光回線 10G 比較 おすすめ",
+      "keyword": "IIJmio 解約 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/hikari-10g-hikaku-osusume.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/iijmio-kaiyaku-tejun.md",
       "error": null
     },
     {
-      "keyword": "3月 引っ越し 格安SIM キャンペーン",
+      "keyword": "eSIM 再発行 手順",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/3-hikkoshi-sim-campaign.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/esim-saihakko-tejun.md",
       "error": null
     },
     {
-      "keyword": "auスマートバリュー でんき",
+      "keyword": "ドコモ光 繋がらない 対処",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/au-smart-value-denki.md",
+      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/docomo-hikari-tsunagaranai-fix.md",
       "error": null
     }
   ]
