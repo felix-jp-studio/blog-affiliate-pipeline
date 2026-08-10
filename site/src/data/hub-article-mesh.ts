@@ -229,6 +229,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         label: "楽天モバイル vs UQ",
       },
       {
+        slug: "ymobile-uq-mobile-hikaku",
+        label: "ワイモバイル vs UQモバイル",
+      },
+      {
         slug: "mineo-hyoban-demerit",
         label: "mineo 評判・デメリット",
       },
@@ -275,6 +279,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "shinseikatsu-hikari-hikaku",
         label: "新生活 光回線 比較",
+      },
+      {
+        slug: "2-hikkoshi-hikari-campaign",
+        label: "2月 引っ越し 光回線",
       },
       {
         slug: "nuro-hikari-campaign",
@@ -559,6 +567,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "koteihi-tsushin-setsuyaku",
         label: "固定費 通信 節約",
+      },
+      {
+        slug: "povo-koteihi-minaoshi",
+        label: "povo 固定費 見直し",
       },
       {
         slug: "hikari-denki-matomete-setsuyaku",
