@@ -7,9 +7,8 @@ articleType: howto
 keyword: "光回線 開通 準備 手順"
 priority: 314
 draft: false
-dateModified: 2026-08-09
+dateModified: 2026-08-10
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】NURO 光 auひかり 比較｜5社比較と選び方](/articles/nuro-hikari-au-hikari-hikaku)
-- [【2026年最新】モバレコAir WiMAX 比較｜5社比較と選び方](/articles/mobareco-air-wimax-hikaku)
-- [【2026年最新】povo 料金 比較 2026｜5社比較と選び方](/articles/povo-fee-hikaku-2026)
-- [ahamo 開通 できない 対処の原因と7つの対処法【2026年版】](/articles/ahamo-kaituu-dekinai-fix)
+- [【2026年最新】NURO光 解約金 違約金比較｜選び方と注意点](/articles/nuro-hikari-kaiyaku-kin-iyakukin)
+- [【2026年最新】NURO光 評判 デメリット 2026比較｜選び方と注意点](/articles/nuro-hikari-hyoban-demerit-2026)
+- [【2026年最新】3月 引っ越し 格安SIM キャンペーン比較｜選び方と注意点](/articles/3-hikkoshi-sim-campaign)
+- [ahamo 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/ahamo-speed-slow-fix)
+
 
 ## よくある質問
 

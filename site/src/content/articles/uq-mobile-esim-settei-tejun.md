@@ -7,9 +7,8 @@ articleType: howto
 keyword: "UQモバイル eSIM 設定 手順"
 priority: 325
 draft: false
-dateModified: 2026-08-09
+dateModified: 2026-08-10
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】ホームルーター 光回線 比較｜5社比較と選び方](/articles/home-router-hikari-hikaku)
-- [【2026年最新】スマホ セット割 比較｜5社比較と選び方](/articles/smartphone-setwari-hikaku)
-- [ソフトバンク光 解約 手順の手順【2026年版】5ステップで解説](/articles/softbank-hikari-kaiyaku-tejun)
-- [ahamo 開通 できない 対処の原因と7つの対処法【2026年版】](/articles/ahamo-kaituu-dekinai-fix)
+- [【2026年最新】格安SIM 20GB比較｜5社の選び方と料金](/articles/sim-20gb-osusume)
+- [楽天モバイル乗り換え手順【2026年版】5ステップで解説](/articles/rakuten-mobile-switch)
+- [光回線 プロバイダ 変更 手順の手順【2026年版】5ステップで解説](/articles/hikari-provider-henkou-tejun)
+- [ビッグローブ光 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/biglobe-hikari-tsunagaranai-fix)
+
 
 ## よくある質問
 

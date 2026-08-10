@@ -7,9 +7,8 @@ articleType: howto
 keyword: "MNP 乗り換え おすすめ 2026"
 priority: 359
 draft: false
-dateModified: 2026-08-09
+dateModified: 2026-08-10
 ---
-
 ## MNP予約番号とは
 
 MNP（モバイル番号ポータビリティ）予約番号は、電話番号を変えずに別のキャリアへ乗り換えるために必要な10桁の番号です。有効期限があり、期限切れの場合は再取得が必要です。
@@ -68,15 +67,15 @@ MNP（モバイル番号ポータビリティ）予約番号は、電話番号�
 4. 番号引き継ぎが完了したかテスト発信で確認
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
 - [povo eSIM 設定 手順の手順【2026年版】5ステップで解説](/articles/povo-esim-settei-tejun)
 - [mineo 解約 手順の手順【2026年版】5ステップで解説](/articles/mineo-kaiyaku-tejun)
-- [【2026年最新】家族 引っ越し 光回線 比較｜5社比較と選び方](/articles/family-hikkoshi-hikari-hikaku)
-- [テザリング できない 対処の原因と7つの対処法【2026年版】](/articles/tethering-dekinai-fix)
+- [【2026年最新】ソフトバンク光 ビッグローブ光 比較｜5社比較と選び方](/articles/softbank-hikari-biglobe-hikari-hikaku)
+- [ビッグローブ光 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/biglobe-hikari-tsunagaranai-fix)
+
 
 ## よくある質問
 

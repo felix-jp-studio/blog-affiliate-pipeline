@@ -7,9 +7,8 @@ articleType: howto
 keyword: "povo 解約 手順"
 priority: 331
 draft: false
-dateModified: 2026-08-09
+dateModified: 2026-08-10
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [格安SIM テザリング 設定 方法の手順【2026年版】5ステップで解説](/articles/sim-tethering-settei-houhou)
-- [【2026年最新】格安SIM 乗り換え キャンペーン 比較｜5社比較と選び方](/articles/sim-norikae-campaign-hikaku)
-- [【2026年最新】家族 引っ越し 光回線 比較｜5社比較と選び方](/articles/family-hikkoshi-hikari-hikaku)
-- [IIJmio 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/iijmio-speed-slow-fix)
+- [【2026年最新】スマホ セット割 比較｜5社比較と選び方](/articles/smartphone-setwari-hikaku)
+- [【2026年最新】データ無制限 格安SIM比較｜選び方と注意点](/articles/sim-unlimited-data)
+- [【2026年最新】2月 引っ越し 光回線 キャンペーン比較｜選び方と注意点](/articles/2-hikkoshi-hikari-campaign)
+- [povo 請求 金額 合わない 対処の原因と7つの対処法【2026年版】](/articles/povo-seikyu-kingaku-awanai-fix)
+
 
 ## よくある質問
 

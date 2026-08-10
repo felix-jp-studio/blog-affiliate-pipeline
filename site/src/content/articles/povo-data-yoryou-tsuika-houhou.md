@@ -7,9 +7,8 @@ articleType: howto
 keyword: "povo データ容量 追加 方法"
 priority: 39
 draft: false
-dateModified: 2026-08-09
+dateModified: 2026-08-10
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [LINEMO 解約 手順の手順【2026年版】5ステップで解説](/articles/linemo-kaiyaku-tejun)
-- [LINEMO eSIM 設定 手順の手順【2026年版】5ステップで解説](/articles/linemo-esim-settei-tejun)
-- [【2026年最新】家族 引っ越し 光回線 比較｜5社比較と選び方](/articles/family-hikkoshi-hikari-hikaku)
-- [楽天モバイル 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/rakuten-mobile-speed-slow-fix)
+- [【2026年最新】ワイモバイル UQモバイル 比較｜5社比較と選び方](/articles/ymobile-uq-mobile-hikaku)
+- [ワイモバイル 解約 手順の手順【2026年版】5ステップで解説](/articles/ymobile-kaiyaku-tejun)
+- [【2026年最新】光回線 プロバイダ 違い比較｜選び方と注意点](/articles/hikari-provider-chigai)
+- [ビッグローブ光 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/biglobe-hikari-tsunagaranai-fix)
+
 
 ## よくある質問
 

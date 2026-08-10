@@ -7,9 +7,8 @@ articleType: howto
 keyword: "格安SIM MNP 手順"
 priority: 371
 draft: false
-dateModified: 2026-08-09
+dateModified: 2026-08-10
 ---
-
 ## MNP予約番号とは
 
 MNP（モバイル番号ポータビリティ）予約番号は、電話番号を変えずに別のキャリアへ乗り換えるために必要な10桁の番号です。有効期限があり、期限切れの場合は再取得が必要です。
@@ -68,15 +67,15 @@ MNP（モバイル番号ポータビリティ）予約番号は、電話番号�
 4. 番号引き継ぎが完了したかテスト発信で確認
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】格安SIM 子供 おすすめ｜料金・速度を比較](/articles/sim-kodomo-osusume)
-- [【2026年最新】格安SIM シニア おすすめ｜料金・速度を比較](/articles/sim-senior-osusume)
-- [【2026年最新】工事 不要 光回線比較｜選び方と注意点](/articles/kouji-fuyou-hikari)
-- [ahamo 開通 できない 対処の原因と7つの対処法【2026年版】](/articles/ahamo-kaituu-dekinai-fix)
+- [UQモバイル 機種変更 手順の手順【2026年版】5ステップで解説](/articles/uq-mobile-kishu-henkou-tejun)
+- [UQモバイル 解約 手順の手順【2026年版】5ステップで解説](/articles/uq-mobile-kaiyaku-tejun)
+- [【2026年最新】2月 引っ越し 光回線 キャンペーン比較｜選び方と注意点](/articles/2-hikkoshi-hikari-campaign)
+- [格安SIM 乗り換え デメリットの原因と7つの対処法【2026年版】](/articles/sim-norikae-demerit)
+
 
 ## よくある質問
 

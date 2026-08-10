@@ -7,9 +7,8 @@ articleType: howto
 keyword: "楽天モバイル MNP 手順"
 priority: 311
 draft: false
-dateModified: 2026-08-09
+dateModified: 2026-08-10
 ---
-
 ## MNP予約番号とは
 
 MNP（モバイル番号ポータビリティ）予約番号は、電話番号を変えずに別のキャリアへ乗り換えるために必要な10桁の番号です。有効期限があり、期限切れの場合は再取得が必要です。
@@ -68,15 +67,15 @@ MNP（モバイル番号ポータビリティ）予約番号は、電話番号�
 4. 番号引き継ぎが完了したかテスト発信で確認
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [UQモバイル 機種変更 手順の手順【2026年版】5ステップで解説](/articles/uq-mobile-kishu-henkou-tejun)
-- [UQモバイル 解約 手順の手順【2026年版】5ステップで解説](/articles/uq-mobile-kaiyaku-tejun)
-- [【2026年最新】家族 引っ越し 光回線 比較｜5社比較と選び方](/articles/family-hikkoshi-hikari-hikaku)
-- [楽天モバイル 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/rakuten-mobile-speed-slow-fix)
+- [【2026年最新】スマホ セット割 比較｜5社比較と選び方](/articles/smartphone-setwari-hikaku)
+- [【2026年最新】データ無制限 格安SIM比較｜選び方と注意点](/articles/sim-unlimited-data)
+- [【2026年最新】2月 引っ越し 光回線 キャンペーン比較｜選び方と注意点](/articles/2-hikkoshi-hikari-campaign)
+- [ビッグローブ光 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/biglobe-hikari-tsunagaranai-fix)
+
 
 ## よくある質問
 

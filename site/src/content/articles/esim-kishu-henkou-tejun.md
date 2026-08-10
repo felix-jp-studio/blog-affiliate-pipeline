@@ -7,9 +7,8 @@ articleType: howto
 keyword: "eSIM 機種変更 手順"
 priority: 305
 draft: false
-dateModified: 2026-08-09
+dateModified: 2026-08-10
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [MNP 乗り換え おすすめ 2026の手順【2026年版】5ステップで解説](/articles/mnp-norikae-osusume-2026)
-- [mineo 解約 手順の手順【2026年版】5ステップで解説](/articles/mineo-kaiyaku-tejun)
-- [光回線 開通 準備 手順の手順【2026年版】5ステップで解説](/articles/hikari-kaituu-junbi-tejun)
-- [ahamo 開通 できない 対処の原因と7つの対処法【2026年版】](/articles/ahamo-kaituu-dekinai-fix)
+- [【2026年最新】格安SIM 無制限 比較 おすすめ｜5社比較と選び方](/articles/sim-museigen-hikaku-osusume)
+- [格安SIM MNP 手順の手順【2026年版】5ステップで解説](/articles/sim-mnp-tejun)
+- [【2026年最新】2月 引っ越し 光回線 キャンペーン比較｜選び方と注意点](/articles/2-hikkoshi-hikari-campaign)
+- [格安SIM 圏外 表示 対処の原因と7つの対処法【2026年版】](/articles/sim-kengai-hyoji-fix)
+
 
 ## よくある質問
 

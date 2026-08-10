@@ -7,9 +7,8 @@ articleType: howto
 keyword: "ソフトバンク光 解約 手順"
 priority: 337
 draft: false
-dateModified: 2026-08-09
+dateModified: 2026-08-10
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [ビッグローブ光 解約 手順の手順【2026年版】5ステップで解説](/articles/biglobe-hikari-kaiyaku-tejun)
-- [引っ越し 光回線 手続きの手順【2026年版】5ステップで解説](/articles/hikkoshi-hikari-tetsuzuki)
-- [【2026年最新】povo 料金 比較 2026｜5社比較と選び方](/articles/povo-fee-hikaku-2026)
-- [ahamo 開通 できない 対処の原因と7つの対処法【2026年版】](/articles/ahamo-kaituu-dekinai-fix)
+- [【2026年最新】光回線 マンション おすすめ｜料金・速度を比較](/articles/hikari-mansion-osusume)
+- [【2026年最新】光回線 10G 比較 おすすめ｜5社比較と選び方](/articles/hikari-10g-hikaku-osusume)
+- [【2026年最新】テザリング 格安SIM おすすめ｜料金・速度を比較](/articles/sim-tethering-osusume)
+- [ビッグローブ光 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/biglobe-hikari-tsunagaranai-fix)
+
 
 ## よくある質問
 
