@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 30 — comparison x2 + crosssell x1",
+  "items": [
+    {
+      "keyword": "2月 引っ越し 光回線 キャンペーン",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 380
+    },
+    {
+      "keyword": "ワイモバイル UQモバイル 比較",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 381
+    },
+    {
+      "keyword": "povo 固定費 見直し",
+      "articleType": "crosssell",
+      "category": "cost",
+      "priority": 382
+    }
+  ]
+}

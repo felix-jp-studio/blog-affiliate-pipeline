@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-10T05:24:55.317Z",
+  "updatedAt": "2026-08-10T05:42:58.025Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -966,6 +966,24 @@
       "slug": "docomo-hikari-tsunagaranai-fix",
       "url": "https://sim-hikari-guide.com/articles/docomo-hikari-tsunagaranai-fix",
       "mergedAt": "2026-08-10T05:24:55.316Z",
+      "indexed": false
+    },
+    {
+      "slug": "2-hikkoshi-hikari-campaign",
+      "url": "https://sim-hikari-guide.com/articles/2-hikkoshi-hikari-campaign",
+      "mergedAt": "2026-08-10T05:42:58.024Z",
+      "indexed": false
+    },
+    {
+      "slug": "ymobile-uq-mobile-hikaku",
+      "url": "https://sim-hikari-guide.com/articles/ymobile-uq-mobile-hikaku",
+      "mergedAt": "2026-08-10T05:42:58.024Z",
+      "indexed": false
+    },
+    {
+      "slug": "povo-koteihi-minaoshi",
+      "url": "https://sim-hikari-guide.com/articles/povo-koteihi-minaoshi",
+      "mergedAt": "2026-08-10T05:42:58.024Z",
       "indexed": false
     }
   ]
