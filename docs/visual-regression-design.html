@@ -1,0 +1,805 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ビジュアル回帰 / E2E テスト設計（スタック横断比較） — 設計書</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #0f1419;
+        --card: #1a2332;
+        --text: #e7ecf3;
+        --muted: #9fb0c3;
+        --accent: #5b9fd4;
+        --border: #2a3544;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f8fb;
+          --card: #fff;
+          --text: #1a2332;
+          --muted: #5a6b7d;
+          --accent: #2563eb;
+          --border: #d8e0ea;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+        line-height: 1.65;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+      }
+      header,
+      main,
+      footer {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+      header {
+        padding-top: 2.5rem;
+        padding-bottom: 1rem;
+      }
+      header h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1.75rem;
+      }
+      header p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+      main {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem 1.75rem;
+        margin-bottom: 2rem;
+      }
+      main h2 {
+        font-size: 1.2rem;
+        color: var(--accent);
+        margin-top: 2rem;
+      }
+      main h2:first-child {
+        margin-top: 0;
+      }
+      main h3 {
+        font-size: 1rem;
+        margin-top: 1.25rem;
+      }
+      main h4 {
+        font-size: 0.95rem;
+      }
+      main p,
+      main li {
+        font-size: 0.95rem;
+      }
+      main blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1rem;
+        border-left: 3px solid var(--accent);
+        background: rgba(91, 159, 212, 0.08);
+        color: var(--muted);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+        margin: 1rem 0;
+      }
+      th,
+      td {
+        border: 1px solid var(--border);
+        padding: 0.5rem 0.65rem;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: rgba(91, 159, 212, 0.12);
+      }
+      code {
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 0.85em;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 0.1em 0.35em;
+        border-radius: 4px;
+      }
+      pre {
+        overflow-x: auto;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        font-size: 0.85rem;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      pre.diagram,
+      pre.language-mermaid {
+        font-family: ui-monospace, monospace;
+        white-space: pre;
+        font-size: 0.78rem;
+        line-height: 1.4;
+      }
+      ul,
+      ol {
+        padding-left: 1.25rem;
+      }
+      hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 1.5rem 0;
+      }
+      footer {
+        padding-bottom: 2rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      a {
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>ビジュアル回帰 / E2E テスト設計（スタック横断比較）</h1>
+      <p>blog-affiliate-pipeline / ソース: visual-regression-design.md / HTML 自動生成</p>
+    </header>
+    <main>
+      <p>
+        <strong>対象</strong>: <code>blog-affiliate-pipeline</code>（格安 SIM ×
+        光回線アフィリエイト / sim-hikari-guide.com）<br /><strong>関連</strong>:
+        <a href="./e2e-publish-check-design.md">e2e-publish-check-design.md</a>（P0/P1
+        機能 E2E）<br /><strong>ステータス</strong>: 設計提案（未実装）<br /><strong
+          >作成日</strong
+        >: 2026-07-19
+      </p>
+      <hr />
+      <h2>概要</h2>
+      <p>
+        本ドキュメントは、<strong>ビジュアル回帰テスト</strong>（スクリーンショット比較）と
+        <strong>E2E ブラウザテスト</strong>の方式選定を、現行スタック（Astro
+        静的サイト）に加え <strong>React SPA</strong> および
+        <strong>Next.js App Router</strong> でも適用できるよう整理したものです。
+      </p>
+      <p>
+        <a href="./e2e-publish-check-design.md">e2e-publish-check-design.md</a> が P0/P1
+        の機能検証（MD / dist / 本番 smoke）を扱うのに対し、本設計は
+        <strong>P2 以降の UI 回帰検知</strong>
+        と、将来のスタック移行時の判断材料を提供します。
+      </p>
+      <hr />
+      <h2>1. スタック比較表</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>観点</th>
+            <th>Astro（現行・sim-hikari-guide）</th>
+            <th>React SPA（CRA / Vite）</th>
+            <th>Next.js App Router</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>レンダリング</strong></td>
+            <td>
+              <strong>SSG 中心</strong>（<code>astro build</code> → 静的
+              HTML）。島アーキテクチャで部分的 CSR 可
+            </td>
+            <td>
+              <strong>CSR のみ</strong>（初回は空 HTML + JS バンドル。<code
+                >index.html</code
+              >
+              シェル）
+            </td>
+            <td>
+              <strong>SSG / SSR / CSR / ISR</strong> をルート単位で混在。Server Components
+              + Client Components
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Playwright の起動対象</strong></td>
+            <td>
+              <strong><code>astro preview</code></strong> または
+              <code>npx serve site/dist</code>（本番同等）。<code>astro dev</code>
+              は非推奨
+            </td>
+            <td>
+              <strong><code>vite preview</code></strong> /
+              <code>serve -s build</code>（production build 必須）。<code>vite dev</code>
+              / <code>npm start</code> は非推奨
+            </td>
+            <td>
+              <strong><code>next build &amp;&amp; next start</code></strong
+              >（本番モード）。または <strong>Vercel Preview URL</strong>（PR
+              ごと）。<code>next dev</code> は非推奨
+            </td>
+          </tr>
+          <tr>
+            <td><strong>テストアプローチ</strong></td>
+            <td>
+              ビルド済み <code>dist/</code> を静的配信 →
+              <code>page.goto(&#39;/articles/{slug}&#39;)</code> → 即 DOM 安定
+            </td>
+            <td>
+              <code>page.goto</code> 後
+              <strong><code>waitForLoadState(&#39;networkidle&#39;)</code></strong>
+              または特定セレクタ待ち。ルーティングは history API
+            </td>
+            <td>
+              ルート種別に応じた待ち: SSG は即安定、SSR は
+              <strong><code>waitForSelector</code></strong> /
+              <strong><code>toPass</code></strong
+              >。Preview では CDN 反映待ち retry
+            </td>
+          </tr>
+          <tr>
+            <td><strong>スナップショット安定性</strong></td>
+            <td>
+              <strong>高</strong> — hydration なし（または最小）。日付・乱数を frontmatter
+              固定化すればほぼ決定的
+            </td>
+            <td>
+              <strong>中</strong> — 初回 paint → hydration → 非同期 fetch の順序差。Web
+              フォント FOUT/FOIT
+            </td>
+            <td>
+              <strong>中〜低</strong> — SSR/CSR 境界、<strong>hydration mismatch</strong
+              >、<code>next/image</code> の lazy blur、<code>next/font</code>
+              のサブセット読込
+            </td>
+          </tr>
+          <tr>
+            <td><strong>CI 複雑度</strong></td>
+            <td>
+              <strong>低</strong> — <code>npm run build</code> → serve → Playwright 1 job
+              で完結
+            </td>
+            <td>
+              <strong>中</strong> — build + preview 起動 + 待ち戦略のチューニング。client
+              routing 用 baseURL 設定
+            </td>
+            <td>
+              <strong>高</strong> — build 時間・env（<code>NEXT_PUBLIC_*</code>）・Preview
+              Deploy 連携。Server/Edge runtime 差の考慮
+            </td>
+          </tr>
+          <tr>
+            <td><strong>sim-hikari-guide 適合</strong></td>
+            <td><strong>最適</strong>（現構成と一致）</td>
+            <td>移行コスト大（SEO / メタ / sitemap を自前実装）</td>
+            <td>移行コスト中〜大（メリットは動的機能・A/B 等が必要な場合）</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h2>2. 方式 × スタック適合マトリクス</h2>
+      <p>凡例: ★★★ 第一推奨 / ★★☆ 条件付き推奨 / ★☆☆ 非推奨または最後の手段 / — 用途外</p>
+      <table>
+        <thead>
+          <tr>
+            <th>方式</th>
+            <th>Astro（現行）</th>
+            <th>React SPA</th>
+            <th>Next.js App Router</th>
+            <th>備考</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>Playwright <code>toHaveScreenshot()</code></strong>
+            </td>
+            <td>★★☆</td>
+            <td>★★☆</td>
+            <td>★★☆</td>
+            <td>
+              いずれも <strong>production build 配信</strong> が前提。閾値
+              <code>maxDiffPixelRatio</code> と <code>mask</code> で広告枠・日付を除外
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Percy</strong></td>
+            <td>★★☆</td>
+            <td>★★☆</td>
+            <td>★★★</td>
+            <td>クラウド diff + ブランチベースレビュー。Next/Vercel 連携事例が多い</td>
+          </tr>
+          <tr>
+            <td><strong>Chromatic</strong></td>
+            <td>★☆☆</td>
+            <td>★★★</td>
+            <td>★★★</td>
+            <td>
+              <strong>Storybook + コンポーネント単位</strong> が主戦場。React/Next UI
+              ライブラリ向け。Astro は Storybook 構築コスト増
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>HTML / text snapshot</strong>（Playwright
+              <code>toMatchSnapshot</code> / Vitest）
+            </td>
+            <td>★★★</td>
+            <td>★☆☆</td>
+            <td>★★☆</td>
+            <td>
+              Astro の <strong>dist HTML</strong> は決定的で最適。CSR/SSR では実行時 HTML
+              が不安定になりやすい
+            </td>
+          </tr>
+          <tr>
+            <td><strong>curl + meta パーサ</strong>（現 P1 smoke）</td>
+            <td>★★★</td>
+            <td>★☆☆</td>
+            <td>★★☆</td>
+            <td>
+              視覚回帰ではないが、3 スタック共通の <strong>機能 smoke</strong> として有効
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>スタック別の第一推奨組み合わせ</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>スタック</th>
+            <th>P2 最小構成</th>
+            <th>P3 拡張</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Astro</strong></td>
+            <td><code>validate-dist.mjs</code>（HTML/text）+ 任意 Playwright 数ページ</td>
+            <td>Percy または Playwright visual 全テンプレート</td>
+          </tr>
+          <tr>
+            <td><strong>React SPA</strong></td>
+            <td>Playwright E2E（production preview）+ 主要導線のみ screenshot</td>
+            <td>Chromatic（コンポーネント）+ Percy（ページ）</td>
+          </tr>
+          <tr>
+            <td><strong>Next.js</strong></td>
+            <td>
+              Playwright against <strong><code>next start</code></strong> または
+              <strong>Vercel Preview</strong>
+            </td>
+            <td>
+              Chromatic + Percy。App Router では
+              <strong>Server Component ページは E2E、Client 部品は Storybook</strong>
+              と役割分担
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h2>3. Next.js 特有の注意</h2>
+      <h3>3.1 SSR hydration mismatch</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>原因</th>
+            <th>症状</th>
+            <th>対策</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>Date.now()</code> / <code>Math.random()</code> を render 内で使用
+            </td>
+            <td>コンソールに hydration error、スクリーンショット差分</td>
+            <td>値を props / server で固定、または Client Component に隔離</td>
+          </tr>
+          <tr>
+            <td>
+              ブラウザ専用 API（<code>window</code>, <code>localStorage</code>）を Server
+              Component で参照
+            </td>
+            <td>サーバー HTML とクライアント不一致</td>
+            <td>
+              <code>&#39;use client&#39;</code> +
+              <code>useEffect</code> でクライアントのみ描画
+            </td>
+          </tr>
+          <tr>
+            <td>条件付き class（UA 判定等）</td>
+            <td>レイアウトシフト</td>
+            <td>サーバー/クライアント同一 markup を保証</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        Playwright では
+        <strong
+          ><code
+            >page.waitForFunction(() =&gt;
+            !document.querySelector(&#39;[data-nextjs-toast]&#39;))</code
+          ></strong
+        >
+        等でエラー検知を追加すると早期発見できる。
+      </p>
+      <h3>3.2 <code>next/image</code> / <code>next/font</code></h3>
+      <table>
+        <thead>
+          <tr>
+            <th>機能</th>
+            <th>スナップショットへの影響</th>
+            <th>テスト設定</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong><code>next/image</code></strong>
+            </td>
+            <td>lazy load、placeholder blur、srcset による段階的表示</td>
+            <td>
+              <code>images.unoptimized: true</code>（テスト config）または
+              <code>await expect(locator).toBeVisible()</code> 後に screenshot
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong><code>next/font</code></strong>
+            </td>
+            <td>サブセット読込タイミングで FOIT/FOUT</td>
+            <td>
+              <code>--font-display: optional</code> 検討、または
+              <code>@font-face</code> モック / システムフォント fallback を test env
+              で固定
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>3.3 Vercel Preview URL を visual test ターゲットにする</h3>
+      <pre><code>PR open → Vercel Preview deploy → PREVIEW_URL を GitHub Actions output
+  → Playwright baseURL=${PREVIEW_URL} → toHaveScreenshot
+</code></pre>
+      <table>
+        <thead>
+          <tr>
+            <th>メリット</th>
+            <th>デメリット</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>本番と同一 CDN / Edge / env に近い</td>
+            <td>Preview ごとに URL 変動 → baseline 更新フロー要設計</td>
+          </tr>
+          <tr>
+            <td><code>next start</code> ローカル差異（画像最適化等）を回避</td>
+            <td>初回 deploy 完了待ち + flaky retry が必要</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <code>VERCEL_URL</code> または Deploy Hook + <code>repository_dispatch</code> で
+        smoke/visual workflow を起動するパターンが一般的。
+      </p>
+      <h3>3.4 <code>@playwright/test</code> + Next.js 公式パターン</h3>
+      <p>Next.js ドキュメント推奨の要点:</p>
+      <ol>
+        <li>
+          <strong><code>webServer</code> 設定</strong> —
+          <code>next build &amp;&amp; next start -p 3000</code> を Playwright config
+          に記述
+        </li>
+        <li>
+          <strong><code>baseURL: &#39;http://127.0.0.1:3000&#39;</code></strong> —
+          <code>page.goto(&#39;/articles/...&#39;)</code> を相対パス化
+        </li>
+        <li>
+          <strong>テスト専用 env</strong> — <code>.env.test</code> で
+          <code>NEXT_PUBLIC_*</code> を固定
+        </li>
+        <li>
+          <strong>並列 CI</strong> — <code>workers: 1</code> で flaky 低減（visual
+          比較時）
+        </li>
+      </ol>
+      <pre><code class="language-typescript">// playwright.config.ts（Next.js 向け例）
+export default defineConfig({
+  webServer: {
+    command: &quot;npm run build &amp;&amp; npm run start&quot;,
+    url: &quot;http://127.0.0.1:3000&quot;,
+    reuseExistingServer: !process.env.CI,
+  },
+  use: { baseURL: &quot;http://127.0.0.1:3000&quot; },
+});
+</code></pre>
+      <hr />
+      <h2>4. React（CRA / Vite SPA）特有の注意</h2>
+      <h3>4.1 CSR only — network idle 待ち</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>フェーズ</th>
+            <th>DOM 状態</th>
+            <th>推奨待ち</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>初回</td>
+            <td>空または loading spinner</td>
+            <td>
+              <code>await page.goto(url, { waitUntil: &#39;domcontentloaded&#39; })</code>
+            </td>
+          </tr>
+          <tr>
+            <td>JS 実行後</td>
+            <td>React root mount</td>
+            <td>
+              <code
+                >await
+                page.locator(&#39;[data-testid=&quot;app-ready&quot;]&#39;).waitFor()</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>データ fetch 後</td>
+            <td>本文表示</td>
+            <td>
+              <strong><code>waitForLoadState(&#39;networkidle&#39;)</code></strong> または
+              API mock で決定的化
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <code>networkidle</code> は SPA では
+        <strong>WebSocket / analytics 常時接続</strong>
+        でタイムアウトしやすい。長期運用では
+        <strong>mock Service Worker（MSW）</strong> または
+        <strong>fixture JSON</strong> で API を固定する方が安定。
+      </p>
+      <h3>4.2 ルーティング（react-router）</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>課題</th>
+            <th>対策</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>BrowserRouter</code> — deep link は server fallback
+              要（<code>historyApiFallback</code>）
+            </td>
+            <td>
+              preview server（Vite <code>preview</code> / <code>serve -s</code>）で
+              <code>/articles/*</code> → <code>index.html</code>
+            </td>
+          </tr>
+          <tr>
+            <td>直接 URL アクセス</td>
+            <td>
+              Playwright <code>baseURL</code> + パス。静的ホスティングでは
+              <strong>全ルート rewrite</strong> 必須
+            </td>
+          </tr>
+          <tr>
+            <td>ナビゲーション後の screenshot</td>
+            <td>
+              <code>page.click</code> →
+              <strong
+                ><code>await page.waitForURL(&#39;**/articles/**&#39;)</code></strong
+              >
+              → screenshot
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        SEO 観点では sim-hikari-guide のような
+        <strong>記事サイトに CRA は非推奨</strong>（メタ / OGP / sitemap を JS
+        依存にしないため）。
+      </p>
+      <hr />
+      <h2>5. sim-hikari-guide: Astro 維持 vs Next.js 移行時の E2E 戦略差</h2>
+      <p>
+        **Astro 維持（現行）**では、記事 Markdown → 静的 HTML 生成 →
+        <code>dist/</code> 検証という
+        <strong>決定的パイプライン</strong> が主軸です。視覚回帰は P2
+        オプションとして、トップ・記事テンプレート・比較表コンポーネント数ページに
+        Playwright <code>toHaveScreenshot</code> を限定適用すれば足ります。hydration
+        がほぼないため baseline 更新頻度は低く、CI は
+        <code>build → astro preview → Playwright</code> の単一 job で済みます。<strong
+          >Next.js 移行</strong
+        >すると、同じ記事 URL でも Server/Client 境界・<code>next/image</code>・Preview
+        URL 単位の baseline 管理が必要になり、機能 E2E（meta / affiliate / sitemap）は
+        <a href="./e2e-publish-check-design.md">e2e-publish-check-design.md</a> の Node
+        smoke を維持しつつ、visual は
+        <strong>Vercel Preview 向け Playwright</strong> または
+        <strong>Chromatic（記事 UI コンポーネント）</strong>
+        へ比重を移すのが現実的です。移行コストに見合うのは、パーソナライズ・A/B・認証付きダッシュボード等、静的生成では賄えない要件が発生した場合に限られます。
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>観点</th>
+            <th>Astro 維持</th>
+            <th>Next.js 移行後</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>主 E2E 手段</strong></td>
+            <td>
+              Node: <code>validate-articles</code> / <code>validate-dist</code> /
+              <code>smoke-production</code>（P0/P1）
+            </td>
+            <td>同 smoke + Next 固有 hydration / routing チェック</td>
+          </tr>
+          <tr>
+            <td><strong>視覚回帰</strong></td>
+            <td>Playwright × 静的 preview（数ページ）</td>
+            <td>Playwright × Vercel Preview <strong>または</strong> Chromatic</td>
+          </tr>
+          <tr>
+            <td><strong>baseline 管理</strong></td>
+            <td>リポジトリ内 screenshot または Percy 1 project</td>
+            <td>Preview URL 変動 → Percy/Chromatic クラウド推奨</td>
+          </tr>
+          <tr>
+            <td><strong>CI 時間</strong></td>
+            <td>短い（Astro build ≒ 数十秒）</td>
+            <td>長い（Next build + optional Preview deploy wait）</td>
+          </tr>
+          <tr>
+            <td><strong>flaky 要因</strong></td>
+            <td>ほぼなし（日付・広告枠のみ mask）</td>
+            <td>hydration、font、image lazy、Preview CDN</td>
+          </tr>
+          <tr>
+            <td><strong>推奨優先度</strong></td>
+            <td>HTML/text snapshot ★★★ / Playwright visual ★★☆</td>
+            <td>Playwright + Percy/Chromatic ★★★ / HTML snapshot ★★☆</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h2>6. sim-hikari-guide 向け推奨ロードマップ（スタック横断）</h2>
+      <p>
+        現行 Astro を前提とした段階導入。Next 移行時は §5 の表に従い Preview
+        ベースへ切替。
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>優先度</th>
+            <th>項目</th>
+            <th>方式</th>
+            <th>スタック</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>P0/P1</strong></td>
+            <td>MD / dist / 本番 smoke</td>
+            <td>Node + curl（既設計）</td>
+            <td>Astro ★★★</td>
+          </tr>
+          <tr>
+            <td><strong>P2</strong></td>
+            <td>記事テンプレート visual smoke</td>
+            <td>Playwright <code>toHaveScreenshot</code>（3〜5 URL）</td>
+            <td>Astro ★★☆ / Next ★★☆</td>
+          </tr>
+          <tr>
+            <td><strong>P2</strong></td>
+            <td>OG・構造化データ</td>
+            <td>HTML snapshot（<code>validate-dist</code> 拡張）</td>
+            <td>全スタック ★★★</td>
+          </tr>
+          <tr>
+            <td><strong>P3</strong></td>
+            <td>コンポーネント UI 回帰</td>
+            <td>Chromatic + Storybook</td>
+            <td>Next / React ★★★、Astro ★☆☆</td>
+          </tr>
+          <tr>
+            <td><strong>P3</strong></td>
+            <td>PR ごと visual diff</td>
+            <td>Percy + Vercel Preview</td>
+            <td>Next ★★★、Astro ★★☆</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h2>7. Playwright 共通設定（スタック別）</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>設定</th>
+            <th>Astro</th>
+            <th>React SPA</th>
+            <th>Next.js</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>webServer command</strong></td>
+            <td><code>npm run build &amp;&amp; npm run preview</code></td>
+            <td><code>npm run build &amp;&amp; npm run preview</code></td>
+            <td><code>npm run build &amp;&amp; npm run start</code></td>
+          </tr>
+          <tr>
+            <td><strong>baseURL</strong></td>
+            <td><code>http://127.0.0.1:4321</code>（Astro preview 既定）</td>
+            <td><code>http://127.0.0.1:4173</code>（Vite preview 既定）</td>
+            <td><code>http://127.0.0.1:3000</code> または <code>$PREVIEW_URL</code></td>
+          </tr>
+          <tr>
+            <td><strong>font 安定化</strong></td>
+            <td>
+              <code
+                >await page.addStyleTag({ content: &#39;* { font-family: sans-serif
+                !important; }&#39; })</code
+              >
+            </td>
+            <td>同左</td>
+            <td>同左 + <code>next/font</code> test env</td>
+          </tr>
+          <tr>
+            <td><strong>動的要素 mask</strong></td>
+            <td>日付、A8/VC バナー</td>
+            <td>analytics バナー</td>
+            <td>同上 + Vercel Toolbar</td>
+          </tr>
+          <tr>
+            <td><strong>CI workers</strong></td>
+            <td>2（並列可）</td>
+            <td>1（networkidle 安定性）</td>
+            <td>1（visual 時）</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h2>参照</h2>
+      <ul>
+        <li>
+          <a href="./e2e-publish-check-design.md">e2e-publish-check-design.md</a> — 機能
+          E2E（P0/P1）
+        </li>
+        <li>
+          <a href="./article-ui-v2-design.md">article-ui-v2-design.md</a> — 記事 UI
+          コンポーネント
+        </li>
+        <li>
+          <a href="./vercel-deploy.md">vercel-deploy.md</a> — Preview / 本番デプロイ
+        </li>
+        <li>
+          <a href="https://playwright.dev/docs/test-snapshots"
+            >Playwright visual comparisons</a
+          >
+        </li>
+        <li>
+          <a href="https://nextjs.org/docs/app/guides/testing/playwright"
+            >Next.js Playwright guide</a
+          >
+        </li>
+        <li><a href="https://www.chromatic.com/docs/nextjs">Chromatic for Next.js</a></li>
+      </ul>
+      <hr />
+      <h2>承認</h2>
+      <p>実装に進む場合は、以下の文言で承認してください。</p>
+      <blockquote>
+        <p><strong>I agree with the design. Please start implementation.</strong></p>
+      </blockquote>
+    </main>
+    <footer>blog-affiliate-pipeline docs — visual-regression-design.md</footer>
+  </body>
+</html>

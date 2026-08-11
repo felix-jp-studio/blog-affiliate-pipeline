@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Markdown Git 公開 E2E チェック設計 — 設計書</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #0f1419;
+        --card: #1a2332;
+        --text: #e7ecf3;
+        --muted: #9fb0c3;
+        --accent: #5b9fd4;
+        --border: #2a3544;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f8fb;
+          --card: #fff;
+          --text: #1a2332;
+          --muted: #5a6b7d;
+          --accent: #2563eb;
+          --border: #d8e0ea;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+        line-height: 1.65;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+      }
+      header,
+      main,
+      footer {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+      header {
+        padding-top: 2.5rem;
+        padding-bottom: 1rem;
+      }
+      header h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1.75rem;
+      }
+      header p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+      main {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem 1.75rem;
+        margin-bottom: 2rem;
+      }
+      main h2 {
+        font-size: 1.2rem;
+        color: var(--accent);
+        margin-top: 2rem;
+      }
+      main h2:first-child {
+        margin-top: 0;
+      }
+      main h3 {
+        font-size: 1rem;
+        margin-top: 1.25rem;
+      }
+      main h4 {
+        font-size: 0.95rem;
+      }
+      main p,
+      main li {
+        font-size: 0.95rem;
+      }
+      main blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1rem;
+        border-left: 3px solid var(--accent);
+        background: rgba(91, 159, 212, 0.08);
+        color: var(--muted);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+        margin: 1rem 0;
+      }
+      th,
+      td {
+        border: 1px solid var(--border);
+        padding: 0.5rem 0.65rem;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: rgba(91, 159, 212, 0.12);
+      }
+      code {
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 0.85em;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 0.1em 0.35em;
+        border-radius: 4px;
+      }
+      pre {
+        overflow-x: auto;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        font-size: 0.85rem;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      pre.diagram,
+      pre.language-mermaid {
+        font-family: ui-monospace, monospace;
+        white-space: pre;
+        font-size: 0.78rem;
+        line-height: 1.4;
+      }
+      ul,
+      ol {
+        padding-left: 1.25rem;
+      }
+      hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 1.5rem 0;
+      }
+      footer {
+        padding-bottom: 2rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      a {
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Markdown Git 公開 E2E チェック設計</h1>
+      <p>blog-affiliate-pipeline / ソース: e2e-publish-check-design.md / HTML 自動生成</p>
+    </header>
+    <main>
+      <p>
+        <strong>対象</strong>: <code>blog-affiliate-pipeline</code>（格安 SIM ×
+        光回線アフィリエイト / sim-hikari-guide.com）<br /><strong>ロードマップ</strong>:
+        Markdown Git 公開 E2E（W4）— draft → <code>site/content</code> → PR → merge →
+        Vercel<br /><strong>ステータス</strong>: 設計提案（未実装）<br /><strong
+          >作成日</strong
+        >: 2026-07-19
+      </p>
+      <hr />
+      <h2>現状サマリー（コードベース調査）</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>領域</th>
+            <th>現状</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>記事生成</td>
+            <td>
+              <code>packages/generator</code>（Python）— template / Groq、<code
+                >publish_schedule.py</code
+              >
+              で定期公開
+            </td>
+          </tr>
+          <tr>
+            <td>出力先</td>
+            <td><code>site/src/content/articles/*.md</code></td>
+          </tr>
+          <tr>
+            <td>サイト</td>
+            <td>
+              Astro 5 + <code>@astrojs/sitemap</code>、<code
+                >site: https://sim-hikari-guide.com</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>単体テスト</td>
+            <td>
+              Vitest（<code>packages/publisher</code>）、Python
+              unittest（<code>packages/generator/tests</code>）
+            </td>
+          </tr>
+          <tr>
+            <td>CI</td>
+            <td>
+              <code>.github/workflows/ci.yml</code> — format / test / generator test /
+              site build
+            </td>
+          </tr>
+          <tr>
+            <td>定期 WF</td>
+            <td>
+              <code>.github/workflows/scheduled-articles.yml</code> — 生成 → validate → PR
+            </td>
+          </tr>
+          <tr>
+            <td>Playwright</td>
+            <td>
+              <strong>未導入</strong>（兄弟リポ <code>article-auto-post</code> のみ X
+              投稿自動化で使用）
+            </td>
+          </tr>
+          <tr>
+            <td>SEO slug</td>
+            <td>
+              <code>assert_seo_slug()</code> が <code>article-p{N}</code> 形式を拒否
+            </td>
+          </tr>
+          <tr>
+            <td>dry-run</td>
+            <td><code>run_publish_scheduled(..., dry_run=True)</code> 実装済み</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h3>1. Requirements clarification（要件整理）</h3>
+      <h4>1.1 検証対象フロー</h4>
+      <pre><code>keywords.seed.csv / batch JSON
+  → generator (template|groq)
+  → site/src/content/articles/{slug}.md
+  → astro build → dist/
+  → git commit → PR → CI green → merge main
+  → Vercel deploy → https://sim-hikari-guide.com/articles/{slug}
+</code></pre>
+      <h4>1.2 E2E チェックが検証すべきこと</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>レイヤ</th>
+            <th>検証内容</th>
+            <th>成功条件</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Local（開発者 / pre-push）</strong></td>
+            <td>記事生成 → ファイル存在 → Astro ビルド → slug SEO 妥当性</td>
+            <td>生成 MD が schema 準拠、ビルド成功、<code>article-p\d+</code> 不在</td>
+          </tr>
+          <tr>
+            <td><strong>CI（PR / push to main）</strong></td>
+            <td>format / test / build</td>
+            <td>
+              既存 <code>ci.yml</code> と同等以上。記事 diff がある PR は site build 必須
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Post-deploy（本番反映後）</strong></td>
+            <td>本番 URL 200、sitemap 掲載、OG meta、アフィリエイトリンク</td>
+            <td>
+              HTTP 200、<code>&lt;meta property=&quot;og:*&quot;&gt;</code>
+              存在、比較記事に A8/VC リンク
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Scheduled workflow dry-run</strong></td>
+            <td>定期 WF が誤生成しないこと</td>
+            <td>
+              <code>--dry-run</code> で keywords のみ返却、queue 未更新、ファイル未生成
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>1.3 スコープ外（本設計では E2E に含めない）</h4>
+      <ul>
+        <li>Groq 生成品質の LLM 評価（別途 quality gate の単体テストで担保）</li>
+        <li>料金数値の正確性（人手レビュー＋将来 scraper）</li>
+        <li>
+          WordPress 投稿パス（<code>packages/publisher</code> の WP 連携は Markdown Git
+          公開の E2E 外）
+        </li>
+        <li>ブラウザでの視覚的回帰（P2 候補）</li>
+      </ul>
+      <h4>1.4 未確定事項（実装前に確認）</h4>
+      <ol>
+        <li>
+          Post-deploy チェックのトリガー: Vercel Deploy Hook /
+          <code>repository_dispatch</code> / 定期 cron のどれを採用するか
+        </li>
+        <li>本番 smoke の対象 slug: 固定 fixture 1 本 vs 直近マージ PR から動的取得</li>
+        <li>
+          <code>GROQ_API_KEY</code> 有無での CI 分岐（template 固定 vs optional
+          integration）
+        </li>
+      </ol>
+      <hr />
+      <h3>2. Component design（コンポーネント設計）</h3>
+      <h4>2.1 推奨ツール選定</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>方式</th>
+            <th>適合度</th>
+            <th>理由</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Vitest + Python unittest + Node 検証スクリプト</strong></td>
+            <td>★★★ 推奨（P0）</td>
+            <td>
+              既存慣習と一致。<code>dist/</code> HTML / sitemap XML を Node で解析可能。CI
+              追加コスト最小
+            </td>
+          </tr>
+          <tr>
+            <td><strong>gh + curl + 軽量 Node パーサ</strong></td>
+            <td>★★☆ 推奨（P1 post-deploy）</td>
+            <td>本番 URL の HTTP / meta 確認に十分。Playwright 不要</td>
+          </tr>
+          <tr>
+            <td><strong>Playwright</strong></td>
+            <td>★☆☆ P2 のみ</td>
+            <td>
+              静的 Astro サイトでは過剰。JS
+              実行不要のチェックが大半。兄弟リポはブラウザ自動化用途
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>結論</strong>: P0/P1 は
+        <strong>Vitest + unittest + カスタム Node スクリプト + gh/curl</strong
+        >。Playwright は P2（任意の smoke browser テスト）に留める。
+      </p>
+      <h4>2.2 新規モジュール構成（提案）</h4>
+      <pre><code>blog-affiliate-pipeline/
+├── scripts/e2e/
+│   ├── validate-articles.mjs      # MD frontmatter / slug / affiliate パターン
+│   ├── validate-dist.mjs          # dist HTML: og, canonical, json-ld
+│   ├── validate-sitemap.mjs       # sitemap-*.xml に slug 存在
+│   ├── smoke-production.mjs       # 本番 URL チェック（curl fetch + cheerio）
+│   └── run-local-e2e.sh           # ローカル一括: generate → validate → build → validate-dist
+├── packages/generator/tests/
+│   └── test_e2e_publish.py        # 生成→ファイル→quality→slug の統合（temp dir）
+├── site/tests/                    # 新設（任意）
+│   └── build-output.test.mjs      # vitest で dist 検証を CI から呼ぶ
+└── .github/workflows/
+    ├── ci.yml                     # 拡張: article diff 時 validate-articles
+    ├── scheduled-articles.yml     # 拡張: dry-run ジョブ追加
+    └── post-deploy-smoke.yml      # 新規: main push / workflow_dispatch
+</code></pre>
+      <h4>2.3 スクリプト責務</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>モジュール</th>
+            <th>入力</th>
+            <th>検証</th>
+            <th>実行タイミング</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>validate-articles.mjs</code></td>
+            <td><code>site/src/content/articles/*.md</code></td>
+            <td>
+              frontmatter 必須項目、<code>draft: false</code>、slug 正規表現、禁止
+              slug、affiliate URL 形式
+            </td>
+            <td>CI / local</td>
+          </tr>
+          <tr>
+            <td><code>validate-dist.mjs</code></td>
+            <td><code>site/dist/articles/{slug}/index.html</code></td>
+            <td>
+              <code>&lt;title&gt;</code>, <code>og:title</code>, <code>og:image</code>,
+              <code>og:url</code>, Article JSON-LD
+            </td>
+            <td>CI（build 後）/ local</td>
+          </tr>
+          <tr>
+            <td><code>validate-sitemap.mjs</code></td>
+            <td><code>site/dist/sitemap*.xml</code></td>
+            <td>全公開 slug が <code>&lt;loc&gt;</code> に含まれる</td>
+            <td>CI / post-deploy</td>
+          </tr>
+          <tr>
+            <td><code>smoke-production.mjs</code></td>
+            <td><code>E2E_SMOKE_SLUGS</code> env</td>
+            <td><code>GET /articles/{slug}</code> → 200、meta、affiliate href</td>
+            <td>post-deploy</td>
+          </tr>
+          <tr>
+            <td><code>run-local-e2e.sh</code></td>
+            <td><code>--mode template</code></td>
+            <td>上記を順次実行、exit code 集約</td>
+            <td>開発者手動</td>
+          </tr>
+          <tr>
+            <td><code>test_e2e_publish.py</code></td>
+            <td>temp workspace + fixture seed</td>
+            <td>
+              <code>generate_one</code> → ファイル → <code>check_article</code> →
+              <code>assert_seo_slug</code>
+            </td>
+            <td><code>npm test</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>2.4 GitHub Actions ジョブ設計</h4>
+      <p>
+        <strong>A. <code>ci.yml</code> 拡張（P0）</strong>
+      </p>
+      <pre><code class="language-yaml"># PR で site/src/content/articles/** が変わった場合のみ追加
+- name: Validate article markdown
+  if: ...paths filter...
+  run: node scripts/e2e/validate-articles.mjs
+
+- name: Validate build output
+  working-directory: site
+  run: |
+    npm run build
+    node ../scripts/e2e/validate-dist.mjs
+    node ../scripts/e2e/validate-sitemap.mjs
+</code></pre>
+      <p>
+        <strong
+          >B. <code>scheduled-articles-dry-run.yml</code> または scheduled
+          内ステップ（P0）</strong
+        >
+      </p>
+      <pre><code class="language-yaml">- name: Dry-run scheduled publish
+  run: |
+    PYTHONPATH=packages/generator python3 -m generator publish-scheduled --dry-run --force
+  # 期待: exit 0, keywords 出力, git diff なし（queue / articles 未変更）
+</code></pre>
+      <p>
+        <strong>C. <code>post-deploy-smoke.yml</code>（P1）</strong>
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>トリガ</th>
+            <th>
+              <code>workflow_dispatch</code> + <code>push</code> to
+              <code>main</code>（paths: <code>site/**</code>）
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>env</td>
+            <td>
+              <code>PRODUCTION_URL=https://sim-hikari-guide.com</code>,
+              <code>E2E_SMOKE_SLUGS=sim-20gb-osusume,...</code>
+            </td>
+          </tr>
+          <tr>
+            <td>steps</td>
+            <td>checkout → <code>node scripts/e2e/smoke-production.mjs</code></td>
+          </tr>
+          <tr>
+            <td>失敗時</td>
+            <td>GitHub Actions summary + optional issue comment</td>
+          </tr>
+        </tbody>
+      </table>
+      <p><strong>D. 既存 auto-merge ワークフロー</strong></p>
+      <ul>
+        <li>
+          設計書 PR: <code>docs/**</code> only → <code>design-docs-auto-merge.yml</code>
+        </li>
+        <li>
+          記事公開 PR: <code>article-publish</code> ラベル /
+          <code>scheduled/articles-*</code> → <code>articles-auto-merge.yml</code>
+        </li>
+      </ul>
+      <h4>2.5 npm scripts（提案）</h4>
+      <pre><code class="language-json">{
+  &quot;test:e2e:local&quot;: &quot;bash scripts/e2e/run-local-e2e.sh --mode template&quot;,
+  &quot;test:e2e:articles&quot;: &quot;node scripts/e2e/validate-articles.mjs&quot;,
+  &quot;test:e2e:dist&quot;: &quot;node scripts/e2e/validate-dist.mjs &amp;&amp; node scripts/e2e/validate-sitemap.mjs&quot;,
+  &quot;test:e2e:smoke&quot;: &quot;node scripts/e2e/smoke-production.mjs&quot;
+}
+</code></pre>
+      <hr />
+      <h3>3. Data design（データ設計）</h3>
+      <h4>3.1 設定ファイル</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>ファイル</th>
+            <th>用途</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>config/e2e-smoke.json</code></td>
+            <td>本番 smoke 対象 slug、期待 status、必須 meta キー</td>
+          </tr>
+          <tr>
+            <td><code>config/test-batch.json</code></td>
+            <td>ローカル E2E 用固定 5 KW（既存・審査用）</td>
+          </tr>
+          <tr>
+            <td><code>config/publish-schedule.json</code></td>
+            <td>定期公開設定（既存）</td>
+          </tr>
+          <tr>
+            <td><code>config/quality-thresholds.json</code></td>
+            <td>品質ゲート閾値（既存）</td>
+          </tr>
+          <tr>
+            <td><code>data/keywords.seed.csv</code></td>
+            <td>定期キュー seed（既存）</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong><code>config/e2e-smoke.json</code> 案</strong>
+      </p>
+      <pre><code class="language-json">{
+  &quot;productionUrl&quot;: &quot;https://sim-hikari-guide.com&quot;,
+  &quot;smokeSlugs&quot;: [&quot;sim-20gb-osusume&quot;, &quot;hikari-mansion-osusume&quot;],
+  &quot;requiredOgTags&quot;: [&quot;og:title&quot;, &quot;og:description&quot;, &quot;og:image&quot;, &quot;og:url&quot;],
+  &quot;affiliatePatterns&quot;: [&quot;px\\.a8\\.net&quot;, &quot;valuecommerce\\.com&quot;],
+  &quot;articlesRequiringAffiliate&quot;: [&quot;sim-20gb-osusume&quot;]
+}
+</code></pre>
+      <h4>3.2 Fixture / テストデータ</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Fixture</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>packages/generator/tests/fixtures/e2e-mini-seed.csv</code></td>
+            <td>1 KW のみ（template 生成用）</td>
+          </tr>
+          <tr>
+            <td><code>packages/generator/tests/fixtures/e2e-schedule.json</code></td>
+            <td>
+              <code>articles_per_run: 1</code>, <code>generation_mode: template</code>
+            </td>
+          </tr>
+          <tr>
+            <td>temp dir 記事</td>
+            <td>各テストで <code>TemporaryDirectory</code>、リポジトリ本体を汚さない</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>3.3 状態・出力</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>パス</th>
+            <th>E2E での扱い</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>state/publish-queue.json</code></td>
+            <td>dry-run では<strong>変更しない</strong>ことを assert</td>
+          </tr>
+          <tr>
+            <td><code>state/generate-state.json</code></td>
+            <td>ローカル E2E では gitignore または reset</td>
+          </tr>
+          <tr>
+            <td><code>site/dist/</code></td>
+            <td>build 後検証の入力。CI artifact 化（任意）</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>3.4 Secrets / env</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>変数</th>
+            <th>用途</th>
+            <th>必須</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>GROQ_API_KEY</code></td>
+            <td>Groq 生成（scheduled WF）</td>
+            <td>定期生成時のみ</td>
+          </tr>
+          <tr>
+            <td><code>PRODUCTION_URL</code></td>
+            <td>smoke ベース URL</td>
+            <td>post-deploy</td>
+          </tr>
+          <tr>
+            <td><code>E2E_SMOKE_SLUGS</code></td>
+            <td>カンマ区切り slug override</td>
+            <td>optional</td>
+          </tr>
+          <tr>
+            <td><code>GITHUB_TOKEN</code></td>
+            <td>gh pr / workflow</td>
+            <td>CI 標準</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h3>4. Concerns（懸念事項）</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>懸念</th>
+            <th>影響</th>
+            <th>対策</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Flaky 本番 smoke</strong></td>
+            <td>Vercel CDN 反映遅延で 404</td>
+            <td>merge 後 2–5 分 retry（exponential backoff、最大 5 回）</td>
+          </tr>
+          <tr>
+            <td><strong>Groq API レート / 障害</strong></td>
+            <td>scheduled WF 失敗</td>
+            <td>CI E2E は template 固定。Groq は optional nightly</td>
+          </tr>
+          <tr>
+            <td><strong>slug 衝突</strong></td>
+            <td>ビルド失敗</td>
+            <td>
+              生成前 <code>get_published_slugs</code> +
+              <code>assert_seo_slug</code>（既存）を E2E でも検証
+            </td>
+          </tr>
+          <tr>
+            <td><strong>secrets 混入 PR</strong></td>
+            <td>セキュリティ</td>
+            <td>validate-articles で API key パターン grep（任意 P1）</td>
+          </tr>
+          <tr>
+            <td><strong>CI 時間増</strong></td>
+            <td>PR フィードバック遅延</td>
+            <td>paths filter で記事変更時のみ dist 検証</td>
+          </tr>
+          <tr>
+            <td><strong>sitemap 遅延</strong></td>
+            <td>新記事が sitemap に未反映</td>
+            <td>
+              dist 検証は build 直後。sitemap は Astro integration が全 static path を出力
+            </td>
+          </tr>
+          <tr>
+            <td><strong>アフィリエイトリンク欠落</strong></td>
+            <td>ASP 審査リスク</td>
+            <td>
+              比較記事 category=sim/hikari で <code>hasAffiliateLinks</code> 相当を MD
+              レベルで assert
+            </td>
+          </tr>
+          <tr>
+            <td><strong>scheduled dry-run と force</strong></td>
+            <td>queue 誤更新</td>
+            <td>
+              dry-run 時は <code>save_queue_state</code> 未呼び出しを unittest で固定
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h3>5. P0 / P1 / P2 優先度</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>優先度</th>
+            <th>項目</th>
+            <th>成果物</th>
+            <th>目安</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>P0</strong></td>
+            <td>記事 MD 検証スクリプト</td>
+            <td><code>scripts/e2e/validate-articles.mjs</code></td>
+            <td>1h</td>
+          </tr>
+          <tr>
+            <td><strong>P0</strong></td>
+            <td>CI build 後 dist / sitemap 検証</td>
+            <td><code>ci.yml</code> 拡張 + <code>validate-dist.mjs</code></td>
+            <td>1h</td>
+          </tr>
+          <tr>
+            <td><strong>P0</strong></td>
+            <td>Python 統合テスト（生成→ファイル→slug）</td>
+            <td><code>test_e2e_publish.py</code></td>
+            <td>1h</td>
+          </tr>
+          <tr>
+            <td><strong>P0</strong></td>
+            <td>scheduled dry-run CI ステップ</td>
+            <td><code>scheduled-articles.yml</code> or 新 workflow</td>
+            <td>30m</td>
+          </tr>
+          <tr>
+            <td><strong>P0</strong></td>
+            <td>ローカル一括 <code>npm run test:e2e:local</code></td>
+            <td><code>run-local-e2e.sh</code></td>
+            <td>30m</td>
+          </tr>
+          <tr>
+            <td><strong>P1</strong></td>
+            <td>本番 smoke workflow</td>
+            <td>
+              <code>post-deploy-smoke.yml</code> + <code>smoke-production.mjs</code>
+            </td>
+            <td>1.5h</td>
+          </tr>
+          <tr>
+            <td><strong>P1</strong></td>
+            <td><code>config/e2e-smoke.json</code> 外部化</td>
+            <td>設定 + ドキュメント</td>
+            <td>30m</td>
+          </tr>
+          <tr>
+            <td><strong>P1</strong></td>
+            <td>PR diff から smoke slug 自動抽出</td>
+            <td>gh API で変更 slug 取得</td>
+            <td>1h</td>
+          </tr>
+          <tr>
+            <td><strong>P2</strong></td>
+            <td>Playwright smoke（任意）</td>
+            <td><code>@playwright/test</code> 1 spec</td>
+            <td>2h</td>
+          </tr>
+          <tr>
+            <td><strong>P2</strong></td>
+            <td>CI artifact（dist HTML）保存</td>
+            <td>debug 用</td>
+            <td>30m</td>
+          </tr>
+          <tr>
+            <td><strong>P2</strong></td>
+            <td>Lighthouse CI / Core Web Vitals</td>
+            <td>性能回帰</td>
+            <td>別タスク</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>W4 最小完了定義（P0 のみ）</strong>: ローカルで template 1 本生成 →
+        validate → build → dist 検証が通り、CI で同等チェックが PR 上で green。
+      </p>
+      <hr />
+      <h3>6. mermaid flow diagram</h3>
+      <pre class="diagram">
+flowchart TB
+  subgraph Local[&quot;Local E2E (developer)&quot;]
+    L1[&quot;npm run generate:template / test-batch&quot;]
+    L2[&quot;validate-articles.mjs&quot;]
+    L3[&quot;cd site &amp;&amp; npm run build&quot;]
+    L4[&quot;validate-dist.mjs + validate-sitemap.mjs&quot;]
+    L1 --&gt; L2 --&gt; L3 --&gt; L4
+  end
+
+  subgraph CI[&quot;CI (pull_request / push main)&quot;]
+    C1[&quot;prettier --check&quot;]
+    C2[&quot;npm test (vitest + unittest)&quot;]
+    C3[&quot;validate-articles.mjs (if articles changed)&quot;]
+    C4[&quot;site build&quot;]
+    C5[&quot;validate-dist + sitemap&quot;]
+    C1 --&gt; C2 --&gt; C3 --&gt; C4 --&gt; C5
+  end
+
+  subgraph Scheduled[&quot;Scheduled workflow&quot;]
+    S1[&quot;publish-scheduled --dry-run (CI only)&quot;]
+    S2[&quot;publish-scheduled (Mon/Thu)&quot;]
+    S3[&quot;format + validate + build&quot;]
+    S4[&quot;Create PR scheduled/articles-YYYY-MM-DD&quot;]
+    S1 -.-&gt;|&quot;no file write&quot;| S2
+    S2 --&gt; S3 --&gt; S4
+  end
+
+  subgraph Human[&quot;Human gate&quot;]
+    H1[&quot;Review PR&quot;]
+    H2[&quot;Merge to main&quot;]
+    S4 --&gt; H1 --&gt; H2
+  end
+
+  subgraph Deploy[&quot;Vercel&quot;]
+    V1[&quot;Git push main&quot;]
+    V2[&quot;Astro build + deploy&quot;]
+    H2 --&gt; V1 --&gt; V2
+  end
+
+  subgraph PostDeploy[&quot;Post-deploy smoke (P1)&quot;]
+    P1[&quot;smoke-production.mjs&quot;]
+    P2[&quot;GET /articles/{slug} 200&quot;]
+    P3[&quot;og meta + affiliate links&quot;]
+    P4[&quot;sitemap contains slug&quot;]
+    V2 --&gt; P1 --&gt; P2 --&gt; P3 --&gt; P4
+  end
+
+  L4 -.-&gt;|&quot;git push / PR&quot;| CI
+  C5 -.-&gt;|&quot;merge&quot;| Deploy</pre>
+      <hr />
+      <h2>参照</h2>
+      <ul>
+        <li><a href="./article-generation-design.md">article-generation-design.md</a></li>
+        <li><a href="./article-publish-schedule.md">article-publish-schedule.md</a></li>
+        <li><a href="./pipeline-flow.md">pipeline-flow.md</a></li>
+        <li><a href="./vercel-deploy.md">vercel-deploy.md</a></li>
+        <li>
+          <code>.github/workflows/ci.yml</code>, <code>scheduled-articles.yml</code>
+        </li>
+      </ul>
+      <hr />
+      <h2>承認</h2>
+      <p>実装に進む場合は、以下の文言で承認してください。</p>
+      <blockquote>
+        <p><strong>I agree with the design. Please start implementation.</strong></p>
+      </blockquote>
+    </main>
+    <footer>blog-affiliate-pipeline docs — e2e-publish-check-design.md</footer>
+  </body>
+</html>

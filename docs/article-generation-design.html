@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>テスト記事自動生成 — 設計 — 設計書</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #0f1419;
+        --card: #1a2332;
+        --text: #e7ecf3;
+        --muted: #9fb0c3;
+        --accent: #5b9fd4;
+        --border: #2a3544;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f8fb;
+          --card: #fff;
+          --text: #1a2332;
+          --muted: #5a6b7d;
+          --accent: #2563eb;
+          --border: #d8e0ea;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+        line-height: 1.65;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+      }
+      header,
+      main,
+      footer {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+      header {
+        padding-top: 2.5rem;
+        padding-bottom: 1rem;
+      }
+      header h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1.75rem;
+      }
+      header p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+      main {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem 1.75rem;
+        margin-bottom: 2rem;
+      }
+      main h2 {
+        font-size: 1.2rem;
+        color: var(--accent);
+        margin-top: 2rem;
+      }
+      main h2:first-child {
+        margin-top: 0;
+      }
+      main h3 {
+        font-size: 1rem;
+        margin-top: 1.25rem;
+      }
+      main h4 {
+        font-size: 0.95rem;
+      }
+      main p,
+      main li {
+        font-size: 0.95rem;
+      }
+      main blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1rem;
+        border-left: 3px solid var(--accent);
+        background: rgba(91, 159, 212, 0.08);
+        color: var(--muted);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+        margin: 1rem 0;
+      }
+      th,
+      td {
+        border: 1px solid var(--border);
+        padding: 0.5rem 0.65rem;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: rgba(91, 159, 212, 0.12);
+      }
+      code {
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 0.85em;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 0.1em 0.35em;
+        border-radius: 4px;
+      }
+      pre {
+        overflow-x: auto;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        font-size: 0.85rem;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      pre.diagram,
+      pre.language-mermaid {
+        font-family: ui-monospace, monospace;
+        white-space: pre;
+        font-size: 0.78rem;
+        line-height: 1.4;
+      }
+      ul,
+      ol {
+        padding-left: 1.25rem;
+      }
+      hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 1.5rem 0;
+      }
+      footer {
+        padding-bottom: 2rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      a {
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>テスト記事自動生成 — 設計</h1>
+      <p>
+        blog-affiliate-pipeline / ソース: article-generation-design.md / HTML 自動生成
+      </p>
+    </header>
+    <main>
+      <p>格安 SIM × 光回線メディア向け。KW → 構成 JSON → Markdown → Astro 公開。</p>
+      <h2>フロー</h2>
+      <pre class="diagram">
+flowchart LR
+  A[test-batch.json / keywords.seed.csv] --&gt; B[OutlineGenerator]
+  B --&gt; C[ArticleGenerator]
+  C --&gt; D[QualityGate]
+  D --&gt; E[AffiliateInjector]
+  E --&gt; F[FrontmatterWriter]
+  F --&gt; G[site/src/content/articles/*.md]
+  G --&gt; H[astro build]</pre>
+      <h2>生成モード</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>モード</th>
+            <th>条件</th>
+            <th>用途</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>groq</code></td>
+            <td><code>GROQ_API_KEY</code> あり</td>
+            <td>本番品質の記事生成</td>
+          </tr>
+          <tr>
+            <td><code>template</code></td>
+            <td>API キーなし / <code>--mode template</code></td>
+            <td>CI・オフライン・審査用ドラフト</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>プロンプト</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ファイル</th>
+            <th>用途</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>config/prompts/system-common.md</code></td>
+            <td>全生成共通の役割・禁止事項</td>
+          </tr>
+          <tr>
+            <td><code>config/prompts/outline-sim.md</code></td>
+            <td>構成 JSON</td>
+          </tr>
+          <tr>
+            <td><code>config/prompts/article-sim.md</code></td>
+            <td>比較記事本文</td>
+          </tr>
+          <tr>
+            <td><code>config/prompts/article-howto.md</code></td>
+            <td>手順記事本文</td>
+          </tr>
+          <tr>
+            <td><code>config/prompts/article-troubleshoot.md</code></td>
+            <td>お困り系本文</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>CLI</h2>
+      <pre><code class="language-bash"># テストバッチ 5 本（API キーがあれば Groq、なければ template）
+npm run generate:test
+
+# 明示指定
+python3 -m generator run --batch config/test-batch.json --mode template
+python3 -m generator run --batch config/test-batch.json --mode groq
+</code></pre>
+      <h2>出力 frontmatter</h2>
+      <pre><code class="language-yaml">---
+title: string
+description: string
+pubDate: ISO date
+category: sim | hikari | trouble
+articleType: comparison | howto | troubleshoot
+keyword: string
+draft: false
+---
+</code></pre>
+      <h2>品質ゲート</h2>
+      <p><code>config/quality-thresholds.json</code> を参照。</p>
+      <ul>
+        <li>文字数 4,000〜8,000（テストは 3,500 下限を許容）</li>
+        <li>禁止語なし</li>
+        <li>公式時点表記または「要公式確認」</li>
+        <li>AI 開示フッター必須</li>
+      </ul>
+      <h2>初回テストバッチ</h2>
+      <p><code>config/test-batch.json</code> — 5 本固定（もしも審査・A8 再申請用）。</p>
+    </main>
+    <footer>blog-affiliate-pipeline docs — article-generation-design.md</footer>
+  </body>
+</html>
