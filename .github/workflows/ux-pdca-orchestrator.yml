@@ -1,0 +1,123 @@
+name: UX PDCA orchestrator
+
+# Check → Plan → Act for UI/UX improvements (Wed 10:00 JST).
+on:
+  schedule:
+    - cron: "0 1 * * 3"
+  workflow_dispatch:
+    inputs:
+      skip_act:
+        description: "Plan only (skip Act)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: ux-pdca-orchestrator
+  cancel-in-progress: false
+
+jobs:
+  orchestrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check — collect UX metrics
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/ux-pdca/collect-ux-metrics.mjs --update-state
+
+      - name: Plan — next UX cycle
+        id: plan
+        run: |
+          set +e
+          node scripts/ux-pdca/plan-ux-cycle.mjs
+          CODE=$?
+          set -e
+          if [ "$CODE" -eq 3 ]; then
+            echo "escalate=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "$CODE" -eq 2 ]; then
+            echo "paused=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "$CODE" -ne 0 ]; then
+            exit "$CODE"
+          fi
+          EXEC=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/ux-cycle-brief.json','utf8')).execution)")
+          CYCLE=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/ux-cycle-brief.json','utf8')).cycleNumber)")
+          echo "execution=$EXEC" >> "$GITHUB_OUTPUT"
+          echo "cycle=$CYCLE" >> "$GITHUB_OUTPUT"
+
+      - name: Create escalation issue
+        if: steps.plan.outputs.escalate == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --repo "${{ github.repository }}" \
+            --title "UX PDCA: backlog empty or plan failed" \
+            --label "ux-pdca-auto" \
+            --body "Plan escalation. See \`config/ux-backlog.json\` and \`config/ux-pdca-state.json\`." || true
+
+      - name: Stop when paused or plan-only
+        if: >
+          steps.plan.outputs.paused == 'true' ||
+          inputs.skip_act == true ||
+          steps.plan.outputs.cycle == ''
+        run: echo "Skipping Act phase."
+
+      - name: Act — script path (prettier fixes)
+        if: >
+          steps.plan.outputs.paused != 'true' &&
+          inputs.skip_act != true &&
+          steps.plan.outputs.execution == 'script'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          CYCLE="${{ steps.plan.outputs.cycle }}"
+          BRANCH="feature/ux-pdca-${CYCLE}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          node scripts/ux-pdca/run-ux-fixes.mjs
+          git add site/
+          git diff --staged --quiet && { echo "No changes"; exit 1; }
+          git commit -m "UX PDCA Cycle ${CYCLE} (script fixes)"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --repo "${{ github.repository }}" \
+            --head "$BRANCH" \
+            --base main \
+            --title "UX PDCA Cycle ${CYCLE}" \
+            --label "ux-pdca-auto" \
+            --body "Automated UX PDCA script cycle. Brief: \`data/ux-cycle-brief.json\`"
+
+      - name: Act — agent path (create Issue)
+        if: >
+          steps.plan.outputs.paused != 'true' &&
+          inputs.skip_act != true &&
+          steps.plan.outputs.execution == 'agent'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/ux-pdca/create-ux-agent-issue.mjs

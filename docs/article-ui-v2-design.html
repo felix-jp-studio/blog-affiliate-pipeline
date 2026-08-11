@@ -1,0 +1,1401 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>sim-hikari-guide.com Article UI v2 設計提案書 — 設計書</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #0f1419;
+        --card: #1a2332;
+        --text: #e7ecf3;
+        --muted: #9fb0c3;
+        --accent: #5b9fd4;
+        --border: #2a3544;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f8fb;
+          --card: #fff;
+          --text: #1a2332;
+          --muted: #5a6b7d;
+          --accent: #2563eb;
+          --border: #d8e0ea;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+        line-height: 1.65;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+      }
+      header,
+      main,
+      footer {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+      header {
+        padding-top: 2.5rem;
+        padding-bottom: 1rem;
+      }
+      header h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1.75rem;
+      }
+      header p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+      main {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem 1.75rem;
+        margin-bottom: 2rem;
+      }
+      main h2 {
+        font-size: 1.2rem;
+        color: var(--accent);
+        margin-top: 2rem;
+      }
+      main h2:first-child {
+        margin-top: 0;
+      }
+      main h3 {
+        font-size: 1rem;
+        margin-top: 1.25rem;
+      }
+      main h4 {
+        font-size: 0.95rem;
+      }
+      main p,
+      main li {
+        font-size: 0.95rem;
+      }
+      main blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1rem;
+        border-left: 3px solid var(--accent);
+        background: rgba(91, 159, 212, 0.08);
+        color: var(--muted);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+        margin: 1rem 0;
+      }
+      th,
+      td {
+        border: 1px solid var(--border);
+        padding: 0.5rem 0.65rem;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: rgba(91, 159, 212, 0.12);
+      }
+      code {
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 0.85em;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 0.1em 0.35em;
+        border-radius: 4px;
+      }
+      pre {
+        overflow-x: auto;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        font-size: 0.85rem;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      pre.diagram,
+      pre.language-mermaid {
+        font-family: ui-monospace, monospace;
+        white-space: pre;
+        font-size: 0.78rem;
+        line-height: 1.4;
+      }
+      ul,
+      ol {
+        padding-left: 1.25rem;
+      }
+      hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 1.5rem 0;
+      }
+      footer {
+        padding-bottom: 2rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      a {
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>sim-hikari-guide.com Article UI v2 設計提案書</h1>
+      <p>blog-affiliate-pipeline / ソース: article-ui-v2-design.md / HTML 自動生成</p>
+    </header>
+    <main>
+      <blockquote>
+        <p>
+          <strong>ドキュメント運用</strong>: 今後の UI/UX 設計案・技術設計は本リポジトリの
+          <code>docs/</code> ディレクトリに Markdown
+          として保存する。ディレクトリが存在しない場合は作成すること。
+        </p>
+      </blockquote>
+      <h1>sim-hikari-guide.com Article UI v2 設計提案書</h1>
+      <p>
+        <strong>対象</strong>: <code>blog-affiliate-pipeline/site</code>（Astro 静的サイト
+        / sim-hikari-guide.com）<br /><strong>現状</strong>: 15 記事公開、Phase 1 P0
+        UX（パンくず・関連記事・表スクロール・アフィリエイト開示・日本語バッジ）済<br /><strong
+          >目的</strong
+        >: 「白紙に文字」感を解消し、note.com / Qiita
+        相当の読み心地・一覧体験を実現する<br /><strong>ステータス</strong>:
+        設計提案（未実装）<br /><strong>作成日</strong>: 2026-07-19
+      </p>
+      <hr />
+      <h2>0. 現状監査サマリー</h2>
+      <h3>本番 HTML（2026/7/19 時点）</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ページ</th>
+            <th>現状</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>/sim</code></td>
+            <td>
+              H1 + lead +
+              <strong>素の <code>&lt;ul&gt;&lt;li&gt;&lt;a&gt;</code> 11件</strong
+              >。サムネ・日付・抜粋なし
+            </td>
+          </tr>
+          <tr>
+            <td><code>/articles/sim-20gb-osusume/</code></td>
+            <td>
+              バッジ3つ + H1 + 開示 +
+              <strong>960px 全幅の本文</strong>。ヒーロー・TOC・サイドバーなし
+            </td>
+          </tr>
+          <tr>
+            <td><code>/</code></td>
+            <td>3 カテゴリカードのみ。最新記事セクションなし</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>ソースで確認できた実装</h3>
+      <ul>
+        <li>
+          <strong>レイアウト</strong>: <code>BaseLayout.astro</code> — 単一
+          <code>.container</code>（<code>max-width: 960px</code>）、背景
+          <code>#ffffff</code>
+        </li>
+        <li>
+          <strong>記事</strong>: <code>[slug].astro</code> —
+          <code>&lt;article&gt;</code>
+          直置き、スタイルは表・blockquote・アフィリボタンのみ
+        </li>
+        <li>
+          <strong>一覧</strong>: <code>sim.astro</code> / <code>hikari.astro</code> /
+          <code>trouble.astro</code> — 同一パターンの <code>&lt;ul&gt;</code> リスト
+        </li>
+        <li>
+          <strong>トークン</strong>: 6 変数のみ（<code>--text</code>,
+          <code>--muted</code>, <code>--border</code>, <code>--accent</code>,
+          <code>--bg</code>, <code>--surface</code>）
+        </li>
+        <li>
+          <strong>frontmatter</strong>: <code>title</code>, <code>description</code>,
+          <code>pubDate</code>, <code>category</code>, <code>articleType</code>,
+          <code>keyword</code>, <code>draft</code> のみ
+        </li>
+      </ul>
+      <h3>note / Qiita と比較して <strong>欠けているもの</strong></h3>
+      <table>
+        <thead>
+          <tr>
+            <th>要素</th>
+            <th>note</th>
+            <th>Qiita</th>
+            <th>当サイト</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>記事ヒーロー / カバー</td>
+            <td>○</td>
+            <td>△（グラデ背景）</td>
+            <td>✗</td>
+          </tr>
+          <tr>
+            <td>本文 max-width 絞り込み</td>
+            <td>○（~680px）</td>
+            <td>○</td>
+            <td>✗（960px 全幅）</td>
+          </tr>
+          <tr>
+            <td>目次（TOC）</td>
+            <td>○</td>
+            <td>○（sticky）</td>
+            <td>✗</td>
+          </tr>
+          <tr>
+            <td>カード型一覧</td>
+            <td>○</td>
+            <td>○</td>
+            <td>✗</td>
+          </tr>
+          <tr>
+            <td>サムネ / アイキャッチ</td>
+            <td>○</td>
+            <td>△</td>
+            <td>✗</td>
+          </tr>
+          <tr>
+            <td>著者 / 運営者ボックス</td>
+            <td>○</td>
+            <td>○</td>
+            <td>✗</td>
+          </tr>
+          <tr>
+            <td>タグ / カテゴリチップ</td>
+            <td>○</td>
+            <td>○</td>
+            <td>△（バッジのみ）</td>
+          </tr>
+          <tr>
+            <td>読了時間</td>
+            <td>△</td>
+            <td>○</td>
+            <td>✗</td>
+          </tr>
+          <tr>
+            <td>表のリッチスタイル</td>
+            <td>△</td>
+            <td>○</td>
+            <td>△（枠線のみ）</td>
+          </tr>
+          <tr>
+            <td>関連記事カード</td>
+            <td>○</td>
+            <td>○</td>
+            <td>△（テキストリンク）</td>
+          </tr>
+          <tr>
+            <td>OG 画像</td>
+            <td>○</td>
+            <td>○</td>
+            <td>✗（<code>summary</code> のみ）</td>
+          </tr>
+          <tr>
+            <td>ページ背景のレイヤー</td>
+            <td>○（#fafafa 系）</td>
+            <td>○</td>
+            <td>✗（真っ白）</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h2>1. Requirements clarification（要件整理）</h2>
+      <h3>1.1 視覚的課題（ユーザー指摘の具体化）</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>画面</th>
+            <th>現状</th>
+            <th>ユーザー体感</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>記事詳細</strong></td>
+            <td>960px 幅の白背景に h1 → 本文がそのまま流れる</td>
+            <td>「Word の印刷プレビュー」</td>
+          </tr>
+          <tr>
+            <td><strong>カテゴリ一覧</strong> (<code>/sim</code> 等)</td>
+            <td>
+              <code>&lt;ul&gt;&lt;li&gt;&lt;a&gt;タイトル&lt;/a&gt;&lt;/li&gt;</code> のみ
+            </td>
+            <td>「リンク集」</td>
+          </tr>
+          <tr>
+            <td><strong>ホーム</strong></td>
+            <td>3枚のテキストカードのみ、最新記事なし</td>
+            <td>「ランディングページの下書き」</td>
+          </tr>
+          <tr>
+            <td><strong>関連記事</strong></td>
+            <td>タイトル + 日付の縦リスト</td>
+            <td>視覚的区切りが弱い</td>
+          </tr>
+        </tbody>
+      </table>
+      <p><strong>具体的に足りない要素</strong></p>
+      <ul>
+        <li>記事ヘッダー（アイキャッチ / ヒーロー、リード文、読了時間）</li>
+        <li>
+          本文用の<strong>読みやすいタイポグラフィ</strong>（行長・行間・見出し階層）
+        </li>
+        <li><strong>目次（TOC）</strong> — note/Qiita 共通の定番</li>
+        <li>一覧の<strong>カード型レイアウト</strong>（サムネ・概要・メタ情報）</li>
+        <li>記事末尾の<strong>著者/サイト情報ボックス</strong>（信頼感）</li>
+        <li>デスクトップでの<strong>2カラム</strong>（本文 + サイドバー）</li>
+        <li>OGP 画像・JSON-LD（SNSシェア時の見た目）</li>
+      </ul>
+      <p><strong>その他の課題</strong></p>
+      <ul>
+        <li>
+          <strong>ブランド感</strong>: アクセント
+          <code>#0b6bcb</code> とバッジ以外に視覚的アイデンティティがない
+        </li>
+        <li>
+          <strong>信頼 UI</strong>: アフィリエイト開示はあるが、比較表・CTA
+          が本文に埋もれ、編集メディア感が出ない
+        </li>
+      </ul>
+      <h3>1.2 ターゲット体験の方向性</h3>
+      <p>
+        <strong
+          >推奨: note 系エディトリアル × Qiita 系構造化のハイブリッド（note 寄り 60% /
+          Qiita 寄り 40%）</strong
+        >
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>観点</th>
+            <th>理由</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>note 寄り</td>
+            <td>一般消費者向け SIM/光回線ガイド。読みやすさ・余白・信頼感が CV に直結</td>
+          </tr>
+          <tr>
+            <td>Qiita 寄り</td>
+            <td>
+              比較表・手順・FAQ など
+              <strong>構造化コンテンツ</strong>
+              が多い。TOC・表スタイル・メタ情報の明確化を借用
+            </td>
+          </tr>
+          <tr>
+            <td>note 純粋模倣は避ける</td>
+            <td>
+              いいね/フォロー/著者プロフィール演出は不要。アフィリエイト媒体として虚偽著者を作らない
+            </td>
+          </tr>
+          <tr>
+            <td>Qiita 純粋模倣は避ける</td>
+            <td>エンジニア向けダークモード・コードハイライトは本ニッチに過剰</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>キーワード</strong>:
+        「読みやすい比較メディア」「公式確認を促す中立ガイド」
+      </p>
+      <hr />
+      <h2>2. Component design（コンポーネント設計）</h2>
+      <h3>2.1 Design Tokens（<code>src/styles/tokens.css</code> 新設推奨）</h3>
+      <pre><code class="language-css">/* カラー */
+--bg-page: #fafafa; /* ページ背景（note 的な off-white） */
+--bg-article: #ffffff; /* 記事カード / 本文エリア */
+--bg-hero: linear-gradient(135deg, #f0f6ff 0%, #fafafa 100%);
+--text-primary: #1a1a1a;
+--text-secondary: #5c5c5c;
+--text-tertiary: #8a8a8a;
+--accent: #0b6bcb; /* 既存維持 */
+--accent-soft: #e8f2ff;
+--border: #e8e8e8;
+--border-strong: #d0d0d0;
+--shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+--radius-sm: 6px;
+--radius-md: 12px;
+--radius-lg: 16px;
+
+/* カテゴリ色（サムネ placeholder 用） */
+--color-sim: #0b6bcb;
+--color-hikari: #059669;
+--color-trouble: #d97706;
+
+/* タイポグラフィ */
+--font-sans: &quot;Noto Sans JP&quot;, &quot;Hiragino Sans&quot;, sans-serif;
+--font-serif: &quot;Noto Serif JP&quot;, &quot;Hiragino Mincho ProN&quot;, serif; /* H1 のみ */
+--text-body: 1.0625rem; /* 17px */
+--text-lead: 1.125rem; /* 18px */
+--line-body: 1.85;
+--line-heading: 1.4;
+
+/* レイアウト */
+--width-page: 1120px; /* 外枠（サイドバー込み） */
+--width-body: 680px; /* 本文カラム（note 相当） */
+--width-sidebar: 240px;
+--space-section: 3rem;
+--space-block: 1.5rem;
+</code></pre>
+      <p><strong>ページ構造の変更</strong></p>
+      <ul>
+        <li><code>body { background: var(--bg-page); }</code></li>
+        <li>
+          記事エリア: 白カード
+          <code
+            >background: var(--bg-article); border-radius: var(--radius-md); box-shadow:
+            var(--shadow-sm); padding: 2rem 2.5rem;</code
+          >
+        </li>
+        <li>
+          <code>main.container</code> → 一覧は <code>max-width: 1100px</code>、記事は
+          <code>max-width: 1120px</code>（2カラム用）
+        </li>
+      </ul>
+      <hr />
+      <h3>2.2 <code>ArticleDetailLayout.astro</code>（新規レイアウト）</h3>
+      <p><code>[slug].astro</code> から分離。2 カラム（desktop）+ 1 カラム（mobile）。</p>
+      <h4>構成ブロック</h4>
+      <pre><code>┌─────────────────────────────────────────────────┐
+│ Breadcrumbs                                      │
+├─────────────────────────────────────────────────┤
+│ ArticleHero                                      │
+│  - category chip + type chip + date + read time  │
+│  - H1 (serif, 2rem~2.5rem)                       │
+│  - lead excerpt (description)                    │
+│  - optional eyecatch (16:9, max-height 280px)    │
+├─────────────────────────────────────────────────┤
+│ AffiliateDisclosure (既存)                         │
+├──────────────────┬──────────────────────────────┤
+│ ArticleSidebar   │ ArticleBody                   │
+│ (sticky TOC)     │  - prose typography           │
+│  desktop only    │  - tables, lists, blockquote  │
+│                  │  - AffiliateCtaBlock (inline) │
+├──────────────────┴──────────────────────────────┤
+│ SitePublisherBox (運営者情報リンク、著者フェイクなし) │
+├─────────────────────────────────────────────────┤
+│ RelatedArticles (カード化)                         │
+└─────────────────────────────────────────────────┘
+</code></pre>
+      <h4>Props</h4>
+      <pre><code class="language-typescript">type ArticleDetailLayoutProps = {
+  entry: CollectionEntry&lt;&quot;articles&quot;&gt;;
+  breadcrumbs: BreadcrumbItem[];
+  showAffiliateDisclosure: boolean;
+  readingTimeMinutes: number;
+  toc: TocItem[]; // h2/h3 から生成
+  relatedArticles: CollectionEntry&lt;&quot;articles&quot;&gt;[];
+};
+</code></pre>
+      <h4>State</h4>
+      <ul>
+        <li>静的サイトのため <strong>クライアント state なし</strong></li>
+        <li>TOC の sticky は CSS <code>position: sticky; top: 5rem;</code> のみ</li>
+        <li>
+          モバイル TOC は <code>&lt;details&gt;</code> アコーディオン（折りたたみ目次）
+        </li>
+      </ul>
+      <h4>CSS 要点</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>要素</th>
+            <th>指定</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>外枠</td>
+            <td><code>max-width: 1120px; margin: 0 auto; padding: 0 1rem</code></td>
+          </tr>
+          <tr>
+            <td>本文</td>
+            <td><code>max-width: 680px; font-size: 17px; line-height: 1.85</code></td>
+          </tr>
+          <tr>
+            <td>H2</td>
+            <td>
+              <code
+                >font-size: 1.375rem; margin-top: 3rem; padding-bottom: 0.5rem;
+                border-bottom: 2px solid var(--accent-soft)</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>H3</td>
+            <td>
+              <code
+                >font-size: 1.125rem; margin-top: 2rem; color: var(--text-primary)</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>段落</td>
+            <td><code>margin-bottom: 1.25rem</code></td>
+          </tr>
+          <tr>
+            <td>リスト</td>
+            <td><code>padding-left: 1.25rem; li { margin-bottom: 0.5rem }</code></td>
+          </tr>
+          <tr>
+            <td>blockquote</td>
+            <td>
+              既存 +
+              <code
+                >background: #f8fafc; padding: 1rem 1.25rem; border-radius:
+                var(--radius-sm)</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>表 thead</td>
+            <td><code>background: var(--accent-soft); font-weight: 600</code></td>
+          </tr>
+          <tr>
+            <td>表 zebra</td>
+            <td><code>tbody tr:nth-child(even) { background: #fafafa }</code></td>
+          </tr>
+          <tr>
+            <td>表 hover</td>
+            <td><code>tbody tr:hover { background: #f0f6ff }</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h3>2.3 <code>ArticleHero.astro</code>（新規）</h3>
+      <ul>
+        <li>
+          <strong>背景</strong>: <code>var(--bg-hero)</code> 全幅帯（Qiita 的 subtle
+          gradient、高さ auto）
+        </li>
+        <li>
+          <strong>H1</strong>:
+          <code
+            >font-family: var(--font-serif); font-weight: 700; letter-spacing:
+            0.02em</code
+          >
+        </li>
+        <li>
+          <strong>メタバー</strong>: chip 横並び + <code>·</code> 区切りで date /
+          読了時間（例: <code>2026/7/17 · 約8分</code>）
+        </li>
+        <li>
+          <strong>lead</strong>: <code>entry.data.description</code> を hero
+          内に表示（現状 meta description のみ → 視覚化）
+        </li>
+        <li><strong>Eyecatch</strong>: optional。未設定時はグラデーション帯のみ</li>
+      </ul>
+      <h4>Props</h4>
+      <pre><code class="language-typescript">type ArticleHeroProps = {
+  title: string;
+  description: string;
+  category: CategorySlug;
+  articleType: ArticleType;
+  pubDate: Date;
+  readingTimeMinutes: number;
+  eyecatch?: string;
+};
+</code></pre>
+      <hr />
+      <h3>
+        2.4 <code>ArticleToc.astro</code> / <code>TableOfContents.astro</code>（新規）
+      </h3>
+      <ul>
+        <li>h2/h3 からビルド時に生成</li>
+        <li>Desktop: 左または右サイドバーに sticky（<code>top: 5rem</code>）</li>
+        <li>Mobile: 本文直上に <code>&lt;details&gt;</code> 折りたたみ</li>
+        <li>
+          <code>&lt;nav aria-label=&quot;目次&quot;&gt;</code>、見出し id とアンカー連携
+        </li>
+      </ul>
+      <pre><code class="language-typescript">type TocItem = {
+  id: string;
+  text: string;
+  level: 2 | 3;
+};
+</code></pre>
+      <hr />
+      <h3>2.5 <code>ArticleCard.astro</code>（新規）</h3>
+      <p>一覧・関連記事・ホームで共用。</p>
+      <h4>見た目</h4>
+      <pre><code>┌──────────────────────────────┐
+│ [thumbnail 16:9]             │  ← 画像 or カテゴリアイコン placeholder
+│  ┌ 格安SIM ┐  ┌ 比較 ┐       │  ← chips
+│  タイトル（2行 clamp）         │
+│  説明文 excerpt（2行 clamp）  │
+│  2026/7/17 · 約8分            │
+└──────────────────────────────┘
+  hover: shadow-md + translateY(-2px)
+</code></pre>
+      <h4>Props</h4>
+      <pre><code class="language-typescript">type ArticleCardProps = {
+  slug: string;
+  title: string;
+  description: string;
+  pubDate: Date;
+  category: CategorySlug;
+  articleType: ArticleType;
+  readingTimeMinutes?: number;
+  eyecatch?: string; // optional URL
+  variant?: &quot;grid&quot; | &quot;compact&quot; | &quot;horizontal&quot;; // 関連記事は compact/horizontal
+};
+</code></pre>
+      <h4>CSS</h4>
+      <ul>
+        <li>
+          カード:
+          <code
+            >background: #fff; border: 1px solid var(--border); border-radius: 12px;
+            overflow: hidden; transition: box-shadow .2s, transform .2s</code
+          >
+        </li>
+        <li>
+          hover:
+          <code
+            >box-shadow: var(--shadow-md); transform: translateY(-2px); text-decoration:
+            none</code
+          >
+        </li>
+        <li>
+          サムネ placeholder: カテゴリ別グラデーション（sim=青、hikari=緑、trouble=橙）+
+          中央に SVG アイコン
+        </li>
+        <li>
+          グリッド:
+          <code>grid-template-columns: repeat(2, 1fr); gap: 1.25rem</code>（tablet
+          以上）、mobile は 1 列
+        </li>
+      </ul>
+      <p><strong>サムネイル戦略（画像なしでも成立）</strong></p>
+      <ul>
+        <li>
+          カテゴリ色グラデーション + アイコン（SIM/光/困り）の
+          <strong>CSS 生成サムネ</strong>
+        </li>
+        <li>
+          将来 <code>eyecatch</code> frontmatter があれば
+          <code>&lt;img&gt;</code> に差し替え
+        </li>
+        <li>外部ストック写真は使わない（著作権・一貫性のため）</li>
+      </ul>
+      <hr />
+      <h3>2.6 <code>CategoryHub.astro</code>（<code>/sim</code> 等リデザイン）</h3>
+      <p>
+        <code>sim.astro</code> / <code>hikari.astro</code> /
+        <code>trouble.astro</code> を共通コンポーネントに集約。
+      </p>
+      <h4>構成</h4>
+      <pre><code>┌─────────────────────────────────────────┐
+│ Breadcrumbs                              │
+│ CategoryHero                             │
+│  - H1 + category description (拡張 meta) │
+│  - 記事数バッジ「全11件」                  │
+├─────────────────────────────────────────┤
+│ Filter chips（任意 P1）                  │
+│  [すべて] [比較] [手順] [トラブル]        │
+├─────────────────────────────────────────┤
+│ ArticleCardGrid (2列 tablet / 3列 PC)  │
+│  - pubDate 降順                           │
+├─────────────────────────────────────────┤
+│ CategoryGuideBox (optional P2)           │
+│  - 「格安SIMの選び方」固定 3 行テキスト    │
+└─────────────────────────────────────────┘
+</code></pre>
+      <h4>Props</h4>
+      <pre><code class="language-typescript">type CategoryHubProps = {
+  category: CategorySlug;
+  articles: CollectionEntry&lt;&quot;articles&quot;&gt;[];
+};
+</code></pre>
+      <hr />
+      <h3>2.7 Home page refresh（<code>index.astro</code>）</h3>
+      <h4>追加セクション</h4>
+      <ol>
+        <li>
+          <strong>Hero</strong>（既存 H1 強化）— 背景グラデーション帯、リード文 2 行
+        </li>
+        <li>
+          <strong>最新記事</strong> — <code>ArticleCard</code> × 6（全カテゴリ、<code
+            >pubDate</code
+          >
+          降順）
+        </li>
+        <li>
+          <strong>カテゴリ入口</strong> — 既存 3 カードを視覚強化（アイコン + 記事数 +
+          hover）
+        </li>
+        <li>
+          <strong>Trust strip</strong> —
+          「公式情報を参照した中立ガイド」「アフィリエイト開示」1 行
+        </li>
+      </ol>
+      <h4>レイアウト</h4>
+      <ul>
+        <li>Hero: 全幅グラデ、<code>padding: 3rem 0</code></li>
+        <li>最新記事: <code>h2</code> + 2 列グリッド</li>
+        <li>
+          カテゴリ: 3 列（既存 grid 維持、カードに <code>min-height: 180px</code> + CTA
+          ボタンスタイル）
+        </li>
+      </ul>
+      <hr />
+      <h3>2.8 その他コンポーネント</h3>
+      <h4><code>AffiliateCtaBlock</code>（新規、P1/P2）</h4>
+      <ul>
+        <li>
+          インライン <code>.affiliate-link</code> を
+          <strong>カード型 CTA</strong> に昇格（オプション）
+        </li>
+        <li>
+          構成: キャリア名 + 1 行説明 + 「公式サイトで確認」ボタン +
+          <code>rel=&quot;sponsored&quot;</code> 維持
+        </li>
+        <li>背景 <code>#f0f6ff</code>、左ボーダー 4px accent</li>
+      </ul>
+      <h4>
+        <code>SitePublisherBox.astro</code> /
+        <code>AuthorBox.astro</code>（著者ボックス代替）
+      </h4>
+      <ul>
+        <li>
+          <strong>虚偽著者は作らない</strong>。<code>/about</code>
+          へのリンク付き運営者情報
+        </li>
+        <li>
+          文言例:
+          「SIM・光回線ガイド編集部（運営者情報）｜料金は各公式サイトでご確認ください」
+        </li>
+        <li>アイコン: サイト favicon または neutral SVG（人物写真なし）</li>
+      </ul>
+      <h4>
+        <code>BaseLayout</code> / <code>SiteHeader</code> / <code>SiteFooter</code> 改修
+      </h4>
+      <table>
+        <thead>
+          <tr>
+            <th>変更</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Header</td>
+            <td>
+              高さ固定 <code>64px</code>、<code
+                >position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px)</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Nav active</td>
+            <td>現在カテゴリに下線 or 背景ハイライト</td>
+          </tr>
+          <tr>
+            <td>Main</td>
+            <td>
+              記事ページのみ <code>class=&quot;layout-article&quot;</code> で幅
+              1120px、それ以外 960px
+            </td>
+          </tr>
+          <tr>
+            <td>Footer</td>
+            <td>2 カラム（desktop）: 左=リード、右=ナビリンク</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h2>3. Data design（データ設計）</h2>
+      <h3>3.1 frontmatter 拡張（<code>content.config.ts</code>）</h3>
+      <pre><code class="language-typescript">// すべて optional（既存 15 記事は未設定でも動作）
+eyecatch: z.string().optional(),        // &quot;/images/eyecatch/sim-20gb.webp&quot;
+excerpt: z.string().max(160).optional(), // 未設定時は description を流用
+readingTime: z.number().optional(),     // 未設定時は自動計算
+updatedDate: z.coerce.date().optional(),
+featured: z.boolean().default(false),   // ホーム注目（P2）
+</code></pre>
+      <p>
+        <strong>既存 15 記事は変更不要</strong> — <code>description</code> を excerpt
+        として流用。
+      </p>
+      <h3>3.2 自動派生ユーティリティ（<code>src/utils/article-meta.ts</code>）</h3>
+      <pre><code class="language-typescript">// readingTime: body 文字数 / 400（日本語目安）→ 切り上げ
+// excerpt: excerpt ?? description
+// eyecatchUrl: eyecatch ?? getCategoryPlaceholder(category)
+// toc: remark/rehype で h2/h3 抽出 → { id, text, level }[]
+</code></pre>
+      <table>
+        <thead>
+          <tr>
+            <th>派生値</th>
+            <th>算出方法</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>readingMinutes</code></td>
+            <td>本文文字数 ÷ 400（日本語目安）</td>
+          </tr>
+          <tr>
+            <td><code>headings[]</code></td>
+            <td>rehype プラグインで h2/h3 の id + text を抽出</td>
+          </tr>
+          <tr>
+            <td><code>eyecatchFallback</code></td>
+            <td>category → グラデーション CSS class</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>3.3 <code>category-meta.ts</code> 拡張</h3>
+      <pre><code class="language-typescript">type CategoryMeta = {
+  label: string;
+  href: string;
+  description: string; // 既存
+  heroLead: string; // 新規: カテゴリページ lead 文
+  icon: string; // SVG パス or emoji key
+  themeColor: string; // placeholder グラデ用 &quot;#0b6bcb&quot;
+  gradient: string; // &quot;linear-gradient(135deg, #e8f2ff, #dbeafe)&quot;
+  articleCount?: number; // ビルド時算出
+};
+</code></pre>
+      <h3>3.4 OG / SEO 拡張（P1）</h3>
+      <ul>
+        <li><code>og:type: article</code>（記事ページ）</li>
+        <li>
+          <code>og:image</code> — カテゴリ placeholder 画像 or eyecatch（1200×630
+          静的生成は P2）
+        </li>
+        <li><code>article:published_time</code></li>
+        <li>
+          JSON-LD: <code>Article</code> + <code>BreadcrumbList</code> +
+          <code>WebSite</code>
+        </li>
+      </ul>
+      <hr />
+      <h2>4. Concerns（懸念事項）</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>領域</th>
+            <th>懸念</th>
+            <th>対策</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Performance</strong></td>
+            <td>Noto Serif JP 追加で FOIT/FOUT</td>
+            <td><code>font-display: swap</code>、H1 のみ serif、subset woff2</td>
+          </tr>
+          <tr>
+            <td><strong>Performance</strong></td>
+            <td>カード hover transform</td>
+            <td><code>will-change</code> 乱用せず、GPU 負荷は軽微</td>
+          </tr>
+          <tr>
+            <td><strong>Performance</strong></td>
+            <td>外部フォント</td>
+            <td>CSS サムネのみ、JS は TOC の <code>&lt;details&gt;</code> 程度</td>
+          </tr>
+          <tr>
+            <td><strong>a11y</strong></td>
+            <td>カード全体がリンク</td>
+            <td>
+              <code>&lt;a&gt;</code> に
+              <code>aria-label=&quot;{title} の記事を読む&quot;</code>、chip は span
+            </td>
+          </tr>
+          <tr>
+            <td><strong>a11y</strong></td>
+            <td>TOC</td>
+            <td>
+              <code>&lt;nav aria-label=&quot;目次&quot;&gt;</code>、見出し id と連携
+            </td>
+          </tr>
+          <tr>
+            <td><strong>a11y</strong></td>
+            <td>色コントラスト</td>
+            <td>accent on white は WCAG AA 確認（#0b6bcb は OK）</td>
+          </tr>
+          <tr>
+            <td><strong>Affiliate コンプライアンス</strong></td>
+            <td>CTA カード化で宣伝色が強くなる</td>
+            <td>開示を hero 直下に維持、sponsored 属性維持、CTA 文言は「公式で確認」</td>
+          </tr>
+          <tr>
+            <td><strong>著者表示</strong></td>
+            <td>note 的著者ヘッダーの誘惑</td>
+            <td>
+              <strong>SitePublisherBox のみ</strong>。個人名・顔写真・架空編集者は作らない
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Mobile</strong></td>
+            <td>2 列グリッド</td>
+            <td>
+              <code>&lt;768px</code> で 1 列、TOC は折りたたみ、表スクロールは既存維持
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Mobile</strong></td>
+            <td>sticky TOC</td>
+            <td>
+              モバイルでは sticky を使わず <code>&lt;details&gt;</code> で折りたたみ
+            </td>
+          </tr>
+          <tr>
+            <td><strong>コンテンツ負債</strong></td>
+            <td>eyecatch 未整備</td>
+            <td>カテゴリ placeholder で統一、後から差し替え可能に</td>
+          </tr>
+          <tr>
+            <td><strong>ビルド</strong></td>
+            <td>TOC 生成</td>
+            <td>ビルド時静的。JS 不要（Astro 純 CSS）</td>
+          </tr>
+          <tr>
+            <td><strong>長いタイトル</strong></td>
+            <td>カード崩れ</td>
+            <td><code>-webkit-line-clamp: 2</code></td>
+          </tr>
+          <tr>
+            <td><strong>記事量増加</strong></td>
+            <td>一覧の filter</td>
+            <td>カテゴリ filter は P1。P0 は sort by pubDate のみ</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h2>5. Priority &amp; Effort（優先度）</h2>
+      <h3>P0 — 一覧・記事の「白紙感」解消（目安 <strong>2–3 日</strong>）</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>項目</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>P0-1</td>
+            <td>Design tokens + ページ背景</td>
+            <td><code>tokens.css</code>、<code>body bg #fafafa</code></td>
+          </tr>
+          <tr>
+            <td>P0-2</td>
+            <td><code>ArticleCard</code> + CategoryHub グリッド</td>
+            <td>
+              <code>/sim</code> <code>/hikari</code> <code>/trouble</code> を 2 列カード化
+            </td>
+          </tr>
+          <tr>
+            <td>P0-3</td>
+            <td><code>ArticleHero</code> + 本文 typography</td>
+            <td>680px 本文、H1 serif、H2 下線、段落リズム</td>
+          </tr>
+          <tr>
+            <td>P0-4</td>
+            <td>記事白カード化</td>
+            <td>padding + shadow + radius</td>
+          </tr>
+          <tr>
+            <td>P0-5</td>
+            <td><code>readingTime</code> 自動計算</td>
+            <td>frontmatter optional、表示のみ</td>
+          </tr>
+          <tr>
+            <td>P0-6</td>
+            <td>関連記事カード化</td>
+            <td>
+              <code>RelatedArticles</code> →
+              <code>ArticleCard variant=&quot;compact&quot;</code> × 3
+            </td>
+          </tr>
+          <tr>
+            <td>P0-7</td>
+            <td>表スタイル強化</td>
+            <td>thead 背景、zebra、角丸 wrapper</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>P1 — 構造化・信頼 UI（目安 <strong>2 日</strong>）</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>項目</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>P1-1</td>
+            <td>TOC（desktop sticky + mobile accordion）</td>
+            <td>remark プラグイン or ビルド時パース</td>
+          </tr>
+          <tr>
+            <td>P1-2</td>
+            <td><code>SitePublisherBox</code></td>
+            <td>/about リンク、AI 注記統一</td>
+          </tr>
+          <tr>
+            <td>P1-3</td>
+            <td>Home 最新記事セクション</td>
+            <td>ArticleCard × 6</td>
+          </tr>
+          <tr>
+            <td>P1-4</td>
+            <td>Header sticky + nav active</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>P1-5</td>
+            <td>OG <code>article</code> + placeholder og:image</td>
+            <td>カテゴリ別 1 枚</td>
+          </tr>
+          <tr>
+            <td>P1-6</td>
+            <td>JSON-LD（Article, BreadcrumbList）</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>P1-7</td>
+            <td>CategoryHero band + 記事数表示</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>P1-8</td>
+            <td><code>SiteHeader</code> / <code>SiteFooter</code> 分離・強化</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>P2 — 仕上げ・拡張（目安 <strong>2–3 日</strong>）</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>項目</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>P2-1</td>
+            <td>eyecatch 画像パイプライン</td>
+            <td>frontmatter + <code>/public/images/eyecatch/</code></td>
+          </tr>
+          <tr>
+            <td>P2-2</td>
+            <td><code>AffiliateCtaBlock</code> カード化</td>
+            <td>rehype または Markdown コンポーネント</td>
+          </tr>
+          <tr>
+            <td>P2-3</td>
+            <td>CategoryGuideBox</td>
+            <td>カテゴリ固定ガイド文</td>
+          </tr>
+          <tr>
+            <td>P2-4</td>
+            <td>結論サマリ Callout</td>
+            <td>先頭 H2 を <code>.callout-summary</code> で囲む rehype</td>
+          </tr>
+          <tr>
+            <td>P2-5</td>
+            <td>動的 OG 画像生成</td>
+            <td><code>@vercel/og</code> or satori（Vercel デプロイ時）</td>
+          </tr>
+          <tr>
+            <td>P2-6</td>
+            <td>Noto Serif JP self-host</td>
+            <td>Google Fonts or npm package</td>
+          </tr>
+          <tr>
+            <td>P2-7</td>
+            <td>カテゴリ filter chips</td>
+            <td>比較/手順/トラブル</td>
+          </tr>
+          <tr>
+            <td>P2-8</td>
+            <td>ダークモード</td>
+            <td>需要があれば</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h2>6. Wireframes（ワイヤーフレーム）</h2>
+      <h3>6.1 記事ページ（desktop · ASCII）</h3>
+      <pre><code>┌──────────────────────────────────────────────────────────────────┐
+│ [Logo]              格安SIM | 光回線 | お困り系          (sticky) │
+├──────────────────────────────────────────────────────────────────┤
+│  ホーム › 格安SIM › 記事タイトル                                     │
+│                                                                    │
+│  ╔══════════════════════════════════════════════════════════════╗  │
+│  ║ ░░░ gradient hero ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ ║  │
+│  ║  [格安SIM] [比較]  2026/7/17 · 約8分                           ║  │
+│  ║  格安SIM 20GBの選び方と比較ポイント【2026年7月版】  ← serif H1  ║  │
+│  ║  公式情報を参照しながら中立に解説…          ← lead              ║  │
+│  ╚══════════════════════════════════════════════════════════════╝  │
+│  ┌─ アフィリエイト開示 ─────────────────────────────────────────┐  │
+│  │ 当記事にはアフィリエイトリンクが…                              │  │
+│  └──────────────────────────────────────────────────────────────┘  │
+│                                                                    │
+│  ┌─────────┐  ┌──────────────────────────────────────────────┐   │
+│  │ 目次     │  │  ## 結論サマリ                                │   │
+│  │ (sticky) │  │  本文テキスト…（max-width 680px）              │   │
+│  │ · 結論   │  │                                               │   │
+│  │ · 比較   │  │  ## 料金・プラン比較表                         │   │
+│  │ · 向き人 │  │  ┌────────────────────────────┐              │   │
+│  │ · FAQ    │  │  │ thead (accent-soft bg)      │              │   │
+│  │          │  │  │ 楽天 | LINEMO | …           │              │   │
+│  └─────────┘  │  └────────────────────────────┘              │   │
+│               │  [楽天モバイルの公式を見る] ← CTA button        │   │
+│               └──────────────────────────────────────────────┘   │
+│  ┌─ 運営者情報 ────────────────────────────────────────────────┐  │
+│  │ SIM・光回線ガイド │ 運営者情報を見る →                        │  │
+│  └──────────────────────────────────────────────────────────────┘  │
+│  ## 関連記事                                                        │
+│  ┌────────┐ ┌────────┐ ┌────────┐                                  │
+│  │ Card 1 │ │ Card 2 │ │ Card 3 │                                  │
+│  └────────┘ └────────┘ └────────┘                                  │
+└──────────────────────────────────────────────────────────────────┘
+</code></pre>
+      <h3>6.2 カテゴリ一覧 <code>/sim</code>（desktop · ASCII）</h3>
+      <pre><code>┌────────────────────────────────────────────┐
+│ ホーム › 格安SIM                            │
+│                                            │
+│ ╔════════════════════════════════════════╗ │
+│ ║ 格安SIM                    [全11件]    ║ │
+│ ║ 乗り換え・MNP・料金比較…               ║ │
+│ ╚════════════════════════════════════════╝ │
+│                                            │
+│ ┌─────────────┐  ┌─────────────┐          │
+│ │ [thumb]     │  │ [thumb]     │          │
+│ │ chips       │  │ chips       │          │
+│ │ タイトル     │  │ タイトル     │          │
+│ │ 説明…       │  │ 説明…       │          │
+│ │ 7/19 · 8分  │  │ 7/17 · 6分  │          │
+│ └─────────────┘  └─────────────┘          │
+│ ┌─────────────┐  ┌─────────────┐          │
+│ │   …         │  │   …         │          │
+│ └─────────────┘  └─────────────┘          │
+└────────────────────────────────────────────┘
+</code></pre>
+      <h3>6.3 記事詳細ページ構成（mermaid）</h3>
+      <pre class="diagram">
+flowchart TB
+  subgraph page [Page bg #fafafa]
+    H[SiteHeader sticky]
+    BC[Breadcrumbs]
+    subgraph cols [max-width 1120px]
+      subgraph main [Article Card white]
+        EH[ArticleHero gradient + H1 + lead]
+        AD[Affiliate Disclosure]
+        AB[ArticleBody 680px typography]
+      end
+      TOC[Sticky TOC sidebar]
+    end
+    PB[SitePublisherBox]
+    RA[RelatedArticles 3 cards]
+    F[SiteFooter]
+  end
+  H --&gt; BC --&gt; cols
+  main --- TOC
+  cols --&gt; PB --&gt; RA --&gt; F</pre>
+      <h3>6.4 コンポーネント依存（mermaid）</h3>
+      <pre class="diagram">
+flowchart TB
+  subgraph pages [Pages]
+    Index[index.astro]
+    Sim[sim.astro]
+    Slug[&quot;articles/[slug].astro&quot;]
+  end
+
+  subgraph layouts [Layouts]
+    Base[BaseLayout.astro]
+    Article[ArticleDetailLayout.astro]
+  end
+
+  subgraph components [Components]
+    Card[ArticleCard.astro]
+    Hero[ArticleHero.astro]
+    TOC[ArticleToc.astro]
+    Pub[SitePublisherBox.astro]
+    Rel[RelatedArticles.astro]
+    Hub[CategoryHub.astro]
+  end
+
+  subgraph data [Data / Utils]
+    Meta[category-meta.ts]
+    Utils[article-meta.ts]
+    Content[content.config.ts]
+  end
+
+  Index --&gt; Base
+  Index --&gt; Card
+  Sim --&gt; Base
+  Sim --&gt; Hub
+  Hub --&gt; Card
+  Slug --&gt; Article
+  Article --&gt; Base
+  Article --&gt; Hero
+  Article --&gt; TOC
+  Article --&gt; Pub
+  Article --&gt; Rel
+  Rel --&gt; Card
+  Card --&gt; Meta
+  Card --&gt; Utils
+  Hero --&gt; Utils
+  Content --&gt; Utils</pre>
+      <hr />
+      <h2>7. 実装ファイル構成（参考）</h2>
+      <pre><code class="language-text">site/src/
+├── styles/
+│   ├── tokens.css          # 新規
+│   └── prose.css           # 記事本文 typography
+├── layouts/
+│   ├── BaseLayout.astro    # 改修
+│   ├── ArticleDetailLayout.astro  # 新規
+│   └── CategoryHubLayout.astro    # 新規（任意）
+├── components/
+│   ├── ArticleCard.astro   # 新規
+│   ├── ArticleHero.astro   # 新規
+│   ├── ArticleToc.astro    # 新規
+│   ├── ArticleBody.astro   # 新規（typography ラッパー）
+│   ├── CategoryHub.astro   # 新規
+│   ├── SitePublisherBox.astro  # 新規
+│   ├── SiteHeader.astro    # 新規（BaseLayout から分離）
+│   ├── SiteFooter.astro    # 新規
+│   └── RelatedArticles.astro   # 改修
+├── plugins/
+│   └── rehype-headings.ts  # TOC 用 id 付与
+├── utils/
+│   └── article-meta.ts     # 新規（readingTime, excerpt, toc）
+└── pages/
+    ├── index.astro         # 改修
+    ├── sim.astro           # CategoryHub 利用に簡素化
+    ├── hikari.astro
+    ├── trouble.astro
+    └── articles/[slug].astro  # ArticleDetailLayout 利用
+</code></pre>
+      <hr />
+      <h2>8. Before / After イメージ</h2>
+      <p><strong>Before（現状）</strong></p>
+      <ul>
+        <li>記事: 白背景に h1 → テキストが 960px 幅で流れる</li>
+        <li>一覧: 11行の <code>&lt;ul&gt;</code> リンク</li>
+        <li>ホーム: カテゴリ 3 枚のみ</li>
+      </ul>
+      <p><strong>After（P0 完了時）</strong></p>
+      <ul>
+        <li>
+          記事: グレー背景上の白カード、グラデーション Hero、680px
+          の読みやすい本文、表が見やすい、末尾にカード型関連記事
+        </li>
+        <li>一覧: 2 列のカードグリッド（サムネ・概要・日付・読了時間）</li>
+        <li>ホーム: 最新記事セクション（P1）</li>
+      </ul>
+      <p><strong>After（P1 完了時）</strong></p>
+      <ul>
+        <li>記事: sticky TOC、運営者ボックス、OG/JSON-LD</li>
+        <li>ホーム: 最新 6 記事カード、強化された Header/Footer</li>
+      </ul>
+      <hr />
+      <h2>9. Open questions（未決事項）</h2>
+      <p>実装前に方針確認が必要な項目。</p>
+      <h3>Q1. サムネイル: CSS グラデーション vs OG 画像テンプレート</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>選択肢</th>
+            <th>メリット</th>
+            <th>デメリット</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>A. P0 は CSS グラデーション + アイコンのみ</strong>（推奨）</td>
+            <td>実装が早い、著作権リスクなし、一貫性</td>
+            <td>SNS シェア時の OG は別途 P1/P2 で対応</td>
+          </tr>
+          <tr>
+            <td><strong>B. P0 から OG 画像テンプレートも用意</strong></td>
+            <td>SNS 見た目が早く改善</td>
+            <td>工数増、デプロイ環境依存（satori 等）</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>暫定推奨</strong>: A（CSS placeholder）→ P1 でカテゴリ別静的 OG 1 枚 → P2
+        で動的生成
+      </p>
+      <h3>Q2. TOC: sticky サイドバー vs 折りたたみ配置</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>デバイス</th>
+            <th>推奨方針</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Desktop（≥1024px）</td>
+            <td>
+              左または右サイドバーに <strong>sticky TOC</strong>（<code>top: 5rem</code>）
+            </td>
+          </tr>
+          <tr>
+            <td>Tablet（768–1023px）</td>
+            <td>本文直上に <code>&lt;details&gt;</code> 折りたたみ（sticky なし）</td>
+          </tr>
+          <tr>
+            <td>Mobile（&lt;768px）</td>
+            <td>本文直上に <code>&lt;details open&gt;</code> 折りたたみ</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>確認事項</strong>: Desktop で TOC を左サイドバー vs
+        右サイドバーのどちらに置くか（Qiita は左、note は目次なし or
+        上部が多い）。<strong>暫定推奨</strong>: 左サイドバー（本文右寄せで note
+        的な読み幅を確保）。
+      </p>
+      <hr />
+      <h2>10. 承認ゲート</h2>
+      <p>
+        上記設計（<strong
+          >P0: カード一覧 + 記事 typography/hero、P1: TOC + 表 + ホーム刷新、P2:
+          eyecatch/CTA カード</strong
+        >）で問題なければ、次のメッセージで以下を送る。
+      </p>
+      <blockquote>
+        <p><strong>I agree with the design. Please start implementation.</strong></p>
+      </blockquote>
+      <p>
+        実装時は <code>feature/article-ui-v2</code> ブランチで進め、ESLint / Prettier /
+        ビルド確認後に PR を作成する。
+      </p>
+    </main>
+    <footer>blog-affiliate-pipeline docs — article-ui-v2-design.md</footer>
+  </body>
+</html>
