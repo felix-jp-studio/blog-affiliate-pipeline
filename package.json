@@ -61,9 +61,11 @@
     "test:ux-pdca": "node --test scripts/ux-pdca/*.test.mjs",
     "ux:metrics": "node scripts/ux-pdca/collect-ux-metrics.mjs",
     "ux:plan": "node scripts/ux-pdca/plan-ux-cycle.mjs",
+    "docs:design-html": "node scripts/docs/md-design-to-html.mjs",
     "comments:moderate": "npm run comments:moderate --prefix site"
   },
   "devDependencies": {
+    "marked": "^15.0.12",
     "playwright": "^1.61.1",
     "prettier": "^3.5.3"
   }

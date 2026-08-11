@@ -1,0 +1,1100 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Playwright ハイブリッド Visual 実装設計 — 設計書</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #0f1419;
+        --card: #1a2332;
+        --text: #e7ecf3;
+        --muted: #9fb0c3;
+        --accent: #5b9fd4;
+        --border: #2a3544;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f8fb;
+          --card: #fff;
+          --text: #1a2332;
+          --muted: #5a6b7d;
+          --accent: #2563eb;
+          --border: #d8e0ea;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+        line-height: 1.65;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+      }
+      header,
+      main,
+      footer {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+      header {
+        padding-top: 2.5rem;
+        padding-bottom: 1rem;
+      }
+      header h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1.75rem;
+      }
+      header p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+      main {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem 1.75rem;
+        margin-bottom: 2rem;
+      }
+      main h2 {
+        font-size: 1.2rem;
+        color: var(--accent);
+        margin-top: 2rem;
+      }
+      main h2:first-child {
+        margin-top: 0;
+      }
+      main h3 {
+        font-size: 1rem;
+        margin-top: 1.25rem;
+      }
+      main h4 {
+        font-size: 0.95rem;
+      }
+      main p,
+      main li {
+        font-size: 0.95rem;
+      }
+      main blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1rem;
+        border-left: 3px solid var(--accent);
+        background: rgba(91, 159, 212, 0.08);
+        color: var(--muted);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+        margin: 1rem 0;
+      }
+      th,
+      td {
+        border: 1px solid var(--border);
+        padding: 0.5rem 0.65rem;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: rgba(91, 159, 212, 0.12);
+      }
+      code {
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 0.85em;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 0.1em 0.35em;
+        border-radius: 4px;
+      }
+      pre {
+        overflow-x: auto;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        font-size: 0.85rem;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      pre.diagram,
+      pre.language-mermaid {
+        font-family: ui-monospace, monospace;
+        white-space: pre;
+        font-size: 0.78rem;
+        line-height: 1.4;
+      }
+      ul,
+      ol {
+        padding-left: 1.25rem;
+      }
+      hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 1.5rem 0;
+      }
+      footer {
+        padding-bottom: 2rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      a {
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Playwright ハイブリッド Visual 実装設計</h1>
+      <p>
+        blog-affiliate-pipeline / ソース: playwright-visual-implementation-design.md /
+        HTML 自動生成
+      </p>
+    </header>
+    <main>
+      <p>
+        <strong>対象</strong>: <code>blog-affiliate-pipeline</code>（Astro 静的サイト /
+        sim-hikari-guide.com）<br /><strong>関連</strong>:
+        <a href="./e2e-publish-check-design.md">e2e-publish-check-design.md</a>（P0/P1/P2
+        機能 E2E）、<a href="./visual-regression-design.md">visual-regression-design.md</a
+        >（方式選定）、<a href="./visual-regression-operations.md"
+          >visual-regression-operations.md</a
+        >（運用・baseline 更新）<br /><strong>ステータス</strong>: 実装設計（P0 実装済み —
+        <code>feature/playwright-visual-p0</code>）<br /><strong>作成日</strong>:
+        2026-07-19
+      </p>
+      <hr />
+      <h2>1. 目的とスコープ</h2>
+      <h3>1.1 目的</h3>
+      <p>
+        P0〜P2 の Node ベース E2E（MD / dist / 本番 smoke）に加え、<strong
+          >UI レイアウト回帰</strong
+        >と<strong>主要 DOM テキストの決定的スナップショット</strong>を Playwright
+        で検知する。PR レビュー時に「見た目」と「構造テキスト」の両方を diff 可能にする。
+      </p>
+      <h3>1.2 ハイブリッド方式</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>レイヤ</th>
+            <th>Playwright API</th>
+            <th>検知対象</th>
+            <th>baseline 形式</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Visual</strong></td>
+            <td><code>expect(locator).toHaveScreenshot()</code></td>
+            <td>レイアウト・色・余白・コンポーネント配置</td>
+            <td>PNG（<code>*.png</code>）</td>
+          </tr>
+          <tr>
+            <td><strong>Text</strong></td>
+            <td><code>expect(locator).toMatchSnapshot(&#39;*.txt&#39;)</code></td>
+            <td>見出し・本文抜粋・ナビ・フッター等の正規化テキスト</td>
+            <td><code>.txt</code> snapshot</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        Visual はピクセル差分、Text は PR diff で読みやすい行単位差分。同一 spec
+        内で両方を実行し、失敗時は GitHub Actions artifact と PR
+        コメントで原因を切り分ける。
+      </p>
+      <h3>1.3 初期対象ページ（3 URL）</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>URL</th>
+            <th>役割</th>
+            <th>Visual 対象</th>
+            <th>Text 対象</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>/contact</code></td>
+            <td>静的フォームページ（env 依存メッセージあり）</td>
+            <td><code>main</code> 全体（フォーム状態を mask）</td>
+            <td><code>h1</code> + 注意書き段落</td>
+          </tr>
+          <tr>
+            <td><code>/sim</code></td>
+            <td>カテゴリ Hub（記事一覧・フィルタ）</td>
+            <td><code>.category-hub</code></td>
+            <td>ヒーロー + 先頭 3 記事タイトル</td>
+          </tr>
+          <tr>
+            <td><code>/articles/sim-20gb-osusume</code></td>
+            <td>比較記事テンプレート（affiliate 含む）</td>
+            <td><code>.article-shell</code>（日付・広告枠 mask）</td>
+            <td>ヒーロー + 結論サマリ + 比較表見出し</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>1.4 スコープ外（初回実装）</h3>
+      <ul>
+        <li>Percy / Chromatic 等クラウド visual サービス</li>
+        <li>全記事・全 Hub の網羅 screenshot</li>
+        <li>axe-core 自動アクセシビリティ（将来 P2+ オプション）</li>
+        <li>Vercel Preview URL を baseURL にする PR 連動 visual（Phase 2 拡張）</li>
+      </ul>
+      <hr />
+      <h2>2. ファイル構成</h2>
+      <pre><code>blog-affiliate-pipeline/
+├── site/
+│   ├── playwright.config.ts          # webServer, snapshotPathTemplate, projects
+│   ├── package.json                    # devDependencies: @playwright/test, scripts 追加
+│   └── tests/
+│       └── visual/
+│           ├── fixtures/
+│           │   └── pages.ts            # 対象 URL・locator・snapshot 名
+│           ├── helpers/
+│           │   ├── stabilize-page.ts   # font 固定, animation 無効, mask 定義
+│           │   └── normalize-text.ts   # whitespace / 連続空白正規化
+│           ├── contact.visual.spec.ts
+│           ├── sim-hub.visual.spec.ts
+│           └── article-template.visual.spec.ts
+│           └── *-snapshots/            # PNG + txt baselines — Git 管理
+├── .github/workflows/
+│   ├── ci.yml                          # 変更なし: format / test / build / validate-dist
+│   └── pull-request.yml                # PR 専用: Playwright visual + text
+└── package.json                        # test:e2e:visual 等（site へ委譲）
+</code></pre>
+      <h3>2.1 <code>site/playwright.config.ts</code> 要点</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>設定</th>
+            <th>値</th>
+            <th>理由</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>testDir</code></td>
+            <td><code>tests/visual</code></td>
+            <td>機能 E2E（Node scripts）と分離</td>
+          </tr>
+          <tr>
+            <td><code>webServer.command</code></td>
+            <td>
+              <code
+                >npm run build &amp;&amp; npm run preview -- --host 127.0.0.1 --port
+                4321</code
+              >
+            </td>
+            <td>本番同等静的配信</td>
+          </tr>
+          <tr>
+            <td><code>webServer.url</code></td>
+            <td><code>http://127.0.0.1:4321</code></td>
+            <td>Astro preview 既定</td>
+          </tr>
+          <tr>
+            <td><code>use.baseURL</code></td>
+            <td><code>http://127.0.0.1:4321</code></td>
+            <td>相対 <code>page.goto</code></td>
+          </tr>
+          <tr>
+            <td><code>use.viewport</code></td>
+            <td><code>{ width: 1280, height: 720 }</code></td>
+            <td>Desktop baseline 固定</td>
+          </tr>
+          <tr>
+            <td><code>expect.toHaveScreenshot.maxDiffPixelRatio</code></td>
+            <td><code>0.01</code></td>
+            <td>軽微アンチエイリアス許容</td>
+          </tr>
+          <tr>
+            <td><code>snapshotPathTemplate</code></td>
+            <td><code>{testDir}/{testFilePath}-snapshots/{arg}{ext}</code></td>
+            <td>text snapshot パス統一</td>
+          </tr>
+          <tr>
+            <td><code>workers</code></td>
+            <td>CI: <code>1</code>, local: <code>2</code></td>
+            <td>visual flaky 低減</td>
+          </tr>
+          <tr>
+            <td><code>retries</code></td>
+            <td>CI: <code>1</code>, local: <code>0</code></td>
+            <td>初回 flaky 吸収</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>2.2 npm scripts 統合</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>script</th>
+            <th>内容</th>
+            <th>既存 E2E との関係</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>test:e2e</code></td>
+            <td><strong>変更なし</strong> — validate-articles → build → validate-dist</td>
+            <td>P0 機能 E2E（Playwright 不含）</td>
+          </tr>
+          <tr>
+            <td><code>test:e2e:visual</code></td>
+            <td>
+              <code>npm run test:e2e:visual --prefix site</code>（site 内:
+              <code>playwright test</code>）
+            </td>
+            <td>visual 専用</td>
+          </tr>
+          <tr>
+            <td><code>test:e2e:visual:update</code></td>
+            <td><code>npm run test:e2e:visual:update --prefix site</code></td>
+            <td>baseline 更新（ローカル）</td>
+          </tr>
+          <tr>
+            <td><code>test:e2e:all</code></td>
+            <td><code>npm run test:e2e &amp;&amp; npm run test:e2e:visual</code></td>
+            <td>ローカル全量（任意）</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        CI では <strong><code>ci.yml</code> は変更せず</strong>（format / test / build /
+        validate-dist）、Playwright visual は
+        <strong>別 workflow <code>pull-request.yml</code></strong> で PR 時のみ実行する。
+      </p>
+      <hr />
+      <h2>3. ページ別 spec 設計</h2>
+      <h3>3.1 共通前処理（<code>stabilize-page.ts</code>）</h3>
+      <pre><code class="language-typescript">// 実装時の処理順
+await page.addStyleTag({
+  content: `
+  *, *::before, *::after {
+    animation-duration: 0s !important;
+    transition-duration: 0s !important;
+    caret-color: transparent !important;
+  }
+  * { font-family: system-ui, sans-serif !important; }
+`,
+});
+await page.emulateMedia({ reducedMotion: &quot;reduce&quot; });
+</code></pre>
+      <table>
+        <thead>
+          <tr>
+            <th>mask 対象</th>
+            <th>セレクタ / 方法</th>
+            <th>理由</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>公開日・更新日</td>
+            <td><code>.article-hero time</code>, <code>[datetime]</code></td>
+            <td>日付変動</td>
+          </tr>
+          <tr>
+            <td>A8 / VC バナー</td>
+            <td>
+              <code
+                >a[href*=&quot;px.a8.net&quot;],
+                a[href*=&quot;valuecommerce.com&quot;]</code
+              >
+            </td>
+            <td>トラッキング URL 変動</td>
+          </tr>
+          <tr>
+            <td>記事件数</td>
+            <td><code>.category-hero__count</code></td>
+            <td>記事追加で数字変動</td>
+          </tr>
+          <tr>
+            <td>Contact フォーム</td>
+            <td><code>.contact-form</code> または Formspree iframe</td>
+            <td>env 有無で UI 差</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>3.2 <code>/contact</code> — <code>contact.visual.spec.ts</code></h3>
+      <table>
+        <thead>
+          <tr>
+            <th>種別</th>
+            <th>Locator</th>
+            <th>snapshot 名</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Visual</td>
+            <td><code>main</code></td>
+            <td><code>contact-main.png</code></td>
+          </tr>
+          <tr>
+            <td>Text</td>
+            <td><code>main h1, main &gt; p, main h2 + p</code> を結合</td>
+            <td><code>contact-main.txt</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>Text 正規化</strong>: 連続空白→1スペース、trim。フォームブロックは text
+        snapshot から除外（mask と同様）。
+      </p>
+      <h3>3.3 <code>/sim</code> — <code>sim-hub.visual.spec.ts</code></h3>
+      <table>
+        <thead>
+          <tr>
+            <th>種別</th>
+            <th>Locator</th>
+            <th>snapshot 名</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Visual</td>
+            <td><code>.category-hub</code></td>
+            <td><code>sim-hub.png</code></td>
+          </tr>
+          <tr>
+            <td>Text</td>
+            <td>
+              <code
+                >.category-hero__title, .category-hero__lead, .category-hub__item
+                .article-card__title</code
+              >（先頭3件）
+            </td>
+            <td><code>sim-hub-head.txt</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        記事一覧全体の text snapshot は行数が増えすぎるため、<strong
+          >先頭 3 件タイトルのみ</strong
+        >を固定。件数は <code>.category-hero__count</code> を mask し visual のみで検知。
+      </p>
+      <h3>
+        3.4 <code>/articles/sim-20gb-osusume</code> —
+        <code>article-template.visual.spec.ts</code>
+      </h3>
+      <table>
+        <thead>
+          <tr>
+            <th>種別</th>
+            <th>Locator</th>
+            <th>snapshot 名</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Visual</td>
+            <td><code>.article-shell</code></td>
+            <td><code>article-sim-20gb.png</code></td>
+          </tr>
+          <tr>
+            <td>Text</td>
+            <td>
+              <code>.article-hero__title, .article-hero__lead, .article-body h2</code
+              >（先頭5）
+            </td>
+            <td><code>article-sim-20gb-head.txt</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        比較表（<code>.prose table</code>）は Phase 1 では text snapshot
+        に<strong>含めない</strong>（料金更新で頻繁に baseline 更新が必要）。Phase 2
+        拡張で table を正規化して追加可能。
+      </p>
+      <hr />
+      <h2>4. Text snapshot セレクタ一覧（実装用）</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ページ</th>
+            <th>セレクタ</th>
+            <th>取得内容</th>
+            <th>正規化</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>/contact</code></td>
+            <td><code>main h1</code></td>
+            <td>ページタイトル</td>
+            <td>trim</td>
+          </tr>
+          <tr>
+            <td><code>/contact</code></td>
+            <td><code>main &gt; p:first-of-type</code></td>
+            <td>リード文</td>
+            <td>env 分岐時は fixture env で固定</td>
+          </tr>
+          <tr>
+            <td><code>/contact</code></td>
+            <td><code>main h2:nth-of-type(1) + p</code></td>
+            <td>注意書き</td>
+            <td>trim</td>
+          </tr>
+          <tr>
+            <td><code>/sim</code></td>
+            <td><code>.category-hero__title</code></td>
+            <td>Hub 見出し</td>
+            <td>trim</td>
+          </tr>
+          <tr>
+            <td><code>/sim</code></td>
+            <td><code>.category-hero__lead</code></td>
+            <td>リード</td>
+            <td>trim</td>
+          </tr>
+          <tr>
+            <td><code>/sim</code></td>
+            <td><code>.category-hub__item .article-card__title</code> × 3</td>
+            <td>記事タイトル</td>
+            <td>順序固定（sort 済み）</td>
+          </tr>
+          <tr>
+            <td><code>/articles/sim-20gb-osusume</code></td>
+            <td><code>.article-hero__title</code></td>
+            <td>記事タイトル</td>
+            <td>trim</td>
+          </tr>
+          <tr>
+            <td><code>/articles/sim-20gb-osusume</code></td>
+            <td><code>.article-hero__lead</code></td>
+            <td>description</td>
+            <td>trim</td>
+          </tr>
+          <tr>
+            <td><code>/articles/sim-20gb-osusume</code></td>
+            <td><code>.article-body h2</code> × 5</td>
+            <td>見出し構造</td>
+            <td>番号付きリスト化して snapshot</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>将来</strong>: <code>data-testid=&quot;snapshot-*&quot;</code> を Astro
+        コンポーネントに追加するとセレクタ安定性が向上。初回は既存 class
+        ベースで開始し、flaky が出た箇所のみ testid 追加。
+      </p>
+      <hr />
+      <h2>5. CI 設計（<code>.github/workflows/pull-request.yml</code>）</h2>
+      <h3>5.1 workflow 概要</h3>
+      <p>
+        <code>ci.yml</code> は <strong>変更しない</strong>（Prettier / Vitest / unittest /
+        validate-articles / build / validate-dist のみ）。Playwright visual は PR 専用
+        workflow として分離する。
+      </p>
+      <pre><code class="language-yaml">name: Pull Request
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - &quot;site/**&quot;
+      - &quot;.github/workflows/pull-request.yml&quot;
+
+jobs:
+  playwright-visual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - working-directory: site
+        run: npm ci
+      - working-directory: site
+        run: npx playwright install --with-deps chromium
+      - working-directory: site
+        run: npm run test:e2e:visual
+        env:
+          CI: true
+          PUBLIC_CONTACT_FORM_ACTION: &quot;&quot;
+      - name: Upload visual diff artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-visual-diff
+          path: |
+            site/tests/visual/**/*-snapshots/**/*
+            site/test-results/
+          retention-days: 14
+</code></pre>
+      <table>
+        <thead>
+          <tr>
+            <th>項目</th>
+            <th>設定</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>トリガ</td>
+            <td>
+              <strong><code>pull_request</code> のみ</strong>（<code>push</code> to main
+              では実行しない）
+            </td>
+          </tr>
+          <tr>
+            <td>paths filter</td>
+            <td><code>site/**</code> 変更時。docs-only PR ではスキップ</td>
+          </tr>
+          <tr>
+            <td>ブラウザ</td>
+            <td>Chromium のみ（初回）</td>
+          </tr>
+          <tr>
+            <td>webServer</td>
+            <td>Playwright config 内で build + preview を自動起動</td>
+          </tr>
+          <tr>
+            <td>失敗時 artifact</td>
+            <td>
+              <code>-expected.png</code>, <code>-actual.png</code>,
+              <code>-diff.png</code>, text <code>-received.txt</code>
+            </td>
+          </tr>
+          <tr>
+            <td>所要時間目安</td>
+            <td>build 60s + Playwright 30s ≒ 2分</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>5.2 <code>ci.yml</code> との役割分担</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Workflow</th>
+            <th>トリガ</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>ci.yml</code></td>
+            <td>PR + push main</td>
+            <td>format, test, build, validate-dist（<strong>変更なし</strong>）</td>
+          </tr>
+          <tr>
+            <td><code>pull-request.yml</code></td>
+            <td>PR（site/** 変更時）</td>
+            <td>Playwright visual + text snapshot</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h2>6. Baseline 更新ワークフロー</h2>
+      <h3>6.1 ローカル更新（開発者）</h3>
+      <pre><code class="language-bash"># 1. site 変更後
+npm run test:e2e:visual:update   # PNG + txt baseline 更新（site/ 配下）
+
+# 2. 差分確認
+git status site/tests/visual/
+git diff site/tests/visual/
+
+# 3. 意図した UI 変更のみ commit
+git add site/tests/visual/
+git commit -m &quot;test(visual): update baselines for sim hub layout&quot;
+</code></pre>
+      <h3>6.2 更新判断基準</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>変更種別</th>
+            <th>baseline 更新</th>
+            <th>代替</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>意図した CSS / コンポーネント変更</td>
+            <td>✅ 更新</td>
+            <td>PR に before/after スクショ添付</td>
+          </tr>
+          <tr>
+            <td>記事本文のみ（対象 slug 外）</td>
+            <td>❌ 不要</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>記事追加で Hub 件数変更</td>
+            <td>visual mask 済みなら ❌</td>
+            <td>text は先頭3件固定のため通常不要</td>
+          </tr>
+          <tr>
+            <td>フォント・OG 画像変更</td>
+            <td>✅ visual 更新</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>flaky（環境差）</td>
+            <td>mask / stabilize 改善</td>
+            <td>baseline 安易更新禁止</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>6.3 CI での baseline 更新（定期記事 PR のみ）</h3>
+      <p>
+        通常の UI 変更 PR では自動 <code>--update-snapshots</code> は実行しない（必ず PR
+        経由で baseline をレビューする）。
+      </p>
+      <p>
+        <strong>例外</strong>: <code>scheduled-articles.yml</code> が記事生成後に Ubuntu
+        上で全 visual spec を <code>--update-snapshots</code> 実行し、変更があった PNG/txt
+        を記事 PR に同梱する。macOS と Linux
+        のフォントレンダリング差を避けるため、定期更新は CI 環境のみとする。
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>対象 spec</th>
+            <th>更新タイミング</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>sim-hub.visual.spec.ts</code></td>
+            <td>記事追加で Hub レイアウト・先頭見出しが変わるたび</td>
+          </tr>
+          <tr>
+            <td><code>article-template.visual.spec.ts</code></td>
+            <td>固定 slug のため通常は変化なし</td>
+          </tr>
+          <tr>
+            <td><code>contact.visual.spec.ts</code></td>
+            <td>記事追加では通常は変化なし</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h2>7. PR diff レビュー UX</h2>
+      <h3>7.1 失敗時の開発者体験</h3>
+      <pre class="diagram">
+flowchart LR
+  A[PR push] --&gt; B[pull-request.yml]
+  B --&gt;|pass| C[green check]
+  B --&gt;|fail| D[Actions log: 失敗 spec 名]
+  D --&gt; E[Artifact: playwright-visual-diff]
+  E --&gt; F[PNG diff 3枚組]
+  E --&gt; G[txt snapshot diff in log]
+  F --&gt; H[PR レビュー: 意図確認]
+  G --&gt; H
+  H --&gt;|OK| I[local --update-snapshots + commit]
+  H --&gt;|NG| J[UI 修正]</pre>
+      <h3>7.2 GitHub Actions ログ出力（実装時）</h3>
+      <p>失敗 step で以下を <code>GITHUB_STEP_SUMMARY</code> に書き出す:</p>
+      <pre><code class="language-markdown">## Visual regression failed
+
+| Spec                   | Type       | Snapshot         |
+| ---------------------- | ---------- | ---------------- |
+| sim-hub.visual.spec.ts | screenshot | sim-hub.png      |
+| sim-hub.visual.spec.ts | text       | sim-hub-head.txt |
+
+Download **playwright-visual-diff** artifact for PNG diffs.
+Text diff: see job log / `git diff` locally after `npm run test:e2e:visual`.
+</code></pre>
+      <h3>7.3 PR レビューでの見方</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>種別</th>
+            <th>レビュー方法</th>
+            <th>メリット</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>PNG</strong></td>
+            <td>artifact の <code>-diff.png</code> をダウンロード</td>
+            <td>レイアウト崩れを一目で確認</td>
+          </tr>
+          <tr>
+            <td><strong>Text</strong></td>
+            <td>
+              Actions log の <code>Expected</code> / <code>Received</code> またはローカル
+              <code>git diff</code> on <code>.txt</code>
+            </td>
+            <td>GitHub PR Files タブで行 diff 可能（baseline commit 時）</td>
+          </tr>
+          <tr>
+            <td><strong>両方失敗</strong></td>
+            <td>
+              text 先に確認 → 意図的コピー変更なら txt 更新、レイアウトのみなら PNG 更新
+            </td>
+            <td>原因切り分け</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>7.4 PR コメント bot（実装済み — PR #34）</h3>
+      <p><code>pull-request.yml</code> が Playwright 実行後に以下を行う:</p>
+      <ol>
+        <li>
+          失敗時、<code>site/test-results/**/*-{diff,expected,actual}.png</code> を
+          <code>.github/pr-visual-diffs/{label}-*.png</code>
+          に収集（<code>scripts/e2e/collect-visual-diffs.mjs</code>）
+        </li>
+        <li>
+          PR ブランチへ commit &amp; push（<code>git-auto-commit-action</code>）し
+          <code>raw.githubusercontent.com</code> で参照可能にする
+        </li>
+        <li>
+          <code>scripts/e2e/post-visual-pr-comment.mjs</code> が Markdown 表を生成し、Diff
+          列に PNG を embed
+        </li>
+      </ol>
+      <table>
+        <thead>
+          <tr>
+            <th>列</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ページ</td>
+            <td>対象 URL</td>
+          </tr>
+          <tr>
+            <td>Visual</td>
+            <td>PNG snapshot の ✅ / ❌</td>
+          </tr>
+          <tr>
+            <td>Text</td>
+            <td>text snapshot の ✅ / ❌ / ➖（visual のみ失敗時）</td>
+          </tr>
+          <tr>
+            <td>Diff</td>
+            <td>
+              PASS 時「一致」、visual FAIL 時 diff PNG + <code>&lt;details&gt;</code> で
+              expected/actual
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p><strong>制限事項</strong>:</p>
+      <ul>
+        <li>
+          GitHub PR コメント内の画像は外部 CDN 経由のため、大きな PNG
+          は読み込みが遅い場合がある
+        </li>
+        <li>
+          fork 由来 PR では <code>GITHUB_TOKEN</code> の write 権限が無く、画像 push
+          が失敗する可能性がある（その場合 artifact リンクにフォールバック）
+        </li>
+        <li>
+          diff PNG は PR ブランチに commit されるため、マージ前に不要なら rebase
+          で除去可能
+        </li>
+      </ul>
+      <hr />
+      <h2>8. 既存 E2E との統合</h2>
+      <h3>8.1 実行順序（ローカル）</h3>
+      <pre><code>npm run test:e2e:local     # P0: generate → validate-articles → build → validate-dist
+npm run test:e2e:smoke     # P1: 本番 URL（手動 / post-deploy WF）
+npm run test:e2e:visual    # P2+: Playwright hybrid
+</code></pre>
+      <h3>8.2 CI パイプライン全体</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Job / WF</th>
+            <th>タイミング</th>
+            <th>ツール</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>ci.yml → validate</code></td>
+            <td>PR / push main</td>
+            <td>Prettier, Vitest, unittest, validate-articles, build, validate-dist</td>
+          </tr>
+          <tr>
+            <td><code>pull-request.yml</code></td>
+            <td>PR（site/** 変更時）</td>
+            <td>Playwright visual + text</td>
+          </tr>
+          <tr>
+            <td><code>post-deploy-smoke.yml</code></td>
+            <td>push main（site/**）</td>
+            <td>smoke-production + changed-slugs</td>
+          </tr>
+          <tr>
+            <td><code>scheduled-articles.yml</code></td>
+            <td>cron</td>
+            <td>generator + validate</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        Playwright は <strong>dist 検証の後段</strong>ではなく
+        <strong><code>ci.yml</code> とは別 workflow</strong>。どちらも
+        <code>site build</code> を前提とするため、将来的に <code>validate</code> job の
+        build artifact を <code>pull-request.yml</code> に渡して build
+        時間を共有できる（Phase 1.1 最適化）。
+      </p>
+      <h3>8.3 changed-slugs 連携（将来）</h3>
+      <p>
+        PR で変更された記事 slug に対し、固定 3 ページに加え
+        <strong>dynamic spec</strong> を追加:
+      </p>
+      <pre><code class="language-typescript">// tests/visual/changed-articles.visual.spec.ts（Phase 2）
+const slugs = process.env.E2E_VISUAL_SLUGS?.split(&quot;,&quot;) ?? [];
+for (const slug of slugs) {
+  test(`article/${slug} shell`, async ({ page }) =&gt; { ... });
+}
+</code></pre>
+      <p>
+        <code>E2E_VISUAL_SLUGS</code> は
+        <code>node scripts/e2e/changed-slugs.mjs --format=comma</code> から CI
+        で注入。初回 3 ページ固定実装完了後に追加。
+      </p>
+      <hr />
+      <h2>9. 依存関係とインストール</h2>
+      <pre><code class="language-json">{
+  &quot;devDependencies&quot;: {
+    &quot;@playwright/test&quot;: &quot;^1.52.0&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;test:e2e:visual&quot;: &quot;playwright test&quot;,
+    &quot;test:e2e:visual:update&quot;: &quot;playwright test --update-snapshots&quot;,
+    &quot;test:e2e:visual:ui&quot;: &quot;playwright test --ui&quot;
+  }
+}
+</code></pre>
+      <p>
+        初回セットアップ: <code>npx playwright install chromium</code>（CI は
+        <code>--with-deps</code>）。
+      </p>
+      <hr />
+      <h2>10. 実装タスク分解</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>順序</th>
+            <th>タスク</th>
+            <th>成果物</th>
+            <th>目安</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Playwright 導入 + config</td>
+            <td><code>site/playwright.config.ts</code>, package.json</td>
+            <td>30m</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>stabilize / normalize helpers</td>
+            <td><code>site/tests/visual/helpers/*</code></td>
+            <td>30m</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>3 ページ spec + 初回 baseline</td>
+            <td><code>*.visual.spec.ts</code>, snapshots</td>
+            <td>1.5h</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>CI pull-request workflow</td>
+            <td><code>.github/workflows/pull-request.yml</code></td>
+            <td>30m</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>ドキュメント・npm script 更新</td>
+            <td>README / e2e design リンク</td>
+            <td>15m</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>changed-slugs 連動（任意）</td>
+            <td>dynamic article spec</td>
+            <td>1h</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>完了定義</strong>: ローカル <code>npm run test:e2e:visual</code> green、CI
+        <code>pull-request.yml</code> green、意図的 CSS 変更で失敗→baseline 更新→再 green
+        を確認。
+      </p>
+      <hr />
+      <h2>11. リスクと対策</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>リスク</th>
+            <th>影響</th>
+            <th>対策</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>フォント差（macOS vs Linux）</td>
+            <td>PNG flaky</td>
+            <td>CI と同じ Ubuntu + system-ui 固定</td>
+          </tr>
+          <tr>
+            <td>記事数増加</td>
+            <td>Hub layout 変化</td>
+            <td>mask + text は先頭 N 件のみ</td>
+          </tr>
+          <tr>
+            <td>baseline 肥大化</td>
+            <td>repo size</td>
+            <td>3 ページ × 2 種 × 1 viewport のみ（初回 ≒ 6 PNG + 6 txt）</td>
+          </tr>
+          <tr>
+            <td>build 二重実行</td>
+            <td>CI 時間</td>
+            <td>artifact 共有で Phase 1.1 改善</td>
+          </tr>
+          <tr>
+            <td>Contact env 分岐</td>
+            <td>text / visual 差</td>
+            <td>
+              CI では <code>PUBLIC_CONTACT_FORM_ACTION=&quot;&quot;</code> を webServer
+              env で固定
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <h2>参照</h2>
+      <ul>
+        <li><a href="./e2e-publish-check-design.md">e2e-publish-check-design.md</a></li>
+        <li><a href="./visual-regression-design.md">visual-regression-design.md</a></li>
+        <li>
+          <a href="https://playwright.dev/docs/test-snapshots"
+            >Playwright test snapshots</a
+          >
+        </li>
+        <li>
+          <a href="https://playwright.dev/docs/test-webserver">Playwright webServer</a>
+        </li>
+      </ul>
+      <hr />
+      <h2>承認</h2>
+      <p>実装に進む場合は、以下の文言で承認してください。</p>
+      <blockquote>
+        <p><strong>I agree with the design. Please start implementation.</strong></p>
+      </blockquote>
+    </main>
+    <footer>
+      blog-affiliate-pipeline docs — playwright-visual-implementation-design.md
+    </footer>
+  </body>
+</html>

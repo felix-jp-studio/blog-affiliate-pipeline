@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>光回線 料金スクレイパー — 設計 — 設計書</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #0f1419;
+        --card: #1a2332;
+        --text: #e7ecf3;
+        --muted: #9fb0c3;
+        --accent: #5b9fd4;
+        --border: #2a3544;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f8fb;
+          --card: #fff;
+          --text: #1a2332;
+          --muted: #5a6b7d;
+          --accent: #2563eb;
+          --border: #d8e0ea;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+        line-height: 1.65;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+      }
+      header,
+      main,
+      footer {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+      header {
+        padding-top: 2.5rem;
+        padding-bottom: 1rem;
+      }
+      header h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1.75rem;
+      }
+      header p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+      main {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem 1.75rem;
+        margin-bottom: 2rem;
+      }
+      main h2 {
+        font-size: 1.2rem;
+        color: var(--accent);
+        margin-top: 2rem;
+      }
+      main h2:first-child {
+        margin-top: 0;
+      }
+      main h3 {
+        font-size: 1rem;
+        margin-top: 1.25rem;
+      }
+      main h4 {
+        font-size: 0.95rem;
+      }
+      main p,
+      main li {
+        font-size: 0.95rem;
+      }
+      main blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1rem;
+        border-left: 3px solid var(--accent);
+        background: rgba(91, 159, 212, 0.08);
+        color: var(--muted);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+        margin: 1rem 0;
+      }
+      th,
+      td {
+        border: 1px solid var(--border);
+        padding: 0.5rem 0.65rem;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: rgba(91, 159, 212, 0.12);
+      }
+      code {
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 0.85em;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 0.1em 0.35em;
+        border-radius: 4px;
+      }
+      pre {
+        overflow-x: auto;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        font-size: 0.85rem;
+      }
+      pre code {
+        background: none;
+        padding: 0;
+      }
+      pre.diagram,
+      pre.language-mermaid {
+        font-family: ui-monospace, monospace;
+        white-space: pre;
+        font-size: 0.78rem;
+        line-height: 1.4;
+      }
+      ul,
+      ol {
+        padding-left: 1.25rem;
+      }
+      hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 1.5rem 0;
+      }
+      footer {
+        padding-bottom: 2rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      a {
+        color: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>光回線 料金スクレイパー — 設計</h1>
+      <p>
+        blog-affiliate-pipeline / ソース: hikari-price-scraper-design.md / HTML 自動生成
+      </p>
+    </header>
+    <main>
+      <h2>目的</h2>
+      <p>
+        公式料金ページの変更を検知し、比較記事の
+        <strong>料金表・キャンペーン表記</strong> を鮮度維持する。Month 2
+        収益ロードマップ「NURO / 光回線 料金改定スクレイパー」。
+      </p>
+      <h2>スコープ</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>項目</th>
+            <th>v0</th>
+            <th>v1</th>
+            <th>以降</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>HTTP GET + 死活</td>
+            <td>✅</td>
+            <td>✅</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>HTML パース（月額・工事費）</td>
+            <td>—</td>
+            <td>✅</td>
+            <td>精度改善</td>
+          </tr>
+          <tr>
+            <td><code>data/hikari-prices-snapshot.json</code> 書き込み</td>
+            <td>—</td>
+            <td>✅</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>429 / レート制限の soft-fail</td>
+            <td>—</td>
+            <td>✅</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>差分 → <code>rewrite-queue.csv</code></td>
+            <td>—</td>
+            <td>別 PR</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Playwright（JS 描画ページ）</td>
+            <td>—</td>
+            <td>要否調査</td>
+            <td>任意</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>対象プロバイダ（初期）</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>key</th>
+            <th>URL</th>
+            <th>記事 relevance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>nuro-hikari</code></td>
+            <td><a href="https://nuro-hikari.com/">https://nuro-hikari.com/</a></td>
+            <td>nuro-hikari-* 比較記事</td>
+          </tr>
+          <tr>
+            <td><code>au-hikari</code></td>
+            <td>
+              <a href="https://www.au.com/internet/">https://www.au.com/internet/</a>
+            </td>
+            <td>au-hikari-*</td>
+          </tr>
+          <tr>
+            <td><code>softbank-hikari</code></td>
+            <td>
+              <a href="https://www.softbank.jp/internet/"
+                >https://www.softbank.jp/internet/</a
+              >
+            </td>
+            <td>softbank-hikari-*</td>
+          </tr>
+          <tr>
+            <td><code>docomo-hikari</code></td>
+            <td>
+              <a href="https://www.docomo.ne.jp/internet/hikari/"
+                >https://www.docomo.ne.jp/internet/hikari/</a
+              >
+            </td>
+            <td>docomo-hikari-*</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>実行方式</h2>
+      <h3>GitHub Actions</h3>
+      <pre><code class="language-yaml"># .github/workflows/hikari-price-scraper.yml
+schedule:
+  - cron: &quot;0 15 1 * *&quot; # 毎月1日 00:00 JST = UTC 前日15:00
+workflow_dispatch:
+</code></pre>
+      <ol>
+        <li>
+          <code>packages/scraper</code> で <code>pip install -r requirements.txt</code>
+        </li>
+        <li>
+          <code>python -m scraper.hikari_prices</code> →
+          <code>data/hikari-prices-snapshot.json</code> + artifact
+        </li>
+        <li>
+          差分フック（<code>scripts/price-diff-rewrite-hook.mjs</code>）→
+          <code>rewrite-queue.csv</code>
+        </li>
+      </ol>
+      <h3>ローカル</h3>
+      <pre><code class="language-bash">cd packages/scraper
+python -m scraper.hikari_prices --dry-run
+python -m scraper.hikari_prices --fixture-dir tests/fixtures --dry-run
+</code></pre>
+      <h2>データモデル（v1）</h2>
+      <pre><code class="language-json">{
+  &quot;version&quot;: &quot;1&quot;,
+  &quot;updatedAt&quot;: &quot;2026-08-01T00:00:00Z&quot;,
+  &quot;source&quot;: &quot;live&quot;,
+  &quot;providers&quot;: {
+    &quot;nuro-hikari&quot;: {
+      &quot;url&quot;: &quot;https://nuro-hikari.com/&quot;,
+      &quot;ok&quot;: true,
+      &quot;monthlyFeeYen&quot;: 5200,
+      &quot;constructionFeeYen&quot;: 0,
+      &quot;campaignNote&quot;: &quot;...&quot;,
+      &quot;parseStatus&quot;: &quot;parsed&quot;,
+      &quot;rateLimited&quot;: false,
+      &quot;rewriteSlugs&quot;: [&quot;nuro-hikari-au-hikari-hikaku&quot;, &quot;nuro-hikari-campaign&quot;]
+    }
+  },
+  &quot;summary&quot;: {
+    &quot;total&quot;: 4,
+    &quot;ok&quot;: 3,
+    &quot;rateLimited&quot;: [&quot;nuro-hikari&quot;],
+    &quot;fetchFailed&quot;: []
+  }
+}
+</code></pre>
+      <h2>レート制限</h2>
+      <ul>
+        <li>
+          NURO 等で <strong>HTTP 429</strong> を観測済み。最大 3 リトライ +
+          <code>Retry-After</code> / 指数バックオフ。
+        </li>
+        <li>
+          429 のみの失敗は <strong>exit 0</strong>（soft-fail）。ハード失敗は exit 2。
+        </li>
+        <li>ライブ不安定時は <code>--fixture-dir tests/fixtures</code> でパース検証。</li>
+      </ul>
+      <h2>連携</h2>
+      <ul>
+        <li>
+          <strong>rewrite-queue</strong>: 料金差分検知 →
+          <code>data/rewrite-queue.csv</code>（price-diff-rewrite-hook）
+        </li>
+        <li><strong>generator</strong>: 比較表テンプレに snapshot 値を注入（将来）</li>
+      </ul>
+      <h2>リスク</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>リスク</th>
+            <th>緩和</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>公式 HTML 構造変更</td>
+            <td><code>parseStatus</code> 記録。記事は現状維持。フィクスチャ CI</td>
+          </tr>
+          <tr>
+            <td>レート制限</td>
+            <td>月 1 回 + UA 明示 + 4 URL + リトライ + soft-fail</td>
+          </tr>
+          <tr>
+            <td>JS 必須ページ</td>
+            <td>要否調査後 Playwright オプション</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>変更履歴</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2026-07-29</td>
+            <td>v0 スケルトン + 本設計書</td>
+          </tr>
+          <tr>
+            <td>2026-08-01</td>
+            <td>v1 パース・snapshot・月次 Actions</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+    <footer>blog-affiliate-pipeline docs — hikari-price-scraper-design.md</footer>
+  </body>
+</html>
