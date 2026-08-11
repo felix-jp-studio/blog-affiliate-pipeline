@@ -9,7 +9,6 @@ keyword: "eSIM 乗り換え 即日"
 priority: 44
 draft: false
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,7 +63,6 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
@@ -73,6 +71,7 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - [【2026年最新】格安SIM 副回線 おすすめ｜料金・速度を比較](/articles/sim-fukukaisen-osusume)
 - [【2026年最新】モバレコAir WiMAX 比較｜5社比較と選び方](/articles/mobareco-air-wimax-hikaku)
 - [ビッグローブ光 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/biglobe-hikari-tsunagaranai-fix)
+
 
 ## よくある質問
 
