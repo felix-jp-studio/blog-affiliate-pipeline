@@ -1,0 +1,143 @@
+name: Refactor PDCA orchestrator
+
+# Check → Plan → Act for Refactor Cycles (Mon/Thu 10:00 JST).
+on:
+  schedule:
+    - cron: "0 1 * * 1"
+    - cron: "0 1 * * 4"
+  workflow_dispatch:
+    inputs:
+      skip_run:
+        description: "Plan only (skip Act phase)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: refactor-pdca-orchestrator
+  cancel-in-progress: false
+
+jobs:
+  orchestrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check — collect metrics
+        run: node scripts/refactor-pdca/collect-refactor-metrics.mjs --update-state
+
+      - name: Plan — next cycle brief
+        id: plan
+        run: |
+          set +e
+          node scripts/refactor-pdca/plan-refactor.mjs
+          CODE=$?
+          set -e
+          if [ "$CODE" -eq 3 ]; then
+            echo "escalate=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "$CODE" -eq 2 ]; then
+            echo "paused=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "$CODE" -ne 0 ]; then
+            exit "$CODE"
+          fi
+          EXEC=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/refactor-cycle-brief.json','utf8')).execution)")
+          CYCLE=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/refactor-cycle-brief.json','utf8')).cycleNumber)")
+          echo "execution=$EXEC" >> "$GITHUB_OUTPUT"
+          echo "cycle=$CYCLE" >> "$GITHUB_OUTPUT"
+
+      - name: Create escalation issue
+        if: steps.plan.outputs.escalate == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --repo "${{ github.repository }}" \
+            --title "Refactor PDCA: plan escalation required" \
+            --label "refactor-pdca-auto" \
+            --body "$(cat <<EOF
+          ## Plan escalation
+
+          \`plan-refactor.mjs\` could not produce a cycle brief automatically.
+
+          - Workflow: \`${{ github.workflow }}\` run \`${{ github.run_id }}\`
+          - State: \`config/refactor-pdca-state.json\`
+
+          \`\`\`json
+          $(cat config/refactor-pdca-state.json)
+          \`\`\`
+          EOF
+          )" || true
+
+      - name: Stop when paused or plan-only
+        if: >
+          steps.plan.outputs.paused == 'true' ||
+          inputs.skip_run == true ||
+          steps.plan.outputs.cycle == ''
+        run: echo "Skipping Act phase."
+
+      - name: Act — script PR (Prettier etc.)
+        if: >
+          steps.plan.outputs.paused != 'true' &&
+          inputs.skip_run != true &&
+          steps.plan.outputs.execution == 'script'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          CYCLE="${{ steps.plan.outputs.cycle }}"
+          BRANCH="feature/refactor-pdca-${CYCLE}-auto"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          node scripts/refactor-pdca/run-deterministic-fixes.mjs
+          git add scripts/ packages/ config/refactor- data/refactor-cycle-brief.json || true
+          git diff --staged --quiet && { echo "No changes to commit"; exit 1; }
+          git commit -m "Refactor PDCA Cycle ${CYCLE} (script auto)"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --repo "${{ github.repository }}" \
+            --head "$BRANCH" \
+            --base main \
+            --title "Refactor PDCA Cycle ${CYCLE}" \
+            --label "refactor-pdca-auto" \
+            --body "$(cat <<EOF
+          ## Refactor PDCA Cycle ${CYCLE} (script auto)
+
+          Deterministic refactor (Prettier on scripts/ packages/).
+
+          - Brief: \`data/refactor-cycle-brief.json\`
+          - Gatekeeper: Pass → merge / Fail → close
+
+          ## Test plan
+          - [ ] CI validate
+          EOF
+          )"
+
+      - name: Act — agent Issue
+        if: >
+          steps.plan.outputs.paused != 'true' &&
+          inputs.skip_run != true &&
+          steps.plan.outputs.execution == 'agent'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/refactor-pdca/create-refactor-agent-issue.mjs
