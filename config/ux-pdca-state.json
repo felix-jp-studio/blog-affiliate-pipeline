@@ -1,0 +1,10 @@
+{
+  "cycleNumber": 1,
+  "lastRunAt": null,
+  "lastOutcome": null,
+  "lastTaskId": null,
+  "paused": false,
+  "metrics": null,
+  "blockers": [],
+  "consecutiveFailures": 0
+}

@@ -1,0 +1,175 @@
+{
+  "updatedAt": "2026-08-11T00:00:00Z",
+  "tasks": [
+    {
+      "id": "hub-card-layout",
+      "title": "CategoryHub を ArticleCard ベースのカード型一覧に",
+      "description": "カテゴリ Hub の ul リストをカード型にし、日付・抜粋・メタ情報を表示する。",
+      "category": "layout",
+      "priority": 90,
+      "execution": "agent",
+      "targetPaths": [
+        "site/src/components/CategoryHub.astro",
+        "site/src/components/ArticleCard.astro"
+      ],
+      "visualPages": ["/sim", "/hikari"],
+      "acceptance": [
+        "npm run format:check --prefix site",
+        "npm run test:e2e:visual --prefix site"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "article-reading-width",
+      "title": "記事本文 max-width 680px + prose タイポ改善",
+      "description": "article-ui-v2 設計に沿い、本文行長・行間・見出し階層を prose.css で改善する。",
+      "category": "typography",
+      "priority": 88,
+      "execution": "agent",
+      "targetPaths": [
+        "site/src/styles/prose.css",
+        "site/src/pages/articles/[slug].astro"
+      ],
+      "visualPages": ["/articles/sim-20gb-osusume"],
+      "acceptance": [
+        "npm run format:check --prefix site",
+        "npm run test:e2e:visual --prefix site"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "home-featured-articles",
+      "title": "ホームに最新/featured 記事セクション強化",
+      "description": "HomeFeaturedArticles の視認性・カード余白・モバイル2列を改善する。",
+      "category": "layout",
+      "priority": 85,
+      "execution": "agent",
+      "targetPaths": [
+        "site/src/components/HomeFeaturedArticles.astro",
+        "site/src/pages/index.astro"
+      ],
+      "visualPages": ["/"],
+      "acceptance": [
+        "npm run format:check --prefix site",
+        "npm run test:e2e:visual --prefix site"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "contact-form-ux",
+      "title": "お問い合わせフォームのラベル・エラー表示改善",
+      "description": "ContactForm のフィールドラベル、フォーカスリング、送信状態を a11y 配慮で改善。",
+      "category": "a11y",
+      "priority": 82,
+      "execution": "agent",
+      "targetPaths": ["site/src/components/ContactForm.astro"],
+      "visualPages": ["/contact"],
+      "acceptance": [
+        "npm run format:check --prefix site",
+        "npm run test:e2e:visual --prefix site"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "related-articles-cards",
+      "title": "RelatedArticles をカード型に刷新",
+      "description": "関連記事セクションを ArticleCard 再利用の横並び/縦カードに変更。",
+      "category": "layout",
+      "priority": 80,
+      "execution": "agent",
+      "targetPaths": ["site/src/components/RelatedArticles.astro"],
+      "visualPages": ["/articles/sim-20gb-osusume"],
+      "acceptance": [
+        "npm run format:check --prefix site",
+        "npm run test:e2e:visual --prefix site"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "hub-comparison-table-mobile",
+      "title": "HubComparisonTable のモバイル横スクロール UX",
+      "description": "比較表にスクロールヒント・sticky ヘッダーを追加し、スマホ操作性を改善。",
+      "category": "mobile",
+      "priority": 78,
+      "execution": "agent",
+      "targetPaths": ["site/src/components/HubComparisonTable.astro"],
+      "visualPages": ["/sim", "/hikari"],
+      "acceptance": [
+        "npm run format:check --prefix site",
+        "npm run test:e2e:visual --prefix site"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "affiliate-cta-spacing",
+      "title": "AffiliateButton / HubAspCtaSection の余白・タップ領域",
+      "description": "CTA ボタンの min-height 44px・モバイル縦積みを prose.css / コンポーネントで統一。",
+      "category": "mobile",
+      "priority": 75,
+      "execution": "agent",
+      "targetPaths": [
+        "site/src/components/AffiliateButton.astro",
+        "site/src/components/HubAspCtaSection.astro",
+        "site/src/styles/prose.css"
+      ],
+      "visualPages": ["/articles/au-denki-setwari"],
+      "acceptance": [
+        "npm run format:check --prefix site",
+        "npm run test:e2e:visual --prefix site"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "breadcrumb-mobile",
+      "title": "Breadcrumbs のモバイル折り返し・省略表示",
+      "description": "長いパンくずをモバイルで ellipsis または折り返し改善。",
+      "category": "mobile",
+      "priority": 72,
+      "execution": "agent",
+      "targetPaths": ["site/src/components/Breadcrumbs.astro"],
+      "visualPages": ["/articles/sim-20gb-osusume"],
+      "acceptance": [
+        "npm run format:check --prefix site",
+        "npm run test:e2e:visual --prefix site"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "site-prettier-drift",
+      "title": "site/ Prettier 乖離の自動修正",
+      "description": "site 配下の format 乖離を prettier --write で修正（記事 md は除外）。",
+      "category": "maintenance",
+      "priority": 70,
+      "execution": "script",
+      "targetPaths": [
+        "site/src/components/",
+        "site/src/styles/",
+        "site/src/pages/",
+        "site/src/layouts/"
+      ],
+      "visualPages": [],
+      "acceptance": ["npm run format:check --prefix site"],
+      "status": "pending"
+    },
+    {
+      "id": "cwv-regression-fix",
+      "title": "CWV 退行の調査と修正",
+      "description": "cwv-baseline.md の週次比較で退行が検出された場合の LCP/CLS/TBT 改善。",
+      "category": "performance",
+      "priority": 95,
+      "execution": "agent",
+      "targetPaths": [
+        "site/src/components/Analytics.astro",
+        "site/src/layouts/",
+        "site/src/styles/"
+      ],
+      "visualPages": ["/", "/sim", "/articles/sim-osusume-hikaku-2026"],
+      "acceptance": [
+        "npm run format:check --prefix site",
+        "npm run test:e2e:visual --prefix site"
+      ],
+      "status": "pending",
+      "trigger": "cwv_regression"
+    }
+  ]
+}
