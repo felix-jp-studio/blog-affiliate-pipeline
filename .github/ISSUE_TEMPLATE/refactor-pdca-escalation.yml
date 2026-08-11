@@ -1,0 +1,32 @@
+---
+name: Refactor PDCA escalation
+about: Agent task or plan escalation for Refactor PDCA auto cycles
+title: "[Refactor] Cycle escalation"
+labels:
+  - refactor-pdca-auto
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Refactor PDCA 自動 Cycle で Agent 介入が必要なときに使います。
+        `data/refactor-cycle-brief.json` と失敗ログを貼ってください。
+  - type: textarea
+    id: brief
+    attributes:
+      label: refactor-cycle-brief.json
+      description: Plan 出力または手動 brief
+      placeholder: '{"cycleNumber":1,"taskId":"dedupe-e2e-utils",...}'
+    validations:
+      required: true
+  - type: textarea
+    id: failure
+    attributes:
+      label: Failure log
+      description: CI / plan-refactor / test のエラー
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes (optional)
+      description: 対象パスや完了条件の補足

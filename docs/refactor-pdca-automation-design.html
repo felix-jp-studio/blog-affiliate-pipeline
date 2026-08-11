@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Refactor PDCA 自動化 — 設計書</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #0f1419;
+        --card: #1a2332;
+        --text: #e7ecf3;
+        --muted: #9fb0c3;
+        --accent: #9b7bd4;
+        --pass: #3d9970;
+        --fail: #c44;
+        --border: #2a3544;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f8fb;
+          --card: #fff;
+          --text: #1a2332;
+          --muted: #5a6b7d;
+          --accent: #7c3aed;
+          --border: #d8e0ea;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+        line-height: 1.65;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+      }
+      header {
+        padding: 2.5rem 1.5rem 1rem;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      header h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1.75rem;
+      }
+      header p {
+        margin: 0;
+        color: var(--muted);
+      }
+      main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 1.5rem 3rem;
+      }
+      section {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 1.25rem;
+      }
+      h2 {
+        margin-top: 0;
+        font-size: 1.2rem;
+        color: var(--accent);
+      }
+      h3 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+      }
+      th,
+      td {
+        border: 1px solid var(--border);
+        padding: 0.5rem 0.65rem;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: rgba(155, 123, 212, 0.12);
+      }
+      code,
+      pre {
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 0.85rem;
+      }
+      pre {
+        overflow-x: auto;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+      }
+      .diagram {
+        font-family: ui-monospace, monospace;
+        white-space: pre;
+        overflow-x: auto;
+        font-size: 0.78rem;
+        line-height: 1.4;
+      }
+      ul {
+        padding-left: 1.25rem;
+      }
+      footer {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 1.5rem 2rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Refactor PDCA 自動化 — 設計書</h1>
+      <p>
+        リポジトリ: blog-affiliate-pipeline / 承認日: 2026-08-11 / レーン: scripts &
+        packages
+      </p>
+    </header>
+    <main>
+      <section id="requirements">
+        <h2>1. 要件整理</h2>
+        <p>
+          <strong>ゴール:</strong> GitHub Actions が
+          <strong>Check → Plan → Act</strong> を自律的に回し、scripts/ と packages/
+          のリファクタ・保守タスクを継続的に消化する。記事本文・site UI には触れない。
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>フェーズ</th>
+              <th>内容</th>
+              <th>自動化後</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Check</strong></td>
+              <td>Prettier 乖離・TODO 数・open PR・backlog 残数</td>
+              <td><code>collect-refactor-metrics.mjs</code></td>
+            </tr>
+            <tr>
+              <td><strong>Plan</strong></td>
+              <td>次タスク選定（script vs agent）</td>
+              <td><code>plan-refactor.mjs</code></td>
+            </tr>
+            <tr>
+              <td><strong>Act</strong></td>
+              <td>script: Prettier 修正 PR / agent: Issue 起票</td>
+              <td><code>run-deterministic-fixes.mjs</code> または Agent Issue</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>合意済みデフォルト</h3>
+        <ul>
+          <li>
+            実行頻度: <strong>月・木 JST 10:00</strong>（Visitability / UX と非競合）
+          </li>
+          <li>
+            実行方式: <strong>80% Agent（Issue）</strong> + 20% スクリプト（Prettier 等）
+          </li>
+          <li>diff 上限: <strong>300 行 / 15 ファイル</strong></li>
+          <li>
+            ラベル: <code>refactor-pdca-auto</code> / ブランチ:
+            <code>feature/refactor-pdca-*</code>
+          </li>
+        </ul>
+        <h3>触る / 触らない</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>許可</th>
+              <th>禁止</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>scripts/</code>, <code>packages/</code></td>
+              <td><code>site/src/content/articles/</code></td>
+            </tr>
+            <tr>
+              <td><code>config/refactor-*</code></td>
+              <td><code>site/src/components/</code>, <code>site/src/styles/</code></td>
+            </tr>
+            <tr>
+              <td>refactor PDCA 自身の WF / docs</td>
+              <td>
+                <code>data/keywords.seed.csv</code>,
+                <code>data/gsc-index-queue.json</code>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="architecture">
+        <h2>2. アーキテクチャ</h2>
+        <pre class="diagram">
+refactor-pdca-orchestrator.yml (cron 月・木 JST 10:00)
+  │
+  ├─ Check: collect-refactor-metrics.mjs → config/refactor-pdca-state.json
+  ├─ Plan:  plan-refactor.mjs           → data/refactor-cycle-brief.json
+  └─ Act:
+       ├─ execution=script → run-deterministic-fixes.mjs → PR
+       └─ execution=agent  → create-refactor-agent-issue.mjs → Issue
+                                              │
+                                              ▼ (script PR のみ)
+                            refactor-pr-gatekeeper.yml
+                              Pass → squash merge + bump cycle
+                              Fail → close PR
+                              Pending → 待機</pre>
+        <h3>3 レーン PDCA スケジュール</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>レーン</th>
+              <th>曜日 JST</th>
+              <th>領域</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Visitability</td>
+              <td>火・金 09:00</td>
+              <td>記事・SEO・index</td>
+            </tr>
+            <tr>
+              <td>UX</td>
+              <td>水 10:00</td>
+              <td>site UI / components</td>
+            </tr>
+            <tr>
+              <td><strong>Refactor</strong></td>
+              <td><strong>月・木 10:00</strong></td>
+              <td><strong>scripts / packages</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="data">
+        <h2>3. データ設計</h2>
+        <h3>config/refactor-pdca-state.json</h3>
+        <pre>
+{
+  "cycleNumber": 1,
+  "lastRunAt": null,
+  "lastOutcome": null,
+  "lastTaskId": null,
+  "paused": false,
+  "metrics": { "formatDriftFiles": 0, "todoCommentCount": 42, ... },
+  "consecutiveFailures": 0
+}</pre>
+        <h3>config/refactor-backlog.json</h3>
+        <p>
+          10 タスク（優先度付き）。<code>execution: "script"</code> は Prettier
+          自動修正のみ。
+        </p>
+        <h3>Plan 判定</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>条件</th>
+              <th>Act</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>open refactor PR あり</td>
+              <td>skip</td>
+            </tr>
+            <tr>
+              <td>Prettier 乖離 &gt; 0</td>
+              <td><code>root-prettier-scripts-drift</code> (script)</td>
+            </tr>
+            <tr>
+              <td>backlog 優先度順</td>
+              <td>先頭 pending タスク (agent)</td>
+            </tr>
+            <tr>
+              <td>3 回連続失敗</td>
+              <td><code>paused: true</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="gatekeeper">
+        <h2>4. PR Gatekeeper</h2>
+        <p>
+          <code>refactor-pr-gatekeeper.yml</code> は CI 完了後に Refactor PR を評価する。
+          playwright-visual は不要、<strong>validate 必須</strong>。
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>判定</th>
+              <th>アクション</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>pass</td>
+              <td>squash merge + <code>bump-cycle-state.mjs</code></td>
+            </tr>
+            <tr>
+              <td>fail</td>
+              <td>PR close + コメント</td>
+            </tr>
+            <tr>
+              <td>pending</td>
+              <td>待機</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="files">
+        <h2>5. ファイル一覧</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>パス</th>
+              <th>役割</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>scripts/refactor-pdca/lib.mjs</code></td>
+              <td>共有定数・backlog・selectTask</td>
+            </tr>
+            <tr>
+              <td><code>scripts/refactor-pdca/collect-refactor-metrics.mjs</code></td>
+              <td>Check</td>
+            </tr>
+            <tr>
+              <td><code>scripts/refactor-pdca/plan-refactor.mjs</code></td>
+              <td>Plan</td>
+            </tr>
+            <tr>
+              <td><code>scripts/refactor-pdca/run-deterministic-fixes.mjs</code></td>
+              <td>script Act</td>
+            </tr>
+            <tr>
+              <td><code>scripts/refactor-pdca/create-refactor-agent-issue.mjs</code></td>
+              <td>agent Act</td>
+            </tr>
+            <tr>
+              <td><code>scripts/refactor-pdca/evaluate-refactor-pr-gate.mjs</code></td>
+              <td>Gatekeeper 評価</td>
+            </tr>
+            <tr>
+              <td><code>.github/workflows/refactor-pdca-orchestrator.yml</code></td>
+              <td>Orchestrator</td>
+            </tr>
+            <tr>
+              <td><code>.github/workflows/refactor-agent-cycle.yml</code></td>
+              <td>Issue / dispatch 起動</td>
+            </tr>
+            <tr>
+              <td><code>.github/workflows/refactor-pr-gatekeeper.yml</code></td>
+              <td>Pass→merge / Fail→close</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+    <footer>Refactor PDCA v1 — blog-affiliate-pipeline</footer>
+  </body>
+</html>

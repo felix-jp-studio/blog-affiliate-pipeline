@@ -1,0 +1,118 @@
+{
+  "updatedAt": "2026-08-11T00:00:00Z",
+  "tasks": [
+    {
+      "id": "dedupe-e2e-utils",
+      "title": "e2e-utils の重複ヘルパー統合",
+      "description": "scripts/e2e/ 内の重複パス解決・記事読み込みロジックを1箇所に集約する。",
+      "category": "scripts",
+      "priority": 90,
+      "execution": "agent",
+      "targetPaths": ["scripts/e2e/e2e-utils.mjs", "scripts/e2e/"],
+      "acceptance": ["npm run test:e2e:articles", "npm run format:check"],
+      "status": "pending"
+    },
+    {
+      "id": "gsc-queue-shared-module",
+      "title": "GSC queue 操作の共通モジュール化",
+      "description": "print-gsc-inspection-batch と gsc/queue.mjs の重複を削減。",
+      "category": "scripts",
+      "priority": 88,
+      "execution": "agent",
+      "targetPaths": ["scripts/gsc/", "scripts/print-gsc-inspection-batch.mjs"],
+      "acceptance": ["npm run test:gsc", "npm run format:check"],
+      "status": "pending"
+    },
+    {
+      "id": "visitability-plan-split",
+      "title": "plan-cycle / plan-visitability-act の共通化",
+      "description": "Visitability Plan ロジックの shared 関数を lib.mjs に抽出。",
+      "category": "scripts",
+      "priority": 85,
+      "execution": "agent",
+      "targetPaths": [
+        "scripts/visitability/plan-cycle.mjs",
+        "scripts/visitability/lib.mjs"
+      ],
+      "acceptance": ["npm run test:visitability", "npm run format:check"],
+      "status": "pending"
+    },
+    {
+      "id": "rewrite-weekly-lib",
+      "title": "rewrite-weekly の CSV パース共通化",
+      "description": "rewrite-weekly.mjs の CSV 処理を小さな lib に抽出しテスト可能にする。",
+      "category": "scripts",
+      "priority": 82,
+      "execution": "agent",
+      "targetPaths": ["scripts/rewrite-weekly.mjs"],
+      "acceptance": ["npm run format:check"],
+      "status": "pending"
+    },
+    {
+      "id": "generator-batch-validation",
+      "title": "batch-cycle JSON のスキーマ検証",
+      "description": "config/batch-cycle*.json を検証する軽量スクリプトを追加。",
+      "category": "tooling",
+      "priority": 80,
+      "execution": "agent",
+      "targetPaths": ["scripts/", "config/batch-cycle"],
+      "acceptance": ["npm run test:generator", "npm run format:check"],
+      "status": "pending"
+    },
+    {
+      "id": "root-prettier-scripts-drift",
+      "title": "scripts/ packages/ Prettier 乖離の自動修正",
+      "description": "ルート Prettier で scripts/ と packages/ の format 乖離を --write で修正。",
+      "category": "maintenance",
+      "priority": 95,
+      "execution": "script",
+      "targetPaths": ["scripts/", "packages/"],
+      "acceptance": ["npm run format:check"],
+      "status": "pending"
+    },
+    {
+      "id": "npm-scripts-doc-sync",
+      "title": "package.json scripts と docs の同期",
+      "description": "npm scripts 一覧を docs/pipeline-flow.md に反映。",
+      "category": "docs",
+      "priority": 75,
+      "execution": "agent",
+      "targetPaths": ["package.json", "docs/pipeline-flow.md"],
+      "acceptance": ["npm run format:check"],
+      "status": "pending"
+    },
+    {
+      "id": "publisher-workspace-types",
+      "title": "packages/publisher の型整理",
+      "description": "publisher パッケージの未使用 export を整理。",
+      "category": "packages",
+      "priority": 72,
+      "execution": "agent",
+      "targetPaths": ["packages/publisher/"],
+      "acceptance": ["npm test", "npm run format:check"],
+      "status": "pending"
+    },
+    {
+      "id": "gh-user-wrapper-docs",
+      "title": "gh-user.sh 利用ドキュメント整備",
+      "description": "cursor-github-integration.md に refactor/visitability PR 手順を追記。",
+      "category": "docs",
+      "priority": 70,
+      "execution": "agent",
+      "targetPaths": ["docs/cursor-github-integration.md"],
+      "acceptance": ["npm run format:check"],
+      "status": "pending"
+    },
+    {
+      "id": "e2e-changed-slugs-test",
+      "title": "changed-slugs.mjs の unit test 追加",
+      "description": "scripts/e2e/changed-slugs.mjs の pure 関数をテスト。",
+      "category": "tests",
+      "priority": 78,
+      "execution": "agent",
+      "targetPaths": ["scripts/e2e/changed-slugs.mjs", "scripts/e2e/"],
+      "acceptance": ["node --test scripts/e2e/*.test.mjs", "npm run format:check"],
+      "status": "pending"
+    }
+  ]
+}

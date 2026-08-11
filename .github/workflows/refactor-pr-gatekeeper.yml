@@ -1,0 +1,134 @@
+name: Refactor PR gatekeeper
+
+# Refactor PDCA PR: Pass → squash merge / Fail → close.
+# Targets branch feature/refactor-pdca*, label refactor-pdca-auto, or title "Refactor PDCA Cycle N".
+
+on:
+  workflow_run:
+    workflows: [CI, Pull Request]
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: read
+  actions: read
+
+jobs:
+  gatekeeper:
+    if: >
+      github.event.workflow_run.conclusion != 'cancelled' &&
+      github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: refactor-pr-gatekeeper-${{ github.event.workflow_run.head_branch }}
+      cancel-in-progress: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve PR number
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PRS='${{ toJson(github.event.workflow_run.pull_requests) }}'
+          PR_NUM=$(node -e "
+            const prs = JSON.parse(process.env.PRS || '[]');
+            if (prs.length > 0) process.stdout.write(String(prs[0].number));
+          " PRS="$PRS")
+          if [ -z "$PR_NUM" ]; then
+            PR_NUM=$(gh pr list \
+              --repo "${{ github.repository }}" \
+              --head "${{ github.event.workflow_run.head_branch }}" \
+              --state open \
+              --json number \
+              --jq '.[0].number // empty')
+          fi
+          if [ -z "$PR_NUM" ]; then
+            echo "No open PR for branch ${{ github.event.workflow_run.head_branch }}; skipping."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "number=$PR_NUM" >> "$GITHUB_OUTPUT"
+          echo "found=true" >> "$GITHUB_OUTPUT"
+          echo "Resolved PR #${PR_NUM}"
+
+      - name: Evaluate PR gate
+        id: gate
+        if: steps.pr.outputs.found == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+        run: |
+          RESULT=$(node scripts/refactor-pdca/evaluate-refactor-pr-gate.mjs)
+          echo "$RESULT"
+          echo "json<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$RESULT" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Squash merge on pass
+        if: >
+          steps.pr.outputs.found == 'true' &&
+          fromJson(steps.gate.outputs.json).verdict == 'pass'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_NUM="${{ steps.pr.outputs.number }}"
+          gh pr merge "$PR_NUM" --repo "${{ github.repository }}" \
+            --squash --delete-branch
+          node scripts/refactor-pdca/bump-cycle-state.mjs || true
+          gh pr comment "$PR_NUM" --repo "${{ github.repository }}" \
+            --body "$(cat <<EOF
+          ## Refactor PR gatekeeper: **Pass → merged**
+
+          必須チェックがすべて成功したため、squash merge しました。
+
+          - Workflow: \`${{ github.event.workflow_run.name }}\`
+          - Conclusion: \`${{ github.event.workflow_run.conclusion }}\`
+          EOF
+          )"
+
+      - name: Close on fail
+        if: >
+          steps.pr.outputs.found == 'true' &&
+          fromJson(steps.gate.outputs.json).verdict == 'fail'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_NUM="${{ steps.pr.outputs.number }}"
+          REASON=$(node -e "console.log(JSON.parse(process.argv[1]).reason)" '${{ steps.gate.outputs.json }}')
+          gh pr comment "$PR_NUM" --repo "${{ github.repository }}" \
+            --body "$(cat <<EOF
+          ## Refactor PR gatekeeper: **Fail → closed**
+
+          必須チェックまたはファイル allowlist で不合格のため、PR を close しました。
+
+          - Reason: ${REASON}
+          - Workflow: \`${{ github.event.workflow_run.name }}\` (\`${{ github.event.workflow_run.conclusion }}\`)
+          EOF
+          )"
+          gh pr close "$PR_NUM" --repo "${{ github.repository }}"
+
+      - name: Job summary
+        if: steps.pr.outputs.found == 'true' && steps.gate.outputs.json != ''
+        run: |
+          VERDICT=$(node -e "console.log(JSON.parse(process.argv[1]).verdict)" '${{ steps.gate.outputs.json }}')
+          REASON=$(node -e "console.log(JSON.parse(process.argv[1]).reason)" '${{ steps.gate.outputs.json }}')
+          {
+            echo "## Refactor PR gatekeeper"
+            echo ""
+            echo "- PR: #${{ steps.pr.outputs.number }}"
+            echo "- Verdict: **${VERDICT}**"
+            echo "- Reason: ${REASON}"
+          } >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,88 @@
+name: Refactor agent cycle
+
+# Manual / Agent-triggered Refactor cycle (repository_dispatch or labeled issue).
+on:
+  repository_dispatch:
+    types: [refactor-pdca]
+  issues:
+    types: [labeled]
+  workflow_dispatch:
+    inputs:
+      cycle_number:
+        description: "Optional cycle number override"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  agent-cycle:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'repository_dispatch' ||
+      (github.event_name == 'issues' && github.event.label.name == 'refactor-pdca-auto')
+    runs-on: ubuntu-latest
+    concurrency:
+      group: refactor-agent-cycle
+      cancel-in-progress: false
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Collect metrics and plan
+        run: |
+          node scripts/refactor-pdca/collect-refactor-metrics.mjs --update-state
+          node scripts/refactor-pdca/plan-refactor.mjs
+
+      - name: Create agent Issue (if agent task)
+        id: brief
+        run: |
+          EXEC=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/refactor-cycle-brief.json','utf8')).execution)")
+          echo "execution=$EXEC" >> "$GITHUB_OUTPUT"
+
+      - name: Open agent Issue
+        if: steps.brief.outputs.execution == 'agent'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/refactor-pdca/create-refactor-agent-issue.mjs
+
+      - name: Run script task and open PR
+        if: steps.brief.outputs.execution == 'script'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          CYCLE=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/refactor-cycle-brief.json','utf8')).cycleNumber)")
+          if [ -n "${{ inputs.cycle_number }}" ]; then
+            CYCLE="${{ inputs.cycle_number }}"
+          fi
+          BRANCH="feature/refactor-pdca-${CYCLE}-agent"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          node scripts/refactor-pdca/run-deterministic-fixes.mjs
+          git add scripts/ packages/ config/refactor- data/refactor-cycle-brief.json || true
+          git diff --staged --quiet && exit 1
+          git commit -m "Refactor PDCA Cycle ${CYCLE} (agent)"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --repo "${{ github.repository }}" \
+            --head "$BRANCH" \
+            --base main \
+            --title "Refactor PDCA Cycle ${CYCLE}" \
+            --label "refactor-pdca-auto" \
+            --body "Agent-triggered Refactor PDCA Cycle ${CYCLE}."
