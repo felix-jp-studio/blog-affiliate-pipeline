@@ -1,0 +1,79 @@
+name: Visitability agent cycle
+
+# Manual / Agent-triggered Cycle execution (repository_dispatch or labeled issue).
+on:
+  repository_dispatch:
+    types: [visitability-cycle]
+  issues:
+    types: [labeled]
+  workflow_dispatch:
+    inputs:
+      cycle_number:
+        description: "Optional cycle number override"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  agent-cycle:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'repository_dispatch' ||
+      (github.event_name == 'issues' && github.event.label.name == 'visitability-cycle-auto')
+    runs-on: ubuntu-latest
+    concurrency:
+      group: visitability-agent-cycle
+      cancel-in-progress: false
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Collect metrics and plan
+        run: |
+          node scripts/visitability/collect-metrics.mjs --update-state
+          node scripts/visitability/plan-cycle.mjs
+
+      - name: Run cycle and open PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          CYCLE=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/visitability-cycle-brief.json','utf8')).cycleNumber)")
+          if [ -n "${{ inputs.cycle_number }}" ]; then
+            CYCLE="${{ inputs.cycle_number }}"
+          fi
+          BRANCH="feature/visitability-cycle${CYCLE}-agent"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          node scripts/visitability/run-cycle.mjs
+          git add config/ data/ site/src/content/articles/ site/src/data/hub-article-mesh.ts state/ || true
+          git diff --staged --quiet && exit 1
+          git commit -m "Visitability Cycle ${CYCLE} (agent)"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --repo "${{ github.repository }}" \
+            --head "$BRANCH" \
+            --base main \
+            --title "Visitability Cycle ${CYCLE}" \
+            --label "visitability-cycle-auto" \
+            --body "Agent-triggered Visitability Cycle ${CYCLE}."

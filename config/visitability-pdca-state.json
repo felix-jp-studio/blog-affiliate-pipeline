@@ -1,0 +1,10 @@
+{
+  "cycleNumber": 32,
+  "lastRunAt": null,
+  "lastOutcome": null,
+  "paused": false,
+  "metrics": null,
+  "nextCycleTemplate": "comparison_x2_crosssell",
+  "blockers": [],
+  "consecutiveFailures": 0
+}

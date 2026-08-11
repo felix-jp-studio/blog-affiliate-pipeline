@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Visitability PDCA 自動化 — 設計書</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #0f1419;
+        --card: #1a2332;
+        --text: #e7ecf3;
+        --muted: #9fb0c3;
+        --accent: #5b9fd4;
+        --pass: #3d9970;
+        --fail: #c44;
+        --border: #2a3544;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f8fb;
+          --card: #fff;
+          --text: #1a2332;
+          --muted: #5a6b7d;
+          --accent: #2563eb;
+          --border: #d8e0ea;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+        line-height: 1.65;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+      }
+      header {
+        padding: 2.5rem 1.5rem 1rem;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      header h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1.75rem;
+      }
+      header p {
+        margin: 0;
+        color: var(--muted);
+      }
+      main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 1.5rem 3rem;
+      }
+      section {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 1.25rem;
+      }
+      h2 {
+        margin-top: 0;
+        font-size: 1.2rem;
+        color: var(--accent);
+      }
+      h3 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+      }
+      th,
+      td {
+        border: 1px solid var(--border);
+        padding: 0.5rem 0.65rem;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: rgba(91, 159, 212, 0.12);
+      }
+      code,
+      pre {
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 0.85rem;
+      }
+      pre {
+        overflow-x: auto;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+      }
+      .diagram {
+        font-family: ui-monospace, monospace;
+        white-space: pre;
+        overflow-x: auto;
+        font-size: 0.78rem;
+        line-height: 1.4;
+      }
+      .tag {
+        display: inline-block;
+        padding: 0.15rem 0.5rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+      .tag-pass {
+        background: rgba(61, 153, 112, 0.2);
+        color: var(--pass);
+      }
+      .tag-fail {
+        background: rgba(204, 68, 68, 0.2);
+        color: var(--fail);
+      }
+      ul {
+        padding-left: 1.25rem;
+      }
+      footer {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 1.5rem 2rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Visitability PDCA 自動化 — 設計書</h1>
+      <p>
+        リポジトリ: blog-affiliate-pipeline / 本番: sim-hikari-guide.com / 承認日:
+        2026-08-11
+      </p>
+    </header>
+    <main>
+      <section id="requirements">
+        <h2>1. 要件整理</h2>
+        <p>
+          <strong>ゴール:</strong> GitHub Actions が
+          <strong>Check → Plan → Act</strong> を自律的に回し、Agent の「続けて」指示なしで
+          Visitability Cycle（記事追加・hub mesh・index queue）を継続する。
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>フェーズ</th>
+              <th>内容</th>
+              <th>自動化後</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Check</strong></td>
+              <td>記事数・index queue 消化率・タイプ比率</td>
+              <td><code>collect-metrics.mjs</code></td>
+            </tr>
+            <tr>
+              <td><strong>Plan</strong></td>
+              <td>次 Cycle テンプレート・KW 選定</td>
+              <td><code>plan-cycle.mjs</code></td>
+            </tr>
+            <tr>
+              <td><strong>Act</strong></td>
+              <td>generator → onboard → queue → mesh → PR</td>
+              <td><code>run-cycle.mjs</code> + gatekeeper</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>合意済みデフォルト</h3>
+        <ul>
+          <li>実行頻度: <strong>火・金 JST 09:00</strong>（週2 Cycle）</li>
+          <li>実行方式: <strong>80% スクリプト</strong> + 20% Issue エスカレーション</li>
+          <li>
+            公開経路: PDCA Cycle は <strong>PR 統一</strong>（<code
+              >scheduled-articles</code
+            >
+            は日次1本のまま main 直 push）
+          </li>
+        </ul>
+        <h3>制約</h3>
+        <ul>
+          <li>GSC 手動ログイン・OAuth は Agent 不可</li>
+          <li>secrets をリポジトリに含めない</li>
+          <li>既存 CI ゲート（validate / playwright-visual）を通過必須</li>
+        </ul>
+      </section>
+
+      <section id="architecture">
+        <h2>2. アーキテクチャ</h2>
+        <pre class="diagram">
+visitability-pdca-orchestrator.yml (cron 火・金 JST 09:00)
+  │
+  ├─ Check: collect-metrics.mjs → config/visitability-pdca-state.json
+  ├─ Plan:  plan-cycle.mjs      → data/visitability-cycle-brief.json
+  └─ Act:   run-cycle.mjs       → feature/visitability-cycle{N}-auto → PR
+                                              │
+                                              ▼
+                            visitability-pr-gatekeeper.yml
+                              Pass → squash merge
+                              Fail → close PR
+                              Pending → 待機</pre>
+        <table>
+          <thead>
+            <tr>
+              <th>コンポーネント</th>
+              <th>パス</th>
+              <th>役割</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Orchestrator WF</td>
+              <td><code>.github/workflows/visitability-pdca-orchestrator.yml</code></td>
+              <td>Check → Plan → Act トリガー</td>
+            </tr>
+            <tr>
+              <td>Agent Cycle WF</td>
+              <td><code>.github/workflows/visitability-agent-cycle.yml</code></td>
+              <td><code>repository_dispatch</code> / Issue ラベル起動</td>
+            </tr>
+            <tr>
+              <td>PR Gatekeeper</td>
+              <td><code>.github/workflows/visitability-pr-gatekeeper.yml</code></td>
+              <td>Pass→merge / Fail→close</td>
+            </tr>
+            <tr>
+              <td>Metrics</td>
+              <td><code>scripts/visitability/collect-metrics.mjs</code></td>
+              <td>Check フェーズ集計</td>
+            </tr>
+            <tr>
+              <td>Planner</td>
+              <td><code>scripts/visitability/plan-cycle.mjs</code></td>
+              <td>brief 生成</td>
+            </tr>
+            <tr>
+              <td>Runner</td>
+              <td><code>scripts/visitability/run-cycle.mjs</code></td>
+              <td>9ステップ実行</td>
+            </tr>
+            <tr>
+              <td>Roadmap sync</td>
+              <td><code>scripts/visitability/sync-roadmap-progress.mjs</code></td>
+              <td>blog-affiliate-auto へ PR</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="data">
+        <h2>3. データ設計</h2>
+        <h3>config/visitability-pdca-state.json</h3>
+        <pre>
+{
+  "cycleNumber": 32,
+  "lastRunAt": "2026-08-11T00:00:00Z",
+  "lastOutcome": "success|partial|failed|skipped",
+  "paused": false,
+  "metrics": { "articleCount": 142, "indexQueueRate": 0.45, ... },
+  "nextCycleTemplate": "comparison_x2_crosssell",
+  "blockers": [],
+  "consecutiveFailures": 0
+}</pre>
+        <h3>data/visitability-cycle-brief.json</h3>
+        <pre>
+{
+  "cycleNumber": 32,
+  "template": "comparison_x2_crosssell",
+  "items": [ /* batch-cycle 同形式 */ ],
+  "keywordAppend": [ /* +10 KW */ ],
+  "keywordRange": [621, 630],
+  "hubMeshUpdates": true,
+  "fallbackKeywords": [],
+  "createdAt": "..."
+}</pre>
+        <h3>Plan 判定ロジック</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Check 結果</th>
+              <th>Act（次 Cycle）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>crosssell 比率 gap &gt; 8pt</td>
+              <td><code>comparison_x2_crosssell</code></td>
+            </tr>
+            <tr>
+              <td>howto / trouble 不足</td>
+              <td><code>howto_x2_trouble</code></td>
+            </tr>
+            <tr>
+              <td>index 消化率 &lt; 30%</td>
+              <td><code>single_article</code>（公開1本に減速）</td>
+            </tr>
+            <tr>
+              <td>3回連続失敗</td>
+              <td><code>paused: true</code> + Issue</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="gatekeeper">
+        <h2>4. PR Gatekeeper（Pass → merge / Fail → close）</h2>
+        <p>
+          <code>visitability-pr-gatekeeper.yml</code> は CI / Pull Request
+          ワークフロー完了後に起動し、Visitability 管理 PR を評価する。
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>判定</th>
+              <th>条件</th>
+              <th>動作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tag tag-pass">Pass</span></td>
+              <td>
+                <code>validate</code> +（<code>site/**</code> 変更時）<code
+                  >playwright-visual</code
+                >
+              </td>
+              <td>squash merge + コメント</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-fail">Fail</span></td>
+              <td>必須チェック失敗 / allowlist 外ファイル</td>
+              <td>コメント付き close</td>
+            </tr>
+            <tr>
+              <td>Pending</td>
+              <td>チェック未完了</td>
+              <td>何もしない（次 WF 完了を待つ）</td>
+            </tr>
+            <tr>
+              <td>Skip</td>
+              <td>Visitability 管理外 PR</td>
+              <td>何もしない</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>対象 PR</h3>
+        <ul>
+          <li>
+            ブランチ: <code>feature/visitability-cycle*</code>,
+            <code>feature/visitability-pdca*</code>
+          </li>
+          <li>ラベル: <code>visitability-cycle-auto</code></li>
+          <li>タイトル: <code>Visitability Cycle N</code></li>
+        </ul>
+      </section>
+
+      <section id="run-cycle">
+        <h2>5. run-cycle.mjs — 9ステップ</h2>
+        <ol>
+          <li><code>keywords.seed.csv</code> に brief の keywordAppend を追記</li>
+          <li><code>config/batch-cycle{N}-auto.json</code> 作成</li>
+          <li><code>generator --mode template --batch ...</code></li>
+          <li><code>post-publish-article-onboard.mjs --slugs=...</code></li>
+          <li><code>append-index-queue.mjs --slugs=...</code></li>
+          <li><code>update-hub-mesh.mjs</code>（trouble は trouble セクション）</li>
+          <li>Prettier format</li>
+          <li><code>npm run test:e2e:articles</code></li>
+          <li>state 更新 + PR 作成（WF 側）</li>
+        </ol>
+      </section>
+
+      <section id="edge-cases">
+        <h2>6. 懸念・エッジケース</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>懸念</th>
+              <th>対策</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>GSC secrets 未設定</td>
+              <td>index queue 消化率のみで Plan（GSC メトリクスは skipped）</td>
+            </tr>
+            <tr>
+              <td>generator slug 未マップ</td>
+              <td>fallback KW + Issue エスカレーション</td>
+            </tr>
+            <tr>
+              <td>Linux vs macOS visual 差異</td>
+              <td>CI <code>Update visual baselines</code> workflow 使用</td>
+            </tr>
+            <tr>
+              <td>3回連続失敗</td>
+              <td><code>paused: true</code> で orchestrator 停止</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="phases">
+        <h2>7. 実装フェーズ</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>内容</th>
+              <th>状態</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>P1</td>
+              <td>state + collect-metrics + plan-cycle</td>
+              <td>実装済み</td>
+            </tr>
+            <tr>
+              <td>P2</td>
+              <td>run-cycle.mjs + update-hub-mesh</td>
+              <td>実装済み</td>
+            </tr>
+            <tr>
+              <td>P3</td>
+              <td>orchestrator + agent-cycle WF</td>
+              <td>実装済み</td>
+            </tr>
+            <tr>
+              <td>P4</td>
+              <td>Issue テンプレ + エスカレーション</td>
+              <td>実装済み</td>
+            </tr>
+            <tr>
+              <td>P5</td>
+              <td>sync-roadmap-progress.mjs</td>
+              <td>実装済み</td>
+            </tr>
+            <tr>
+              <td>Gatekeeper</td>
+              <td>PR #219 Pass→merge / Fail→close</td>
+              <td>main マージ待ち（初回手動）</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+    <footer>
+      <p>
+        関連: <code>docs/operations/visitability-pdca-log.md</code> /
+        <code>scripts/visitability/evaluate-pr-gate.mjs</code>
+      </p>
+    </footer>
+  </body>
+</html>

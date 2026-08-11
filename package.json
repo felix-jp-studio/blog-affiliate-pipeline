@@ -54,6 +54,10 @@
     "test:e2e:all": "npm run test:e2e && npm run test:e2e:visual",
     "test:comments": "npm run test:unit --prefix site",
     "test:gsc": "node --test scripts/gsc/*.test.mjs",
+    "test:visitability": "node --test scripts/visitability/*.test.mjs",
+    "visitability:metrics": "node scripts/visitability/collect-metrics.mjs",
+    "visitability:plan": "node scripts/visitability/plan-cycle.mjs",
+    "visitability:run": "node scripts/visitability/run-cycle.mjs",
     "comments:moderate": "npm run comments:moderate --prefix site"
   },
   "devDependencies": {
