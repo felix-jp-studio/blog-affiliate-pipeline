@@ -1,0 +1,32 @@
+---
+name: Visitability cycle escalation
+about: Generator / CI failure or plan escalation for PDCA auto cycles
+title: "[Visitability] Cycle escalation"
+labels:
+  - visitability-cycle-auto
+body:
+  - type: markdown
+    attributes:
+      value: |
+        PDCA 自動 Cycle で Agent 介入が必要なときに使います。
+        `data/visitability-cycle-brief.json` と失敗ログを貼ってください。
+  - type: textarea
+    id: brief
+    attributes:
+      label: visitability-cycle-brief.json
+      description: Plan 出力または手動 brief
+      placeholder: '{"cycleNumber":32,"template":"howto_x2_trouble",...}'
+    validations:
+      required: true
+  - type: textarea
+    id: failure
+    attributes:
+      label: Failure log
+      description: generator / CI / plan-cycle のエラー
+    validations:
+      required: true
+  - type: textarea
+    id: fallback
+    attributes:
+      label: Fallback keywords (optional)
+      description: 差し替え KW 候補（カンマ区切り）
