@@ -2,14 +2,13 @@
 title: "【2026年最新】工事 不要 光回線比較｜選び方と注意点"
 description: "【2026年最新】工事 不要 光回線を5社比較。料金・速度・セット割の観点で選び方を解説。公式情報を参照し中立にまとめています。"
 pubDate: 2026-07-19
-dateModified: 2026-08-10
+dateModified: 2026-08-11
 category: hikari
 articleType: comparison
 keyword: "工事 不要 光回線"
 priority: 17
 draft: false
 ---
-
 ## 結論サマリ
 
 工事 不要 光回線を探す場合、NURO 光やauひかりのような工事が必要な回線ではなく、**工事不要で使える選択肢**に絞って比較するのが近道です。主な候補はマンション既設配線の光回線、WiMAX、ホーム5G（据置型）です。
@@ -73,7 +72,6 @@ draft: false
 - 表の数値は比較観点であり、最新条件は公式が正
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
@@ -82,6 +80,7 @@ draft: false
 - [【2026年最新】新生活 光回線 比較｜5社比較と選び方](/articles/shinseikatsu-hikari-hikaku)
 - [【2026年最新】3月 引っ越し 格安SIM キャンペーン比較｜選び方と注意点](/articles/3-hikkoshi-sim-campaign)
 - [光回線 開通 遅い 対処の原因と7つの対処法【2026年版】](/articles/hikari-kaituu-slow-fix)
+
 
 ## よくある質問
 

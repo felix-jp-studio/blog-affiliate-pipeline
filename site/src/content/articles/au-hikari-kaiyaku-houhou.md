@@ -2,14 +2,13 @@
 title: "au ひかり 解約 方法の手順【2026年版】5ステップで解説"
 description: "au ひかり 解約 方法を5ステップで解説。【2026年版】必要書類・所要時間・つまずきポイントを公式情報に基づき整理。"
 pubDate: 2026-07-28
-dateModified: 2026-08-10
+dateModified: 2026-08-11
 category: hikari
 articleType: howto
 keyword: "au ひかり 解約 方法"
 priority: 46
 draft: false
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,7 +63,6 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
@@ -73,6 +71,7 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - [【2026年最新】新生活 光回線 比較｜5社比較と選び方](/articles/shinseikatsu-hikari-hikaku)
 - [【2026年最新】3月 引っ越し 格安SIM キャンペーン比較｜選び方と注意点](/articles/3-hikkoshi-sim-campaign)
 - [ドコモ光 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/docomo-hikari-tsunagaranai-fix)
+
 
 ## よくある質問
 

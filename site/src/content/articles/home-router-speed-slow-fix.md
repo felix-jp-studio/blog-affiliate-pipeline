@@ -7,9 +7,8 @@ articleType: troubleshoot
 keyword: "ホームルーター 速度 遅い 対処"
 priority: 64
 draft: false
-dateModified: 2026-08-10
+dateModified: 2026-08-11
 ---
-
 ## 症状の確認
 
 ホームルーター 速度 遅い 対処で検索する方は、次のような状態に当てはまることが多いです。
@@ -72,7 +71,6 @@ APN設定の誤り、古い端末、省電力モード、バックグラウン�
 - 定期的にマイページで利用状況を確認する
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
@@ -81,6 +79,7 @@ APN設定の誤り、古い端末、省電力モード、バックグラウン�
 - [光回線 開通 遅い 対処の原因と7つの対処法【2026年版】](/articles/hikari-kaituu-slow-fix)
 - [eSIM 再発行 手順の手順【2026年版】5ステップで解説](/articles/esim-saihakko-tejun)
 - [光回線 プロバイダ 変更 手順の手順【2026年版】5ステップで解説](/articles/hikari-provider-henkou-tejun)
+
 
 ## よくある質問
 

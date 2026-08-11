@@ -7,9 +7,8 @@ articleType: howto
 keyword: "光回線 プロバイダ 変更 手順"
 priority: 339
 draft: false
-dateModified: 2026-08-10
+dateModified: 2026-08-11
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,7 +63,6 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
@@ -73,6 +71,7 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - [WiMAX 解約 手順の手順【2026年版】5ステップで解説](/articles/wimax-kaiyaku-tejun)
 - [povo データ容量 追加 方法の手順【2026年版】5ステップで解説](/articles/povo-data-yoryou-tsuika-houhou)
 - [ビッグローブ光 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/biglobe-hikari-tsunagaranai-fix)
+
 
 ## よくある質問
 

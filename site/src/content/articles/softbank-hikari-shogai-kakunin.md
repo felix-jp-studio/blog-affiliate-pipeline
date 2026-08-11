@@ -2,14 +2,13 @@
 title: "ソフトバンク光 障害 確認の原因と7つの対処法【2026年版】"
 description: "ソフトバンク光 障害 確認の原因候補と7つの対処法を【2026年版】で解説。自分で確認できるチェックリスト付き。公式情報を参照しています。"
 pubDate: 2026-08-01
-dateModified: 2026-08-10
+dateModified: 2026-08-11
 category: trouble
 articleType: troubleshoot
 keyword: "ソフトバンク光 障害 確認"
 priority: 79
 draft: false
 ---
-
 ## 症状の確認
 
 ソフトバンク光 障害 確認で検索する方は、次のような状態に当てはまることが多いです。
@@ -72,7 +71,6 @@ APN設定の誤り、古い端末、省電力モード、バックグラウン�
 - 定期的にマイページで利用状況を確認する
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
@@ -81,6 +79,7 @@ APN設定の誤り、古い端末、省電力モード、バックグラウン�
 - [UQモバイル 開通 できない 対処の原因と7つの対処法【2026年版】](/articles/uq-mobile-kaituu-dekinai-fix)
 - [【2026年最新】格安SIM 20GB比較｜5社の選び方と料金](/articles/sim-20gb-osusume)
 - [ビッグローブ光 解約 手順の手順【2026年版】5ステップで解説](/articles/biglobe-hikari-kaiyaku-tejun)
+
 
 ## よくある質問
 
