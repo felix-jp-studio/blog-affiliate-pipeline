@@ -1,0 +1,19 @@
+---
+name: UX PDCA escalation
+about: Agent intervention for UX PDCA cycles
+title: "[UX PDCA] Escalation"
+labels:
+  - ux-pdca-auto
+body:
+  - type: textarea
+    id: brief
+    attributes:
+      label: ux-cycle-brief.json
+    validations:
+      required: true
+  - type: textarea
+    id: failure
+    attributes:
+      label: Failure log
+    validations:
+      required: true
