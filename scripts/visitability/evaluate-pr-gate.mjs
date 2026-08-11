@@ -23,6 +23,7 @@ const ALLOWED_PREFIXES = [
   "config/batch-cycle",
   "config/visitability-pdca-state.json",
   "data/visitability-cycle",
+  "data/visitability-act-brief.json",
   "data/gsc-index-queue.json",
   "data/keywords.seed.csv",
   "state/generate-state.json",

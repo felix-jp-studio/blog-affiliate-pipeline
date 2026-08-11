@@ -195,17 +195,19 @@
       <section id="architecture">
         <h2>2. アーキテクチャ</h2>
         <pre class="diagram">
-visitability-pdca-orchestrator.yml (cron 火・金 JST 09:00)
+visitability-pdca-orchestrator.yml (cron 火・金 JST 09:00) — V2
   │
-  ├─ Check: collect-metrics.mjs → config/visitability-pdca-state.json
-  ├─ Plan:  plan-cycle.mjs      → data/visitability-cycle-brief.json
-  └─ Act:   run-cycle.mjs       → feature/visitability-cycle{N}-auto → PR
+  ├─ Check: collect-metrics.mjs
+  ├─ Plan:  plan-visitability-act.mjs → data/visitability-act-brief.json
+  └─ Act:   run-act.mjs (dispatch by actType)
+         ├─ article_cycle        → run-cycle.mjs
+         ├─ index_push           → run-index-push.mjs
+         ├─ rewrite_cycle        → run-rewrite-cycle.mjs
+         ├─ internal_link_boost  → run-internal-link-boost.mjs
+         └─ meta_ctr_agent       → create-visitability-agent-issue.mjs
                                               │
                                               ▼
-                            visitability-pr-gatekeeper.yml
-                              Pass → squash merge
-                              Fail → close PR
-                              Pending → 待機</pre>
+                            visitability-pr-gatekeeper.yml</pre>
         <table>
           <thead>
             <tr>
@@ -236,9 +238,19 @@ visitability-pdca-orchestrator.yml (cron 火・金 JST 09:00)
               <td>Check フェーズ集計</td>
             </tr>
             <tr>
-              <td>Planner</td>
+              <td>Planner V2</td>
+              <td><code>scripts/visitability/plan-visitability-act.mjs</code></td>
+              <td>Act タイプ選定 + brief</td>
+            </tr>
+            <tr>
+              <td>Act dispatcher</td>
+              <td><code>scripts/visitability/run-act.mjs</code></td>
+              <td>actType 別 runner 起動</td>
+            </tr>
+            <tr>
+              <td>Planner (article)</td>
               <td><code>scripts/visitability/plan-cycle.mjs</code></td>
-              <td>brief 生成</td>
+              <td>記事 Cycle brief</td>
             </tr>
             <tr>
               <td>Runner</td>
@@ -280,7 +292,51 @@ visitability-pdca-orchestrator.yml (cron 火・金 JST 09:00)
   "fallbackKeywords": [],
   "createdAt": "..."
 }</pre>
-        <h3>Plan 判定ロジック</h3>
+        <h3>data/visitability-act-brief.json（V2）</h3>
+        <pre>
+{
+  "cycleNumber": 32,
+  "actType": "index_push|article_cycle|rewrite_cycle|internal_link_boost|meta_ctr_agent",
+  "reason": "indexQueueRate &lt; 30%",
+  "params": { "batchSize": 10 },
+  "articleBrief": { /* actType=article_cycle 時のみ */ }
+}</pre>
+        <h3>Plan 判定ロジック（V2 Act 優先）</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Check 結果</th>
+              <th>Act</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>open Visitability PR あり</td>
+              <td>skip</td>
+            </tr>
+            <tr>
+              <td>index 消化率 &lt; 30%</td>
+              <td><code>index_push</code></td>
+            </tr>
+            <tr>
+              <td>rewrite-queue ≥ 3</td>
+              <td><code>rewrite_cycle</code></td>
+            </tr>
+            <tr>
+              <td>孤立記事 ≥ 5</td>
+              <td><code>internal_link_boost</code></td>
+            </tr>
+            <tr>
+              <td>rewrite 空 + crosssell gap</td>
+              <td><code>meta_ctr_agent</code>（Issue）</td>
+            </tr>
+            <tr>
+              <td>上記以外</td>
+              <td><code>article_cycle</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Plan 判定ロジック（article_cycle 内）</h3>
         <table>
           <thead>
             <tr>
@@ -443,9 +499,12 @@ visitability-pdca-orchestrator.yml (cron 火・金 JST 09:00)
               <td>実装済み</td>
             </tr>
             <tr>
-              <td>Gatekeeper</td>
-              <td>PR #219 Pass→merge / Fail→close</td>
-              <td>main マージ待ち（初回手動）</td>
+              <td>P1–P5 Gatekeeper</td>
+              <td>PR #220 マージ済み</td>
+            </tr>
+            <tr>
+              <td>V2 multi-act</td>
+              <td>plan-visitability-act + run-act（本 PR）</td>
             </tr>
           </tbody>
         </table>

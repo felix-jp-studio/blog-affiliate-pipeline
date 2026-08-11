@@ -1,6 +1,6 @@
 name: Visitability PDCA orchestrator
 
-# Check → Plan → Act for Visitability Cycles (Tue/Fri 09:00 JST).
+# Check → Plan → Act for Visitability (V2 multi-act).
 on:
   schedule:
     - cron: "0 0 * * 2"
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       skip_run:
-        description: "Plan only (skip run-cycle and PR)"
+        description: "Plan only (skip Act)"
         type: boolean
         default: false
 
@@ -46,13 +46,17 @@ jobs:
         run: npm ci
 
       - name: Check — collect metrics
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: node scripts/visitability/collect-metrics.mjs --update-state
 
-      - name: Plan — next cycle brief
+      - name: Plan — visitability act
         id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set +e
-          node scripts/visitability/plan-cycle.mjs
+          node scripts/visitability/plan-visitability-act.mjs
           CODE=$?
           set -e
           if [ "$CODE" -eq 3 ]; then
@@ -66,7 +70,9 @@ jobs:
           if [ "$CODE" -ne 0 ]; then
             exit "$CODE"
           fi
-          CYCLE=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/visitability-cycle-brief.json','utf8')).cycleNumber)")
+          ACT=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/visitability-act-brief.json','utf8')).actType)")
+          CYCLE=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/visitability-act-brief.json','utf8')).cycleNumber)")
+          echo "actType=$ACT" >> "$GITHUB_OUTPUT"
           echo "cycle=$CYCLE" >> "$GITHUB_OUTPUT"
 
       - name: Create escalation issue
@@ -78,20 +84,7 @@ jobs:
             --repo "${{ github.repository }}" \
             --title "Visitability PDCA: plan escalation required" \
             --label "visitability-cycle-auto" \
-            --body "$(cat <<EOF
-          ## Plan escalation
-
-          \`plan-cycle.mjs\` could not produce a cycle brief automatically.
-
-          - Workflow: \`${{ github.workflow }}\` run \`${{ github.run_id }}\`
-          - State: \`config/visitability-pdca-state.json\`
-          - Action: review blockers, adjust keywords, or run Cycle manually.
-
-          \`\`\`json
-          $(cat config/visitability-pdca-state.json)
-          \`\`\`
-          EOF
-          )" || true
+            --body "See config/visitability-pdca-state.json" || true
 
       - name: Stop when paused or plan-only
         if: >
@@ -100,46 +93,48 @@ jobs:
           steps.plan.outputs.cycle == ''
         run: echo "Skipping Act phase."
 
-      - name: Act — run cycle on branch
+      - name: Act — agent issue only
         if: >
           steps.plan.outputs.paused != 'true' &&
           inputs.skip_run != true &&
-          steps.plan.outputs.cycle != ''
+          steps.plan.outputs.actType == 'meta_ctr_agent'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/visitability/create-visitability-agent-issue.mjs
+
+      - name: Act — run act and open PR
+        if: >
+          steps.plan.outputs.paused != 'true' &&
+          inputs.skip_run != true &&
+          steps.plan.outputs.actType != '' &&
+          steps.plan.outputs.actType != 'meta_ctr_agent'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           CYCLE="${{ steps.plan.outputs.cycle }}"
-          BRANCH="feature/visitability-cycle${CYCLE}-auto"
+          ACT="${{ steps.plan.outputs.actType }}"
+          BRANCH="feature/visitability-cycle${CYCLE}-${ACT}"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
-          node scripts/visitability/run-cycle.mjs
-          git add \
-            config/ \
-            data/ \
-            site/src/content/articles/ \
-            site/src/data/hub-article-mesh.ts \
-            state/ || true
+          node scripts/visitability/run-act.mjs
+          git add config/ data/ docs/operations/ site/ state/ || true
           git diff --staged --quiet && { echo "No changes to commit"; exit 1; }
-          git commit -m "Visitability Cycle ${CYCLE} (PDCA auto)"
+          git commit -m "Visitability Cycle ${CYCLE} (${ACT})"
           git push -u origin "$BRANCH"
           gh pr create \
             --repo "${{ github.repository }}" \
             --head "$BRANCH" \
             --base main \
-            --title "Visitability Cycle ${CYCLE}" \
+            --title "Visitability Cycle ${CYCLE} (${ACT})" \
             --label "visitability-cycle-auto" \
             --body "$(cat <<EOF
-          ## Visitability Cycle ${CYCLE} (PDCA auto)
+          ## Visitability PDCA Cycle ${CYCLE}
 
-          Automated Check → Plan → Act cycle.
-
-          - Brief: \`data/visitability-cycle-brief.json\`
+          - Act type: \`${ACT}\`
+          - Brief: \`data/visitability-act-brief.json\`
           - Gatekeeper: Pass → merge / Fail → close
-
-          ## Test plan
-          - [ ] CI validate
-          - [ ] playwright-visual (if site changed)
           EOF
           )"
 
@@ -147,5 +142,5 @@ jobs:
         if: >
           steps.plan.outputs.paused != 'true' &&
           inputs.skip_run != true &&
-          steps.plan.outputs.cycle != ''
+          steps.plan.outputs.actType == 'article_cycle'
         run: node scripts/visitability/sync-roadmap-progress.mjs --cycle=${{ steps.plan.outputs.cycle }} || true

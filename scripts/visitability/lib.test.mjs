@@ -4,6 +4,7 @@ import {
   inferCategory,
   makeLabelFromTitle,
   pickUnusedKeywords,
+  selectActType,
   selectTemplate,
 } from "./lib.mjs";
 
@@ -41,5 +42,33 @@ describe("visitability lib", () => {
       picks.map((row) => row.keyword),
       ["b"],
     );
+  });
+
+  it("selects index_push when queue rate is low", () => {
+    const result = selectActType(
+      {
+        indexQueueRate: 0.2,
+        indexQueuePending: 15,
+        rewriteQueueCount: 0,
+        orphanArticleCount: 0,
+        typeRatioGaps: {},
+      },
+      {},
+    );
+    assert.equal(result.actType, "index_push");
+  });
+
+  it("selects rewrite_cycle when queue has items", () => {
+    const result = selectActType(
+      {
+        indexQueueRate: 0.5,
+        indexQueuePending: 0,
+        rewriteQueueCount: 5,
+        orphanArticleCount: 0,
+        typeRatioGaps: {},
+      },
+      {},
+    );
+    assert.equal(result.actType, "rewrite_cycle");
   });
 });

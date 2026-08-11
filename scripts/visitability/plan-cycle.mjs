@@ -8,6 +8,7 @@
  */
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 import { repoRoot } from "../e2e/e2e-utils.mjs";
 import {
   PATHS,
@@ -97,13 +98,15 @@ function buildItems(templateName, seedRows, usedKeywords, startPriority) {
   return { ok: true, items };
 }
 
-function planCycle() {
-  const state = readJson(PATHS.state, {
-    cycleNumber: 32,
-    consecutiveFailures: 0,
-    blockers: [],
-    paused: false,
-  });
+export function planArticleCycle(existingState = null) {
+  const state =
+    existingState ??
+    readJson(PATHS.state, {
+      cycleNumber: 32,
+      consecutiveFailures: 0,
+      blockers: [],
+      paused: false,
+    });
 
   if (state.paused) {
     return {
@@ -224,7 +227,7 @@ function planCycle() {
 }
 
 function main() {
-  const result = planCycle();
+  const result = planArticleCycle();
   console.log(
     JSON.stringify({ action: result.action, reason: result.reason ?? null }, null, 0),
   );
@@ -270,4 +273,6 @@ function main() {
   console.log(`Batch: ${batchPath}`);
 }
 
-main();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main();
+}

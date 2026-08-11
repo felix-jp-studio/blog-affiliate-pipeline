@@ -1,17 +1,27 @@
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { join } from "node:path";
 import { repoRoot } from "../e2e/e2e-utils.mjs";
 
 export const PATHS = {
   state: join(repoRoot, "config/visitability-pdca-state.json"),
   brief: join(repoRoot, "data/visitability-cycle-brief.json"),
+  actBrief: join(repoRoot, "data/visitability-act-brief.json"),
   keywordSeed: join(repoRoot, "data/keywords.seed.csv"),
   indexQueue: join(repoRoot, "data/gsc-index-queue.json"),
-  rewriteQueue: join(repoRoot, "data/gsc-rewrite-queue.json"),
+  rewriteQueue: join(repoRoot, "data/rewrite-queue.csv"),
   articlesDir: join(repoRoot, "site/src/content/articles"),
   hubMesh: join(repoRoot, "site/src/data/hub-article-mesh.ts"),
   pdcaLog: join(repoRoot, "docs/operations/visitability-pdca-log.md"),
 };
+
+export const ACT_TYPES = [
+  "article_cycle",
+  "index_push",
+  "rewrite_cycle",
+  "internal_link_boost",
+  "meta_ctr_agent",
+];
 
 export const TARGET_RATIO = {
   comparison: 40,
@@ -127,9 +137,71 @@ export function loadIndexQueueMetrics() {
 }
 
 export function loadRewriteQueueCount() {
-  const queue = readJson(PATHS.rewriteQueue, { items: [] });
-  const items = queue.items ?? queue.entries ?? [];
-  return Array.isArray(items) ? items.length : 0;
+  if (!existsSync(PATHS.rewriteQueue)) return 0;
+  const lines = readFileSync(PATHS.rewriteQueue, "utf8").trim().split("\n").slice(1);
+  return lines.filter((line) => {
+    const status = (line.split(",")[4] ?? "").trim().toLowerCase();
+    return status === "" || status === "pending";
+  }).length;
+}
+
+export function countOrphanArticles() {
+  try {
+    const output = execFileSync("node", ["scripts/audit-orphan-articles.mjs", "--json"], {
+      cwd: repoRoot,
+      encoding: "utf8",
+    });
+    const summary = JSON.parse(output);
+    return summary.lowInboundCount ?? 0;
+  } catch {
+    return 0;
+  }
+}
+
+export function countOpenVisitabilityPrs() {
+  if (!process.env.GH_TOKEN && !process.env.GITHUB_TOKEN) return 0;
+  try {
+    const output = execFileSync(
+      "gh",
+      [
+        "pr",
+        "list",
+        "--state",
+        "open",
+        "--label",
+        "visitability-cycle-auto",
+        "--json",
+        "number",
+      ],
+      {
+        cwd: repoRoot,
+        encoding: "utf8",
+        env: {
+          ...process.env,
+          GH_TOKEN: process.env.GH_TOKEN ?? process.env.GITHUB_TOKEN,
+        },
+      },
+    );
+    return JSON.parse(output).length;
+  } catch {
+    return 0;
+  }
+}
+
+export function selectActType(metrics, state = {}) {
+  if (metrics.indexQueueRate < 0.3 && metrics.indexQueuePending >= 10) {
+    return { actType: "index_push", reason: "indexQueueRate < 30%" };
+  }
+  if (metrics.rewriteQueueCount >= 3) {
+    return { actType: "rewrite_cycle", reason: "rewrite queue >= 3" };
+  }
+  if (metrics.orphanArticleCount >= 5) {
+    return { actType: "internal_link_boost", reason: "orphan articles >= 5" };
+  }
+  if (metrics.rewriteQueueCount === 0 && (metrics.typeRatioGaps?.crosssell ?? 0) > 0.08) {
+    return { actType: "meta_ctr_agent", reason: "rewrite queue empty, CTR/meta boost" };
+  }
+  return { actType: "article_cycle", reason: "default article supply" };
 }
 
 export function inferCategory(keyword, articleType) {

@@ -14,6 +14,8 @@ import {
   loadIndexQueueMetrics,
   loadKeywordSeed,
   loadRewriteQueueCount,
+  countOrphanArticles,
+  countOpenVisitabilityPrs,
   readJson,
   writeJson,
 } from "./lib.mjs";
@@ -40,6 +42,8 @@ function collectMetrics() {
     typeRatioGaps: articleReport.gaps,
     keywordSeedMax: keywordSeedMaxPriority(seedRows),
     rewriteQueueCount,
+    orphanArticleCount: countOrphanArticles(),
+    openVisitabilityPrs: countOpenVisitabilityPrs(),
     gscMetricsSkipped: true,
   };
 }

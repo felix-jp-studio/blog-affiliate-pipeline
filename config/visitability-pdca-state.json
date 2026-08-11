@@ -1,10 +1,43 @@
 {
   "cycleNumber": 32,
-  "lastRunAt": null,
+  "lastRunAt": "2026-08-11T03:54:34.264Z",
   "lastOutcome": null,
   "paused": false,
-  "metrics": null,
+  "metrics": {
+    "collectedAt": "2026-08-11T03:54:34.264Z",
+    "articleCount": 142,
+    "indexQueueTotal": 142,
+    "indexQueueIndexed": 38,
+    "indexQueueRate": 0.268,
+    "indexQueuePending": 104,
+    "typeCounts": {
+      "comparison": 53,
+      "howto": 40,
+      "troubleshoot": 35,
+      "crosssell": 14,
+      "other": 0
+    },
+    "typeRatio": {
+      "comparison": 0.373,
+      "howto": 0.282,
+      "troubleshoot": 0.246,
+      "crosssell": 0.099,
+      "other": 0
+    },
+    "typeRatioGaps": {
+      "comparison": 0.027,
+      "howto": -0.032,
+      "troubleshoot": 0.004,
+      "crosssell": 0.001
+    },
+    "keywordSeedMax": 620,
+    "rewriteQueueCount": 0,
+    "orphanArticleCount": 0,
+    "openVisitabilityPrs": 0,
+    "gscMetricsSkipped": true
+  },
   "nextCycleTemplate": "comparison_x2_crosssell",
+  "lastActType": null,
   "blockers": [],
   "consecutiveFailures": 0
 }

@@ -57,7 +57,9 @@
     "test:visitability": "node --test scripts/visitability/*.test.mjs",
     "visitability:metrics": "node scripts/visitability/collect-metrics.mjs",
     "visitability:plan": "node scripts/visitability/plan-cycle.mjs",
+    "visitability:plan-act": "node scripts/visitability/plan-visitability-act.mjs",
     "visitability:run": "node scripts/visitability/run-cycle.mjs",
+    "visitability:run-act": "node scripts/visitability/run-act.mjs",
     "comments:moderate": "npm run comments:moderate --prefix site"
   },
   "devDependencies": {
