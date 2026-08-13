@@ -396,6 +396,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "mobareco-air-wimax-hikaku",
         label: "モバレコAir vs WiMAX",
       },
+      {
+        slug: "hikari-setwari-fee-hikaku",
+        label: "光回線 セット割 料金 比較",
+      },
     ],
   },
   trouble: {
