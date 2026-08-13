@@ -8,6 +8,7 @@
  */
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
+import { spawnSync } from "node:child_process";
 import { hubArticleMesh } from "../site/src/data/hub-article-mesh.ts";
 import { loadPublishedArticles, repoRoot } from "./e2e/e2e-utils.mjs";
 import { PATHS, inferCategory, makeLabelFromTitle } from "./visitability/lib.mjs";
@@ -113,3 +114,12 @@ if (dryRun) {
 
 writeFileSync(PATHS.hubMesh, content, "utf8");
 console.log(`sync-hub-mesh: updated ${PATHS.hubMesh}`);
+
+const prettier = spawnSync(
+  "npx",
+  ["prettier", "--write", "src/data/hub-article-mesh.ts"],
+  { cwd: join(repoRoot, "site"), stdio: "inherit" },
+);
+if (prettier.status !== 0) {
+  process.exit(prettier.status ?? 1);
+}
