@@ -34,6 +34,7 @@
     "gsc:verify-ui": "node scripts/gsc/verify-ui-session.mjs",
     "audit:orphans": "node scripts/audit-orphan-articles.mjs",
     "audit:hub-mesh": "node scripts/audit-hub-mesh-coverage.mjs",
+    "sync:hub-mesh": "node scripts/sync-hub-mesh-from-articles.mjs",
     "backfill:date-modified": "node scripts/backfill-date-modified.mjs",
     "backfill:internal-links": "python3 scripts/backfill-internal-links.py --force",
     "post-publish:onboard": "node scripts/post-publish-article-onboard.mjs",
