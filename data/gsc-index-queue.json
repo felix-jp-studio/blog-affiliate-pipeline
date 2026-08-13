@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-12T00:57:20.555Z",
+  "updatedAt": "2026-08-13T01:00:22.767Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -555,7 +555,7 @@
       "url": "https://sim-hikari-guide.com/articles/sim-tethering-settei-houhou",
       "mergedAt": "2026-08-09T04:28:11.948Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-12T00:53:49.364Z",
+      "lastInspectedAt": "2026-08-13T00:56:31.037Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -644,7 +644,7 @@
       "url": "https://sim-hikari-guide.com/articles/iijmio-kaituu-dekinai-fix",
       "mergedAt": "2026-08-09T04:28:39.421Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-12T00:53:49.364Z",
+      "lastInspectedAt": "2026-08-13T00:56:31.037Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -696,49 +696,145 @@
       "slug": "tethering-dekinai-fix",
       "url": "https://sim-hikari-guide.com/articles/tethering-dekinai-fix",
       "mergedAt": "2026-08-09T04:52:40.582Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-08-13T00:56:31.037Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-08-10T13:51:25Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-08-13T00:56:31.037Z"
     },
     {
       "slug": "mnp-error-fix",
       "url": "https://sim-hikari-guide.com/articles/mnp-error-fix",
       "mergedAt": "2026-08-09T04:53:39.906Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-08-13T00:56:31.037Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-08-10T13:48:59Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-08-13T00:56:31.037Z"
     },
     {
       "slug": "ahamo-speed-slow-fix",
       "url": "https://sim-hikari-guide.com/articles/ahamo-speed-slow-fix",
       "mergedAt": "2026-08-09T04:53:39.906Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-08-13T00:56:31.037Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-08-10T13:58:18Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-08-13T00:56:31.037Z"
     },
     {
       "slug": "nuro-hikari-tsunagaranai-fix",
       "url": "https://sim-hikari-guide.com/articles/nuro-hikari-tsunagaranai-fix",
       "mergedAt": "2026-08-09T04:53:39.906Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-08-13T00:56:31.037Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-08-10T13:59:13Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-08-13T00:56:31.037Z"
     },
     {
       "slug": "docomo-kaiyaku-tejun",
       "url": "https://sim-hikari-guide.com/articles/docomo-kaiyaku-tejun",
       "mergedAt": "2026-08-09T04:55:13.956Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-08-13T00:56:31.037Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-08-10T13:55:08Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-08-13T00:56:31.037Z"
     },
     {
       "slug": "biglobe-hikari-kaiyaku-tejun",
       "url": "https://sim-hikari-guide.com/articles/biglobe-hikari-kaiyaku-tejun",
       "mergedAt": "2026-08-09T04:55:13.956Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-08-13T00:56:31.037Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-08-10T13:56:31Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-08-13T00:56:31.037Z"
     },
     {
       "slug": "ahamo-esim-settei-tejun",
       "url": "https://sim-hikari-guide.com/articles/ahamo-esim-settei-tejun",
       "mergedAt": "2026-08-09T04:55:13.956Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-08-13T00:56:31.037Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-08-10T13:50:35Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-08-13T00:56:31.037Z"
     },
     {
       "slug": "sim-kengai-hyoji-fix",
       "url": "https://sim-hikari-guide.com/articles/sim-kengai-hyoji-fix",
       "mergedAt": "2026-08-09T04:58:58.093Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-08-13T00:56:31.037Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-08-10T14:02:57Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-08-13T00:56:31.037Z"
     },
     {
       "slug": "hikari-wifi-tsunagaranai-fix",
