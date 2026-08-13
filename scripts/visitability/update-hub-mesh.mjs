@@ -47,7 +47,7 @@ function appendFeatured(content, category, slug, label) {
     return content;
   }
 
-  const insertion = `,
+  const insertion = `
       {
         slug: "${slug}",
         label: "${label.replace(/"/g, '\\"')}",

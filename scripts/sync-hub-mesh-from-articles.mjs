@@ -21,12 +21,27 @@ for (const mesh of Object.values(hubArticleMesh)) {
   }
 }
 
+function makeLabel(title, slug) {
+  const direct = makeLabelFromTitle(title);
+  if (direct) return direct;
+  const afterBracket = title.match(/】\s*(.+?)(?:｜|$)/)?.[1]?.trim();
+  if (afterBracket) {
+    const fromBracket = makeLabelFromTitle(afterBracket) || afterBracket;
+    if (fromBracket.length <= 24) return fromBracket;
+    return `${fromBracket.slice(0, 22)}…`;
+  }
+  return slug;
+}
+
 function readTitleFromMarkdown(slug) {
   const path = join(repoRoot, "site/src/content/articles", `${slug}.md`);
   if (!existsSync(path)) return slug;
   const content = readFileSync(path, "utf8");
-  const match = content.match(/^title:\s*["']?(.+?)["']?\s*$/m);
-  return match?.[1] ?? slug;
+  const match =
+    content.match(/^title:\s*"([^"]+)"\s*$/m) ??
+    content.match(/^title:\s*'([^']+)'\s*$/m) ??
+    content.match(/^title:\s*(.+)\s*$/m);
+  return match?.[1]?.trim() ?? slug;
 }
 
 function appendFeatured(content, category, slug, label) {
@@ -50,7 +65,7 @@ function appendFeatured(content, category, slug, label) {
     return content;
   }
 
-  const insertion = `,
+  const insertion = `
       {
         slug: "${slug}",
         label: "${label.replace(/"/g, '\\"')}",
@@ -77,7 +92,7 @@ const entries = missing.map((article) => {
   return {
     slug: article.slug,
     category,
-    label: makeLabelFromTitle(title),
+    label: makeLabel(title, article.slug),
   };
 });
 
