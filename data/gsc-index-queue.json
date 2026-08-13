@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-13T01:00:22.767Z",
+  "updatedAt": "2026-08-13T11:13:42.401Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -1224,6 +1224,12 @@
       "slug": "biglobe-hikari-tsunagaranai-fix",
       "url": "https://sim-hikari-guide.com/articles/biglobe-hikari-tsunagaranai-fix",
       "mergedAt": "2026-08-10T05:43:51.623Z",
+      "indexed": false
+    },
+    {
+      "slug": "hikari-setwari-fee-hikaku",
+      "url": "https://sim-hikari-guide.com/articles/hikari-setwari-fee-hikaku",
+      "mergedAt": "2026-08-13T11:13:42.400Z",
       "indexed": false
     }
   ]
