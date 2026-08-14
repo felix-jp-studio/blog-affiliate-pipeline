@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-14T00:59:02.864Z",
+  "updatedAt": "2026-08-14T01:31:50.657Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -1326,6 +1326,12 @@
       "slug": "hikari-setwari-fee-hikaku",
       "url": "https://sim-hikari-guide.com/articles/hikari-setwari-fee-hikaku",
       "mergedAt": "2026-08-13T11:13:42.400Z",
+      "indexed": false
+    },
+    {
+      "slug": "uq-mobile-esim-settei-houhou",
+      "url": "https://sim-hikari-guide.com/articles/uq-mobile-esim-settei-houhou",
+      "mergedAt": "2026-08-14T01:31:50.656Z",
       "indexed": false
     }
   ]
