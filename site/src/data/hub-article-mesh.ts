@@ -272,6 +272,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "home-router-hitorigurashi",
         label: "一人暮らし ホームルーター",
       },
+      {
+        slug: "uq-mobile-esim-settei-houhou",
+        label: "UQモバイル eSIM 設定 方法の手順",
+      },
     ],
   },
   hikari: {
