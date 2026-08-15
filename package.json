@@ -39,6 +39,8 @@
     "backfill:internal-links": "python3 scripts/backfill-internal-links.py --force",
     "post-publish:onboard": "node scripts/post-publish-article-onboard.mjs",
     "gsc:weekly-report": "node scripts/gsc-weekly-report.mjs",
+    "gsc:weekly-log": "node scripts/gsc/generate-weekly-log.mjs",
+    "gsc:index-queue-status": "node scripts/gsc/index-queue-status.mjs",
     "gsc:import-rewrite-queue": "node scripts/gsc-import-rewrite-queue.mjs",
     "rewrite:weekly": "node scripts/rewrite-weekly.mjs",
     "seed:rewrite-queue": "node scripts/seed-rewrite-queue-heuristic.mjs",

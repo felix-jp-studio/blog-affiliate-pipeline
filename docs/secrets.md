@@ -38,4 +38,6 @@ GSC 日次検査バッチ（[gsc-inspect-automation.md](./gsc-inspect-automation
 
 詳細: [gsc-api-weekly-report.md](./gsc-api-weekly-report.md) / [gsc-inspect-automation.md](./gsc-inspect-automation.md)
 
+Issue #229 向けチェックリスト: [issue-229-secrets-checklist.md](./operations/issue-229-secrets-checklist.md)
+
 登録: Settings → Secrets and variables → Actions

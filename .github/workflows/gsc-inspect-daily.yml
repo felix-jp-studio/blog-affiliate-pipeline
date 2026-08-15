@@ -132,6 +132,10 @@ jobs:
           path: docs/operations/gsc-inspect-run-*.md
           if-no-files-found: ignore
 
+      - name: Index queue status
+        if: always()
+        run: node scripts/gsc/index-queue-status.mjs | tee /tmp/gsc-queue-status.log
+
       - name: Write job summary
         if: always()
         run: |
@@ -143,6 +147,13 @@ jobs:
             echo "- docs: \`docs/gsc-inspect-automation.md\`"
             echo "- setup: \`docs/operations/gsc-parallel-setup.md\`"
             echo ""
+            if [ -f /tmp/gsc-queue-status.log ]; then
+              echo "### Index queue status"
+              echo '```'
+              cat /tmp/gsc-queue-status.log
+              echo '```'
+              echo ""
+            fi
             if [ -f /tmp/gsc-ui-preflight.log ]; then
               echo "### UI preflight (verify-ui-session)"
               echo '```'
