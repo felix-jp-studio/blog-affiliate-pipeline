@@ -276,6 +276,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "uq-mobile-esim-settei-houhou",
         label: "UQモバイル eSIM 設定 方法の手順",
       },
+      {
+        slug: "family-2-lines-cheap",
+        label: "家族 2 回線 安い",
+      }
     ],
   },
   hikari: {

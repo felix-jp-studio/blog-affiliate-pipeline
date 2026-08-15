@@ -1,0 +1,27 @@
+{
+  "cycleNumber": 32,
+  "template": "comparison_x2_crosssell",
+  "slugs": [
+    "family-2-lines-cheap",
+    "nuro-hikari-campaign",
+    "hikkoshi-tsushin-osusume"
+  ],
+  "hubEntries": [
+    {
+      "slug": "family-2-lines-cheap",
+      "category": "sim",
+      "label": "家族 2 回線 安い"
+    },
+    {
+      "slug": "nuro-hikari-campaign",
+      "category": "hikari",
+      "label": "NURO 光 料金 キャンペーン"
+    },
+    {
+      "slug": "hikkoshi-tsushin-osusume",
+      "category": "cost",
+      "label": "引越し 通信 おすすめ"
+    }
+  ],
+  "completedAt": "2026-08-15T07:26:40.648Z"
+}

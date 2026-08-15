@@ -2,21 +2,21 @@
   "mode": "template",
   "results": [
     {
-      "keyword": "ワイモバイル 解約 手順",
+      "keyword": "家族 2 回線 安い",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/ymobile-kaiyaku-tejun.md",
+      "output_path": "/home/runner/work/blog-affiliate-pipeline/blog-affiliate-pipeline/site/src/content/articles/family-2-lines-cheap.md",
       "error": null
     },
     {
-      "keyword": "楽天モバイル 解約 手順",
+      "keyword": "NURO 光 料金 キャンペーン",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/rakuten-mobile-kaiyaku-tejun.md",
+      "output_path": "/home/runner/work/blog-affiliate-pipeline/blog-affiliate-pipeline/site/src/content/articles/nuro-hikari-campaign.md",
       "error": null
     },
     {
-      "keyword": "ビッグローブ光 繋がらない 対処",
+      "keyword": "引越し 通信 おすすめ",
       "ok": true,
-      "output_path": "/Users/Work/felix-jp-studio/blog-affiliate-pipeline/site/src/content/articles/biglobe-hikari-tsunagaranai-fix.md",
+      "output_path": "/home/runner/work/blog-affiliate-pipeline/blog-affiliate-pipeline/site/src/content/articles/hikkoshi-tsushin-osusume.md",
       "error": null
     }
   ]
