@@ -186,7 +186,6 @@ function main() {
 
   const formatTargets = [
     PATHS.hubMesh,
-    PATHS.keywordSeed,
     batchPath,
     PATHS.brief,
     ...okResults.map((result) => join(repoRoot, result.outputPath)),
