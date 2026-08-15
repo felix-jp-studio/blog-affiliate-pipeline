@@ -1,0 +1,87 @@
+{
+  "cycleNumber": 32,
+  "template": "comparison_x2_crosssell",
+  "items": [
+    {
+      "keyword": "家族 2 回線 安い",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 631
+    },
+    {
+      "keyword": "NURO 光 料金 キャンペーン",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 632
+    },
+    {
+      "keyword": "引越し 通信 おすすめ",
+      "articleType": "crosssell",
+      "category": "cost",
+      "priority": 633
+    }
+  ],
+  "keywordAppend": [
+    {
+      "keyword": "格安SIM 20GB おすすめ",
+      "articleType": "comparison",
+      "priority": 621
+    },
+    {
+      "keyword": "LINEMO 評判 デメリット",
+      "articleType": "comparison",
+      "priority": 622
+    },
+    {
+      "keyword": "格安SIM 通話かけ放題 安い",
+      "articleType": "comparison",
+      "priority": 623
+    },
+    {
+      "keyword": "楽天モバイル 乗り換え 手順",
+      "articleType": "howto",
+      "priority": 624
+    },
+    {
+      "keyword": "MNP 予約番号 取得方法",
+      "articleType": "howto",
+      "priority": 625
+    },
+    {
+      "keyword": "povo データ容量 追加 方法",
+      "articleType": "howto",
+      "priority": 626
+    },
+    {
+      "keyword": "格安SIM 速度 遅い 対処",
+      "articleType": "troubleshoot",
+      "priority": 627
+    },
+    {
+      "keyword": "povo 速度 遅い 対処",
+      "articleType": "troubleshoot",
+      "priority": 628
+    },
+    {
+      "keyword": "IIJmio 速度 遅い 対処",
+      "articleType": "troubleshoot",
+      "priority": 629
+    },
+    {
+      "keyword": "楽天でんき 料金",
+      "articleType": "crosssell",
+      "priority": 630
+    }
+  ],
+  "keywordRange": [621, 633],
+  "hubMeshUpdates": true,
+  "fallbackKeywords": [
+    "格安SIM 20GB おすすめ",
+    "LINEMO 評判 デメリット",
+    "格安SIM 通話かけ放題 安い",
+    "楽天モバイル 乗り換え 手順",
+    "MNP 予約番号 取得方法"
+  ],
+  "createdAt": "2026-08-15T07:26:40.130Z",
+  "rewriteQueueEmpty": true
+}

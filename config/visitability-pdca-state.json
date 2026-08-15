@@ -1,9 +1,30 @@
 {
-  "cycleNumber": 32,
-  "lastRunAt": null,
-  "lastOutcome": null,
+  "cycleNumber": 33,
+  "lastRunAt": "2026-08-15T07:26:40.648Z",
+  "lastOutcome": "success",
   "paused": false,
-  "metrics": null,
+  "metrics": {
+    "collectedAt": "2026-08-15T07:26:40.129Z",
+    "articleCount": 145,
+    "indexQueueTotal": 145,
+    "indexQueueIndexed": 67,
+    "indexQueueRate": 0.462,
+    "typeRatio": {
+      "comparison": 0.372,
+      "howto": 0.283,
+      "troubleshoot": 0.248,
+      "crosssell": 0.097,
+      "other": 0
+    },
+    "typeRatioGaps": {
+      "comparison": 0.028,
+      "howto": -0.033,
+      "troubleshoot": 0.002,
+      "crosssell": 0.003
+    },
+    "keywordSeedMax": 620,
+    "rewriteQueueCount": 0
+  },
   "nextCycleTemplate": "comparison_x2_crosssell",
   "blockers": [],
   "consecutiveFailures": 0

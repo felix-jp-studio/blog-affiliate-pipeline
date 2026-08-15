@@ -2,6 +2,7 @@
 title: "【2026年最新】光回線 セット割 料金 比較｜5社比較と選び方"
 description: "【2026年最新】光回線 セット割 料金 比較を5社比較。料金・速度・セット割の観点で選び方を解説。公式情報を参照し中立にまとめています。"
 pubDate: 2026-08-13
+dateModified: 2026-08-13
 category: hikari
 articleType: comparison
 keyword: "光回線 セット割 料金 比較"
