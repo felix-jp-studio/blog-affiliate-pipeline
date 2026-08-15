@@ -64,16 +64,30 @@ def run_batch(
     return results
 
 
-def generate_one(*, root: Path, item: dict, out_dir: Path, mode: str) -> Path:
+def generate_one(
+    *,
+    root: Path,
+    item: dict,
+    out_dir: Path,
+    mode: str,
+    inject_affiliate_urls: bool = False,
+) -> Path:
     if mode == "groq":
         outline, body = _generate_groq(root, item)
     else:
         outline = build_outline(item)
         body = build_body(outline)
 
-    body = inject_affiliates(body, root)
+    if inject_affiliate_urls:
+        body = inject_affiliates(body, root)
     body = inject_internal_links(body, outline, root)
-    quality = check_article(body, item["articleType"], root, test_mode=True)
+    quality = check_article(
+        body,
+        item["articleType"],
+        root,
+        test_mode=True,
+        allow_affiliate_placeholders=not inject_affiliate_urls,
+    )
     if not quality.ok:
         raise ValueError("; ".join(quality.errors))
 

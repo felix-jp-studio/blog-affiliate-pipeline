@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>アフィリエイトリンク自動同期 — 設計書</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #0f1419;
+        --card: #1a2332;
+        --text: #e7ecf3;
+        --muted: #9fb0c3;
+        --accent: #5b9fd4;
+        --pass: #3d9970;
+        --fail: #c44;
+        --border: #2a3544;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f8fb;
+          --card: #fff;
+          --text: #1a2332;
+          --muted: #5a6b7d;
+          --accent: #2563eb;
+          --border: #d8e0ea;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+        line-height: 1.65;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+      }
+      header {
+        padding: 2.5rem 1.5rem 1rem;
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      header h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1.75rem;
+      }
+      header p {
+        margin: 0;
+        color: var(--muted);
+      }
+      main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 1.5rem 3rem;
+      }
+      section {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 1.25rem;
+      }
+      h2 {
+        margin-top: 0;
+        font-size: 1.2rem;
+        color: var(--accent);
+      }
+      h3 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+      }
+      th,
+      td {
+        border: 1px solid var(--border);
+        padding: 0.5rem 0.65rem;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: rgba(91, 159, 212, 0.12);
+      }
+      code,
+      pre {
+        font-family: ui-monospace, "SF Mono", Menlo, monospace;
+        font-size: 0.85rem;
+      }
+      pre {
+        overflow-x: auto;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+      }
+      .diagram {
+        font-family: ui-monospace, monospace;
+        white-space: pre;
+        overflow-x: auto;
+        font-size: 0.78rem;
+        line-height: 1.4;
+      }
+      .tag {
+        display: inline-block;
+        padding: 0.15rem 0.5rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+      .tag-pass {
+        background: rgba(61, 153, 112, 0.2);
+        color: var(--pass);
+      }
+      .tag-fail {
+        background: rgba(204, 68, 68, 0.2);
+        color: var(--fail);
+      }
+      ul {
+        padding-left: 1.25rem;
+      }
+      footer {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 1.5rem 2rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>アフィリエイトリンク自動同期 — 設計書</h1>
+      <p>
+        リポジトリ: blog-affiliate-pipeline / 本番: sim-hikari-guide.com / 承認日:
+        2026-08-15
+      </p>
+    </header>
+    <main>
+      <section id="requirements">
+        <h2>1. 要件整理</h2>
+        <p>
+          <strong>ゴール:</strong> ユーザーが ASP 管理画面から取得した
+          <code>trackingUrl</code> / <code>programId</code> を Agent
+          が検証・反映し、サイト全体で
+          <code>config/asp-urls.json</code>
+          を正本としたアフィリエイトリンク管理を実現する。
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>機能</th>
+              <th>内容</th>
+              <th>Phase 1</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Intake</strong></td>
+              <td>ユーザー入力 → asp-urls.json 更新</td>
+              <td><span class="tag tag-pass">MVP</span></td>
+            </tr>
+            <tr>
+              <td><strong>Generator</strong></td>
+              <td>プレースホルダ保存（URL 焼き込み廃止）</td>
+              <td><span class="tag tag-pass">MVP</span></td>
+            </tr>
+            <tr>
+              <td><strong>記事移行</strong></td>
+              <td>112 本のハードコード URL → {AFFILIATE:*}</td>
+              <td>Phase 2</td>
+            </tr>
+            <tr>
+              <td><strong>ヘルスチェック</strong></td>
+              <td>週次 trackingUrl 到達性検証</td>
+              <td>Phase 2</td>
+            </tr>
+            <tr>
+              <td><strong>Agent サイクル</strong></td>
+              <td>plan-sync + PR 自動化</td>
+              <td>Phase 3</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>制約</h3>
+        <ul>
+          <li>
+            A8 / バリューコマース / もしもへの <strong>Agent 自動ログイン不可</strong>
+          </li>
+          <li><strong>tracking URL の推測・生成禁止</strong>（ユーザー提供のみ）</li>
+          <li>registry 変更は <strong>PR 必須</strong>（収益直結）</li>
+          <li>secrets をリポジトリに含めない</li>
+        </ul>
+      </section>
+
+      <section id="architecture">
+        <h2>2. アーキテクチャ</h2>
+        <pre class="diagram">
+ユーザー（手動）
+  A8 pub.a8.net / VC aff.valuecommerce.ne.jp
+  │
+  └─ programId + trackingUrl 共有
+           │
+           ▼
+scripts/affiliate/intake-urls.mjs
+  │  ホストパターン検証（px.a8.net / valuecommerce.com）
+  │  programId 形式検証
+  ▼
+config/asp-urls.json（正本）
+  │
+  ├─ packages/generator  … 新規記事 {AFFILIATE:*} プレースホルダ保存
+  ├─ site remark/rehype  … ビルド時 URL 解決
+  ├─ HubAspCtaSection     … resolveProgramUrl
+  └─ E2E validate-articles … ASP ホスト検出</pre>
+        <table>
+          <thead>
+            <tr>
+              <th>コンポーネント</th>
+              <th>パス</th>
+              <th>役割</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Registry 正本</td>
+              <td><code>config/asp-urls.json</code></td>
+              <td>ASP / program / trackingUrl</td>
+            </tr>
+            <tr>
+              <td>Intake CLI</td>
+              <td><code>scripts/affiliate/intake-urls.mjs</code></td>
+              <td>ユーザー入力 → registry 更新</td>
+            </tr>
+            <tr>
+              <td>Shared lib</td>
+              <td><code>scripts/affiliate/lib.mjs</code></td>
+              <td>読み書き・検証</td>
+            </tr>
+            <tr>
+              <td>Generator</td>
+              <td><code>packages/generator/generator/pipeline.py</code></td>
+              <td>プレースホルダ保存（デフォルト）</td>
+            </tr>
+            <tr>
+              <td>Site plugins</td>
+              <td><code>site/src/plugins/remark-affiliate-placeholders.ts</code></td>
+              <td>ビルド時解決</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="data">
+        <h2>3. データ設計</h2>
+        <h3>config/asp-urls.json（現行スキーマ維持）</h3>
+        <pre>
+{
+  "version": 1,
+  "updatedAt": "2026-08-15",
+  "providers": {
+    "a8": { "tracking": { "hostPattern": "px.a8.net" } },
+    "valuecommerce": { "tracking": { "hostPattern": "valuecommerce.com" } }
+  },
+  "programs": {
+    "uq-mobile": {
+      "label": "UQ mobile",
+      "category": "sim",
+      "provider": "a8",
+      "programId": "...",
+      "trackingUrl": "https://px.a8.net/...",
+      "status": "active|pending",
+      "lastVerified": "2026-08-15"
+    }
+  }
+}</pre>
+        <h3>Intake 入力 JSON</h3>
+        <pre>
+{
+  "programId": "4B8097+XXXXXXXX+XXXX+XXXXXXX",
+  "trackingUrl": "https://px.a8.net/svt/ejp?a8mat=...",
+  "provider": "a8",
+  "label": "UQ mobile",
+  "status": "active"
+}</pre>
+        <p>
+          <code>programKey</code> は CLI 引数（例:
+          <code>npm run affiliate:intake -- uq-mobile</code>）または JSON の
+          <code>programKey</code> / <code>id</code> フィールドで指定。
+        </p>
+        <h3>状態の単一正本</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>レイヤ</th>
+              <th>正本</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>URL</td>
+              <td><code>asp-urls.json</code> のみ</td>
+            </tr>
+            <tr>
+              <td>新規記事 MD</td>
+              <td><code>{AFFILIATE:program-key}</code> プレースホルダ</td>
+            </tr>
+            <tr>
+              <td>公開 HTML</td>
+              <td>ビルド時に registry から解決</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="can-cannot">
+        <h2>4. CAN / CANNOT</h2>
+        <table>
+          <thead>
+            <tr>
+              <th><span class="tag tag-pass">CAN</span> Agent / CI</th>
+              <th><span class="tag tag-fail">CANNOT</span> ユーザー必須</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>共有された URL の registry 反映 PR</td>
+              <td>A8 / VC / もしもへのログイン</td>
+            </tr>
+            <tr>
+              <td>ホストパターン・programId 形式の検証</td>
+              <td>管理画面からのリンク取得（初回）</td>
+            </tr>
+            <tr>
+              <td>新規記事へのプレースホルダ保存</td>
+              <td>tracking URL の推測・生成</td>
+            </tr>
+            <tr>
+              <td>記事プレースホルダ移行 PR（Phase 2）</td>
+              <td>新規 ASP 提携申請・審査</td>
+            </tr>
+            <tr>
+              <td>週次ヘルスチェック + Issue（Phase 2）</td>
+              <td>ASP ToS 上禁止される自動スクレイピング</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="edge-cases">
+        <h2>5. 懸念・エッジケース</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>懸念</th>
+              <th>対策</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>URL 発明リスク</td>
+              <td>intake で hostPattern 検証。未検証 URL は拒否</td>
+            </tr>
+            <tr>
+              <td>二重解決</td>
+              <td>Generator はプレースホルダ保存、Site がビルド時解決</td>
+            </tr>
+            <tr>
+              <td>pending program（UQ mobile 等）</td>
+              <td><code>status: pending</code> + fallbackUrl 維持。承認後 intake</td>
+            </tr>
+            <tr>
+              <td>112 本ハードコード移行</td>
+              <td>Phase 2 でカテゴリ別 PR（visual regression 影響大）</td>
+            </tr>
+            <tr>
+              <td>programId 不一致（ahamo vs ahamo-hikari）</td>
+              <td>registry <code>note</code> + intake 時 label 照合</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="phases">
+        <h2>6. 実装フェーズ</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>内容</th>
+              <th>状態</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>P1 MVP</strong></td>
+              <td>
+                intake-urls.mjs + lib.mjs + Generator プレースホルダ化 + quality gate 調整
+                + テスト + docs
+              </td>
+              <td><span class="tag tag-pass">本 PR</span></td>
+            </tr>
+            <tr>
+              <td>P2</td>
+              <td>migrate-article-links.mjs（112 本）+ 週次ヘルス WF</td>
+              <td>未着手</td>
+            </tr>
+            <tr>
+              <td>P3</td>
+              <td>plan-sync-cycle + agent workflow + intake チェックリスト</td>
+              <td>未着手</td>
+            </tr>
+            <tr>
+              <td>P4</td>
+              <td>ASP 公式 API 連携（条件付き・将来）</td>
+              <td>非推奨（現時点）</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="usage">
+        <h2>7. Phase 1 運用手順</h2>
+        <ol>
+          <li>ユーザーが A8 / VC 管理画面でログインし trackingUrl を取得</li>
+          <li>
+            <code>npm run affiliate:intake:dry-run -- &lt;programKey&gt;</code> で JSON
+            入力・検証
+          </li>
+          <li>
+            <code>npm run affiliate:intake -- &lt;programKey&gt;</code> で registry 更新
+          </li>
+          <li>PR 作成 → レビュー → マージ → Vercel デプロイ</li>
+          <li>新規生成記事は <code>{AFFILIATE:*}</code> のまま保存、ビルド時に解決</li>
+        </ol>
+        <pre>
+# dry-run 例
+cat &lt;&lt;'EOF' | npm run affiliate:intake:dry-run -- uq-mobile
+{
+  "programId": "4B8097+TESTID+UQMO+BILE01",
+  "trackingUrl": "https://px.a8.net/svt/ejp?a8mat=4B8097+TESTID+UQMO+BILE01",
+  "provider": "a8",
+  "status": "active"
+}
+EOF</pre>
+      </section>
+    </main>
+    <footer>
+      <p>
+        関連: <code>docs/asp-urls.md</code> / <code>scripts/affiliate/lib.mjs</code> /
+        <code>config/asp-urls.json</code>
+      </p>
+    </footer>
+  </body>
+</html>

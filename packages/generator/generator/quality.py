@@ -15,7 +15,14 @@ class QualityResult:
     errors: list[str]
 
 
-def check_article(body: str, article_type: str, root: Path, *, test_mode: bool = True) -> QualityResult:
+def check_article(
+    body: str,
+    article_type: str,
+    root: Path,
+    *,
+    test_mode: bool = True,
+    allow_affiliate_placeholders: bool = False,
+) -> QualityResult:
     thresholds = load_json(root / "config/quality-thresholds.json")
     rules = load_json(root / "config/affiliate-rules.json")
     errors: list[str] = []
@@ -50,7 +57,7 @@ def check_article(body: str, article_type: str, root: Path, *, test_mode: bool =
     ):
         errors.append("公式確認・時点表記がありません")
 
-    if re.search(r"\{\{?AFFILIATE:", body):
+    if not allow_affiliate_placeholders and re.search(r"\{\{?AFFILIATE:", body):
         errors.append("未解決のアフィリエイトプレースホルダがあります")
 
     return QualityResult(ok=len(errors) == 0, errors=errors)
