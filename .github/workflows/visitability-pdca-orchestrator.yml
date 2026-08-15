@@ -110,6 +110,21 @@ jobs:
         run: |
           CYCLE="${{ steps.plan.outputs.cycle }}"
           BRANCH="feature/visitability-cycle${CYCLE}-auto"
+          REPO="${{ github.repository }}"
+
+          EXISTING=$(gh pr list --repo "$REPO" --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
+          if [ -z "$EXISTING" ]; then
+            EXISTING=$(gh pr list --repo "$REPO" --state open --label "visitability-cycle-auto" --json number,title --jq --arg c "$CYCLE" '[.[] | select(.title == ("Visitability Cycle " + $c))][0].number // empty')
+          fi
+          if [ -n "$EXISTING" ]; then
+            echo "Open PR #${EXISTING} already exists for cycle ${CYCLE}; skipping Act."
+            exit 0
+          fi
+          if git ls-remote --heads origin "$BRANCH" | grep -q .; then
+            echo "Remote branch ${BRANCH} exists without an open PR; skipping Act to avoid push conflict."
+            exit 0
+          fi
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
