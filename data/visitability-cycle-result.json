@@ -1,23 +1,27 @@
 {
-  "cycleNumber": 32,
-  "template": "comparison_x2_crosssell",
-  "slugs": ["family-2-lines-cheap", "nuro-hikari-campaign", "hikkoshi-tsushin-osusume"],
+  "cycleNumber": 33,
+  "template": "howto_x2_trouble",
+  "slugs": [
+    "ahamo-oomori-option-moushikomi-tejun",
+    "uq-mobile-esim-settei-houhou",
+    "ahamo-speed-slow-fix"
+  ],
   "hubEntries": [
     {
-      "slug": "family-2-lines-cheap",
+      "slug": "ahamo-oomori-option-moushikomi-tejun",
       "category": "sim",
-      "label": "家族 2 回線 安い"
+      "label": "ahamo 大盛り オプション 申し込み 手順"
     },
     {
-      "slug": "nuro-hikari-campaign",
-      "category": "hikari",
-      "label": "NURO 光 料金 キャンペーン"
+      "slug": "uq-mobile-esim-settei-houhou",
+      "category": "sim",
+      "label": "UQモバイル eSIM 設定 方法"
     },
     {
-      "slug": "hikkoshi-tsushin-osusume",
-      "category": "cost",
-      "label": "引越し 通信 おすすめ"
+      "slug": "ahamo-speed-slow-fix",
+      "category": "trouble",
+      "label": "ahamo 速度 遅い 対処"
     }
   ],
-  "completedAt": "2026-08-15T07:26:40.648Z"
+  "completedAt": "2026-08-15T08:33:02.430Z"
 }

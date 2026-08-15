@@ -1,10 +1,10 @@
 {
-  "cycleNumber": 33,
-  "lastRunAt": "2026-08-15T07:26:40.648Z",
+  "cycleNumber": 34,
+  "lastRunAt": "2026-08-15T08:33:02.430Z",
   "lastOutcome": "success",
   "paused": false,
   "metrics": {
-    "collectedAt": "2026-08-15T07:26:40.129Z",
+    "collectedAt": "2026-08-15T08:33:00.771Z",
     "articleCount": 145,
     "indexQueueTotal": 145,
     "indexQueueIndexed": 67,
@@ -25,7 +25,7 @@
     "keywordSeedMax": 620,
     "rewriteQueueCount": 0
   },
-  "nextCycleTemplate": "comparison_x2_crosssell",
+  "nextCycleTemplate": "howto_x2_trouble",
   "blockers": [],
   "consecutiveFailures": 0
 }
