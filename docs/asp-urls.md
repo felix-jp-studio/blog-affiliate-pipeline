@@ -47,6 +47,39 @@
 
 ## 更新手順
 
+### 0. Intake スクリプト（Phase 1 MVP — 推奨）
+
+ユーザーが A8 / バリューコマース管理画面から取得した `trackingUrl` と `programId` を JSON で渡し、`config/asp-urls.json` を更新します。**Agent は URL を推測しません**（ホストパターン検証のみ）。
+
+```bash
+# 例: UQ mobile 承認後
+cat <<'EOF' | npm run affiliate:intake:dry-run -- uq-mobile
+{
+  "programId": "4B8097+XXXXXXXX+XXXX+XXXXXXX",
+  "trackingUrl": "https://px.a8.net/svt/ejp?a8mat=4B8097+XXXXXXXX+XXXX+XXXXXXX",
+  "provider": "a8",
+  "status": "active"
+}
+EOF
+
+# 問題なければ本番更新
+cat <<'EOF' | npm run affiliate:intake -- uq-mobile
+{ ... }
+EOF
+```
+
+| フィールド         | 必須             | 説明                                                  |
+| ------------------ | ---------------- | ----------------------------------------------------- |
+| `programKey`       | CLI 引数 or JSON | `programs` のキー（例: `uq-mobile`）                  |
+| `programId`        | 推奨             | ASP 側プログラム ID（省略時は URL から抽出）          |
+| `trackingUrl`      | 必須             | 管理画面からコピーしたトラッキング URL                |
+| `provider`         | 任意             | `a8` / `valuecommerce`（省略時は URL ホストから推定） |
+| `label` / `status` | 任意             | 表示名・`active` / `pending`                          |
+
+- 検証: `px.a8.net` / `valuecommerce.com` ホストのみ許可
+- 更新後: PR 作成 → レビュー → マージ（registry 変更は PR 必須）
+- 詳細設計: [`docs/affiliate-auto-sync-design.html`](./affiliate-auto-sync-design.html)
+
 ### 1. 新規 ASP プログラムを追加（審査通過後）
 
 1. `config/asp-urls.json` の `programs` にエントリを追加
@@ -67,12 +100,14 @@
 
 ### 3. 生成パイプラインでの利用
 
-テンプレート記事は `{AFFILIATE:linemo}` プレースホルダを使い、生成時に `asp-urls.json` から URL を解決します。
+テンプレート記事は `{AFFILIATE:linemo}` プレースホルダを使います。**Phase 1 以降、Generator は URL を焼き込まず**プレースホルダのまま Markdown を保存します。サイトビルド時（`remarkAffiliatePlaceholders`）に `asp-urls.json` から URL を解決します。
 
 ```bash
 npm run generate:template
 npm run test:generator
 ```
+
+`inject_affiliate_urls=True` を指定した場合のみ、従来どおり生成時に URL へ置換します（テスト・レガシー用途）。
 
 ### 4. 既存記事 Markdown の URL
 

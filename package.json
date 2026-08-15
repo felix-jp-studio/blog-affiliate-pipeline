@@ -9,7 +9,7 @@
   "scripts": {
     "wp:ping": "npm run wp:ping -w @blog-affiliate/publisher",
     "wp:post": "npm run wp:post -w @blog-affiliate/publisher",
-    "test": "npm run test -w @blog-affiliate/publisher && npm run test:generator && npm run test:comments && npm run test:gsc",
+    "test": "npm run test -w @blog-affiliate/publisher && npm run test:generator && npm run test:affiliate && npm run test:comments && npm run test:gsc",
     "test:generator": "cd packages/generator && PYTHONPATH=. python3 -m unittest discover -s tests -q",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -68,6 +68,9 @@
     "test:ux-pdca": "node --test scripts/ux-pdca/*.test.mjs",
     "ux:metrics": "node scripts/ux-pdca/collect-ux-metrics.mjs",
     "ux:plan": "node scripts/ux-pdca/plan-ux-cycle.mjs",
+    "affiliate:intake": "node scripts/affiliate/intake-urls.mjs",
+    "affiliate:intake:dry-run": "node scripts/affiliate/intake-urls.mjs --dry-run",
+    "test:affiliate": "node --test scripts/affiliate/*.test.mjs",
     "docs:design-html": "node scripts/docs/md-design-to-html.mjs",
     "comments:moderate": "npm run comments:moderate --prefix site"
   },

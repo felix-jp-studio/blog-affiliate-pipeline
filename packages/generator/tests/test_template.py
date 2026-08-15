@@ -89,6 +89,24 @@ class TemplateGenerationTest(unittest.TestCase):
         result = check_article(body, "howto", ROOT, test_mode=True)
         self.assertTrue(result.ok, result.errors)
 
+    def test_placeholder_only_passes_quality_without_injection(self):
+        item = {
+            "keyword": "格安SIM 20GB おすすめ",
+            "articleType": "comparison",
+            "category": "sim",
+        }
+        outline = build_outline(item)
+        body = build_body(outline)
+        result = check_article(
+            body,
+            "comparison",
+            ROOT,
+            test_mode=True,
+            allow_affiliate_placeholders=True,
+        )
+        self.assertTrue(result.ok, result.errors)
+        self.assertRegex(body, r"\{\{?AFFILIATE:")
+
     def test_meta_title_includes_year_and_intent_for_comparison(self):
         title = build_meta_title("WiMAX 料金 比較 2026", "comparison")
         self.assertIn("2026年", title)

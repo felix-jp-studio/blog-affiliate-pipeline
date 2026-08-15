@@ -46,8 +46,15 @@ class E2EPublishTest(unittest.TestCase):
             ):
                 self.assertIn(field, frontmatter)
 
-            result = check_article(body, item["articleType"], ROOT, test_mode=True)
+            result = check_article(
+                body,
+                item["articleType"],
+                ROOT,
+                test_mode=True,
+                allow_affiliate_placeholders=True,
+            )
             self.assertTrue(result.ok, result.errors)
+            self.assertRegex(body, r"\{\{?AFFILIATE:")
 
 
 if __name__ == "__main__":
