@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-15T00:35:02.059Z",
+  "updatedAt": "2026-08-15T01:01:43.128Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -1426,6 +1426,12 @@
       "slug": "uq-mobile-esim-settei-houhou",
       "url": "https://sim-hikari-guide.com/articles/uq-mobile-esim-settei-houhou",
       "mergedAt": "2026-08-14T01:31:50.656Z",
+      "indexed": false
+    },
+    {
+      "slug": "au-hikari-tsunagaranai-fix",
+      "url": "https://sim-hikari-guide.com/articles/au-hikari-tsunagaranai-fix",
+      "mergedAt": "2026-08-15T01:01:43.128Z",
       "indexed": false
     }
   ]
