@@ -114,7 +114,7 @@ jobs:
 
           EXISTING=$(gh pr list --repo "$REPO" --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
           if [ -z "$EXISTING" ]; then
-            EXISTING=$(gh pr list --repo "$REPO" --state open --label "visitability-cycle-auto" --json number,title --jq --arg c "$CYCLE" '[.[] | select(.title == ("Visitability Cycle " + $c))][0].number // empty')
+            EXISTING=$(gh pr list --repo "$REPO" --state open --label "visitability-cycle-auto" --json number,title | jq --arg c "$CYCLE" '[.[] | select(.title == ("Visitability Cycle " + $c))][0].number // empty')
           fi
           if [ -n "$EXISTING" ]; then
             echo "Open PR #${EXISTING} already exists for cycle ${CYCLE}; skipping Act."

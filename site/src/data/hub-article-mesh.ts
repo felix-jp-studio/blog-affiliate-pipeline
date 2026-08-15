@@ -279,7 +279,7 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "family-2-lines-cheap",
         label: "家族 2 回線 安い",
-      }
+      },
     ],
   },
   hikari: {
