@@ -132,6 +132,19 @@ jobs:
           path: docs/operations/gsc-inspect-run-*.md
           if-no-files-found: ignore
 
+      - name: Index queue status
+        if: always()
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            LIMIT="${{ inputs.limit || '10' }}"
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            LIMIT="3"
+          else
+            LIMIT="${GSC_DAILY_LIMIT:-10}"
+          fi
+          node scripts/gsc/index-queue-status.mjs --daily-limit="$LIMIT" | tee /tmp/gsc-queue-status.log
+
       - name: Write job summary
         if: always()
         run: |
@@ -143,6 +156,13 @@ jobs:
             echo "- docs: \`docs/gsc-inspect-automation.md\`"
             echo "- setup: \`docs/operations/gsc-parallel-setup.md\`"
             echo ""
+            if [ -f /tmp/gsc-queue-status.log ]; then
+              echo "### Index queue status"
+              echo '```'
+              cat /tmp/gsc-queue-status.log
+              echo '```'
+              echo ""
+            fi
             if [ -f /tmp/gsc-ui-preflight.log ]; then
               echo "### UI preflight (verify-ui-session)"
               echo '```'
