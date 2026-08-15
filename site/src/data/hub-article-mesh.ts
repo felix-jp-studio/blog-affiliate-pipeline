@@ -552,6 +552,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "mansion-hikari-slow-fix",
         label: "マンション 光回線 遅い",
       },
+      {
+        slug: "au-hikari-tsunagaranai-fix",
+        label: "au ひかり 繋がらない 対処の原因と7つの…",
+      },
     ],
   },
   cost: {
