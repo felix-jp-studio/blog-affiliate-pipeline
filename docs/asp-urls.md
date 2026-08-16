@@ -117,6 +117,8 @@ node scripts/affiliate/create-affiliate-agent-issue.mjs
 
 **Human-in-the-loop**: Agent は ASP にログインできません。ユーザーが Issue テンプレートまたは Agent Issue チェックリストに tracking URL を貼り付けてから Agent が intake PR を作成します。
 
+**手順書（クリック単位）**: [`docs/operations/affiliate-manual-intake-guide.md`](./operations/affiliate-manual-intake-guide.md) — A8 / バリューコマース intake、GitHub workflow、Issue テンプレート、npm コマンド、本番確認、GA4 除外、トラブルシュート、今すぐやること 1〜10。
+
 ### 1. 新規 ASP プログラムを追加（審査通過後）
 
 1. `config/asp-urls.json` の `programs` にエントリを追加
