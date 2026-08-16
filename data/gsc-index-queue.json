@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-15T01:01:43.128Z",
+  "updatedAt": "2026-08-16T00:37:58.722Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -555,7 +555,7 @@
       "url": "https://sim-hikari-guide.com/articles/sim-tethering-settei-houhou",
       "mergedAt": "2026-08-09T04:28:11.948Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-15T00:31:36.774Z",
+      "lastInspectedAt": "2026-08-16T00:33:07.599Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -644,7 +644,7 @@
       "url": "https://sim-hikari-guide.com/articles/iijmio-kaituu-dekinai-fix",
       "mergedAt": "2026-08-09T04:28:39.421Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-15T00:31:36.774Z",
+      "lastInspectedAt": "2026-08-16T00:33:07.599Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -1021,7 +1021,7 @@
       "url": "https://sim-hikari-guide.com/articles/povo-kaiyaku-tejun",
       "mergedAt": "2026-08-09T05:12:09.895Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-15T00:31:36.774Z",
+      "lastInspectedAt": "2026-08-16T00:33:07.599Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -1110,7 +1110,7 @@
       "url": "https://sim-hikari-guide.com/articles/rakuten-mobile-esim-settei-tejun",
       "mergedAt": "2026-08-09T05:18:43.703Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-15T00:31:36.774Z",
+      "lastInspectedAt": "2026-08-16T00:33:07.599Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -1126,37 +1126,109 @@
       "slug": "iijmio-esim-settei-tejun",
       "url": "https://sim-hikari-guide.com/articles/iijmio-esim-settei-tejun",
       "mergedAt": "2026-08-09T05:18:43.703Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-08-16T00:33:07.599Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-08-10T13:55:53Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-08-16T00:33:07.599Z"
     },
     {
       "slug": "esim-profile-sakujo-dekinai-fix",
       "url": "https://sim-hikari-guide.com/articles/esim-profile-sakujo-dekinai-fix",
       "mergedAt": "2026-08-09T05:19:52.004Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-08-16T00:33:07.599Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-08-10T14:23:25Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-08-16T00:33:07.599Z"
     },
     {
       "slug": "mnp-yoyaku-bangou-shutoku-dekinai-fix",
       "url": "https://sim-hikari-guide.com/articles/mnp-yoyaku-bangou-shutoku-dekinai-fix",
       "mergedAt": "2026-08-09T05:19:52.004Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-08-16T00:33:07.599Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-08-10T14:32:35Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-08-16T00:33:07.599Z"
     },
     {
       "slug": "mineo-speed-slow-fix",
       "url": "https://sim-hikari-guide.com/articles/mineo-speed-slow-fix",
       "mergedAt": "2026-08-09T05:19:52.004Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-08-16T00:33:07.599Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-08-10T16:21:06Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-08-16T00:33:07.599Z"
     },
     {
       "slug": "softbank-hikari-kaiyaku-tejun",
       "url": "https://sim-hikari-guide.com/articles/softbank-hikari-kaiyaku-tejun",
       "mergedAt": "2026-08-09T05:24:20.328Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-08-16T00:33:07.599Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-08-10T13:55:22Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-08-16T00:33:07.599Z"
     },
     {
       "slug": "uq-mobile-kishu-henkou-tejun",
       "url": "https://sim-hikari-guide.com/articles/uq-mobile-kishu-henkou-tejun",
       "mergedAt": "2026-08-09T05:24:20.328Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-08-16T00:33:07.599Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-08-10T13:51:37Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-08-16T00:33:07.599Z"
     },
     {
       "slug": "hikari-provider-henkou-tejun",
