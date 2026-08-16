@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-16T00:37:58.722Z",
+  "updatedAt": "2026-08-16T01:05:38.730Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -1504,6 +1504,12 @@
       "slug": "au-hikari-tsunagaranai-fix",
       "url": "https://sim-hikari-guide.com/articles/au-hikari-tsunagaranai-fix",
       "mergedAt": "2026-08-15T01:01:43.128Z",
+      "indexed": false
+    },
+    {
+      "slug": "hikkoshi-hikari-denki-set",
+      "url": "https://sim-hikari-guide.com/articles/hikkoshi-hikari-denki-set",
+      "mergedAt": "2026-08-16T01:05:38.729Z",
       "indexed": false
     }
   ]
