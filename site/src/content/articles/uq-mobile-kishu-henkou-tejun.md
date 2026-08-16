@@ -9,7 +9,6 @@ priority: 338
 draft: false
 dateModified: 2026-08-16
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,7 +63,6 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
@@ -73,6 +71,7 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - [ahamo 大盛り オプション 申し込み 手順の手順【2026年版】5ステップで解説](/articles/ahamo-oomori-option-moushikomi-tejun)
 - [au ひかり 解約 方法の手順【2026年版】5ステップで解説](/articles/au-hikari-kaiyaku-houhou)
 - [ahamo 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/ahamo-speed-slow-fix)
+
 
 ## よくある質問
 

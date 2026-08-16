@@ -7,9 +7,8 @@ articleType: comparison
 keyword: "2月 引っ越し 光回線 キャンペーン"
 priority: 380
 draft: false
-dateModified: 2026-08-11
+dateModified: 2026-08-16
 ---
-
 ## 結論サマリ
 
 2月 引っ越し 光回線 キャンペーンを検討する場合、まず「マンション・戸建てのどちらか」「現在のプロバイダとセット契約か」「工事の可否」を整理するのが近道です。光回線は初期費用・工事期間・解約金・セット割の組み合わせで実質料金が大きく変わるため、月額だけでなく総コストで比較してください。
@@ -103,15 +102,15 @@ ahamo光はahamoユーザー向けの光回線として案内されることが�
 - 表の数値は比較観点であり、最新条件は公式が正
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [ソフトバンク光 解約 手順の手順【2026年版】5ステップで解説](/articles/softbank-hikari-kaiyaku-tejun)
-- [【2026年最新】新生活 光回線 比較｜5社比較と選び方](/articles/shinseikatsu-hikari-hikaku)
-- [楽天モバイル乗り換え手順【2026年版】5ステップで解説](/articles/rakuten-mobile-switch)
-- [ビッグローブ光 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/biglobe-hikari-tsunagaranai-fix)
+- [【2026年最新】ドコモ光 光コラボ 比較｜5社比較と選び方](/articles/docomo-hikari-hikari-collab-hikaku)
+- [【2026年最新】WiMAX 料金 比較 2026｜5社比較と選び方](/articles/wimax-fee-hikaku-2026)
+- [【2026年最新】家族 2 回線 安い比較｜選び方と注意点](/articles/family-2-lines-cheap)
+- [ahamo 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/ahamo-speed-slow-fix)
+
 
 ## よくある質問
 

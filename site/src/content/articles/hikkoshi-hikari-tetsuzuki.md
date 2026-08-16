@@ -2,14 +2,13 @@
 title: "引っ越し 光回線 手続きの手順【2026年版】5ステップで解説"
 description: "引っ越し 光回線 手続きを5ステップで解説。【2026年版】必要書類・所要時間・つまずきポイントを公式情報に基づき整理。"
 pubDate: 2026-07-31
-dateModified: 2026-08-11
+dateModified: 2026-08-16
 category: hikari
 articleType: howto
 keyword: "引っ越し 光回線 手続き"
 priority: 47
 draft: false
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】NURO光 解約金 違約金比較｜選び方と注意点](/articles/nuro-hikari-kaiyaku-kin-iyakukin)
-- [【2026年最新】NURO光 評判 デメリット 2026比較｜選び方と注意点](/articles/nuro-hikari-hyoban-demerit-2026)
-- [eSIM 機種変更 手順の手順【2026年版】5ステップで解説](/articles/esim-kishu-henkou-tejun)
-- [ビッグローブ光 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/biglobe-hikari-tsunagaranai-fix)
+- [【2026年最新】工事 不要 光回線比較｜選び方と注意点](/articles/kouji-fuyou-hikari)
+- [【2026年最新】光回線 乗り換え おすすめ｜料金・速度を比較](/articles/hikari-switch-osusume)
+- [【2026年最新】家族 2 回線 安い比較｜選び方と注意点](/articles/family-2-lines-cheap)
+- [NURO 光 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/nuro-hikari-tsunagaranai-fix)
+
 
 ## よくある質問
 

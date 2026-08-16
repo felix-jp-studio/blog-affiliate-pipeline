@@ -7,9 +7,8 @@ articleType: troubleshoot
 keyword: "MNP エラー 対処"
 priority: 320
 draft: false
-dateModified: 2026-08-11
+dateModified: 2026-08-16
 ---
-
 ## 症状の確認
 
 MNP エラー 対処で検索する方は、次のような状態に当てはまることが多いです。
@@ -72,15 +71,15 @@ APN設定の誤り、古い端末、省電力モード、バックグラウン�
 - 定期的にマイページで利用状況を確認する
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [povo 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/povo-speed-slow-fix)
-- [ソフトバンク光 障害 確認の原因と7つの対処法【2026年版】](/articles/softbank-hikari-shogai-kakunin)
-- [eSIM 再発行 手順の手順【2026年版】5ステップで解説](/articles/esim-saihakko-tejun)
-- [光回線 開通 準備 手順の手順【2026年版】5ステップで解説](/articles/hikari-kaituu-junbi-tejun)
+- [IIJmio 開通 できない 対処の原因と7つの対処法【2026年版】](/articles/iijmio-kaituu-dekinai-fix)
+- [ホームルーター 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/home-router-speed-slow-fix)
+- [povo データ容量 追加 方法の手順【2026年版】5ステップで解説](/articles/povo-data-yoryou-tsuika-houhou)
+- [ビッグローブ光 解約 手順の手順【2026年版】5ステップで解説](/articles/biglobe-hikari-kaiyaku-tejun)
+
 
 ## よくある質問
 
