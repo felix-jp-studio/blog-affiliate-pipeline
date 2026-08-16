@@ -70,6 +70,10 @@
     "ux:plan": "node scripts/ux-pdca/plan-ux-cycle.mjs",
     "affiliate:intake": "node scripts/affiliate/intake-urls.mjs",
     "affiliate:intake:dry-run": "node scripts/affiliate/intake-urls.mjs --dry-run",
+    "affiliate:migrate": "node scripts/affiliate/migrate-article-links.mjs",
+    "affiliate:migrate:dry-run": "node scripts/affiliate/migrate-article-links.mjs --dry-run",
+    "affiliate:health": "node scripts/affiliate/link-health-check.mjs",
+    "affiliate:health:dry-run": "node scripts/affiliate/link-health-check.mjs --dry-run",
     "test:affiliate": "node --test scripts/affiliate/*.test.mjs",
     "docs:design-html": "node scripts/docs/md-design-to-html.mjs",
     "comments:moderate": "npm run comments:moderate --prefix site"

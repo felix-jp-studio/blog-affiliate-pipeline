@@ -2,8 +2,16 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import {
   applyIntake,
+  buildLastVerifiedAlert,
+  buildProgramUrlIndex,
+  daysSinceIsoDate,
+  findHardcodedAspUrls,
   inferProviderFromUrl,
+  migrateMarkdownLinks,
+  probeTrackingUrl,
   readAspUrls,
+  resolveProgramKeyFromUrl,
+  runAffiliateHealthCheck,
   validateAspProgramId,
   validateProgramKey,
   validateTrackingUrl,
@@ -122,5 +130,116 @@ describe("applyIntake", () => {
         }),
       /does not match trackingUrl/,
     );
+  });
+});
+
+describe("buildProgramUrlIndex", () => {
+  it("maps tracking URLs and program IDs to program keys", () => {
+    const { byUrl, byProgramId } = buildProgramUrlIndex(registry);
+    assert.equal(
+      byUrl.get("https://px.a8.net/svt/ejp?a8mat=4B8097+2XZ6GI+424K+NTJWY"),
+      "rakuten-mobile",
+    );
+    assert.equal(byProgramId.get("valuecommerce:892660854"), "linemo");
+  });
+});
+
+describe("resolveProgramKeyFromUrl", () => {
+  it("resolves known A8 and ValueCommerce URLs", () => {
+    assert.equal(
+      resolveProgramKeyFromUrl(
+        "https://px.a8.net/svt/ejp?a8mat=4BB6H3+LGDU+4TIO+5YJRM",
+        registry,
+      ),
+      "ahamo",
+    );
+    assert.equal(
+      resolveProgramKeyFromUrl(
+        "https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3776193&pid=892660854",
+        registry,
+      ),
+      "linemo",
+    );
+  });
+});
+
+describe("migrateMarkdownLinks", () => {
+  it("replaces ASP markdown links with affiliate placeholders", () => {
+    const input =
+      "[楽天モバイルの公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+2XZ6GI+424K+NTJWY)";
+    const { content, replacements, unmapped } = migrateMarkdownLinks(input, registry);
+
+    assert.equal(content, "[楽天モバイルの公式を見る]({AFFILIATE:rakuten-mobile})");
+    assert.equal(replacements.length, 1);
+    assert.equal(unmapped.length, 0);
+  });
+
+  it("leaves official URLs unchanged", () => {
+    const input = "[povoの公式を見る](https://povo.jp/)";
+    const { content, replacements } = migrateMarkdownLinks(input, registry);
+    assert.equal(content, input);
+    assert.equal(replacements.length, 0);
+  });
+});
+
+describe("findHardcodedAspUrls", () => {
+  it("detects hardcoded ASP URLs but skips placeholder targets", () => {
+    const content = [
+      "[楽天](https://px.a8.net/svt/ejp?a8mat=4B8097+2XZ6GI+424K+NTJWY)",
+      "[ahamo]({AFFILIATE:ahamo})",
+    ].join("\n");
+    const found = findHardcodedAspUrls(content, registry);
+    assert.equal(found.length, 1);
+    assert.equal(found[0].line, 1);
+  });
+});
+
+describe("buildLastVerifiedAlert", () => {
+  it("flags stale lastVerified dates for active programs", () => {
+    const alert = buildLastVerifiedAlert(
+      {
+        status: "active",
+        trackingUrl: "https://example.com",
+        lastVerified: "2026-01-01",
+      },
+      "rakuten-mobile",
+      30,
+    );
+    assert.equal(alert?.type, "stale-lastVerified");
+  });
+
+  it("skips pending programs without trackingUrl", () => {
+    const alert = buildLastVerifiedAlert({ status: "pending" }, "uq-mobile", 30);
+    assert.equal(alert, null);
+  });
+});
+
+describe("daysSinceIsoDate", () => {
+  it("computes day difference", () => {
+    assert.equal(daysSinceIsoDate("2026-08-01", "2026-08-16"), 15);
+  });
+});
+
+describe("probeTrackingUrl", () => {
+  it("returns HTTP status from fetch", async () => {
+    const fetchFn = async () => ({ ok: true, status: 200 });
+    const result = await probeTrackingUrl("https://example.com", fetchFn);
+    assert.equal(result.ok, true);
+    assert.equal(result.status, 200);
+  });
+});
+
+describe("runAffiliateHealthCheck", () => {
+  it("records probe failures and stale lastVerified alerts", async () => {
+    const fetchFn = async () => ({ ok: false, status: 500 });
+    const report = await runAffiliateHealthCheck(registry, {
+      fetchFn,
+      alertDays: 1,
+      referenceDate: "2026-08-16",
+    });
+
+    assert.ok(report.summary.totalPrograms > 0);
+    assert.ok(report.alerts.some((alert) => alert.type === "probe-failed"));
+    assert.ok(report.alerts.some((alert) => alert.type === "stale-lastVerified"));
   });
 });

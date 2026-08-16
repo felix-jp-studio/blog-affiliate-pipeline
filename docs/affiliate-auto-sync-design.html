@@ -404,8 +404,11 @@ config/asp-urls.json（正本）
             </tr>
             <tr>
               <td>P2</td>
-              <td>migrate-article-links.mjs（112 本）+ 週次ヘルス WF</td>
-              <td>未着手</td>
+              <td>
+                migrate-article-links.mjs（カテゴリ別移行）+ link-health-check.mjs +
+                週次ヘルス WF + validate-articles 警告
+              </td>
+              <td><span class="tag tag-pass">本 PR</span></td>
             </tr>
             <tr>
               <td>P3</td>
@@ -445,6 +448,33 @@ cat &lt;&lt;'EOF' | npm run affiliate:intake:dry-run -- uq-mobile
   "status": "active"
 }
 EOF</pre>
+      </section>
+
+      <section id="usage-p2">
+        <h2>8. Phase 2 運用手順</h2>
+        <ol>
+          <li>
+            <code>npm run affiliate:migrate:dry-run -- --category sim</code>
+            で置換対象を確認
+          </li>
+          <li>
+            <code>npm run affiliate:migrate -- --category sim</code> で sim カテゴリを移行
+          </li>
+          <li>PR 作成 → CI（validate-articles 警告数減少）→ マージ</li>
+          <li>残カテゴリ（hikari / cost / trouble）は同コマンドで順次移行</li>
+          <li>
+            週次: <code>affiliate-link-health.yml</code> が trackingUrl 到達性と
+            <code>lastVerified</code> 鮮度を検査
+          </li>
+        </ol>
+        <pre>
+# migrate 例
+npm run affiliate:migrate:dry-run -- --category sim
+npm run affiliate:migrate -- --category sim
+
+# health 例
+npm run affiliate:health:dry-run
+npm run affiliate:health</pre>
       </section>
     </main>
     <footer>
