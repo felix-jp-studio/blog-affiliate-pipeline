@@ -48,10 +48,10 @@ draft: false
 
 固定費セットの条件を満たす通信キャリアが決まったら、**回線自体の月額・データ容量・エリア**を公式情報で比較してください。以下は通信キャリアの公式申し込みページへの導線です（アフィリエイトリンク）。
 
-- [楽天モバイルの公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+2XZ6GI+424K+NTJWY)
-- [auひかりの公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+1WGVCI+3HKU+1THW9E)
-- [ソフトバンク光の公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+230N02+3HKU+25EKCY)
-- [LINEMOの公式を見る](https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3776193&pid=892660854)
+- [楽天モバイルの公式を見る]({AFFILIATE:rakuten-mobile})
+- [auひかりの公式を見る]({AFFILIATE:au-hikari})
+- [ソフトバンク光の公式を見る]({AFFILIATE:softbank-hikari})
+- [LINEMOの公式を見る]({AFFILIATE:linemo})
 
 ## 向いている人・向いていない人
 

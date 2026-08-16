@@ -60,31 +60,31 @@ draft: false
 
 NURO 光は高速回線として案内されることが多いです。エリア・建物タイプ・プロバイダによって料金と工事条件が変わるため、公式のエリア検索と料金シミュレーターで確認してください。
 
-[NURO 光の公式を見る](https://px.a8.net/svt/ejp?a8mat=3T9D5A+2E6V1U+4B4+631SX)
+[NURO 光の公式を見る]({AFFILIATE:nuro-hikari})
 
 ### auひかり
 
 auひかりはau/UQ mobileのセット割と組み合わせやすい選択肢として比較表に入れやすい回線です。戸建て向けプランが中心のため、マンションの場合は別回線も併せて検討してください。
 
-[auひかりの公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+1WGVCI+3HKU+1THW9E)
+[auひかりの公式を見る]({AFFILIATE:au-hikari})
 
 ### ソフトバンク光
 
 ソフトバンク光はソフトバンク/Y!mobile/LINEMOとのセット割がポイントになります。プロバイダやオプションによって月額が変わるため、公式の料金表で内訳を確認してください。
 
-[ソフトバンク光の公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+230N02+3HKU+25EKCY)
+[ソフトバンク光の公式を見る]({AFFILIATE:softbank-hikari})
 
 ### WiMAX
 
 WiMAXは工事不要で据置型端末を置くだけで使える場合があります。光回線が敷設されていない物件や、短期利用・引越し予定がある場合の選択肢として比較対象に入れられます。
 
-[WiMAXの公式を見る](https://px.a8.net/svt/ejp?a8mat=4B8097+2PN3ZM+2JMM+1BN3TU)
+[WiMAXの公式を見る]({AFFILIATE:wimax})
 
 ### ahamo光
 
 ahamo光はahamoユーザー向けの光回線として案内されることが多いです。料金・エリア・工事条件は公式サイトで確認してください。
 
-[ahamo光の公式を見る](https://px.a8.net/svt/ejp?a8mat=436HK6+FSMIQU+5IPO+CX6C6Q)
+[ahamo光の公式を見る]({AFFILIATE:ahamo-hikari})
 
 ## 乗り換え・申し込みの流れ
 
