@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 import { readFileSync } from "node:fs";
-import { applyIntakeBatch, readAspUrls, writeAspUrls } from "./lib.mjs";
+import {
+  applyIntakeBatch,
+  readAspUrls,
+  validateIntakeEntry,
+  writeAspUrls,
+} from "./lib.mjs";
 
 function parseArgs(argv) {
   const args = { dryRun: false, file: null, programKey: null };
@@ -39,6 +44,13 @@ function readStdin() {
 function normalizeEntries(entries, defaultProgramKey) {
   return entries.map((entry) => {
     const programKey = entry.programKey ?? entry.id ?? defaultProgramKey;
+    const schemaError = validateIntakeEntry(
+      { ...entry, programKey: programKey ?? entry.programKey ?? entry.id },
+      { requireProgramKey: !programKey },
+    );
+    if (schemaError) {
+      throw new Error(schemaError);
+    }
     if (!programKey) {
       throw new Error("programKey is required (CLI arg, entry.programKey, or entry.id)");
     }

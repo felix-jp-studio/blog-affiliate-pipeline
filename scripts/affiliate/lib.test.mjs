@@ -13,6 +13,7 @@ import {
   resolveProgramKeyFromUrl,
   runAffiliateHealthCheck,
   validateAspProgramId,
+  validateIntakeEntry,
   validateProgramKey,
   validateTrackingUrl,
 } from "./lib.mjs";
@@ -26,6 +27,37 @@ describe("validateProgramKey", () => {
 
   it("rejects invalid slugs", () => {
     assert.match(validateProgramKey("UQ Mobile"), /slug/);
+  });
+});
+
+describe("validateIntakeEntry", () => {
+  it("accepts valid intake JSON", () => {
+    assert.equal(
+      validateIntakeEntry({
+        programKey: "uq-mobile",
+        trackingUrl: "https://px.a8.net/svt/ejp?a8mat=TEST",
+        provider: "a8",
+        status: "active",
+      }),
+      null,
+    );
+  });
+
+  it("rejects unknown fields", () => {
+    assert.match(
+      validateIntakeEntry({ trackingUrl: "https://px.a8.net/x", secret: "x" }),
+      /unknown field/,
+    );
+  });
+
+  it("requires programKey when configured", () => {
+    assert.match(
+      validateIntakeEntry(
+        { trackingUrl: "https://px.a8.net/x" },
+        { requireProgramKey: true },
+      ),
+      /programKey is required/,
+    );
   });
 });
 

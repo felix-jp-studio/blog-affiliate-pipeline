@@ -413,7 +413,7 @@ config/asp-urls.json（正本）
             <tr>
               <td>P3</td>
               <td>plan-sync-cycle + agent workflow + intake チェックリスト</td>
-              <td>未着手</td>
+              <td><span class="tag tag-pass">本 PR</span></td>
             </tr>
             <tr>
               <td>P4</td>
@@ -475,6 +475,78 @@ npm run affiliate:migrate -- --category sim
 # health 例
 npm run affiliate:health:dry-run
 npm run affiliate:health</pre>
+      </section>
+
+      <section id="usage-p3">
+        <h2>9. Phase 3 運用手順</h2>
+        <ol>
+          <li>
+            週次ヘルスまたは手動で
+            <code>npm run affiliate:plan</code> を実行し、同期対象（pending / stale /
+            probe-failed）を特定
+          </li>
+          <li>
+            GitHub Actions
+            <code>affiliate-sync-agent-cycle.yml</code>（workflow_dispatch または
+            <code>affiliate-sync-auto</code> ラベル）で Agent Issue を自動作成
+          </li>
+          <li>
+            ユーザーが Issue テンプレート
+            <code>affiliate-url-intake.yml</code> または Agent Issue
+            チェックリストに従い、A8 / VC 管理画面から tracking URL を貼り付け
+          </li>
+          <li>
+            <code>npm run affiliate:parse</code> でペーストを解析 →
+            <code>affiliate:intake:dry-run</code> → intake PR
+          </li>
+          <li>レビュー → マージ → 週次ヘルスで lastVerified 更新を確認</li>
+        </ol>
+        <pre>
+# ASP ペースト解析
+npm run affiliate:parse -- --text '&lt;a href="https://px.a8.net/..."&gt;...&lt;/a&gt;'
+
+# 同期計画（dry-run）
+npm run affiliate:plan:dry-run
+
+# intake JSON スキーマ
+config/affiliate-intake.schema.json</pre>
+        <table>
+          <thead>
+            <tr>
+              <th>コンポーネント</th>
+              <th>パス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Parse paste</td>
+              <td><code>scripts/affiliate/parse-asp-paste.mjs</code></td>
+            </tr>
+            <tr>
+              <td>Plan sync</td>
+              <td><code>scripts/affiliate/plan-sync-cycle.mjs</code></td>
+            </tr>
+            <tr>
+              <td>Agent Issue</td>
+              <td><code>scripts/affiliate/create-affiliate-agent-issue.mjs</code></td>
+            </tr>
+            <tr>
+              <td>State / Brief</td>
+              <td>
+                <code>config/affiliate-sync-state.json</code> /
+                <code>data/affiliate-sync-brief.json</code>
+              </td>
+            </tr>
+            <tr>
+              <td>Issue template</td>
+              <td><code>.github/ISSUE_TEMPLATE/affiliate-url-intake.yml</code></td>
+            </tr>
+            <tr>
+              <td>Agent workflow</td>
+              <td><code>.github/workflows/affiliate-sync-agent-cycle.yml</code></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
     </main>
     <footer>
