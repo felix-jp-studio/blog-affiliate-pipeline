@@ -162,7 +162,18 @@ A8 管理画面のメニュー名は UI 改修で多少変わる場合があり�
 ### B-3. intake 時の programKey
 
 - Issue テンプレート: **Program key** = `linemo`、**ASP provider** = `valuecommerce`
-- ローカル: `npm run affiliate:intake:dry-run -- linemo`
+- ローカル dry-run（JSON stdin 必須）:
+
+```bash
+cat <<'EOF' | npm run affiliate:intake:dry-run -- linemo
+{
+  "programId": "892660854",
+  "trackingUrl": "https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3776193&pid=892660854",
+  "provider": "valuecommerce",
+  "status": "active"
+}
+EOF
+```
 
 ---
 
@@ -377,12 +388,28 @@ curl -sL 'https://sim-hikari-guide.com/articles/nuro-hikari-campaign' | grep -o 
 curl -sL 'https://sim-hikari-guide.com/articles/linemo-ahamo-hikaku' | grep -o 'https://[^"'"'"'<> ]*valuecommerce.com[^"'"'"'<> ]*' | head -3
 ```
 
-**UQ mobile 承認後**（記事に `{AFFILIATE:uq-mobile}` が入っている場合）:
+**UQ mobile 承認後 — レジストリ確認（記事プレースホルダ移行前）**
+
+> **注意（2026-08-16 時点）**: リポジトリ内の記事 Markdown に `{AFFILIATE:uq-mobile}` は **まだ存在しません**。intake 直後は **レジストリとヘルスチェック** で確認し、記事へのプレースホルダ反映は別 PR（`docs/asp-urls.md` 参照）で行います。`sim-senior-osusume` 等の比較記事に出る `px.a8.net` は **ahamo / rakuten-mobile** 由来であり、UQ intake の成功判定には使えません。
 
 ```bash
-curl -sL 'https://sim-hikari-guide.com/articles/sim-senior-osusume' | grep -o 'https://px.a8.net[^"'"'"'<> ]*' | head -3
-# pending 中は公式 fallback（uqwimax.jp）のまま — 承認前は px.a8.net が出ないのが正常
+# マージ後: uq-mobile が active + trackingUrl 設定済みか
+node -e "const r=require('./config/asp-urls.json'); console.log(r.programs['uq-mobile'])"
+
+# ヘルスレポートで uq-mobile の到達性
+npm run affiliate:health
+grep -A5 '"programKey": "uq-mobile"' data/affiliate-health-report.json || true
 ```
+
+**記事に `{AFFILIATE:uq-mobile}` を反映した後**（別 PR マージ後）:
+
+```bash
+# UQ 比較記事（プレースホルダ反映後に px.a8.net が UQ CTA に付く）
+curl -sL 'https://sim-hikari-guide.com/articles/ymobile-uq-mobile-hikaku' | grep -o 'https://px.a8.net[^"'"'"'<> ]*' | head -3
+# または UQ 専記記事（例: uq-mobile-kaiyaku-tejun）— プレースホルダ追加後
+```
+
+**pending 中（intake 前）**: 上記記事の UQ CTA は `fallbackUrl`（`uqwimax.jp`）のまま — **`px.a8.net` が出ないのが正常**
 
 ### F-2. ブラウザ確認
 
@@ -447,9 +474,9 @@ Phase 3 の **次の一手** を上から順に実行してください。
 3. GitHub で **Affiliate URL intake** Issue を作成する（https://github.com/felix-jp-studio/blog-affiliate-pipeline/issues/new?template=affiliate-url-intake.yml）— **Program key: `uq-mobile`**、**ASP provider: `a8`**、ペーストを貼る
 4. Issue に **`affiliate-sync`** ラベルが付いていることを確認し、Agent に Issue URL を渡して intake PR 作成を依頼する
 5. （任意）Actions で **Affiliate sync agent cycle** workflow を **Run workflow**（branch: `main`）し、自動 Agent Issue が出るか確認する
-6. PR マージ前に `npm run affiliate:intake:dry-run -- uq-mobile` と `npm run test:affiliate` が通ることを Agent / CI で確認する
+6. PR マージ前に `cat <<'EOF' | npm run affiliate:intake:dry-run -- uq-mobile`（JSON 付き）と `npm run test:affiliate` が通ることを Agent / CI で確認する
 7. PR を **main** にマージし、Vercel デプロイ完了を待つ（2〜5 分）
-8. https://sim-hikari-guide.com/articles/sim-senior-osusume 等で CTA リンクが **`px.a8.net`** になったか curl / ブラウザで確認する
+8. `node -e "const r=require('./config/asp-urls.json'); console.log(r.programs['uq-mobile'])"` で **`status: active`** と **`trackingUrl`**（`px.a8.net`）を確認する（記事プレースホルダ `{AFFILIATE:uq-mobile}` 反映前は本番 HTML に UQ の A8 リンクは出ない）
 9. `npm run affiliate:health`（または週次 workflow）で `uq-mobile` が **active**・到達性 OK であることを確認する
 10. GA4 の **内部トラフィックフィルター** が未 **Active** なら [`docs/analytics-setup.md`](../analytics-setup.md) に従い設定する（本番確認のノイズ削減）
 
