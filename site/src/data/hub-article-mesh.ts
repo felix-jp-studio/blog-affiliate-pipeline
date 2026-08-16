@@ -628,6 +628,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "rakuten-keizai-koteihi",
         label: "楽天経済圏 固定費 見直し",
       },
+      {
+        slug: "hikkoshi-hikari-denki-set",
+        label: "引越し 光回線 電気 セットで固定費を見直す",
+      },
     ],
   },
 };
