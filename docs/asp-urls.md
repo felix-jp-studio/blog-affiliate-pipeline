@@ -111,10 +111,25 @@ npm run test:generator
 
 ### 4. 既存記事 Markdown の URL
 
-`site/src/content/articles/*.md` には **ハードコードされたトラッキング URL** が残っています。  
-新規・更新時は `asp-urls.json` を更新したうえで、該当記事のリンクも合わせて更新してください。
+`site/src/content/articles/*.md` には **ハードコードされたトラッキング URL** が残っている記事があります（Phase 2 移行中）。
 
-将来的には `{AFFILIATE:carrier-id}` プレースホルダへの移行を推奨します。
+**推奨**: `{AFFILIATE:program-key}` プレースホルダへ移行する。
+
+```bash
+# 全体 dry-run
+npm run affiliate:migrate:dry-run
+
+# sim カテゴリのみ移行
+npm run affiliate:migrate -- --category sim
+
+# 週次ヘルスチェック（trackingUrl 到達性 + lastVerified アラート）
+npm run affiliate:health
+```
+
+- 移行スクリプト: `scripts/affiliate/migrate-article-links.mjs`
+- ヘルスチェック: `scripts/affiliate/link-health-check.mjs` → `data/affiliate-health-report.json`
+- CI 週次: `.github/workflows/affiliate-link-health.yml`
+- `validate-articles` はハードコード ASP URL を **警告** として検出
 
 ## 読み込み元一覧
 

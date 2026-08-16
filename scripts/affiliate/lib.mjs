@@ -211,3 +211,274 @@ export function applyIntakeBatch(registry, entries) {
 
   return { registry: current, changes: allChanges };
 }
+
+const MARKDOWN_LINK_PATTERN = /\[([^\]]*)\]\((https?:\/\/[^)\s]+)\)/g;
+export const AFFILIATE_PLACEHOLDER_PATTERN = /\{AFFILIATE:[a-z0-9-]+\}/;
+export const DEFAULT_LAST_VERIFIED_ALERT_DAYS = 90;
+
+export function normalizeTrackingUrl(trackingUrl) {
+  const parsed = new URL(trackingUrl);
+  parsed.hash = "";
+  return parsed.href;
+}
+
+/**
+ * @param {object} registry
+ * @returns {{ byUrl: Map<string, string>, byProgramId: Map<string, string> }}
+ */
+export function buildProgramUrlIndex(registry) {
+  const byUrl = new Map();
+  const byProgramId = new Map();
+
+  for (const [programKey, program] of Object.entries(registry.programs ?? {})) {
+    if (program.trackingUrl) {
+      byUrl.set(normalizeTrackingUrl(program.trackingUrl), programKey);
+    }
+    if (program.programId && program.provider) {
+      byProgramId.set(`${program.provider}:${program.programId}`, programKey);
+    }
+  }
+
+  return { byUrl, byProgramId };
+}
+
+export function isAspTrackingUrl(urlString, registry) {
+  try {
+    return inferProviderFromUrl(urlString, registry) !== null;
+  } catch {
+    return false;
+  }
+}
+
+export function resolveProgramKeyFromUrl(urlString, registry) {
+  let parsed;
+  try {
+    parsed = new URL(urlString);
+  } catch {
+    return null;
+  }
+
+  const providerKey = inferProviderFromUrl(urlString, registry);
+  if (!providerKey) {
+    return null;
+  }
+
+  const { byUrl, byProgramId } = buildProgramUrlIndex(registry);
+  const normalized = normalizeTrackingUrl(parsed.href);
+  const byExactUrl = byUrl.get(normalized);
+  if (byExactUrl) {
+    return byExactUrl;
+  }
+
+  const programId = extractProgramIdFromUrl(urlString, providerKey);
+  if (!programId) {
+    return null;
+  }
+
+  return byProgramId.get(`${providerKey}:${programId}`) ?? null;
+}
+
+/**
+ * @param {string} content
+ * @param {object} registry
+ * @returns {{ content: string, replacements: object[], unmapped: object[] }}
+ */
+export function migrateMarkdownLinks(content, registry) {
+  const replacements = [];
+  const unmapped = [];
+
+  const nextContent = content.replace(MARKDOWN_LINK_PATTERN, (match, label, url) => {
+    if (!isAspTrackingUrl(url, registry)) {
+      return match;
+    }
+
+    const programKey = resolveProgramKeyFromUrl(url, registry);
+    if (!programKey) {
+      unmapped.push({ url, label });
+      return match;
+    }
+
+    replacements.push({ url, programKey, label });
+    return `[${label}]({AFFILIATE:${programKey}})`;
+  });
+
+  return { content: nextContent, replacements, unmapped };
+}
+
+/**
+ * @param {string} content
+ * @param {object} registry
+ * @returns {{ url: string, line: number }[]}
+ */
+export function findHardcodedAspUrls(content, registry) {
+  const lines = content.split("\n");
+  const found = [];
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    const matches = [...line.matchAll(MARKDOWN_LINK_PATTERN)];
+    for (const match of matches) {
+      const url = match[2];
+      if (AFFILIATE_PLACEHOLDER_PATTERN.test(url)) {
+        continue;
+      }
+      if (isAspTrackingUrl(url, registry)) {
+        found.push({ url, line: index + 1 });
+      }
+    }
+  }
+
+  return found;
+}
+
+export function daysSinceIsoDate(isoDate, referenceDate = todayIsoDate()) {
+  if (!isoDate || typeof isoDate !== "string") {
+    return null;
+  }
+  const start = Date.parse(`${isoDate}T00:00:00Z`);
+  const end = Date.parse(`${referenceDate}T00:00:00Z`);
+  if (Number.isNaN(start) || Number.isNaN(end)) {
+    return null;
+  }
+  return Math.floor((end - start) / (24 * 60 * 60 * 1000));
+}
+
+export function buildLastVerifiedAlert(
+  program,
+  programKey,
+  alertDays = DEFAULT_LAST_VERIFIED_ALERT_DAYS,
+) {
+  if (program.status !== "active" || !program.trackingUrl) {
+    return null;
+  }
+
+  const days = daysSinceIsoDate(program.lastVerified);
+  if (days === null) {
+    return {
+      programKey,
+      type: "missing-lastVerified",
+      message: `${programKey}: lastVerified is missing`,
+    };
+  }
+  if (days > alertDays) {
+    return {
+      programKey,
+      type: "stale-lastVerified",
+      message: `${programKey}: lastVerified is ${days} days old (${program.lastVerified})`,
+      days,
+    };
+  }
+  return null;
+}
+
+/**
+ * @param {string} trackingUrl
+ * @param {typeof fetch} fetchFn
+ * @param {{ timeoutMs?: number }} [options]
+ */
+export async function probeTrackingUrl(
+  trackingUrl,
+  fetchFn = fetch,
+  { timeoutMs = 15000 } = {},
+) {
+  async function request(method) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      return await fetchFn(trackingUrl, {
+        method,
+        redirect: "follow",
+        signal: controller.signal,
+      });
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  try {
+    let response = await request("HEAD");
+
+    if (response.status === 405 || response.status === 501) {
+      response = await request("GET");
+    }
+
+    return {
+      ok: response.ok,
+      status: response.status,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      status: null,
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
+/**
+ * @param {object} registry
+ * @param {{ fetchFn?: typeof fetch, alertDays?: number, referenceDate?: string }} [options]
+ */
+export async function runAffiliateHealthCheck(registry, options = {}) {
+  const fetchFn = options.fetchFn ?? fetch;
+  const alertDays = options.alertDays ?? DEFAULT_LAST_VERIFIED_ALERT_DAYS;
+  const referenceDate = options.referenceDate ?? todayIsoDate();
+  const programs = {};
+  const alerts = [];
+
+  for (const [programKey, program] of Object.entries(registry.programs ?? {})) {
+    const staleAlert = buildLastVerifiedAlert(program, programKey, alertDays);
+    if (staleAlert) {
+      alerts.push(staleAlert);
+    }
+
+    if (!program.trackingUrl || program.status !== "active") {
+      programs[programKey] = {
+        label: program.label,
+        status: program.status ?? "unknown",
+        trackingUrl: program.trackingUrl ?? null,
+        lastVerified: program.lastVerified ?? null,
+        daysSinceVerified: daysSinceIsoDate(program.lastVerified, referenceDate),
+        probe: null,
+        alert: staleAlert?.type ?? null,
+      };
+      continue;
+    }
+
+    const probe = await probeTrackingUrl(program.trackingUrl, fetchFn);
+    if (!probe.ok) {
+      alerts.push({
+        programKey,
+        type: "probe-failed",
+        message: `${programKey}: trackingUrl probe failed (${probe.status ?? probe.error})`,
+        probe,
+      });
+    }
+
+    programs[programKey] = {
+      label: program.label,
+      status: program.status,
+      trackingUrl: program.trackingUrl,
+      lastVerified: program.lastVerified ?? null,
+      daysSinceVerified: daysSinceIsoDate(program.lastVerified, referenceDate),
+      probe,
+      alert: staleAlert?.type ?? (probe.ok ? null : "probe-failed"),
+    };
+  }
+
+  return {
+    version: 1,
+    generatedAt: referenceDate,
+    alertDays,
+    programs,
+    alerts,
+    summary: {
+      totalPrograms: Object.keys(programs).length,
+      alertCount: alerts.length,
+      probeFailures: alerts.filter((alert) => alert.type === "probe-failed").length,
+      staleLastVerified: alerts.filter((alert) => alert.type === "stale-lastVerified")
+        .length,
+    },
+  };
+}

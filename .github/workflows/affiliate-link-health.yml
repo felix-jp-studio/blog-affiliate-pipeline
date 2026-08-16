@@ -1,0 +1,57 @@
+name: Affiliate link health
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Mon 09:00 JST = UTC Sun 00:00
+    - cron: "0 0 * * 1"
+
+jobs:
+  affiliate-health:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Run affiliate health check
+        id: health
+        continue-on-error: true
+        run: node scripts/affiliate/link-health-check.mjs | tee /tmp/affiliate-health-out.txt
+
+      - name: Upload health report
+        if: always() && hashFiles('data/affiliate-health-report.json') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: affiliate-health-report
+          path: data/affiliate-health-report.json
+          if-no-files-found: ignore
+
+      - name: Write job summary
+        if: always()
+        run: |
+          {
+            echo "## Affiliate link health"
+            echo ""
+            if [ -f data/affiliate-health-report.json ]; then
+              echo "Report artifact: \`affiliate-health-report\`"
+              echo ""
+              echo '```json'
+              cat data/affiliate-health-report.json
+              echo '```'
+            else
+              echo "No report file generated."
+            fi
+            echo ""
+            echo '```'
+            cat /tmp/affiliate-health-out.txt 2>/dev/null || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Fail on alerts
+        if: steps.health.outcome == 'failure'
+        run: exit 1

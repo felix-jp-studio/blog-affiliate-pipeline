@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { findHardcodedAspUrls, readAspUrls } from "../affiliate/lib.mjs";
 import {
   FORBIDDEN_SLUG_PATTERN,
   REQUIRED_FIELDS,
@@ -21,6 +22,8 @@ const INTERNAL_LINKS_MARKERS = [
 ];
 
 const errors = [];
+const warnings = [];
+const aspRegistry = readAspUrls();
 
 if (listArticleFiles().length === 0) {
   fail(["no article markdown files found"]);
@@ -87,6 +90,20 @@ for (const filePath of listArticleFiles()) {
         `${slug}: missing affiliate link patterns: ${missingPatterns.join(", ")}`,
       );
     }
+  }
+
+  const hardcodedAspUrls = findHardcodedAspUrls(content, aspRegistry);
+  if (hardcodedAspUrls.length > 0) {
+    warnings.push(
+      `${slug}: hardcoded ASP URL(s) at line(s) ${hardcodedAspUrls.map((item) => item.line).join(", ")} — use {AFFILIATE:program-id}`,
+    );
+  }
+}
+
+if (warnings.length > 0) {
+  console.warn("E2E validation warnings:");
+  for (const warning of warnings) {
+    console.warn(`  - ${warning}`);
   }
 }
 
