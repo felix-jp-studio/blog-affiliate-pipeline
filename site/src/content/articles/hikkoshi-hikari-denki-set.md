@@ -2,6 +2,7 @@
 title: "【2026年】引越し 光回線 電気 セットで固定費を見直す｜比較ポイント3つ"
 description: "【2026年】引越し 光回線 電気 セットのセット条件と3つの比較ポイント。固定費と通信をまとめて見直す方向けに公式情報を整理。"
 pubDate: 2026-08-16
+dateModified: 2026-08-16
 category: cost
 articleType: crosssell
 keyword: "引越し 光回線 電気 セット"

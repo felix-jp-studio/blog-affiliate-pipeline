@@ -7,9 +7,8 @@ articleType: howto
 keyword: "楽天モバイル 解約 手順"
 priority: 384
 draft: false
-dateModified: 2026-08-11
+dateModified: 2026-08-16
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [mineo eSIM 設定 手順の手順【2026年版】5ステップで解説](/articles/mineo-esim-settei-tejun)
-- [LINEMO 機種変更 手順の手順【2026年版】5ステップで解説](/articles/linemo-kishu-henkou-tejun)
-- [docomo光 解約 手順の手順【2026年版】5ステップで解説](/articles/docomo-kaiyaku-tejun)
-- [ビッグローブ光 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/biglobe-hikari-tsunagaranai-fix)
+- [【2026年最新】格安SIM 5G 対応 比較｜5社比較と選び方](/articles/sim-5g-taiou-hikaku)
+- [eSIM 乗り換え 即日の手順【2026年版】5ステップで解説](/articles/esim-norikae-sokujitsu)
+- [【2026年最新】NURO 光 料金 キャンペーン比較｜選び方と注意点](/articles/nuro-hikari-campaign)
+- [ahamo 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/ahamo-speed-slow-fix)
+
 
 ## よくある質問
 

@@ -7,9 +7,8 @@ articleType: howto
 keyword: "IIJmio 解約 手順"
 priority: 377
 draft: false
-dateModified: 2026-08-11
+dateModified: 2026-08-16
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [【2026年最新】スマホ セット割 比較｜5社比較と選び方](/articles/smartphone-setwari-hikaku)
-- [【2026年最新】データ無制限 格安SIM比較｜選び方と注意点](/articles/sim-unlimited-data)
-- [【2026年最新】引っ越し WiMAX おすすめ｜料金・速度を比較](/articles/hikkoshi-wimax-osusume)
-- [ビッグローブ光 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/biglobe-hikari-tsunagaranai-fix)
+- [格安SIM テザリング 設定 方法の手順【2026年版】5ステップで解説](/articles/sim-tethering-settei-houhou)
+- [【2026年最新】格安SIM 乗り換え キャンペーン 比較｜5社比較と選び方](/articles/sim-norikae-campaign-hikaku)
+- [【2026年最新】NURO 光 料金 キャンペーン比較｜選び方と注意点](/articles/nuro-hikari-campaign)
+- [ahamo 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/ahamo-speed-slow-fix)
+
 
 ## よくある質問
 

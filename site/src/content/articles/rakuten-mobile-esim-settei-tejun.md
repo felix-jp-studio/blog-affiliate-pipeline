@@ -7,9 +7,8 @@ articleType: howto
 keyword: "楽天モバイル eSIM 設定 手順"
 priority: 334
 draft: false
-dateModified: 2026-08-11
+dateModified: 2026-08-16
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [mineo eSIM 設定 手順の手順【2026年版】5ステップで解説](/articles/mineo-esim-settei-tejun)
-- [LINEMO 機種変更 手順の手順【2026年版】5ステップで解説](/articles/linemo-kishu-henkou-tejun)
-- [【2026年最新】光回線 1Gbps 安い比較｜選び方と注意点](/articles/hikari-1gbps-yasui)
-- [ビッグローブ光 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/biglobe-hikari-tsunagaranai-fix)
+- [【2026年最新】格安SIM 乗り換え おすすめ｜料金・速度を比較](/articles/sim-norikae-osusume)
+- [povo データ容量 追加 方法の手順【2026年版】5ステップで解説](/articles/povo-data-yoryou-tsuika-houhou)
+- [【2026年最新】NURO 光 料金 キャンペーン比較｜選び方と注意点](/articles/nuro-hikari-campaign)
+- [LINEMO 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/linemo-speed-slow-fix)
+
 
 ## よくある質問
 

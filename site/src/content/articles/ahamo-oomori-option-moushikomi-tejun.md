@@ -7,9 +7,8 @@ articleType: howto
 keyword: "ahamo 大盛り オプション 申し込み 手順"
 priority: 631
 draft: false
-dateModified: 2026-08-15
+dateModified: 2026-08-16
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
 - [【2026年最新】ホームルーター 光回線 比較｜5社比較と選び方](/articles/home-router-hikari-hikaku)
 - [【2026年最新】スマホ セット割 比較｜5社比較と選び方](/articles/smartphone-setwari-hikaku)
-- [【2026年最新】NURO 光 料金 キャンペーン比較｜選び方と注意点](/articles/nuro-hikari-campaign)
-- [ソフトバンク光 障害 確認の原因と7つの対処法【2026年版】](/articles/softbank-hikari-shogai-kakunin)
+- [【2026年最新】ソフトバンク光 ビッグローブ光 比較｜5社比較と選び方](/articles/softbank-hikari-biglobe-hikari-hikaku)
+- [ahamo 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/ahamo-speed-slow-fix)
+
 
 ## よくある質問
 

@@ -7,9 +7,8 @@ articleType: howto
 keyword: "ワイモバイル 解約 手順"
 priority: 383
 draft: false
-dateModified: 2026-08-11
+dateModified: 2026-08-16
 ---
-
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -64,15 +63,15 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
-
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
 
-- [ahamo eSIM 設定 手順の手順【2026年版】5ステップで解説](/articles/ahamo-esim-settei-tejun)
-- [ahamo 大盛り オプション 申し込み 手順の手順【2026年版】5ステップで解説](/articles/ahamo-oomori-option-moushikomi-tejun)
-- [【2026年最新】2月 引っ越し 光回線 キャンペーン比較｜選び方と注意点](/articles/2-hikkoshi-hikari-campaign)
-- [ホームルーター 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/home-router-speed-slow-fix)
+- [【2026年最新】ahamo povo 比較｜5社比較と選び方](/articles/ahamo-povo-hikaku)
+- [【2026年最新】格安SIM 20GB比較｜5社の選び方と料金](/articles/sim-20gb-osusume)
+- [【2026年最新】NURO 光 料金 キャンペーン比較｜選び方と注意点](/articles/nuro-hikari-campaign)
+- [au ひかり 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/au-hikari-tsunagaranai-fix)
+
 
 ## よくある質問
 
