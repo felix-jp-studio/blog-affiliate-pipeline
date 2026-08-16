@@ -197,7 +197,11 @@ describe("findHardcodedAspUrls", () => {
 describe("buildLastVerifiedAlert", () => {
   it("flags stale lastVerified dates for active programs", () => {
     const alert = buildLastVerifiedAlert(
-      { status: "active", trackingUrl: "https://example.com", lastVerified: "2026-01-01" },
+      {
+        status: "active",
+        trackingUrl: "https://example.com",
+        lastVerified: "2026-01-01",
+      },
       "rakuten-mobile",
       30,
     );
