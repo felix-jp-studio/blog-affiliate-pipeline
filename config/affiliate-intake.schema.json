@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sim-hikari-guide.com/schemas/affiliate-intake.json",
+  "title": "Affiliate intake entry",
+  "description": "User-provided ASP tracking URL for config/asp-urls.json intake",
+  "type": "object",
+  "required": ["trackingUrl"],
+  "properties": {
+    "programKey": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Registry key (e.g. uq-mobile). May be supplied via CLI instead."
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Alias for programKey"
+    },
+    "programId": {
+      "type": "string",
+      "minLength": 1,
+      "description": "ASP program ID (optional if extractable from trackingUrl)"
+    },
+    "trackingUrl": {
+      "type": "string",
+      "minLength": 12,
+      "description": "HTTPS tracking URL copied from ASP management portal"
+    },
+    "provider": {
+      "type": "string",
+      "enum": ["a8", "valuecommerce"]
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "type": "string",
+      "enum": ["sim", "hikari", "cost", "trouble"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "pending"]
+    },
+    "note": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

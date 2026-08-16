@@ -74,6 +74,9 @@
     "affiliate:migrate:dry-run": "node scripts/affiliate/migrate-article-links.mjs --dry-run",
     "affiliate:health": "node scripts/affiliate/link-health-check.mjs",
     "affiliate:health:dry-run": "node scripts/affiliate/link-health-check.mjs --dry-run",
+    "affiliate:parse": "node scripts/affiliate/parse-asp-paste.mjs",
+    "affiliate:plan": "node scripts/affiliate/plan-sync-cycle.mjs",
+    "affiliate:plan:dry-run": "node scripts/affiliate/plan-sync-cycle.mjs --dry-run",
     "test:affiliate": "node --test scripts/affiliate/*.test.mjs",
     "docs:design-html": "node scripts/docs/md-design-to-html.mjs",
     "comments:moderate": "npm run comments:moderate --prefix site"

@@ -1,8 +1,91 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { repoRoot } from "../e2e/e2e-utils.mjs";
 
 export const ASP_URLS_PATH = join(repoRoot, "config/asp-urls.json");
+
+export const AFFILIATE_PATHS = {
+  state: join(repoRoot, "config/affiliate-sync-state.json"),
+  brief: join(repoRoot, "data/affiliate-sync-brief.json"),
+  healthReport: join(repoRoot, "data/affiliate-health-report.json"),
+  intakeSchema: join(repoRoot, "config/affiliate-intake.schema.json"),
+  pdcaLog: join(repoRoot, "docs/operations/affiliate-sync-log.md"),
+};
+
+const INTAKE_ALLOWED_KEYS = new Set([
+  "programKey",
+  "id",
+  "programId",
+  "trackingUrl",
+  "provider",
+  "label",
+  "category",
+  "status",
+  "note",
+]);
+
+export function readJson(path, fallback = null) {
+  if (!existsSync(path)) return fallback;
+  return JSON.parse(readFileSync(path, "utf8"));
+}
+
+export function writeJson(path, data) {
+  writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`, "utf8");
+}
+
+/**
+ * Lightweight validation aligned with config/affiliate-intake.schema.json.
+ * @param {object} entry
+ * @param {{ requireProgramKey?: boolean }} [options]
+ */
+export function validateIntakeEntry(entry, { requireProgramKey = false } = {}) {
+  if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
+    return "intake entry must be a JSON object";
+  }
+
+  for (const key of Object.keys(entry)) {
+    if (!INTAKE_ALLOWED_KEYS.has(key)) {
+      return `unknown field: ${key}`;
+    }
+  }
+
+  if (!entry.trackingUrl || typeof entry.trackingUrl !== "string") {
+    return "trackingUrl is required";
+  }
+  if (!entry.trackingUrl.startsWith("https://")) {
+    return "trackingUrl must use https";
+  }
+
+  const programKey = entry.programKey ?? entry.id;
+  if (requireProgramKey && !programKey) {
+    return "programKey is required (CLI arg, programKey, or id)";
+  }
+  if (programKey) {
+    const keyError = validateProgramKey(programKey);
+    if (keyError) return keyError;
+  }
+
+  if (entry.provider !== undefined && !["a8", "valuecommerce"].includes(entry.provider)) {
+    return "provider must be a8 or valuecommerce";
+  }
+  if (entry.status !== undefined && !["active", "pending"].includes(entry.status)) {
+    return "status must be active or pending";
+  }
+  if (
+    entry.category !== undefined &&
+    !["sim", "hikari", "cost", "trouble"].includes(entry.category)
+  ) {
+    return "category must be sim, hikari, cost, or trouble";
+  }
+  if (
+    entry.programId !== undefined &&
+    (typeof entry.programId !== "string" || !entry.programId.trim())
+  ) {
+    return "programId must be a non-empty string when provided";
+  }
+
+  return null;
+}
 
 const PROGRAM_KEY_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 

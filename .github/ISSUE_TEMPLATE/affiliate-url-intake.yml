@@ -1,0 +1,84 @@
+name: Affiliate URL intake
+description: Paste tracking URLs from A8 / ValueCommerce after manual ASP login
+title: "[Affiliate] URL intake: "
+labels:
+  - affiliate-sync
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Agent は ASP 管理画面にログインできません。** ユーザーが手動でログインし、取得した tracking URL を貼り付けてください。
+
+        - A8: [pub.a8.net](https://pub.a8.net/)
+        - バリューコマース: [aff.valuecommerce.ne.jp](https://aff.valuecommerce.ne.jp/)
+
+  - type: dropdown
+    id: program_key
+    attributes:
+      label: Program key
+      description: config/asp-urls.json の programs キー
+      options:
+        - uq-mobile
+        - povo
+        - rakuten-mobile
+        - linemo
+        - ahamo
+        - ahamo-hikari
+        - nuro-hikari
+        - au-hikari
+        - softbank-hikari
+        - wimax
+    validations:
+      required: true
+
+  - type: dropdown
+    id: provider
+    attributes:
+      label: ASP provider
+      options:
+        - a8
+        - valuecommerce
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: manual_steps
+    attributes:
+      label: Manual steps completed
+      options:
+        - label: ASP 管理画面にログインした
+        - label: リンク生成画面から tracking URL をコピーした（推測・生成していない）
+    validations:
+      required: true
+
+  - type: textarea
+    id: asp_paste
+    attributes:
+      label: ASP paste (HTML or plain text)
+      description: 管理画面からコピーした HTML スニペットまたは tracking URL
+      placeholder: |
+        例: <a href="https://px.a8.net/svt/ejp?a8mat=...">...</a>
+        または https://px.a8.net/svt/ejp?a8mat=...
+    validations:
+      required: true
+
+  - type: input
+    id: program_id
+    attributes:
+      label: Program ID (optional)
+      description: URL から自動抽出できない場合のみ入力
+
+  - type: dropdown
+    id: status
+    attributes:
+      label: Registry status
+      options:
+        - active
+        - pending
+      default: active
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes (optional)
+      description: 承認日、案件名、関連記事など

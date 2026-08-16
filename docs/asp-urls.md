@@ -77,8 +77,45 @@ EOF
 | `label` / `status` | 任意             | 表示名・`active` / `pending`                          |
 
 - 検証: `px.a8.net` / `valuecommerce.com` ホストのみ許可
+- JSON スキーマ: [`config/affiliate-intake.schema.json`](../config/affiliate-intake.schema.json)（`validateIntakeEntry` で検証）
 - 更新後: PR 作成 → レビュー → マージ（registry 変更は PR 必須）
 - 詳細設計: [`docs/affiliate-auto-sync-design.html`](./affiliate-auto-sync-design.html)
+
+### 0b. ASP ペースト解析（Phase 3）
+
+A8 / バリューコマース管理画面からコピーした HTML または plain text から tracking URL を抽出します。**ログイン不要**（ユーザーが貼り付けた内容のみ解析）。
+
+```bash
+# HTML スニペット or URL を解析
+npm run affiliate:parse -- --text '<a href="https://px.a8.net/svt/ejp?a8mat=...">...</a>'
+npm run affiliate:parse -- --file paste.html --json
+
+# 解析結果に programKey を付けて intake
+npm run affiliate:intake:dry-run -- uq-mobile  # JSON stdin
+```
+
+Issue テンプレート [`.github/ISSUE_TEMPLATE/affiliate-url-intake.yml`](../.github/ISSUE_TEMPLATE/affiliate-url-intake.yml) で programKey / provider / ペーストを structured intake できます。
+
+### 0c. Agent 同期サイクル（Phase 3）
+
+pending プログラム・stale `lastVerified`・ヘルスレポート alerts から次の同期対象を計画し、Agent Issue を作成します。
+
+```bash
+# 同期計画（data/affiliate-sync-brief.json を生成）
+npm run affiliate:plan:dry-run
+npm run affiliate:plan
+
+# Agent Issue 作成（GH_TOKEN 必要）
+node scripts/affiliate/create-affiliate-agent-issue.mjs
+```
+
+| ファイル                                           | 役割                                      |
+| -------------------------------------------------- | ----------------------------------------- |
+| `config/affiliate-sync-state.json`                 | サイクル番号・lastOutcome                 |
+| `data/affiliate-sync-brief.json`                   | 計画結果（対象 program / チェックリスト） |
+| `.github/workflows/affiliate-sync-agent-cycle.yml` | plan + Issue 自動作成                     |
+
+**Human-in-the-loop**: Agent は ASP にログインできません。ユーザーが Issue テンプレートまたは Agent Issue チェックリストに tracking URL を貼り付けてから Agent が intake PR を作成します。
 
 ### 1. 新規 ASP プログラムを追加（審査通過後）
 
