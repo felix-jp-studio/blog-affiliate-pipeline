@@ -11,12 +11,9 @@
  */
 
 import { copyFileSync, existsSync, mkdirSync, readdirSync, rmSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
+import { visualDiffOutputDir, visualTestResultsDir } from "./e2e-utils.mjs";
 import { VISUAL_PAGES, visualSnapshotBase } from "./visual-pages.mjs";
-
-const scriptDir = dirname(fileURLToPath(import.meta.url));
-const repoRoot = join(scriptDir, "../..");
 
 const DIFF_SUFFIXES = ["-diff.png", "-expected.png", "-actual.png"];
 
@@ -66,13 +63,9 @@ function matchesSnapshotBase(fileName, snapshotBase) {
 function main() {
   const args = parseArgs(process.argv.slice(2));
   const testResultsDir =
-    args.testResults ??
-    process.env.VISUAL_TEST_RESULTS_DIR ??
-    join(repoRoot, "site/test-results");
+    args.testResults ?? process.env.VISUAL_TEST_RESULTS_DIR ?? visualTestResultsDir;
   const outputDir =
-    args.output ??
-    process.env.VISUAL_DIFF_OUTPUT_DIR ??
-    join(repoRoot, ".github/pr-visual-diffs");
+    args.output ?? process.env.VISUAL_DIFF_OUTPUT_DIR ?? visualDiffOutputDir;
 
   if (existsSync(outputDir)) {
     rmSync(outputDir, { recursive: true, force: true });

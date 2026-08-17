@@ -25,6 +25,7 @@
     "test:e2e:cwv": "npx --yes @lhci/cli@0.14.0 autorun",
     "test:e2e:indexnow": "node scripts/e2e/verify-indexnow-key.mjs",
     "test:e2e:changed-slugs": "node scripts/e2e/changed-slugs.mjs",
+    "test:e2e:utils": "node --test scripts/e2e/*.test.mjs",
     "indexnow:ping": "node scripts/indexnow-ping.mjs",
     "gsc:inspection-batch": "node scripts/print-gsc-inspection-batch.mjs",
     "gsc:auth:login": "node scripts/gsc/auth-login.mjs",

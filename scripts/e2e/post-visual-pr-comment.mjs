@@ -15,12 +15,9 @@
  */
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
+import { visualDiffOutputDir, visualTestResultsDir } from "./e2e-utils.mjs";
 import { VISUAL_PAGES } from "./visual-pages.mjs";
-
-const scriptDir = dirname(fileURLToPath(import.meta.url));
-const repoRoot = join(scriptDir, "../..");
 
 const COMMENT_MARKER = "<!-- playwright-visual-report -->";
 
@@ -358,14 +355,12 @@ function loadReport(reportPath) {
 function main() {
   const args = parseArgs(process.argv.slice(2));
   const reportPath =
-    process.env.VISUAL_REPORT_PATH ??
-    join(repoRoot, "site/test-results/visual-report.json");
+    process.env.VISUAL_REPORT_PATH ?? join(visualTestResultsDir, "visual-report.json");
   const outputPath =
     args.output ??
     process.env.VISUAL_COMMENT_OUTPUT ??
-    join(repoRoot, "site/test-results/visual-pr-comment.md");
-  const diffOutputDir =
-    process.env.VISUAL_DIFF_OUTPUT_DIR ?? join(repoRoot, ".github/pr-visual-diffs");
+    join(visualTestResultsDir, "visual-pr-comment.md");
+  const diffOutputDir = process.env.VISUAL_DIFF_OUTPUT_DIR ?? visualDiffOutputDir;
   const diffBasePath = process.env.VISUAL_DIFF_BASE_PATH ?? ".github/pr-visual-diffs";
 
   const repository = process.env.GITHUB_REPOSITORY ?? null;
