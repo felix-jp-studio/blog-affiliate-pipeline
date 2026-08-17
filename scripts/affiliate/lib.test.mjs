@@ -8,6 +8,7 @@ import {
   findHardcodedAspUrls,
   inferProviderFromUrl,
   migrateMarkdownLinks,
+  isProbeSuccessStatus,
   probeTrackingUrl,
   readAspUrls,
   resolveProgramKeyFromUrl,
@@ -252,12 +253,31 @@ describe("daysSinceIsoDate", () => {
   });
 });
 
+describe("isProbeSuccessStatus", () => {
+  it("accepts 2xx and 3xx redirect responses", () => {
+    assert.equal(isProbeSuccessStatus(200), true);
+    assert.equal(isProbeSuccessStatus(302), true);
+    assert.equal(isProbeSuccessStatus(404), false);
+    assert.equal(isProbeSuccessStatus(500), false);
+  });
+});
+
 describe("probeTrackingUrl", () => {
   it("returns HTTP status from fetch", async () => {
     const fetchFn = async () => ({ ok: true, status: 200 });
     const result = await probeTrackingUrl("https://example.com", fetchFn);
     assert.equal(result.ok, true);
     assert.equal(result.status, 200);
+  });
+
+  it("treats ASP redirect responses as success", async () => {
+    const fetchFn = async () => ({ ok: false, status: 302 });
+    const result = await probeTrackingUrl(
+      "https://px.a8.net/svt/ejp?a8mat=test",
+      fetchFn,
+    );
+    assert.equal(result.ok, true);
+    assert.equal(result.status, 302);
   });
 });
 
