@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-11T00:00:00Z",
+  "updatedAt": "2026-08-17T11:30:00.000Z",
   "tasks": [
     {
       "id": "hub-card-layout",
@@ -17,7 +17,9 @@
         "npm run format:check --prefix site",
         "npm run test:e2e:visual --prefix site"
       ],
-      "status": "pending"
+      "status": "completed",
+      "completedAt": "2026-08-13T11:28:08.000Z",
+      "completedInPr": 226
     },
     {
       "id": "article-reading-width",
@@ -53,7 +55,8 @@
         "npm run format:check --prefix site",
         "npm run test:e2e:visual --prefix site"
       ],
-      "status": "pending"
+      "status": "completed",
+      "completedAt": "2026-08-17T11:30:00.000Z"
     },
     {
       "id": "contact-form-ux",
@@ -83,7 +86,8 @@
         "npm run format:check --prefix site",
         "npm run test:e2e:visual --prefix site"
       ],
-      "status": "pending"
+      "status": "completed",
+      "notes": "Already on main before UX PDCA automation"
     },
     {
       "id": "hub-comparison-table-mobile",

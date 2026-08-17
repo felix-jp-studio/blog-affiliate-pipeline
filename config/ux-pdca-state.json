@@ -1,10 +1,18 @@
 {
-  "cycleNumber": 1,
-  "lastRunAt": null,
-  "lastOutcome": null,
-  "lastTaskId": null,
+  "cycleNumber": 2,
+  "lastRunAt": "2026-08-17T11:30:00.000Z",
+  "lastOutcome": "completed",
+  "lastTaskId": "home-featured-articles",
   "paused": false,
-  "metrics": null,
+  "metrics": {
+    "collectedAt": "2026-08-17T11:23:47.217Z",
+    "backlogPending": 7,
+    "backlogTotal": 10,
+    "openUxPrs": 0,
+    "cwvRegression": false,
+    "visualTestStatus": "pass"
+  },
   "blockers": [],
-  "consecutiveFailures": 0
+  "consecutiveFailures": 0,
+  "nextTaskId": "article-reading-width"
 }

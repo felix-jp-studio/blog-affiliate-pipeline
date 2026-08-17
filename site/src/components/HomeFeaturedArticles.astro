@@ -1,36 +1,38 @@
 ---
-import type { CategorySlug } from "../data/category-meta";
-import { categoryMeta } from "../data/category-meta";
-import type { HubFeaturedArticle } from "../data/hub-article-mesh";
-
-type FeaturedItem = HubFeaturedArticle & { category: CategorySlug };
+import type { CollectionEntry } from "astro:content";
+import ArticleCard from "./ArticleCard.astro";
+import { getReadingTimeForEntry } from "../utils/article-meta";
 
 interface Props {
-  items: FeaturedItem[];
+  articles: CollectionEntry<"articles">[];
 }
 
-const { items } = Astro.props;
+const { articles } = Astro.props;
 ---
 
 {
-  items.length > 0 && (
+  articles.length > 0 && (
     <section class="home-featured" aria-labelledby="home-featured-title">
       <h2 id="home-featured-title">おすすめ記事</h2>
       <p class="home-featured__lead">
         カテゴリごとの代表記事です。比較表や手順記事から目的に合うものを選べます。
       </p>
-      <ul class="home-featured__list">
-        {items.map((item) => (
-          <li>
-            <a href={`/articles/${item.slug}`}>
-              <span class="home-featured__category">
-                {categoryMeta[item.category].label}
-              </span>
-              {item.label}
-            </a>
-          </li>
+      <div class="home-featured__grid">
+        {articles.map((article) => (
+          <ArticleCard
+            slug={article.id}
+            title={article.data.title}
+            description={article.data.description}
+            pubDate={article.data.pubDate}
+            category={article.data.category}
+            articleType={article.data.articleType}
+            readingTimeMinutes={getReadingTimeForEntry(article)}
+            excerpt={article.data.excerpt}
+            eyecatch={article.data.eyecatch}
+            variant="compact"
+          />
         ))}
-      </ul>
+      </div>
     </section>
   )
 }
@@ -38,53 +40,47 @@ const { items } = Astro.props;
 <style>
   .home-featured {
     margin-top: 2.5rem;
-    padding: 1.5rem 1.75rem;
+    padding: 1.75rem 1.75rem 1.85rem;
     background: var(--bg-article);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
   }
 
   .home-featured h2 {
     margin: 0 0 0.5rem;
     font-size: 1.35rem;
+    line-height: var(--line-heading);
   }
 
   .home-featured__lead {
-    margin: 0 0 1rem;
+    margin: 0 0 1.25rem;
     font-size: 0.95rem;
     line-height: 1.7;
     color: var(--text-secondary);
+    max-width: var(--width-lead);
   }
 
-  .home-featured__list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  .home-featured__grid {
     display: grid;
-    gap: 0.65rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
   }
 
-  .home-featured__list a {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.5rem 0.75rem;
-    color: var(--accent);
-    font-weight: 700;
-    text-decoration: none;
+  @media (min-width: 768px) {
+    .home-featured__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.15rem;
+    }
   }
 
-  .home-featured__list a:hover {
-    text-decoration: underline;
-  }
+  @media (max-width: 640px) {
+    .home-featured {
+      padding: 1.35rem 1.25rem 1.5rem;
+    }
 
-  .home-featured__category {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 0.15rem 0.55rem;
+    .home-featured__grid {
+      gap: 0.85rem;
+    }
   }
 </style>
