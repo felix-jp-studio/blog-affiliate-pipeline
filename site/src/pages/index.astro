@@ -9,13 +9,22 @@ import { compareArticlesByRecency } from "../utils/sort-articles";
 import { buildWebSiteJsonLd } from "../utils/site-jsonld";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const latestArticles = (
-  await getCollection("articles", ({ data }) => !data.draft)
-)
+const publishedArticles = await getCollection(
+  "articles",
+  ({ data }) => !data.draft,
+);
+
+const articleBySlug = new Map(
+  publishedArticles.map((entry) => [entry.id, entry]),
+);
+
+const latestArticles = [...publishedArticles]
   .sort(compareArticlesByRecency)
   .slice(0, 6);
 
-const featuredArticles = getHomeFeaturedArticles();
+const featuredArticles = getHomeFeaturedArticles()
+  .map((item) => articleBySlug.get(item.slug))
+  .filter((entry): entry is NonNullable<typeof entry> => entry !== undefined);
 const jsonLd = buildWebSiteJsonLd(Astro.site!.href);
 ---
 
@@ -28,7 +37,7 @@ const jsonLd = buildWebSiteJsonLd(Astro.site!.href);
     </p>
   </section>
 
-  <HomeFeaturedArticles items={featuredArticles} />
+  <HomeFeaturedArticles articles={featuredArticles} />
 
   <section class="latest-articles">
     <h2>最新記事</h2>
