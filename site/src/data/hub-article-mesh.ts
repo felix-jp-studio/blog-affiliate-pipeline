@@ -408,6 +408,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "hikari-setwari-fee-hikaku",
         label: "光回線 セット割 料金 比較",
       },
+      {
+        slug: "nuro-hikari-kaiyaku-kin-hikaku",
+        label: "NURO 光 解約金 比較",
+      },
     ],
   },
   trouble: {

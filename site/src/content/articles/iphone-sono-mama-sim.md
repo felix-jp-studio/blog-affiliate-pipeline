@@ -9,6 +9,7 @@ keyword: "iPhone そのまま 格安SIM"
 priority: 45
 draft: false
 ---
+
 ## 事前準備
 
 楽天モバイルへの乗り換えをスムーズに進めるには、以下を事前に揃えます。
@@ -63,6 +64,7 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - マイページでオプションが意図どおりか
 
 <!-- internal-links:v5 -->
+
 ## あわせて読みたい
 
 同じカテゴリに加え、セット割・乗り換え・お困り解決の関連記事もあわせてご確認ください。
@@ -71,7 +73,6 @@ SIMロックがかかった端末は、キャリアの解除手続きが必要�
 - [UQモバイル 解約 手順の手順【2026年版】5ステップで解説](/articles/uq-mobile-kaiyaku-tejun)
 - [【2026年最新】ソフトバンク光 ビッグローブ光 比較｜5社比較と選び方](/articles/softbank-hikari-biglobe-hikari-hikaku)
 - [ahamo 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/ahamo-speed-slow-fix)
-
 
 ## よくある質問
 

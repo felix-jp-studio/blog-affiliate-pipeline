@@ -1,13 +1,10 @@
 {
-  "last_run": "2026-08-16",
-  "next_scheduled": "2026-08-17",
-  "week_id": "2026-W33",
-  "runs_this_week": 4,
+  "last_run": "2026-08-17",
+  "next_scheduled": "2026-08-18",
+  "week_id": "2026-W34",
+  "runs_this_week": 1,
   "type_counts": {
-    "comparison": 1,
-    "howto": 1,
-    "troubleshoot": 1,
-    "crosssell": 1
+    "comparison": 1
   },
   "history": [
     {
@@ -138,6 +135,11 @@
     {
       "date": "2026-08-16",
       "keywords": ["引越し 光回線 電気 セット"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-08-17",
+      "keywords": ["NURO 光 解約金 比較"],
       "ok_count": 1
     }
   ]
