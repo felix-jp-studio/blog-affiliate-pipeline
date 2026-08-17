@@ -20,6 +20,8 @@ npm run gsc:verify-access
 npm run gsc:verify-ui
 ```
 
+Secrets 登録後の **ローカル検証 → Actions 手動ドライラン** 手順: [gsc-workflow-dry-run.md](./gsc-workflow-dry-run.md)
+
 **Workflow 影響:**
 
 - `.github/workflows/gsc-inspect-daily.yml` — 日次 10 URL 検査
@@ -75,6 +77,7 @@ INDEXNOW_KEY=your-key npm run test:e2e:indexnow
 
 ## 関連ドキュメント
 
+- [gsc-workflow-dry-run.md](./gsc-workflow-dry-run.md) — Secrets 設定後の GSC Workflow ドライラン
 - [secrets.md](../secrets.md) — 全 Secrets 一覧
 - [indexnow.md](../indexnow.md) — IndexNow セットアップ
 - [gsc-api-weekly-report.md](../gsc-api-weekly-report.md) — 週次 API レポート
