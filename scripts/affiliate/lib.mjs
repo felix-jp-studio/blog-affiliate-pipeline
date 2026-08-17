@@ -454,7 +454,15 @@ export function buildLastVerifiedAlert(
   return null;
 }
 
+/** @param {number} status */
+export function isProbeSuccessStatus(status) {
+  return status >= 200 && status < 400;
+}
+
 /**
+ * Probe ASP tracking URLs without following redirects to merchant landings.
+ * Some destinations (e.g. ahamo) fail Node TLS when redirect: "follow" is used.
+ *
  * @param {string} trackingUrl
  * @param {typeof fetch} fetchFn
  * @param {{ timeoutMs?: number }} [options]
@@ -470,7 +478,7 @@ export async function probeTrackingUrl(
     try {
       return await fetchFn(trackingUrl, {
         method,
-        redirect: "follow",
+        redirect: "manual",
         signal: controller.signal,
       });
     } finally {
@@ -486,7 +494,7 @@ export async function probeTrackingUrl(
     }
 
     return {
-      ok: response.ok,
+      ok: isProbeSuccessStatus(response.status),
       status: response.status,
       error: null,
     };
