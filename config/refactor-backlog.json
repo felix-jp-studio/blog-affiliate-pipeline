@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-11T00:00:00Z",
+  "updatedAt": "2026-08-17T11:30:00.000Z",
   "tasks": [
     {
       "id": "dedupe-e2e-utils",
@@ -10,7 +10,8 @@
       "execution": "agent",
       "targetPaths": ["scripts/e2e/e2e-utils.mjs", "scripts/e2e/"],
       "acceptance": ["npm run test:e2e:articles", "npm run format:check"],
-      "status": "pending"
+      "status": "done",
+      "completedAt": "2026-08-17T11:30:00.000Z"
     },
     {
       "id": "gsc-queue-shared-module",

@@ -18,6 +18,8 @@ function resolveSiteDistDir() {
 }
 
 export const distDir = resolveSiteDistDir();
+export const visualTestResultsDir = join(repoRoot, "site/test-results");
+export const visualDiffOutputDir = join(repoRoot, ".github/pr-visual-diffs");
 
 export const REQUIRED_FIELDS = [
   "title",
@@ -69,6 +71,28 @@ export function parseFrontmatter(content) {
   return { fields, body: content.slice(match[0].length) };
 }
 
+export function slugFromArticlePath(filePath) {
+  const normalized = filePath.replace(/\\/g, "/");
+  const name = normalized.split("/").pop() ?? "";
+  return name.replace(/\.md$/, "");
+}
+
+export function isArticleMarkdownPath(filePath) {
+  const normalized = filePath.replace(/\\/g, "/");
+  return (
+    normalized.startsWith(articlesPathPrefix) &&
+    normalized.endsWith(".md") &&
+    !normalized.endsWith("/README.md")
+  );
+}
+
+export function readArticleMarkdown(filePath) {
+  const content = readFileSync(filePath, "utf8");
+  const slug = slugFromArticlePath(filePath);
+  const parsed = parseFrontmatter(content);
+  return { slug, filePath, content, parsed };
+}
+
 export function listArticleFiles() {
   if (!existsSync(articlesDir)) {
     return [];
@@ -81,9 +105,7 @@ export function listArticleFiles() {
 export function loadPublishedArticles() {
   const articles = [];
   for (const filePath of listArticleFiles()) {
-    const slug = filePath.split("/").pop().replace(/\.md$/, "");
-    const content = readFileSync(filePath, "utf8");
-    const parsed = parseFrontmatter(content);
+    const { slug, parsed } = readArticleMarkdown(filePath);
     if (parsed.error) {
       articles.push({ slug, filePath, error: parsed.error });
       continue;
@@ -184,19 +206,4 @@ export function missingAffiliatePatterns(
     return [];
   }
   return patterns.map((pattern) => pattern.source);
-}
-
-export function slugFromArticlePath(filePath) {
-  const normalized = filePath.replace(/\\/g, "/");
-  const name = normalized.split("/").pop() ?? "";
-  return name.replace(/\.md$/, "");
-}
-
-export function isArticleMarkdownPath(filePath) {
-  const normalized = filePath.replace(/\\/g, "/");
-  return (
-    normalized.startsWith(articlesPathPrefix) &&
-    normalized.endsWith(".md") &&
-    !normalized.endsWith("/README.md")
-  );
 }

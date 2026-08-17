@@ -1,4 +1,3 @@
-import { readFileSync } from "node:fs";
 import { findHardcodedAspUrls, readAspUrls } from "../affiliate/lib.mjs";
 import {
   FORBIDDEN_SLUG_PATTERN,
@@ -10,8 +9,8 @@ import {
   fail,
   listArticleFiles,
   missingAffiliatePatterns,
-  parseFrontmatter,
   pass,
+  readArticleMarkdown,
 } from "./e2e-utils.mjs";
 
 const MIN_DESCRIPTION_LENGTH = 50;
@@ -30,9 +29,7 @@ if (listArticleFiles().length === 0) {
 }
 
 for (const filePath of listArticleFiles()) {
-  const slug = filePath.split("/").pop().replace(/\.md$/, "");
-  const content = readFileSync(filePath, "utf8");
-  const parsed = parseFrontmatter(content);
+  const { slug, content, parsed } = readArticleMarkdown(filePath);
 
   if (parsed.error) {
     errors.push(`${slug}: ${parsed.error}`);
