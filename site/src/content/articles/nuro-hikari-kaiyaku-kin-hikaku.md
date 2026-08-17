@@ -2,6 +2,7 @@
 title: "【2026年最新】NURO 光 解約金 比較｜5社比較と選び方"
 description: "【2026年最新】NURO 光 解約金 比較を5社比較。料金・速度・セット割の観点で選び方を解説。公式情報を参照し中立にまとめています。"
 pubDate: 2026-08-17
+dateModified: 2026-08-17
 category: hikari
 articleType: comparison
 keyword: "NURO 光 解約金 比較"
