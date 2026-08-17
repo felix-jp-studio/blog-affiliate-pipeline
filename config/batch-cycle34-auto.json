@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 34 — auto PDCA (comparison_x2_crosssell)",
+  "items": [
+    {
+      "keyword": "家族 2 回線 安い",
+      "articleType": "comparison",
+      "category": "sim",
+      "priority": 631
+    },
+    {
+      "keyword": "NURO 光 料金 キャンペーン",
+      "articleType": "comparison",
+      "category": "hikari",
+      "priority": 632
+    },
+    {
+      "keyword": "引越し 通信 おすすめ",
+      "articleType": "crosssell",
+      "category": "cost",
+      "priority": 633
+    }
+  ]
+}
