@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-17T00:36:34.592Z",
+  "updatedAt": "2026-08-17T01:03:05.828Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -1628,6 +1628,12 @@
       "slug": "hikkoshi-hikari-denki-set",
       "url": "https://sim-hikari-guide.com/articles/hikkoshi-hikari-denki-set",
       "mergedAt": "2026-08-16T01:05:38.729Z",
+      "indexed": false
+    },
+    {
+      "slug": "nuro-hikari-kaiyaku-kin-hikaku",
+      "url": "https://sim-hikari-guide.com/articles/nuro-hikari-kaiyaku-kin-hikaku",
+      "mergedAt": "2026-08-17T01:03:05.827Z",
       "indexed": false
     }
   ]
