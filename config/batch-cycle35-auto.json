@@ -1,0 +1,23 @@
+{
+  "description": "Cycle 35 — auto PDCA (howto_x2_trouble)",
+  "items": [
+    {
+      "keyword": "ahamo 大盛り オプション 申し込み 手順",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 631
+    },
+    {
+      "keyword": "UQモバイル eSIM 設定 方法",
+      "articleType": "howto",
+      "category": "sim",
+      "priority": 632
+    },
+    {
+      "keyword": "ahamo 速度 遅い 対処",
+      "articleType": "troubleshoot",
+      "category": "trouble",
+      "priority": 633
+    }
+  ]
+}
