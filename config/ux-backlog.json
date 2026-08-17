@@ -20,6 +20,9 @@
       "status": "completed",
       "completedAt": "2026-08-13T11:28:08.000Z",
       "completedInPr": 226
+    },
+    {
+      "id": "article-reading-width",
       "title": "記事本文 max-width 680px + prose タイポ改善",
       "description": "article-ui-v2 設計に沿い、本文行長・行間・見出し階層を prose.css で改善する。",
       "category": "typography",
