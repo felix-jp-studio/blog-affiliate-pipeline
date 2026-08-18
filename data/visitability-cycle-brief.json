@@ -1,23 +1,23 @@
 {
-  "cycleNumber": 35,
-  "template": "howto_x2_trouble",
+  "cycleNumber": 36,
+  "template": "comparison_x2_crosssell",
   "items": [
     {
-      "keyword": "ahamo 大盛り オプション 申し込み 手順",
-      "articleType": "howto",
+      "keyword": "家族 2 回線 安い",
+      "articleType": "comparison",
       "category": "sim",
       "priority": 631
     },
     {
-      "keyword": "UQモバイル eSIM 設定 方法",
-      "articleType": "howto",
-      "category": "sim",
+      "keyword": "NURO 光 料金 キャンペーン",
+      "articleType": "comparison",
+      "category": "hikari",
       "priority": 632
     },
     {
-      "keyword": "ahamo 速度 遅い 対処",
-      "articleType": "troubleshoot",
-      "category": "trouble",
+      "keyword": "引越し 通信 おすすめ",
+      "articleType": "crosssell",
+      "category": "cost",
       "priority": 633
     }
   ],
@@ -82,6 +82,6 @@
     "楽天モバイル 乗り換え 手順",
     "MNP 予約番号 取得方法"
   ],
-  "createdAt": "2026-08-17T11:31:10.043Z",
+  "createdAt": "2026-08-18T01:26:49.544Z",
   "rewriteQueueEmpty": true
 }
