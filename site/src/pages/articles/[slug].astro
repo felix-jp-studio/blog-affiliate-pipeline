@@ -179,7 +179,10 @@ const jsonLd = [articleJsonLd, breadcrumbJsonLd, faqJsonLd, howToJsonLd].filter(
   }
 
   .article-body {
+    width: 100%;
+    max-width: var(--width-body);
     min-width: 0;
+    margin-inline: auto;
   }
 
   .article-shell :global(.related-articles) {

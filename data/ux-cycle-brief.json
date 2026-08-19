@@ -1,21 +1,18 @@
 {
-  "cycleNumber": 2,
-  "taskId": "home-featured-articles",
-  "title": "ホームに最新/featured 記事セクション強化",
+  "cycleNumber": 3,
+  "taskId": "article-reading-width",
+  "title": "記事本文 max-width 680px + prose タイポ改善",
   "execution": "agent",
   "scope": {
-    "allow": [
-      "site/src/components/HomeFeaturedArticles.astro",
-      "site/src/pages/index.astro"
-    ],
+    "allow": ["site/src/styles/prose.css", "site/src/pages/articles/[slug].astro"],
     "deny": ["site/src/content/articles/", "data/", "config/keywords"]
   },
   "maxDiffLines": 400,
   "maxFiles": 15,
-  "visualPages": ["/"],
+  "visualPages": ["/articles/sim-20gb-osusume"],
   "acceptance": [
     "npm run format:check --prefix site",
     "npm run test:e2e:visual --prefix site"
   ],
-  "createdAt": "2026-08-17T11:30:00.000Z"
+  "createdAt": "2026-08-19T12:30:00.000Z"
 }
