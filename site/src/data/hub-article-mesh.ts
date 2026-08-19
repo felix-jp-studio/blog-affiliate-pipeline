@@ -280,6 +280,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "family-2-lines-cheap",
         label: "家族 2 回線 安い",
       },
+      {
+        slug: "ymobile-esim-settei-houhou",
+        label: "ワイモバイル eSIM 設定 方法の手順",
+      },
     ],
   },
   hikari: {
