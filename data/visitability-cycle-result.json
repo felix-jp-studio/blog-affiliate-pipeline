@@ -1,11 +1,7 @@
 {
   "cycleNumber": 36,
   "template": "comparison_x2_crosssell",
-  "slugs": [
-    "family-2-lines-cheap",
-    "nuro-hikari-campaign",
-    "hikkoshi-tsushin-osusume"
-  ],
+  "slugs": ["family-2-lines-cheap", "nuro-hikari-campaign", "hikkoshi-tsushin-osusume"],
   "hubEntries": [
     {
       "slug": "family-2-lines-cheap",
