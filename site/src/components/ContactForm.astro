@@ -3,10 +3,13 @@ const formAction = import.meta.env.PUBLIC_CONTACT_FORM_ACTION;
 const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
 ---
 
-<section class="contact-form">
+<section class="contact-form" aria-labelledby="contact-form-heading">
   {
     formAction ? (
       <>
+        <h2 id="contact-form-heading" class="contact-form__heading">
+          お問い合わせフォーム
+        </h2>
         <div
           class="form-status"
           role="status"
@@ -21,14 +24,22 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
           action={formAction}
           data-contact-form
           data-form-action={formAction}
+          aria-label="お問い合わせフォーム"
+          novalidate
         >
           <div class="field">
-            <label for="name">お名前</label>
+            <label class="field-label" for="name">
+              お名前
+              <span class="field-label__required" aria-hidden="true">
+                必須
+              </span>
+            </label>
             <input
               id="name"
               name="name"
               type="text"
               required
+              aria-required="true"
               maxlength="100"
               autocomplete="name"
               aria-describedby="name-error"
@@ -37,16 +48,23 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
               class="field-error"
               id="name-error"
               data-field-error="name"
+              role="alert"
               hidden
             />
           </div>
           <div class="field">
-            <label for="email">メールアドレス</label>
+            <label class="field-label" for="email">
+              メールアドレス
+              <span class="field-label__required" aria-hidden="true">
+                必須
+              </span>
+            </label>
             <input
               id="email"
               name="email"
               type="email"
               required
+              aria-required="true"
               maxlength="254"
               autocomplete="email"
               inputmode="email"
@@ -56,16 +74,23 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
               class="field-error"
               id="email-error"
               data-field-error="email"
+              role="alert"
               hidden
             />
           </div>
           <div class="field">
-            <label for="message">お問い合わせ内容</label>
+            <label class="field-label" for="message">
+              お問い合わせ内容
+              <span class="field-label__required" aria-hidden="true">
+                必須
+              </span>
+            </label>
             <textarea
               id="message"
               name="message"
               rows="6"
               required
+              aria-required="true"
               minlength="10"
               maxlength="2000"
               aria-describedby="message-error message-hint"
@@ -77,12 +102,14 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
               class="field-error"
               id="message-error"
               data-field-error="message"
+              role="alert"
               hidden
             />
           </div>
           <button type="submit" data-submit-button>
             <span class="btn-label">送信する</span>
             <span class="btn-loading" aria-hidden="true" hidden>
+              <span class="btn-spinner" />
               送信中…
             </span>
           </button>
@@ -211,10 +238,6 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
     });
 
     form.addEventListener("submit", async (event) => {
-      if (!form.reportValidity()) {
-        return;
-      }
-
       event.preventDefault();
       setFormStatus(null);
 
@@ -288,6 +311,13 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
     margin-top: 1.5rem;
   }
 
+  .contact-form__heading {
+    margin: 0 0 1rem;
+    font-size: 1.125rem;
+    line-height: var(--line-heading);
+    color: var(--text-primary);
+  }
+
   .contact-form__form {
     max-width: var(--width-form);
   }
@@ -313,13 +343,31 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
   }
 
   .field {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.35rem;
   }
 
-  label {
-    display: block;
+  .field-label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.5rem;
     font-weight: 700;
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.4rem;
+    color: var(--text-primary);
+    line-height: 1.4;
+  }
+
+  .field-label__required {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.1rem 0.45rem;
+    border-radius: var(--radius-sm);
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
   }
 
   input,
@@ -338,8 +386,13 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
       box-shadow 0.15s ease;
   }
 
-  input:focus,
-  textarea:focus {
+  input:hover:not(:disabled):not([aria-invalid="true"]),
+  textarea:hover:not(:disabled):not([aria-invalid="true"]) {
+    border-color: var(--border-strong);
+  }
+
+  input:focus-visible,
+  textarea:focus-visible {
     outline: none;
     border-color: var(--accent);
     box-shadow: 0 0 0 3px var(--accent-soft);
@@ -351,28 +404,55 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
     box-shadow: 0 0 0 3px var(--callout-error-ring);
   }
 
+  input[aria-invalid="true"]:focus-visible,
+  textarea[aria-invalid="true"]:focus-visible {
+    border-color: var(--callout-error-accent);
+    box-shadow:
+      0 0 0 3px var(--callout-error-ring),
+      0 0 0 5px var(--accent-soft);
+  }
+
   textarea {
     min-height: 9rem;
     resize: vertical;
   }
 
   .field-hint {
-    margin: 0.35rem 0 0;
+    margin: 0.4rem 0 0;
     color: var(--text-tertiary);
     font-size: 0.85rem;
+    line-height: 1.45;
   }
 
   .field-error {
-    margin: 0.35rem 0 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.35rem;
+    margin: 0.4rem 0 0;
     color: var(--callout-error-text);
     font-size: 0.875rem;
-    line-height: 1.4;
+    line-height: 1.45;
+  }
+
+  .field-error::before {
+    content: "!";
+    flex-shrink: 0;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 999px;
+    background: var(--callout-error-accent);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 1.1rem;
+    text-align: center;
   }
 
   button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
     min-height: var(--cta-min-height);
     min-width: 8rem;
     background: var(--accent);
@@ -386,20 +466,44 @@ const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? "";
     cursor: pointer;
     transition:
       var(--cta-transition),
-      opacity 0.15s ease;
+      opacity 0.15s ease,
+      box-shadow 0.15s ease;
   }
 
   button:hover:not(:disabled) {
     background: var(--accent-hover);
   }
 
+  button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
   button:disabled {
-    opacity: 0.72;
+    opacity: 0.78;
     cursor: wait;
   }
 
   .btn-loading {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
     letter-spacing: 0.02em;
+  }
+
+  .btn-spinner {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid color-mix(in srgb, var(--text-on-accent) 35%, transparent);
+    border-top-color: var(--text-on-accent);
+    border-radius: 50%;
+    animation: contact-form-spin 0.75s linear infinite;
+  }
+
+  @keyframes contact-form-spin {
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   .notice {

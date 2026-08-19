@@ -48,7 +48,7 @@ export default defineConfig({
     reuseExistingServer: !isCI,
     timeout: 120_000,
     env: {
-      PUBLIC_CONTACT_FORM_ACTION: "",
+      PUBLIC_CONTACT_FORM_ACTION: "https://example.com/contact",
       PUBLIC_COMMENTS_ENABLED: "true",
     },
   },

@@ -1,18 +1,18 @@
 {
-  "cycleNumber": 3,
-  "taskId": "article-reading-width",
-  "title": "記事本文 max-width 680px + prose タイポ改善",
+  "cycleNumber": 4,
+  "taskId": "contact-form-ux",
+  "title": "お問い合わせフォームのラベル・エラー表示改善",
   "execution": "agent",
   "scope": {
-    "allow": ["site/src/styles/prose.css", "site/src/pages/articles/[slug].astro"],
+    "allow": ["site/src/components/ContactForm.astro"],
     "deny": ["site/src/content/articles/", "data/", "config/keywords"]
   },
   "maxDiffLines": 400,
   "maxFiles": 15,
-  "visualPages": ["/articles/sim-20gb-osusume"],
+  "visualPages": ["/contact"],
   "acceptance": [
     "npm run format:check --prefix site",
     "npm run test:e2e:visual --prefix site"
   ],
-  "createdAt": "2026-08-19T12:30:00.000Z"
+  "createdAt": "2026-08-19T13:15:00.000Z"
 }
