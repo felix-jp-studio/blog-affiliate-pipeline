@@ -43,7 +43,7 @@ jobs:
         working-directory: site
         env:
           CI: true
-          PUBLIC_CONTACT_FORM_ACTION: ""
+          PUBLIC_CONTACT_FORM_ACTION: "https://example.com/contact"
         run: |
           npm run test:e2e:visual:update
           npm run test:e2e:visual

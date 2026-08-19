@@ -47,7 +47,7 @@ jobs:
         run: npm run test:e2e:visual
         env:
           CI: true
-          PUBLIC_CONTACT_FORM_ACTION: ""
+          PUBLIC_CONTACT_FORM_ACTION: "https://example.com/contact"
 
       - name: Collect visual diff images for PR comment
         if: steps.visual.outcome == 'failure'

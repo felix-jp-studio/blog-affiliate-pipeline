@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-19T12:30:00.000Z",
+  "updatedAt": "2026-08-19T13:15:00.000Z",
   "tasks": [
     {
       "id": "hub-card-layout",
@@ -72,7 +72,8 @@
         "npm run format:check --prefix site",
         "npm run test:e2e:visual --prefix site"
       ],
-      "status": "pending"
+      "status": "completed",
+      "completedAt": "2026-08-19T13:15:00.000Z"
     },
     {
       "id": "related-articles-cards",
