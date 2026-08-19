@@ -1,14 +1,14 @@
 {
-  "cycleNumber": 36,
-  "lastRunAt": "2026-08-17T11:31:10.653Z",
+  "cycleNumber": 37,
+  "lastRunAt": "2026-08-18T01:26:53.130Z",
   "lastOutcome": "success",
   "paused": false,
   "metrics": {
-    "collectedAt": "2026-08-17T11:31:10.042Z",
+    "collectedAt": "2026-08-18T01:26:49.543Z",
     "articleCount": 147,
     "indexQueueTotal": 147,
-    "indexQueueIndexed": 81,
-    "indexQueueRate": 0.551,
+    "indexQueueIndexed": 85,
+    "indexQueueRate": 0.578,
     "typeRatio": {
       "comparison": 0.374,
       "howto": 0.279,
@@ -25,7 +25,7 @@
     "keywordSeedMax": 620,
     "rewriteQueueCount": 0
   },
-  "nextCycleTemplate": "howto_x2_trouble",
+  "nextCycleTemplate": "comparison_x2_crosssell",
   "blockers": [],
   "consecutiveFailures": 0
 }
