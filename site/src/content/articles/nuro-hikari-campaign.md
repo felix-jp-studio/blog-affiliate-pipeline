@@ -7,7 +7,7 @@ articleType: comparison
 keyword: "NURO 光 料金 キャンペーン"
 priority: 632
 draft: false
-dateModified: 2026-08-18
+dateModified: 2026-08-19
 ---
 ## 結論サマリ
 
@@ -109,8 +109,8 @@ ahamo光はahamoユーザー向けの光回線として案内されることが�
 
 - [【2026年最新】光回線 セット割 料金 比較｜5社比較と選び方](/articles/hikari-setwari-fee-hikaku)
 - [【2026年最新】光回線 10G 比較 おすすめ｜5社比較と選び方](/articles/hikari-10g-hikaku-osusume)
-- [【2026年最新】家族 2 回線 安い比較｜選び方と注意点](/articles/family-2-lines-cheap)
-- [光回線 WiFi 繋がらない 対処の原因と7つの対処法【2026年版】](/articles/hikari-wifi-tsunagaranai-fix)
+- [格安SIM 機種変更 手順の手順【2026年版】5ステップで解説](/articles/sim-kishu-henkou-tejun)
+- [ahamo 速度 遅い 対処の原因と7つの対処法【2026年版】](/articles/ahamo-speed-slow-fix)
 
 
 ## よくある質問

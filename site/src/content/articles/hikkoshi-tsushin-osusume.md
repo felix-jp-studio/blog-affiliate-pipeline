@@ -7,7 +7,7 @@ articleType: crosssell
 keyword: "引越し 通信 おすすめ"
 priority: 633
 draft: false
-dateModified: 2026-08-18
+dateModified: 2026-08-19
 ---
 ## 結論サマリ
 
@@ -108,7 +108,7 @@ A. キャリア・電力会社の組み合わせによっては、光回線と�
 
 - [【2026年】光回線 電気 まとめて 節約で固定費を見直す｜比較ポイント3つ](/articles/hikari-denki-matomete-setsuyaku)
 - [【2026年】auでんき 料金 比較で固定費を見直す｜比較ポイント3つ](/articles/au-denki-fee-hikaku)
-- [【2026年最新】スマホ セット割 比較｜5社比較と選び方](/articles/smartphone-setwari-hikaku)
+- [【2026年最新】格安SIM 副回線 おすすめ｜料金・速度を比較](/articles/sim-fukukaisen-osusume)
 - [【2026年最新】NURO 光 料金 キャンペーン比較｜選び方と注意点](/articles/nuro-hikari-campaign)
 
 
