@@ -1,0 +1,11 @@
+{
+  "cycleNumber": 2,
+  "taskId": "gsc-queue-shared-module",
+  "title": "GSC queue 操作の共通モジュール化",
+  "execution": "agent",
+  "reason": "priority 88 pending task",
+  "targetPaths": ["scripts/gsc/", "scripts/print-gsc-inspection-batch.mjs"],
+  "acceptance": ["npm run test:gsc", "npm run format:check"],
+  "agentPrompt": null,
+  "createdAt": "2026-08-20T10:58:00.000Z"
+}

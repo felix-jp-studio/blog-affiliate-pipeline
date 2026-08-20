@@ -83,3 +83,25 @@ export function patchQueueEntry(queue, slug, patch) {
   Object.assign(entry, patch);
   return true;
 }
+
+/**
+ * Mark slugs as indexed in an in-memory queue object.
+ * @param {ReturnType<typeof loadQueue>} queue
+ * @param {string[]} slugs
+ * @returns {number} count of entries updated
+ */
+export function markIndexed(queue, slugs) {
+  const slugSet = new Set(slugs.map((slug) => slug.trim()).filter(Boolean));
+  const now = new Date().toISOString();
+  let updated = 0;
+
+  for (const entry of queue.entries) {
+    if (slugSet.has(entry.slug) && entry.indexed !== true) {
+      entry.indexed = true;
+      entry.indexedAt = now;
+      updated += 1;
+    }
+  }
+
+  return updated;
+}
