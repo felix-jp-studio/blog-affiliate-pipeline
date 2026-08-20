@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-20T00:33:36.158Z",
+  "updatedAt": "2026-08-20T01:01:20.722Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -1850,6 +1850,12 @@
         "source": "api"
       },
       "indexedAt": "2026-08-20T00:31:14.951Z"
+    },
+    {
+      "slug": "softbank-hikari-speed-slow-fix",
+      "url": "https://sim-hikari-guide.com/articles/softbank-hikari-speed-slow-fix",
+      "mergedAt": "2026-08-20T01:01:20.721Z",
+      "indexed": false
     }
   ]
 }
