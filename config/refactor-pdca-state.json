@@ -1,8 +1,8 @@
 {
-  "cycleNumber": 1,
-  "lastRunAt": null,
-  "lastOutcome": null,
-  "lastTaskId": null,
+  "cycleNumber": 2,
+  "lastRunAt": "2026-08-20T10:58:00.000Z",
+  "lastOutcome": "planned",
+  "lastTaskId": "gsc-queue-shared-module",
   "paused": false,
   "metrics": null,
   "blockers": [],

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-17T11:30:00.000Z",
+  "updatedAt": "2026-08-20T10:58:00.000Z",
   "tasks": [
     {
       "id": "dedupe-e2e-utils",
@@ -22,7 +22,7 @@
       "execution": "agent",
       "targetPaths": ["scripts/gsc/", "scripts/print-gsc-inspection-batch.mjs"],
       "acceptance": ["npm run test:gsc", "npm run format:check"],
-      "status": "pending"
+      "status": "in_progress"
     },
     {
       "id": "visitability-plan-split",

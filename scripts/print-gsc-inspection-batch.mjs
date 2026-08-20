@@ -14,11 +14,18 @@
  * IMPORTANT: Do NOT use --mark-indexed unless the User confirmed each URL is
  * indexed (or an index request was completed) in Google Search Console.
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { repoRoot } from "./e2e/e2e-utils.mjs";
+import {
+  loadPending,
+  loadQueue,
+  markIndexed,
+  queueStats,
+  todayJstDate,
+  writeQueue,
+} from "./gsc/queue.mjs";
 
-const queuePath = join(repoRoot, "data/gsc-index-queue.json");
 const args = process.argv.slice(2);
 const limitArg = args.find((arg) => arg.startsWith("--limit="));
 const offsetArg = args.find((arg) => arg.startsWith("--offset="));
@@ -38,85 +45,6 @@ const parsedOffset = offsetArg
   ? Number.parseInt(offsetArg.slice("--offset=".length), 10)
   : 0;
 const offset = Number.isFinite(parsedOffset) && parsedOffset >= 0 ? parsedOffset : 0;
-
-function todayJstDate() {
-  return new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Asia/Tokyo",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(new Date());
-}
-
-function loadQueue() {
-  if (!existsSync(queuePath)) {
-    throw new Error(`queue file not found: ${queuePath}`);
-  }
-
-  const queue = JSON.parse(readFileSync(queuePath, "utf8"));
-  if (!Array.isArray(queue.entries)) {
-    throw new Error("gsc-index-queue.json: entries must be an array");
-  }
-  return queue;
-}
-
-function queueStats(entries) {
-  const pending = entries.filter((entry) => entry.indexed === false);
-  const indexed = entries.filter((entry) => entry.indexed === true);
-  const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-  const pendingThisWeek = pending.filter(
-    (entry) => new Date(entry.mergedAt).getTime() >= weekAgo,
-  );
-  return {
-    total: entries.length,
-    pending: pending.length,
-    indexed: indexed.length,
-    pendingThisWeek: pendingThisWeek.length,
-  };
-}
-
-function loadPending(entries) {
-  const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-
-  const pending = entries
-    .filter((entry) => entry.indexed === false)
-    .map((entry) => ({
-      ...entry,
-      mergedThisWeek: new Date(entry.mergedAt).getTime() >= weekAgo,
-    }));
-
-  if (weekFirst) {
-    return pending.sort((a, b) => {
-      if (a.mergedThisWeek !== b.mergedThisWeek) {
-        return a.mergedThisWeek ? -1 : 1;
-      }
-      return new Date(a.mergedAt) - new Date(b.mergedAt);
-    });
-  }
-
-  return pending.sort((a, b) => new Date(a.mergedAt) - new Date(b.mergedAt));
-}
-
-function writeQueue(queue) {
-  queue.updatedAt = new Date().toISOString();
-  writeFileSync(queuePath, `${JSON.stringify(queue, null, 2)}\n`, "utf8");
-}
-
-function markIndexed(queue, slugs) {
-  const slugSet = new Set(slugs.map((slug) => slug.trim()).filter(Boolean));
-  const now = new Date().toISOString();
-  let updated = 0;
-
-  for (const entry of queue.entries) {
-    if (slugSet.has(entry.slug) && entry.indexed !== true) {
-      entry.indexed = true;
-      entry.indexedAt = now;
-      updated += 1;
-    }
-  }
-
-  return updated;
-}
 
 function buildMarkdown({ stats, batch, pendingCount, forOpsNote = false }) {
   const dateLabel = todayJstDate();
@@ -211,7 +139,7 @@ if (markIndexedArg) {
 }
 
 const stats = queueStats(queue.entries);
-const pending = loadPending(queue.entries);
+const pending = loadPending(queue.entries, { weekFirst });
 const batch = pending.slice(offset, offset + limit);
 
 const notePath = resolveWriteNotePath();
