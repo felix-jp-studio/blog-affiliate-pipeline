@@ -1,31 +1,31 @@
 {
-  "cycleNumber": 37,
-  "lastRunAt": "2026-08-18T01:26:53.130Z",
+  "cycleNumber": 38,
+  "lastRunAt": "2026-08-21T01:04:05.042Z",
   "lastOutcome": "success",
   "paused": false,
   "metrics": {
-    "collectedAt": "2026-08-18T01:26:49.543Z",
-    "articleCount": 147,
-    "indexQueueTotal": 147,
-    "indexQueueIndexed": 85,
-    "indexQueueRate": 0.578,
+    "collectedAt": "2026-08-21T01:03:59.908Z",
+    "articleCount": 149,
+    "indexQueueTotal": 149,
+    "indexQueueIndexed": 95,
+    "indexQueueRate": 0.638,
     "typeRatio": {
-      "comparison": 0.374,
-      "howto": 0.279,
-      "troubleshoot": 0.245,
-      "crosssell": 0.102,
+      "comparison": 0.369,
+      "howto": 0.282,
+      "troubleshoot": 0.248,
+      "crosssell": 0.101,
       "other": 0
     },
     "typeRatioGaps": {
-      "comparison": 0.026,
-      "howto": -0.029,
-      "troubleshoot": 0.005,
-      "crosssell": -0.002
+      "comparison": 0.031,
+      "howto": -0.032,
+      "troubleshoot": 0.002,
+      "crosssell": -0.001
     },
     "keywordSeedMax": 620,
     "rewriteQueueCount": 0
   },
-  "nextCycleTemplate": "comparison_x2_crosssell",
+  "nextCycleTemplate": "howto_x2_trouble",
   "blockers": [],
   "consecutiveFailures": 0
 }
