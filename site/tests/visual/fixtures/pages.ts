@@ -1,3 +1,4 @@
+/** Shared paths and snapshot names for hybrid visual regression tests. */
 export const visualPages = {
   contact: {
     path: "/contact",
