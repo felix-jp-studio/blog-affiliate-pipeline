@@ -127,4 +127,4 @@ jobs:
         if: steps.visual.outcome == 'failure'
         run: exit 1
 
-# CI: re-run visual checks after Linux baseline sync
+# CI: re-run visual checks after Linux baseline sync (PR #252)
