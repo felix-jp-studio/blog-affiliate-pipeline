@@ -42,5 +42,3 @@ jobs:
 
       - name: Validate build output
         run: node scripts/e2e/validate-dist.mjs
-
-# CI: re-run after Visitability Cycle 37 baseline + Prettier sync
