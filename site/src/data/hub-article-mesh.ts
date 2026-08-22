@@ -284,6 +284,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "ymobile-esim-settei-houhou",
         label: "ワイモバイル eSIM 設定 方法の手順",
       },
+      {
+        slug: "linemo-esim-settei-houhou",
+        label: "LINEMO eSIM 設定 方法の手順",
+      },
     ],
   },
   hikari: {
@@ -415,6 +419,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       {
         slug: "nuro-hikari-kaiyaku-kin-hikaku",
         label: "NURO 光 解約金 比較",
+      },
+      {
+        slug: "wimax-home-router-osusume",
+        label: "WiMAX ホームルーター おすすめ",
       },
     ],
   },
