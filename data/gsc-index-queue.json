@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-24T00:35:27.932Z",
+  "updatedAt": "2026-08-24T01:03:38.059Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -2019,6 +2019,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "5g-sim-speed-hikaku",
+      "url": "https://sim-hikari-guide.com/articles/5g-sim-speed-hikaku",
+      "mergedAt": "2026-08-24T01:03:38.059Z",
+      "indexed": false
     }
   ]
 }
