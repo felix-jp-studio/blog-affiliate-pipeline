@@ -288,6 +288,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "linemo-esim-settei-houhou",
         label: "LINEMO eSIM 設定 方法の手順",
       },
+      {
+        slug: "5g-sim-speed-hikaku",
+        label: "5G 格安SIM 速度 比較",
+      },
     ],
   },
   hikari: {
