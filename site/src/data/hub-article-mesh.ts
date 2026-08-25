@@ -292,6 +292,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "5g-sim-speed-hikaku",
         label: "5G 格安SIM 速度 比較",
       },
+      {
+        slug: "mineo-esim-settei-houhou",
+        label: "mineo eSIM 設定 方法の手順",
+      },
     ],
   },
   hikari: {
