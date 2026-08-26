@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-25T01:03:33.573Z",
+  "updatedAt": "2026-08-26T00:35:19.218Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -221,7 +221,7 @@
       "url": "https://sim-hikari-guide.com/articles/rakuten-mobile-switch",
       "mergedAt": "2026-07-29T10:29:40.306Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-25T00:31:45.087Z",
+      "lastInspectedAt": "2026-08-26T00:33:24.953Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -256,7 +256,7 @@
       "url": "https://sim-hikari-guide.com/articles/sim-20gb-osusume",
       "mergedAt": "2026-07-29T10:29:40.306Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-25T00:31:45.087Z",
+      "lastInspectedAt": "2026-08-26T00:33:24.953Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -399,7 +399,7 @@
       "url": "https://sim-hikari-guide.com/articles/sim-tuuwa-teigaku-hikaku",
       "mergedAt": "2026-07-29T10:29:40.306Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-25T00:31:45.087Z",
+      "lastInspectedAt": "2026-08-26T00:33:24.953Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -560,7 +560,7 @@
       "url": "https://sim-hikari-guide.com/articles/sim-fukukaisen-osusume",
       "mergedAt": "2026-08-03T02:27:04.533Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-25T00:31:45.087Z",
+      "lastInspectedAt": "2026-08-26T00:33:24.953Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -793,7 +793,7 @@
       "url": "https://sim-hikari-guide.com/articles/sim-tethering-settei-houhou",
       "mergedAt": "2026-08-09T04:28:11.948Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-25T00:31:45.087Z",
+      "lastInspectedAt": "2026-08-26T00:33:24.953Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -882,7 +882,7 @@
       "url": "https://sim-hikari-guide.com/articles/iijmio-kaituu-dekinai-fix",
       "mergedAt": "2026-08-09T04:28:39.421Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-25T00:31:45.087Z",
+      "lastInspectedAt": "2026-08-26T00:33:24.953Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -1259,7 +1259,7 @@
       "url": "https://sim-hikari-guide.com/articles/povo-kaiyaku-tejun",
       "mergedAt": "2026-08-09T05:12:09.895Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-25T00:31:45.087Z",
+      "lastInspectedAt": "2026-08-26T00:33:24.953Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -1348,10 +1348,10 @@
       "url": "https://sim-hikari-guide.com/articles/rakuten-mobile-esim-settei-tejun",
       "mergedAt": "2026-08-09T05:18:43.703Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-25T00:31:45.087Z",
+      "lastInspectedAt": "2026-08-26T00:33:24.953Z",
       "inspection": {
         "verdict": "NEUTRAL",
-        "coverageState": "検出 - インデックス未登録",
+        "coverageState": "URL が Google に認識されていません",
         "indexingState": "INDEXING_STATE_UNSPECIFIED",
         "lastCrawlTime": null,
         "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
@@ -2026,7 +2026,7 @@
       "url": "https://sim-hikari-guide.com/articles/5g-sim-speed-hikaku",
       "mergedAt": "2026-08-24T01:03:38.059Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-25T00:31:45.087Z",
+      "lastInspectedAt": "2026-08-26T00:33:24.953Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -2042,7 +2042,18 @@
       "slug": "mineo-esim-settei-houhou",
       "url": "https://sim-hikari-guide.com/articles/mineo-esim-settei-houhou",
       "mergedAt": "2026-08-25T01:03:33.572Z",
-      "indexed": false
+      "indexed": false,
+      "lastInspectedAt": "2026-08-26T00:33:24.953Z",
+      "inspection": {
+        "verdict": "NEUTRAL",
+        "coverageState": "検出 - インデックス未登録",
+        "indexingState": "INDEXING_STATE_UNSPECIFIED",
+        "lastCrawlTime": null,
+        "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+        "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+        "indexed": false,
+        "source": "api"
+      }
     }
   ]
 }
