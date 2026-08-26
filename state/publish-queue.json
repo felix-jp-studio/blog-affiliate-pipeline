@@ -1,11 +1,12 @@
 {
-  "last_run": "2026-08-25",
-  "next_scheduled": "2026-08-26",
+  "last_run": "2026-08-26",
+  "next_scheduled": "2026-08-27",
   "week_id": "2026-W35",
-  "runs_this_week": 2,
+  "runs_this_week": 3,
   "type_counts": {
     "comparison": 1,
-    "howto": 1
+    "howto": 1,
+    "troubleshoot": 1
   },
   "history": [
     {
@@ -176,6 +177,11 @@
     {
       "date": "2026-08-25",
       "keywords": ["mineo eSIM 設定 方法"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-08-26",
+      "keywords": ["ドコモ光 速度 遅い 対処"],
       "ok_count": 1
     }
   ]
