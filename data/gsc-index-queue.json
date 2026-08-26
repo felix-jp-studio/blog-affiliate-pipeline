@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-26T00:35:19.218Z",
+  "updatedAt": "2026-08-26T01:05:13.788Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -2054,6 +2054,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "docomo-hikari-speed-slow-fix",
+      "url": "https://sim-hikari-guide.com/articles/docomo-hikari-speed-slow-fix",
+      "mergedAt": "2026-08-26T01:05:13.787Z",
+      "indexed": false
     }
   ]
 }
