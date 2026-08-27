@@ -1,18 +1,18 @@
 {
-  "cycleNumber": 4,
-  "taskId": "contact-form-ux",
-  "title": "お問い合わせフォームのラベル・エラー表示改善",
+  "cycleNumber": 5,
+  "taskId": "hub-comparison-table-mobile",
+  "title": "HubComparisonTable のモバイル横スクロール UX",
   "execution": "agent",
   "scope": {
-    "allow": ["site/src/components/ContactForm.astro"],
+    "allow": ["site/src/components/HubComparisonTable.astro"],
     "deny": ["site/src/content/articles/", "data/", "config/keywords"]
   },
   "maxDiffLines": 400,
   "maxFiles": 15,
-  "visualPages": ["/contact"],
+  "visualPages": ["/sim", "/hikari"],
   "acceptance": [
     "npm run format:check --prefix site",
     "npm run test:e2e:visual --prefix site"
   ],
-  "createdAt": "2026-08-19T13:15:00.000Z"
+  "createdAt": "2026-08-27T07:22:00.000Z"
 }
