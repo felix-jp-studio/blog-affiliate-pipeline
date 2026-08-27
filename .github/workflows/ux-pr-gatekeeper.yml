@@ -62,6 +62,46 @@ jobs:
           echo "$RESULT" >> "$GITHUB_OUTPUT"
           echo "EOF" >> "$GITHUB_OUTPUT"
 
+      - name: Checkout PR branch for repair
+        if: >
+          steps.pr.outputs.found == 'true' &&
+          fromJson(steps.gate.outputs.json).verdict == 'fail' &&
+          fromJson(steps.gate.outputs.json).repairable == true
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
+          fetch-depth: 0
+          token: ${{ github.token }}
+
+      - name: Setup Node for repair
+        if: >
+          steps.pr.outputs.found == 'true' &&
+          fromJson(steps.gate.outputs.json).verdict == 'fail' &&
+          fromJson(steps.gate.outputs.json).repairable == true
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            site/package-lock.json
+
+      - name: Repair merge blockers
+        id: repair
+        if: >
+          steps.pr.outputs.found == 'true' &&
+          fromJson(steps.gate.outputs.json).verdict == 'fail' &&
+          fromJson(steps.gate.outputs.json).repairable == true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          REPAIR_ACTIONS: ${{ toJson(fromJson(steps.gate.outputs.json).repairActions) }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          npm ci
+          node scripts/ux-pdca/repair-ux-pr-gate.mjs | tee repair-result.json
+
       - name: Squash merge on pass
         if: >
           steps.pr.outputs.found == 'true' &&
@@ -74,14 +114,50 @@ jobs:
           gh pr comment "${{ steps.pr.outputs.number }}" --repo "${{ github.repository }}" \
             --body "## UX PR gatekeeper: **Pass → merged**"
 
-      - name: Close on fail
+      - name: Comment after repair push
         if: >
           steps.pr.outputs.found == 'true' &&
-          fromJson(steps.gate.outputs.json).verdict == 'fail'
+          fromJson(steps.gate.outputs.json).verdict == 'fail' &&
+          fromJson(steps.gate.outputs.json).repairable == true &&
+          steps.repair.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ACTIONS=$(node -e "console.log(JSON.parse(process.argv[1]).repairActions.join(', '))" '${{ steps.gate.outputs.json }}')
+          CHANGED=$(node -e "console.log(JSON.parse(require('fs').readFileSync('repair-result.json','utf8')).changed)" )
+          if [ "$CHANGED" = "true" ]; then
+            BODY="## UX PR gatekeeper: **Repair pushed — waiting for CI**
+
+          Applied: ${ACTIONS}
+
+          PR は **open のまま** です。CI / visual が green になれば自動マージします。"
+          else
+            BODY="## UX PR gatekeeper: **Repair attempted — no diff**
+
+          Actions: ${ACTIONS}
+
+          変更がなかったため PR は open のままです。手動確認が必要かもしれません。"
+          fi
+          gh pr comment "${{ steps.pr.outputs.number }}" --repo "${{ github.repository }}" --body "$BODY"
+
+      - name: Comment on blocked fail (PR stays open)
+        if: >
+          steps.pr.outputs.found == 'true' &&
+          fromJson(steps.gate.outputs.json).verdict == 'fail' &&
+          fromJson(steps.gate.outputs.json).repairable != true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           REASON=$(node -e "console.log(JSON.parse(process.argv[1]).reason)" '${{ steps.gate.outputs.json }}')
+          SKIP=$(node -e "console.log(JSON.parse(process.argv[1]).skipRepairReason ?? '')" '${{ steps.gate.outputs.json }}')
           gh pr comment "${{ steps.pr.outputs.number }}" --repo "${{ github.repository }}" \
-            --body "## UX PR gatekeeper: **Fail → closed**\n\n${REASON}"
-          gh pr close "${{ steps.pr.outputs.number }}" --repo "${{ github.repository }}"
+            --body "$(cat <<EOF
+          ## UX PR gatekeeper: **Blocked — PR remains open**
+
+          ${REASON}
+
+          $( [ -n "$SKIP" ] && echo "Repair skip: \`${SKIP}\`" )
+
+          自動修復できないため **close しません**。Agent または手動で修正してください。
+          EOF
+          )"
