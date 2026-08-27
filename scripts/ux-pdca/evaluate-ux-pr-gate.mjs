@@ -4,6 +4,16 @@
  */
 import { execFileSync } from "node:child_process";
 import { MAX_DIFF_LINES, MAX_FILES } from "./lib.mjs";
+import {
+  REQUIRED_CHECKS,
+  FORBIDDEN_PREFIXES,
+  isAllowedFile,
+  isUxPdcaPr,
+  isUxPrRepairable,
+  isRecentGatekeeperRepairCommit,
+  normalizeCheckName,
+  planUxPrRepairs,
+} from "./ux-pr-gate-lib.mjs";
 
 const PR_NUMBER = process.env.PR_NUMBER;
 const REPO = process.env.GITHUB_REPOSITORY;
@@ -12,36 +22,6 @@ if (!PR_NUMBER || !REPO) {
   console.error("PR_NUMBER and GITHUB_REPOSITORY are required");
   process.exit(2);
 }
-
-const REQUIRED_CHECKS = ["validate", "playwright-visual"];
-const FORBIDDEN_PREFIXES = [
-  "site/src/content/articles/",
-  "data/keywords",
-  "data/gsc-",
-  "config/batch-cycle",
-];
-
-const ALLOWED_PREFIXES = [
-  "site/src/components/",
-  "site/src/styles/",
-  "site/src/pages/",
-  "site/src/layouts/",
-  "site/tests/visual/",
-  "site/playwright.config.ts",
-  "site/package.json",
-  "site/.prettierignore",
-  "scripts/ux-pdca/",
-  "config/ux-",
-  "data/ux-cycle-brief.json",
-  "docs/operations/ux-pdca-log.md",
-];
-
-const ALLOWED_EXACT = [
-  ".github/workflows/ux-pdca-orchestrator.yml",
-  ".github/workflows/ux-agent-cycle.yml",
-  ".github/workflows/ux-pr-gatekeeper.yml",
-  "docs/ux-pdca-automation-design.html",
-];
 
 function gh(args) {
   return execFileSync("gh", args, {
@@ -54,23 +34,17 @@ function emit(result) {
   console.log(JSON.stringify(result));
 }
 
-function isUxPdcaPr(pr) {
-  const branch = pr.headRefName ?? "";
-  const labels = (pr.labels ?? []).map((l) => l.name);
-  if (labels.includes("ux-pdca-auto")) return true;
-  if (/^feature\/ux-pdca/i.test(branch)) return true;
-  if (/^UX PDCA Cycle \d+/i.test(pr.title ?? "")) return true;
-  return false;
-}
-
-function isAllowedFile(path) {
-  if (ALLOWED_EXACT.includes(path)) return true;
-  if (FORBIDDEN_PREFIXES.some((prefix) => path.startsWith(prefix))) return false;
-  return ALLOWED_PREFIXES.some((prefix) => path.startsWith(prefix));
-}
-
-function normalizeCheckName(name) {
-  return name.trim().toLowerCase();
+function latestCommitMessage(headRefName) {
+  try {
+    return gh([
+      "api",
+      `repos/${REPO}/commits/${headRefName}`,
+      "--jq",
+      '.commit.message | split("\\n")[0]',
+    ]);
+  } catch {
+    return "";
+  }
 }
 
 function main() {
@@ -105,6 +79,7 @@ function main() {
   if (forbidden.length > 0) {
     emit({
       verdict: "fail",
+      repairable: false,
       reason: `Forbidden paths: ${forbidden.join(", ")}`,
       failedChecks: ["forbidden-paths"],
     });
@@ -113,10 +88,25 @@ function main() {
 
   const disallowed = files.filter((file) => !isAllowedFile(file));
   if (disallowed.length > 0) {
+    const failResult = {
+      failedChecks: ["file-allowlist"],
+      reason: `Disallowed paths: ${disallowed.join(", ")}`,
+    };
+    const recentRepair = isRecentGatekeeperRepairCommit(
+      latestCommitMessage(pr.headRefName),
+    );
+    const repairable = isUxPrRepairable(failResult, files) && !recentRepair;
     emit({
       verdict: "fail",
-      reason: `Disallowed paths: ${disallowed.join(", ")}`,
-      failedChecks: ["file-allowlist"],
+      repairable,
+      reason: failResult.reason,
+      failedChecks: failResult.failedChecks,
+      repairActions: planUxPrRepairs(failResult, files),
+      skipRepairReason: recentRepair
+        ? "recent-gatekeeper-repair-commit"
+        : repairable
+          ? null
+          : "not-auto-fixable",
     });
     return;
   }
@@ -124,6 +114,7 @@ function main() {
   if (files.length > MAX_FILES) {
     emit({
       verdict: "fail",
+      repairable: false,
       reason: `Too many files: ${files.length} > ${MAX_FILES}`,
       failedChecks: ["max-files"],
     });
@@ -133,6 +124,7 @@ function main() {
   if (diffLines > MAX_DIFF_LINES) {
     emit({
       verdict: "fail",
+      repairable: false,
       reason: `Diff too large: ${diffLines} lines > ${MAX_DIFF_LINES}`,
       failedChecks: ["max-diff"],
     });
@@ -172,10 +164,25 @@ function main() {
   }
 
   if (failed.length > 0) {
+    const failResult = {
+      failedChecks: failed.map((entry) => entry.split(" ")[0]),
+      reason: `Checks failed: ${failed.join(", ")}`,
+    };
+    const recentRepair = isRecentGatekeeperRepairCommit(
+      latestCommitMessage(pr.headRefName),
+    );
+    const repairable = isUxPrRepairable(failResult, files) && !recentRepair;
     emit({
       verdict: "fail",
-      reason: `Checks failed: ${failed.join(", ")}`,
-      failedChecks: failed,
+      repairable,
+      reason: failResult.reason,
+      failedChecks: failResult.failedChecks,
+      repairActions: planUxPrRepairs(failResult, files),
+      skipRepairReason: recentRepair
+        ? "recent-gatekeeper-repair-commit"
+        : repairable
+          ? null
+          : "not-auto-fixable",
     });
     return;
   }
