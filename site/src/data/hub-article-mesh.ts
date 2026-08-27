@@ -296,6 +296,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "mineo-esim-settei-houhou",
         label: "mineo eSIM 設定 方法の手順",
       },
+      {
+        slug: "5g-taiou-smartphone-sim-hikaku",
+        label: "5G 対応 スマホ 格安SIM 比較",
+      },
     ],
   },
   hikari: {
