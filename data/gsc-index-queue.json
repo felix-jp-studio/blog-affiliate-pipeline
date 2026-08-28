@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-28T07:22:56.126Z",
+  "updatedAt": "2026-08-28T08:49:22.210Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -2088,6 +2088,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "iijmio-esim-settei-houhou",
+      "url": "https://sim-hikari-guide.com/articles/iijmio-esim-settei-houhou",
+      "mergedAt": "2026-08-28T08:49:22.209Z",
+      "indexed": false
     }
   ]
 }
