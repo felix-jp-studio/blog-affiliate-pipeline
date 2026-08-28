@@ -300,6 +300,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "5g-taiou-smartphone-sim-hikaku",
         label: "5G 対応 スマホ 格安SIM 比較",
       },
+      {
+        slug: "iijmio-esim-settei-houhou",
+        label: "IIJmio eSIM 設定 方法の手順",
+      },
     ],
   },
   hikari: {
