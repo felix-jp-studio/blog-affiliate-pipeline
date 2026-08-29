@@ -600,6 +600,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "docomo-hikari-speed-slow-fix",
         label: "ドコモ光 速度 遅い 対処の原因と7つの対処法",
       },
+      {
+        slug: "rakuten-mobile-kengai-daigae",
+        label: "楽天モバイル 圏外 代替の原因と7つの対処法",
+      },
     ],
   },
   cost: {
