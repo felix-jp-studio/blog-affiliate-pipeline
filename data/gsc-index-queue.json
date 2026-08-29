@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-29T04:34:08.849Z",
+  "updatedAt": "2026-08-29T05:26:11.455Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -2109,6 +2109,12 @@
         "source": "api"
       },
       "indexedAt": "2026-08-29T04:31:24.648Z"
+    },
+    {
+      "slug": "rakuten-mobile-kengai-daigae",
+      "url": "https://sim-hikari-guide.com/articles/rakuten-mobile-kengai-daigae",
+      "mergedAt": "2026-08-29T05:26:11.454Z",
+      "indexed": false
     }
   ]
 }
