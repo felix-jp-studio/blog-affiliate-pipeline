@@ -680,6 +680,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "softbank-denki",
         label: "ソフトバンク でんきで固定費を見直す",
       },
+      {
+        slug: "hikari-denki-setwari",
+        label: "光回線 電気 セット割で固定費を見直す",
+      },
     ],
   },
 };

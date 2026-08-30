@@ -1,12 +1,13 @@
 {
-  "last_run": "2026-08-29",
-  "next_scheduled": "2026-08-30",
+  "last_run": "2026-08-30",
+  "next_scheduled": "2026-08-31",
   "week_id": "2026-W35",
-  "runs_this_week": 6,
+  "runs_this_week": 7,
   "type_counts": {
     "comparison": 2,
     "howto": 2,
-    "troubleshoot": 2
+    "troubleshoot": 2,
+    "crosssell": 1
   },
   "history": [
     {
@@ -197,6 +198,11 @@
     {
       "date": "2026-08-29",
       "keywords": ["楽天モバイル 圏外 代替"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-08-30",
+      "keywords": ["光回線 電気 セット割"],
       "ok_count": 1
     }
   ]
