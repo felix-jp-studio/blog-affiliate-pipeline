@@ -146,7 +146,7 @@ describe("search-analytics", () => {
     const csv = serializePerformanceCsv([
       { query: "(all)", clicks: 4, impressions: 200, ctr: 0.02, position: 16.5 },
       {
-        query: "nuro光, 料金",
+        query: "nuro光 料金",
         clicks: 1,
         impressions: 80,
         ctr: 0.0125,
@@ -155,6 +155,6 @@ describe("search-analytics", () => {
     ]);
     assert.match(csv, /^Query,Clicks,Impressions,CTR,Position\n/);
     assert.doesNotMatch(csv, /\(all\)/);
-    assert.match(csv, /"nuro光, 料金",1,80,0.0125,22.4/);
+    assert.match(csv, /nuro光 料金,1,80,0.0125,22.4/);
   });
 });

@@ -66,6 +66,11 @@ function fixtureReport() {
   };
 }
 
+function defaultOutPath(endDate) {
+  const stamp = endDate.replaceAll("-", "");
+  return join(repoRoot, "docs", "gsc-weekly", `gsc-weekly-${stamp}.md`);
+}
+
 function defaultCsvPath(endDate) {
   const stamp = endDate.replaceAll("-", "");
   return join(repoRoot, "data", `gsc-performance-${stamp}.csv`);

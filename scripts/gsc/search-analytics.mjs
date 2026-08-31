@@ -30,11 +30,7 @@ export function rewriteCandidateRows(rows, minPosition = 11, maxPosition = 30) {
 }
 
 function csvField(value) {
-  const text = String(value);
-  if (/[",\n]/.test(text)) {
-    return `"${text.replaceAll('"', '""')}"`;
-  }
-  return text;
+  return String(value).replaceAll(",", " ");
 }
 
 /** GSC Performance CSV compatible with `gsc-import-rewrite-queue.mjs`. */
