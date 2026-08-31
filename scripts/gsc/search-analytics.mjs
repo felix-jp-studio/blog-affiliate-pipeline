@@ -15,9 +15,13 @@ export function weekRange(now = new Date()) {
   return { startDate: fmt(start), endDate: fmt(end) };
 }
 
-export function mapSearchAnalyticsRows(apiRows = []) {
+const DISPLAY_ROW_LIMIT = 25;
+const DEFAULT_FETCH_ROW_LIMIT = 250;
+
+export function mapSearchAnalyticsRows(apiRows = [], keyField = "query") {
   return apiRows.map((row) => ({
-    query: Array.isArray(row.keys) && row.keys.length > 0 ? String(row.keys[0]) : "(all)",
+    [keyField]:
+      Array.isArray(row.keys) && row.keys.length > 0 ? String(row.keys[0]) : "(all)",
     clicks: Number(row.clicks ?? 0),
     impressions: Number(row.impressions ?? 0),
     ctr: Number(row.ctr ?? 0),
@@ -27,6 +31,10 @@ export function mapSearchAnalyticsRows(apiRows = []) {
 
 export function rewriteCandidateRows(rows, minPosition = 11, maxPosition = 30) {
   return rows.filter((row) => row.position >= minPosition && row.position <= maxPosition);
+}
+
+export function rowsWithClicks(rows = []) {
+  return rows.filter((row) => Number(row.clicks) > 0);
 }
 
 function csvField(value) {
@@ -76,7 +84,7 @@ export async function querySearchAnalytics(accessToken, options) {
     startDate,
     endDate,
     dimensions,
-    rowLimit = 25,
+    rowLimit = DEFAULT_FETCH_ROW_LIMIT,
     fetchImpl = fetch,
   } = options;
 
@@ -104,14 +112,21 @@ export async function querySearchAnalytics(accessToken, options) {
       `Search Analytics API ${response.status}: ${JSON.stringify(payload)}`,
     );
   }
-  return mapSearchAnalyticsRows(payload.rows ?? []);
+  const keyField =
+    Array.isArray(dimensions) && dimensions[0] === "page" ? "page" : "query";
+  return mapSearchAnalyticsRows(payload.rows ?? [], keyField);
 }
 
 /**
  * Query totals + top queries, retrying URL-prefix vs sc-domain on 403.
  */
 export async function fetchSearchAnalyticsReport(accessToken, options = {}) {
-  const { startDate, endDate, rowLimit = 25, fetchImpl = fetch } = options;
+  const {
+    startDate,
+    endDate,
+    rowLimit = DEFAULT_FETCH_ROW_LIMIT,
+    fetchImpl = fetch,
+  } = options;
   const candidates =
     options.siteUrls ?? (options.siteUrl ? [options.siteUrl] : siteUrlCandidates());
 
@@ -133,6 +148,14 @@ export async function fetchSearchAnalyticsReport(accessToken, options = {}) {
         rowLimit,
         fetchImpl,
       });
+      const pages = await querySearchAnalytics(accessToken, {
+        siteUrl,
+        startDate,
+        endDate,
+        dimensions: ["page"],
+        rowLimit,
+        fetchImpl,
+      });
       return {
         siteUrl,
         totals: totals[0] ?? {
@@ -143,6 +166,7 @@ export async function fetchSearchAnalyticsReport(accessToken, options = {}) {
           position: 0,
         },
         queries,
+        pages,
       };
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
@@ -155,18 +179,43 @@ export async function fetchSearchAnalyticsReport(accessToken, options = {}) {
   throw lastError ?? new Error("Search Analytics API failed");
 }
 
+function metricLine(label, row) {
+  return `| ${label} | ${row.clicks} | ${row.impressions} | ${(row.ctr * 100).toFixed(2)}% | ${row.position.toFixed(1)} |`;
+}
+
+function pushKeyedTable(lines, { heading, nameHeader, nameField, rows, emptyLabel }) {
+  lines.push(
+    `## ${heading}`,
+    "",
+    `| ${nameHeader} | クリック | 表示 | CTR | 平均順位 |`,
+    `| ------ | -------: | ---: | --: | -------: |`,
+  );
+  if (rows.length === 0) {
+    lines.push(`| ${emptyLabel} | 0 | 0 | 0.00% | 0.0 |`, "");
+    return;
+  }
+  for (const row of rows) {
+    lines.push(metricLine(row[nameField] ?? "(all)", row));
+  }
+  lines.push("");
+}
+
 export function renderWeeklyReportMarkdown({
   siteUrl,
   startDate,
   endDate,
   totals,
   queries,
+  pages,
   mode,
   note,
   generatedAt = new Date().toISOString(),
 }) {
   const rows = queries ?? [];
+  const pageRows = Array.isArray(pages) ? pages : null;
   const rewriteRows = rewriteCandidateRows(rows);
+  const clickedQueries = rowsWithClicks(rows);
+  const clickedPages = pageRows ? rowsWithClicks(pageRows) : [];
   const totalsRow = totals ?? {
     clicks: 0,
     impressions: 0,
@@ -193,23 +242,57 @@ export function renderWeeklyReportMarkdown({
     "| -------: | ---: | --: | -------: |",
     `| ${totalsRow.clicks} | ${totalsRow.impressions} | ${(totalsRow.ctr * 100).toFixed(2)}% | ${totalsRow.position.toFixed(1)} |`,
     "",
-    "## 上位クエリ",
-    "",
-    "| クエリ | クリック | 表示 | CTR | 平均順位 |",
-    "| ------ | -------: | ---: | --: | -------: |",
   );
 
-  if (rows.length === 0) {
-    lines.push("| _該当クエリなし_ | 0 | 0 | 0.00% | 0.0 |");
-  } else {
-    for (const row of rows) {
+  if (pageRows) {
+    pushKeyedTable(lines, {
+      heading: "クリックがあったページ",
+      nameHeader: "ページ",
+      nameField: "page",
+      rows: clickedPages,
+      emptyLabel: "_クリック付きページなし_",
+    });
+    if (clickedPages.length === 0 && totalsRow.clicks > 0) {
       lines.push(
-        `| ${row.query} | ${row.clicks} | ${row.impressions} | ${(row.ctr * 100).toFixed(2)}% | ${row.position.toFixed(1)} |`,
+        "> サイト全体のクリックがページ内訳に出ない場合、Discover 等の検索以外流入か、GSC の匿名化の可能性がある。",
+        "",
       );
     }
   }
 
-  lines.push("", "## リライト候補（11–30 位）", "");
+  pushKeyedTable(lines, {
+    heading: "クリックがあったクエリ",
+    nameHeader: "クエリ",
+    nameField: "query",
+    rows: clickedQueries,
+    emptyLabel: "_クリック付きクエリなし_",
+  });
+  if (clickedQueries.length === 0 && totalsRow.clicks > 0) {
+    lines.push(
+      "> サイト全体のクリックがクエリ内訳に出ない場合、匿名化クエリ（稀少クエリ）の可能性がある。",
+      "",
+    );
+  }
+
+  if (pageRows) {
+    pushKeyedTable(lines, {
+      heading: "上位ページ",
+      nameHeader: "ページ",
+      nameField: "page",
+      rows: pageRows.slice(0, DISPLAY_ROW_LIMIT),
+      emptyLabel: "_該当ページなし_",
+    });
+  }
+
+  pushKeyedTable(lines, {
+    heading: "上位クエリ",
+    nameHeader: "クエリ",
+    nameField: "query",
+    rows: rows.slice(0, DISPLAY_ROW_LIMIT),
+    emptyLabel: "_該当クエリなし_",
+  });
+
+  lines.push("## リライト候補（11–30 位）", "");
   if (rewriteRows.length === 0) {
     lines.push("_該当なし_", "");
   } else {
@@ -218,9 +301,7 @@ export function renderWeeklyReportMarkdown({
       "| ------ | -------: | ---: | --: | -------: |",
     );
     for (const row of rewriteRows) {
-      lines.push(
-        `| ${row.query} | ${row.clicks} | ${row.impressions} | ${(row.ctr * 100).toFixed(2)}% | ${row.position.toFixed(1)} |`,
-      );
+      lines.push(metricLine(row.query, row));
     }
     lines.push("");
   }

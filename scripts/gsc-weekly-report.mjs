@@ -63,6 +63,22 @@ function fixtureReport() {
         position: 15.5,
       },
     ],
+    pages: [
+      {
+        page: "https://sim-hikari-guide.com/sim-20gb-osusume",
+        clicks: 12,
+        impressions: 400,
+        ctr: 0.03,
+        position: 18.2,
+      },
+      {
+        page: "https://sim-hikari-guide.com/nuro-hikari-ryokin",
+        clicks: 5,
+        impressions: 220,
+        ctr: 0.0227,
+        position: 24.1,
+      },
+    ],
   };
 }
 
@@ -101,6 +117,7 @@ async function main() {
       endDate,
       totals: fixture.totals,
       queries: fixture.queries,
+      pages: fixture.pages,
       mode: "fixture",
       note: "サンプル行（本番 API 未接続）。秘匿情報は含まない。",
     });
@@ -128,6 +145,7 @@ async function main() {
           endDate,
           totals: { clicks: 0, impressions: 0, ctr: 0, position: 0 },
           queries: [],
+          pages: [],
           mode: "skipped-no-secrets",
           note: "シークレット未設定のためスキップ。",
         }),
@@ -148,6 +166,7 @@ async function main() {
     endDate,
     totals: report.totals,
     queries: report.queries,
+    pages: report.pages,
     mode: credsHint,
   });
   const csvPath = defaultCsvPath(endDate);
