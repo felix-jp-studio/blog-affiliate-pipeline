@@ -2,7 +2,7 @@
 
 - プロパティ: `https://sim-hikari-guide.com/`
 - 生成モード: `service-account`
-- 生成日時 (UTC): 2026-08-31T10:00:50.724Z
+- 生成日時 (UTC): 2026-08-31T10:08:58.300Z
 
 ## サイト全体
 
@@ -91,5 +91,5 @@ _該当なし_
 
 ## 次アクション
 
-- 11–30 位は Workflow が `data/rewrite-queue.csv` へ自動取り込み（`gsc:import-rewrite-queue`）
+- 11–30 位（クエリとページ）は Workflow が `data/rewrite-queue.csv` へ自動取り込み（`gsc:import-rewrite-queue`）
 - 手動ベースライン: `blog-affiliate-auto/docs/operations/gsc-baseline.md`

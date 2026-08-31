@@ -7,3 +7,11 @@ hikari-kodate-osusume,光回線 戸建て おすすめ,,5,done,heuristic-stale-m
 hikari-mansion-osusume,光回線 マンション おすすめ,,6,done,heuristic-stale-meta
 hikari-provider-chigai,光回線 プロバイダ 違い,,7,done,heuristic-stale-meta
 hikari-switch-osusume,光回線 乗り換え おすすめ,,8,done,heuristic-stale-meta
+biglobe-hikari-tsunagaranai-fix,https://sim-hikari-guide.com/articles/biglobe-hikari-tsunagaranai-fix,11.0,1,pending,GSC page 11-30位
+hikkoshi-wimax-osusume,https://sim-hikari-guide.com/articles/hikkoshi-wimax-osusume,11.0,2,pending,GSC page 11-30位
+hikkoshi-hikari-denki-set,https://sim-hikari-guide.com/articles/hikkoshi-hikari-denki-set,13.5,3,pending,GSC page 11-30位
+povo-speed-slow-fix,https://sim-hikari-guide.com/articles/povo-speed-slow-fix,15.6,4,pending,GSC page 11-30位
+esim-profile-sakujo-dekinai-fix,https://sim-hikari-guide.com/articles/esim-profile-sakujo-dekinai-fix,18.0,5,pending,GSC page 11-30位
+linemo-speed-slow-fix,https://sim-hikari-guide.com/articles/linemo-speed-slow-fix,23.5,6,pending,GSC page 11-30位
+povo-esim-settei-tejun,https://sim-hikari-guide.com/articles/povo-esim-settei-tejun,26.7,7,pending,GSC page 11-30位
+sim-tsunagaranai-fix,https://sim-hikari-guide.com/articles/sim-tsunagaranai-fix,28.0,8,pending,GSC page 11-30位
