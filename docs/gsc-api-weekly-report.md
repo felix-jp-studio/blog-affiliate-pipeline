@@ -1,9 +1,9 @@
-# GSC API → 週次 Markdown レポート（スケルトン）
+# GSC API → 週次 Markdown レポート
 
 ## 目的
 
 Search Console Search Analytics を週次で取得し、Markdown レポートを生成する。  
-現状は **シークレット未設定時に graceful skip** するスケルトン。
+シークレット未設定時は **exit 0 でスキップ**。認証がある場合は API を呼び、`docs/gsc-weekly/` に書き込む。
 
 ## スクリプト
 
@@ -13,36 +13,30 @@ npm run gsc:weekly-report -- --dry-run
 npm run gsc:weekly-report -- --fixture
 ```
 
-- 実装: `scripts/gsc-weekly-report.mjs`
-- Workflow: `.github/workflows/gsc-weekly-report.yml`（月曜 schedule + `workflow_dispatch`）
+- 実装: `scripts/gsc-weekly-report.mjs` / `scripts/gsc/search-analytics.mjs`
+- 認証: 日次検査と同じ `scripts/gsc/auth.mjs`（SA JWT または OAuth）
+- Workflow: `.github/workflows/gsc-weekly-report.yml`（月曜 09:00 JST + `workflow_dispatch`）
 
 ## 必要な Secrets / Vars（値は User が設定。Agent は発明しない）
 
-| 名前                       | 種別             | 説明                                    |
-| -------------------------- | ---------------- | --------------------------------------- |
-| `GSC_SITE_URL`             | Variable（任意） | 例: `https://sim-hikari-guide.com/`     |
-| `GSC_SERVICE_ACCOUNT_JSON` | Secret           | Search Console 権限付き SA の JSON 全文 |
-| `GSC_OAUTH_CLIENT_ID`      | Secret           | OAuth クライアント ID（SA の代替）      |
-| `GSC_OAUTH_CLIENT_SECRET`  | Secret           | OAuth クライアントシークレット          |
-| `GSC_OAUTH_REFRESH_TOKEN`  | Secret           | OAuth リフレッシュトークン              |
+| 名前                       | 種別           | 説明                                    |
+| -------------------------- | -------------- | --------------------------------------- |
+| `GSC_SITE_URL`             | Secret（任意） | 例: `https://sim-hikari-guide.com/`     |
+| `GSC_SERVICE_ACCOUNT_JSON` | Secret         | Search Console 権限付き SA の JSON 全文 |
+| `GSC_OAUTH_CLIENT_ID`      | Secret         | OAuth クライアント ID（SA の代替）      |
+| `GSC_OAUTH_CLIENT_SECRET`  | Secret         | OAuth クライアントシークレット          |
+| `GSC_OAUTH_REFRESH_TOKEN`  | Secret         | OAuth リフレッシュトークン              |
 
-SA **または** OAuth の三点セットのいずれか一方で可。未設定時は **exit 0 でスキップ**。
+SA **または** OAuth の三点セットのいずれか一方で可。`GSC_SITE_URL` 未設定時は本番ドメイン既定値。403 のときは URL-prefix と `sc-domain:` を順に試す。
 
 ## 出力
 
-- 既定: `docs/gsc-weekly/gsc-weekly-YYYYMMDD.md`（API 接続後）
+- 既定: `docs/gsc-weekly/gsc-weekly-YYYYMMDD.md`（API 接続後。Workflow が main へ commit）
 - `--fixture`: サンプル行のみ（本番数値なし）
-- 運用正本の手動ベースライン: `blog-affiliate-auto/docs/operations/gsc-baseline.md`
-
-## 未実装（次イテレーション）
-
-- Service Account JWT → access token
-- `webmasters.searchanalytics.query` 呼び出し
-- レポートを auto リポへ PR するオプション
+- レポート内容: サイト全体のクリック/表示、上位クエリ、11–30 位のリライト候補
 
 ## User 作業
 
-1. GCP で Search Console API を有効化
-2. SA を作成しプロパティにユーザー追加（または OAuth）
-3. GitHub Actions Secrets に上記を登録
-4. Agent に「GSC secrets 設定した」と連絡 → API 配線 PR
+1. 日次 GSC 検査と同じ Secrets があれば追加作業なし
+2. Actions → **GSC weekly report** → Run workflow で初回確認
+3. 生成された `docs/gsc-weekly/gsc-weekly-*.md` の数値を GA4 / GSC 画面と突き合わせる
