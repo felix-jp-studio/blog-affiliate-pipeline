@@ -35,7 +35,8 @@ SA **または** OAuth の三点セットのいずれか一方で可。`GSC_SITE
 - Performance CSV: `data/gsc-performance-YYYYMMDD.csv`
 - 11–30 位は `npm run gsc:import-rewrite-queue` で `data/rewrite-queue.csv` へ追記（Workflow が自動実行）
 - `--fixture`: サンプル行のみ（本番数値なし）
-- レポート内容: サイト全体のクリック/表示、上位クエリ、11–30 位のリライト候補
+- レポート内容: サイト全体、クリックがあったページ/クエリ、上位ページ、上位クエリ、11–30 位のリライト候補
+- 取得行数: Search Analytics `rowLimit` 既定 250（Markdown の上位表は 25 行）。Performance CSV は取得したクエリ全行
 
 ## 手動再実行（Agent 可）
 
