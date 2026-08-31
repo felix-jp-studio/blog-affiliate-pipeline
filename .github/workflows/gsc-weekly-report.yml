@@ -7,6 +7,10 @@ on:
         description: "Generate sample report from fixture rows (no API)"
         type: boolean
         default: false
+  push:
+    branches: [main]
+    paths:
+      - ".github/trigger-gsc-weekly-report"
   schedule:
     # Mon 09:00 JST = UTC Mon 00:00
     - cron: "0 0 * * 1"
@@ -75,6 +79,11 @@ jobs:
             exit 0
           else
             node scripts/gsc-weekly-report.mjs | tee /tmp/gsc-weekly-out.txt
+            END=$(node --input-type=module -e "import { weekRange } from './scripts/gsc/search-analytics.mjs'; console.log(weekRange().endDate.replaceAll('-',''))")
+            CSV="data/gsc-performance-${END}.csv"
+            if [ -f "$CSV" ]; then
+              node scripts/gsc-import-rewrite-queue.mjs --csv="$CSV" | tee -a /tmp/gsc-weekly-out.txt
+            fi
           fi
 
       - name: Commit report
@@ -88,7 +97,10 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/gsc-weekly/
+          git add docs/gsc-weekly/ data/rewrite-queue.csv
+          if ls data/gsc-performance-*.csv >/dev/null 2>&1; then
+            git add data/gsc-performance-*.csv
+          fi
           if git diff --staged --quiet; then
             echo "No weekly report changes to commit."
             exit 0

@@ -29,6 +29,28 @@ export function rewriteCandidateRows(rows, minPosition = 11, maxPosition = 30) {
   return rows.filter((row) => row.position >= minPosition && row.position <= maxPosition);
 }
 
+function csvField(value) {
+  return String(value).replaceAll(",", " ");
+}
+
+/** GSC Performance CSV compatible with `gsc-import-rewrite-queue.mjs`. */
+export function serializePerformanceCsv(rows) {
+  const lines = ["Query,Clicks,Impressions,CTR,Position"];
+  for (const row of rows) {
+    if (!row.query || row.query === "(all)") continue;
+    lines.push(
+      [
+        csvField(row.query),
+        row.clicks,
+        row.impressions,
+        row.ctr,
+        Number(row.position).toFixed(1),
+      ].join(","),
+    );
+  }
+  return `${lines.join("\n")}\n`;
+}
+
 function searchAnalyticsUrl(siteUrl) {
   return `${SEARCH_ANALYTICS_ROOT}/${encodeURIComponent(siteUrl)}/searchAnalytics/query`;
 }
@@ -206,7 +228,7 @@ export function renderWeeklyReportMarkdown({
   lines.push(
     "## 次アクション",
     "",
-    "- 11–30 位クエリを `npm run gsc:import-rewrite-queue` の候補に検討（`gsc-rewrite-queue-v1`）",
+    "- 11–30 位は Workflow が `data/rewrite-queue.csv` へ自動取り込み（`gsc:import-rewrite-queue`）",
     "- 手動ベースライン: `blog-affiliate-auto/docs/operations/gsc-baseline.md`",
     "",
   );
