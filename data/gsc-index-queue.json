@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-30T03:21:04.241Z",
+  "updatedAt": "2026-08-31T01:58:01.332Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -221,7 +221,7 @@
       "url": "https://sim-hikari-guide.com/articles/rakuten-mobile-switch",
       "mergedAt": "2026-07-29T10:29:40.306Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-30T02:00:29.696Z",
+      "lastInspectedAt": "2026-08-31T01:56:14.918Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -256,7 +256,7 @@
       "url": "https://sim-hikari-guide.com/articles/sim-20gb-osusume",
       "mergedAt": "2026-07-29T10:29:40.306Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-30T02:00:29.696Z",
+      "lastInspectedAt": "2026-08-31T01:56:14.918Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -399,7 +399,7 @@
       "url": "https://sim-hikari-guide.com/articles/sim-tuuwa-teigaku-hikaku",
       "mergedAt": "2026-07-29T10:29:40.306Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-30T02:00:29.696Z",
+      "lastInspectedAt": "2026-08-31T01:56:14.918Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -560,7 +560,7 @@
       "url": "https://sim-hikari-guide.com/articles/sim-fukukaisen-osusume",
       "mergedAt": "2026-08-03T02:27:04.533Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-30T02:00:29.696Z",
+      "lastInspectedAt": "2026-08-31T01:56:14.918Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -793,7 +793,7 @@
       "url": "https://sim-hikari-guide.com/articles/sim-tethering-settei-houhou",
       "mergedAt": "2026-08-09T04:28:11.948Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-30T02:00:29.696Z",
+      "lastInspectedAt": "2026-08-31T01:56:14.918Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -882,7 +882,7 @@
       "url": "https://sim-hikari-guide.com/articles/iijmio-kaituu-dekinai-fix",
       "mergedAt": "2026-08-09T04:28:39.421Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-30T02:00:29.696Z",
+      "lastInspectedAt": "2026-08-31T01:56:14.918Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -1259,7 +1259,7 @@
       "url": "https://sim-hikari-guide.com/articles/povo-kaiyaku-tejun",
       "mergedAt": "2026-08-09T05:12:09.895Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-30T02:00:29.696Z",
+      "lastInspectedAt": "2026-08-31T01:56:14.918Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -1348,7 +1348,7 @@
       "url": "https://sim-hikari-guide.com/articles/rakuten-mobile-esim-settei-tejun",
       "mergedAt": "2026-08-09T05:18:43.703Z",
       "indexed": false,
-      "lastInspectedAt": "2026-08-30T02:00:29.696Z",
+      "lastInspectedAt": "2026-08-31T01:56:14.918Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -2043,18 +2043,19 @@
       "slug": "mineo-esim-settei-houhou",
       "url": "https://sim-hikari-guide.com/articles/mineo-esim-settei-houhou",
       "mergedAt": "2026-08-25T01:03:33.572Z",
-      "indexed": false,
-      "lastInspectedAt": "2026-08-30T02:00:29.696Z",
+      "indexed": true,
+      "lastInspectedAt": "2026-08-31T01:56:14.918Z",
       "inspection": {
-        "verdict": "NEUTRAL",
-        "coverageState": "クロール済み - インデックス未登録",
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
         "indexingState": "INDEXING_ALLOWED",
         "lastCrawlTime": "2026-08-29T19:43:53Z",
         "pageFetchState": "SUCCESSFUL",
         "robotsTxtState": "ALLOWED",
-        "indexed": false,
+        "indexed": true,
         "source": "api"
-      }
+      },
+      "indexedAt": "2026-08-31T01:56:14.918Z"
     },
     {
       "slug": "docomo-hikari-speed-slow-fix",
@@ -2132,7 +2133,19 @@
       "slug": "hikari-denki-setwari",
       "url": "https://sim-hikari-guide.com/articles/hikari-denki-setwari",
       "mergedAt": "2026-08-30T03:21:04.240Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-08-31T01:56:14.918Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-08-30T15:50:25Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-08-31T01:56:14.918Z"
     }
   ]
 }
