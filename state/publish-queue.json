@@ -1,13 +1,10 @@
 {
-  "last_run": "2026-08-30",
-  "next_scheduled": "2026-08-31",
-  "week_id": "2026-W35",
-  "runs_this_week": 7,
+  "last_run": "2026-08-31",
+  "next_scheduled": "2026-09-01",
+  "week_id": "2026-W36",
+  "runs_this_week": 1,
   "type_counts": {
-    "comparison": 2,
-    "howto": 2,
-    "troubleshoot": 2,
-    "crosssell": 1
+    "comparison": 1
   },
   "history": [
     {
@@ -203,6 +200,11 @@
     {
       "date": "2026-08-30",
       "keywords": ["光回線 電気 セット割"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-08-31",
+      "keywords": ["docomo 5G ahamo UQ 比較"],
       "ok_count": 1
     }
   ]

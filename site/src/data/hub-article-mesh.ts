@@ -304,6 +304,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "iijmio-esim-settei-houhou",
         label: "IIJmio eSIM 設定 方法の手順",
       },
+      {
+        slug: "docomo-5g-ahamo-uq-hikaku",
+        label: "docomo 5G ahamo UQ 比較",
+      },
     ],
   },
   hikari: {
