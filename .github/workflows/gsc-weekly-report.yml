@@ -81,8 +81,12 @@ jobs:
             node scripts/gsc-weekly-report.mjs | tee /tmp/gsc-weekly-out.txt
             END=$(node --input-type=module -e "import { weekRange } from './scripts/gsc/search-analytics.mjs'; console.log(weekRange().endDate.replaceAll('-',''))")
             CSV="data/gsc-performance-${END}.csv"
+            PAGES_CSV="data/gsc-pages-${END}.csv"
             if [ -f "$CSV" ]; then
               node scripts/gsc-import-rewrite-queue.mjs --csv="$CSV" | tee -a /tmp/gsc-weekly-out.txt
+            fi
+            if [ -f "$PAGES_CSV" ]; then
+              node scripts/gsc-import-rewrite-queue.mjs --csv="$PAGES_CSV" | tee -a /tmp/gsc-weekly-out.txt
             fi
           fi
 
@@ -100,6 +104,9 @@ jobs:
           git add docs/gsc-weekly/ data/rewrite-queue.csv
           if ls data/gsc-performance-*.csv >/dev/null 2>&1; then
             git add data/gsc-performance-*.csv
+          fi
+          if ls data/gsc-pages-*.csv >/dev/null 2>&1; then
+            git add data/gsc-pages-*.csv
           fi
           if git diff --staged --quiet; then
             echo "No weekly report changes to commit."

@@ -7,6 +7,7 @@ import {
   renderWeeklyReportMarkdown,
   rewriteCandidateRows,
   serializePerformanceCsv,
+  serializePagesCsv,
   weekRange,
 } from "./search-analytics.mjs";
 
@@ -269,5 +270,22 @@ describe("search-analytics", () => {
     assert.match(csv, /^Query,Clicks,Impressions,CTR,Position\n/);
     assert.doesNotMatch(csv, /\(all\)/);
     assert.match(csv, /nuro光 料金,1,80,0.0125,22.4/);
+  });
+
+  it("serializes GSC pages CSV for rewrite-queue import", () => {
+    const csv = serializePagesCsv([
+      {
+        page: "https://sim-hikari-guide.com/articles/esim-profile-sakujo-dekinai-fix",
+        clicks: 1,
+        impressions: 2,
+        ctr: 0.5,
+        position: 18,
+      },
+    ]);
+    assert.match(csv, /^Page,Clicks,Impressions,CTR,Position\n/);
+    assert.match(
+      csv,
+      /https:\/\/sim-hikari-guide.com\/articles\/esim-profile-sakujo-dekinai-fix,1,2,0.5,18.0/,
+    );
   });
 });

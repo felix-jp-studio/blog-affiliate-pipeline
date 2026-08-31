@@ -28,6 +28,7 @@ import {
   getAccessToken,
   renderWeeklyReportMarkdown,
   serializePerformanceCsv,
+  serializePagesCsv,
   weekRange,
 } from "./gsc/search-analytics.mjs";
 
@@ -90,6 +91,11 @@ function defaultOutPath(endDate) {
 function defaultCsvPath(endDate) {
   const stamp = endDate.replaceAll("-", "");
   return join(repoRoot, "data", `gsc-performance-${stamp}.csv`);
+}
+
+function defaultPagesCsvPath(endDate) {
+  const stamp = endDate.replaceAll("-", "");
+  return join(repoRoot, "data", `gsc-pages-${stamp}.csv`);
 }
 
 function writeReport(outPath, markdown) {
@@ -170,11 +176,14 @@ async function main() {
     mode: credsHint,
   });
   const csvPath = defaultCsvPath(endDate);
+  const pagesCsvPath = defaultPagesCsvPath(endDate);
   const csv = serializePerformanceCsv(report.queries);
+  const pagesCsv = serializePagesCsv(report.pages ?? []);
 
   if (dryRun) {
     console.log(md);
     console.log(`gsc-weekly-report: csv ${csvPath} (dry-run, not written)`);
+    console.log(`gsc-weekly-report: pages csv ${pagesCsvPath} (dry-run, not written)`);
     return 0;
   }
 
@@ -182,6 +191,8 @@ async function main() {
   mkdirSync(dirname(csvPath), { recursive: true });
   writeFileSync(csvPath, csv, "utf8");
   console.log(`wrote ${csvPath}`);
+  writeFileSync(pagesCsvPath, pagesCsv, "utf8");
+  console.log(`wrote ${pagesCsvPath}`);
   return 0;
 }
 

@@ -42,13 +42,14 @@ function csvField(value) {
 }
 
 /** GSC Performance CSV compatible with `gsc-import-rewrite-queue.mjs`. */
-export function serializePerformanceCsv(rows) {
-  const lines = ["Query,Clicks,Impressions,CTR,Position"];
+function serializeKeyedCsv(rows, keyField, headerName) {
+  const lines = [`${headerName},Clicks,Impressions,CTR,Position`];
   for (const row of rows) {
-    if (!row.query || row.query === "(all)") continue;
+    const key = row[keyField];
+    if (!key || key === "(all)") continue;
     lines.push(
       [
-        csvField(row.query),
+        csvField(key),
         row.clicks,
         row.impressions,
         row.ctr,
@@ -57,6 +58,14 @@ export function serializePerformanceCsv(rows) {
     );
   }
   return `${lines.join("\n")}\n`;
+}
+
+export function serializePerformanceCsv(rows) {
+  return serializeKeyedCsv(rows, "query", "Query");
+}
+
+export function serializePagesCsv(rows) {
+  return serializeKeyedCsv(rows, "page", "Page");
 }
 
 function searchAnalyticsUrl(siteUrl) {
@@ -309,7 +318,7 @@ export function renderWeeklyReportMarkdown({
   lines.push(
     "## 次アクション",
     "",
-    "- 11–30 位は Workflow が `data/rewrite-queue.csv` へ自動取り込み（`gsc:import-rewrite-queue`）",
+    "- 11–30 位（クエリとページ）は Workflow が `data/rewrite-queue.csv` へ自動取り込み（`gsc:import-rewrite-queue`）",
     "- 手動ベースライン: `blog-affiliate-auto/docs/operations/gsc-baseline.md`",
     "",
   );
