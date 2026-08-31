@@ -3,15 +3,20 @@
  *
  * Usage:
  *   node scripts/gsc-import-rewrite-queue.mjs --csv=data/gsc-performance-YYYYMMDD.csv
+ *   node scripts/gsc-import-rewrite-queue.mjs --csv=data/gsc-pages-YYYYMMDD.csv
  *   node scripts/gsc-import-rewrite-queue.mjs --csv=... --dry-run
  *   node scripts/gsc-import-rewrite-queue.mjs --csv=... --min-position=11 --max-position=30
  *
- * GSC export: Performance → Search results → Queries → Export (28 days).
- * Accepts English headers (Query, Position) or lowercase variants.
+ * Accepts Query CSV (keyword match) or Page CSV (/articles/{slug}).
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { loadPublishedArticles, repoRoot } from "./e2e/e2e-utils.mjs";
+import {
+  collectCandidates,
+  parseCsv,
+  serializeCsv,
+} from "./gsc/import-rewrite-queue.mjs";
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
@@ -28,52 +33,6 @@ const maxPosition = maxPosArg
 
 const queuePath = join(repoRoot, "data/rewrite-queue.csv");
 
-function parseCsv(text) {
-  const lines = text
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter((line) => line.length > 0 && !line.startsWith("#"));
-
-  if (lines.length === 0) {
-    return { headers: [], rows: [] };
-  }
-
-  const headers = lines[0].split(",").map((header) => header.trim());
-  const rows = lines.slice(1).map((line) => {
-    const values = line.split(",").map((value) => value.trim());
-    return Object.fromEntries(
-      headers.map((header, index) => [header, values[index] ?? ""]),
-    );
-  });
-
-  return { headers, rows };
-}
-
-function serializeCsv(headers, rows) {
-  const body = rows.map((row) => headers.map((header) => row[header] ?? "").join(","));
-  return `${[headers.join(","), ...body].join("\n")}\n`;
-}
-
-function normalizeQuery(value) {
-  return value.toLowerCase().replace(/\s+/g, " ").trim();
-}
-
-function pickField(row, names) {
-  for (const name of names) {
-    const exact = row[name];
-    if (exact !== undefined && exact !== "") {
-      return exact;
-    }
-    const found = Object.entries(row).find(
-      ([key]) => key.toLowerCase() === name.toLowerCase(),
-    );
-    if (found?.[1]) {
-      return found[1];
-    }
-  }
-  return "";
-}
-
 function loadQueue() {
   if (!existsSync(queuePath)) {
     return {
@@ -82,30 +41,6 @@ function loadQueue() {
     };
   }
   return parseCsv(readFileSync(queuePath, "utf8"));
-}
-
-function buildKeywordIndex() {
-  const index = new Map();
-  for (const article of loadPublishedArticles()) {
-    if (article.draft || !article.fields?.keyword) {
-      continue;
-    }
-    index.set(normalizeQuery(article.fields.keyword), article.slug);
-  }
-  return index;
-}
-
-function resolveSlug(query, keywordIndex) {
-  const normalized = normalizeQuery(query);
-  if (keywordIndex.has(normalized)) {
-    return keywordIndex.get(normalized);
-  }
-  for (const [keyword, slug] of keywordIndex.entries()) {
-    if (normalized.includes(keyword) || keyword.includes(normalized)) {
-      return slug;
-    }
-  }
-  return "";
 }
 
 function main() {
@@ -123,48 +58,13 @@ function main() {
   }
 
   const { rows: gscRows } = parseCsv(readFileSync(csvPath, "utf8"));
-  const keywordIndex = buildKeywordIndex();
   const queue = loadQueue();
-  const existingQueries = new Set(
-    queue.rows.map((row) => normalizeQuery(row.query)).filter(Boolean),
-  );
-
-  const candidates = [];
-  for (const row of gscRows) {
-    const query = pickField(row, ["Query", "query", "Top queries", "クエリ"]);
-    const positionRaw = pickField(row, [
-      "Position",
-      "position",
-      "Average position",
-      "掲載順位",
-    ]);
-    const position = Number.parseFloat(positionRaw);
-    if (!query || Number.isNaN(position)) {
-      continue;
-    }
-    if (position < minPosition || position > maxPosition) {
-      continue;
-    }
-    if (existingQueries.has(normalizeQuery(query))) {
-      continue;
-    }
-
-    const slug = resolveSlug(query, keywordIndex);
-    candidates.push({
-      slug,
-      query,
-      position: position.toFixed(1),
-      priority: String(candidates.length + 1),
-      status: "pending",
-      notes: slug ? "GSC 11-30位" : "GSC 11-30位（slug要確認）",
-    });
-  }
-
-  candidates.sort(
-    (a, b) => Number.parseFloat(a.position) - Number.parseFloat(b.position),
-  );
-  candidates.forEach((row, index) => {
-    row.priority = String(index + 1);
+  const candidates = collectCandidates({
+    gscRows,
+    queueRows: queue.rows,
+    articles: loadPublishedArticles(),
+    minPosition,
+    maxPosition,
   });
 
   if (candidates.length === 0) {

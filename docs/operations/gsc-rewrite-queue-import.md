@@ -15,8 +15,9 @@
 # dry-run（キューは書き換えない）
 npm run gsc:import-rewrite-queue -- --csv=data/gsc-performance-YYYYMMDD.csv --dry-run
 
-# 本番 import（11–30 位を pending 追記）
+# 本番 import（11–30 位を pending 追記。Query CSV と Page CSV の両方可）
 npm run gsc:import-rewrite-queue -- --csv=data/gsc-performance-YYYYMMDD.csv
+npm run gsc:import-rewrite-queue -- --csv=data/gsc-pages-YYYYMMDD.csv
 ```
 
 ## 出力

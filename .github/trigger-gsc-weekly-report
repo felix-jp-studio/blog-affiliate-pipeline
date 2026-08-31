@@ -1,3 +1,4 @@
 # Touch this file and push to main to run GSC weekly report once (schedule: Mon 09:00 JST).
 # 2026-08-31T09:45:00Z first production Search Analytics run after API wiring (#261)
 # 2026-08-31T10:00:00Z re-run with page dimension after #262
+# 2026-08-31T10:15:00Z re-run to import page 11–30 into rewrite-queue
