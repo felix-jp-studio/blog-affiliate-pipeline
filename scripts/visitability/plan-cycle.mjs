@@ -6,96 +6,26 @@
  *   node scripts/visitability/plan-cycle.mjs
  *   node scripts/visitability/plan-cycle.mjs --dry-run
  */
-import { writeFileSync } from "node:fs";
-import { join } from "node:path";
-import { repoRoot } from "../e2e/e2e-utils.mjs";
 import {
   PATHS,
-  TEMPLATES,
   appendKeywordRows,
+  buildCycleBatch,
+  buildItems,
+  buildKeywordAppend,
+  cycleBatchPath,
   keywordSeedMaxPriority,
   loadArticleCounts,
   loadIndexQueueMetrics,
   loadKeywordSeed,
   loadRewriteQueueCount,
   loadUsedKeywords,
-  pickUnusedKeywords,
   readJson,
   selectTemplate,
-  serializeKeywordSeed,
   writeJson,
-  inferCategory,
 } from "./lib.mjs";
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
-
-function buildKeywordAppend(seedRows, usedKeywords, startPriority) {
-  const types = ["comparison", "howto", "troubleshoot", "crosssell"];
-  const append = [];
-  let priority = startPriority;
-
-  for (const articleType of types) {
-    const picks = pickUnusedKeywords(seedRows, usedKeywords, articleType, 3);
-    for (const pick of picks) {
-      if (append.some((row) => row.keyword === pick.keyword)) continue;
-      append.push({
-        keyword: pick.keyword,
-        articleType,
-        priority: ++priority,
-      });
-      usedKeywords.add(pick.keyword);
-    }
-  }
-
-  while (append.length < 10) {
-    priority += 1;
-    const fillerType = types[append.length % types.length];
-    const picks = pickUnusedKeywords(seedRows, usedKeywords, fillerType, 1);
-    if (picks.length === 0) break;
-    append.push({
-      keyword: picks[0].keyword,
-      articleType: fillerType,
-      priority,
-    });
-    usedKeywords.add(picks[0].keyword);
-  }
-
-  return append.slice(0, 10);
-}
-
-function buildItems(templateName, seedRows, usedKeywords, startPriority) {
-  const slots = TEMPLATES[templateName] ?? TEMPLATES.howto_x2_trouble;
-  const items = [];
-  let priority = startPriority;
-
-  for (const slot of slots) {
-    const picks = pickUnusedKeywords(
-      seedRows,
-      usedKeywords,
-      slot.articleType,
-      slot.count,
-    );
-    if (picks.length < slot.count) {
-      return {
-        ok: false,
-        reason: `Insufficient unused ${slot.articleType} keywords (${picks.length}/${slot.count})`,
-      };
-    }
-    for (const pick of picks) {
-      priority += 1;
-      items.push({
-        keyword: pick.keyword,
-        articleType: pick.articleType,
-        category: inferCategory(pick.keyword, pick.articleType),
-        priority,
-      });
-      usedKeywords.add(pick.keyword);
-    }
-  }
-
-  return { ok: true, items };
-}
 
 function planCycle() {
   const state = readJson(PATHS.state, {
@@ -256,14 +186,8 @@ function main() {
   writeJson(PATHS.brief, result.brief);
   writeJson(PATHS.state, result.state);
 
-  const batchPath = join(
-    repoRoot,
-    `config/batch-cycle${result.brief.cycleNumber}-auto.json`,
-  );
-  writeJson(batchPath, {
-    description: `Cycle ${result.brief.cycleNumber} — auto PDCA (${result.brief.template})`,
-    items: result.brief.items,
-  });
+  const batchPath = cycleBatchPath(result.brief.cycleNumber);
+  writeJson(batchPath, buildCycleBatch(result.brief));
 
   console.log(`Planned Cycle ${result.brief.cycleNumber}: ${result.brief.template}`);
   console.log(`Brief: ${PATHS.brief}`);
