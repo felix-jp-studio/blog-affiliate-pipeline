@@ -6,6 +6,7 @@ import {
   querySearchAnalytics,
   renderWeeklyReportMarkdown,
   rewriteCandidateRows,
+  serializePerformanceCsv,
   weekRange,
 } from "./search-analytics.mjs";
 
@@ -139,5 +140,21 @@ describe("search-analytics", () => {
     const rewriteSection = md.split("## リライト候補")[1];
     assert.match(rewriteSection, /nuro光 料金/);
     assert.doesNotMatch(rewriteSection, /格安sim おすすめ/);
+  });
+
+  it("serializes GSC performance CSV for rewrite-queue import", () => {
+    const csv = serializePerformanceCsv([
+      { query: "(all)", clicks: 4, impressions: 200, ctr: 0.02, position: 16.5 },
+      {
+        query: "nuro光, 料金",
+        clicks: 1,
+        impressions: 80,
+        ctr: 0.0125,
+        position: 22.4,
+      },
+    ]);
+    assert.match(csv, /^Query,Clicks,Impressions,CTR,Position\n/);
+    assert.doesNotMatch(csv, /\(all\)/);
+    assert.match(csv, /"nuro光, 料金",1,80,0.0125,22.4/);
   });
 });

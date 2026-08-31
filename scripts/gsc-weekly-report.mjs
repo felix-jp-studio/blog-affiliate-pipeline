@@ -27,6 +27,7 @@ import {
   fetchSearchAnalyticsReport,
   getAccessToken,
   renderWeeklyReportMarkdown,
+  serializePerformanceCsv,
   weekRange,
 } from "./gsc/search-analytics.mjs";
 
@@ -65,9 +66,9 @@ function fixtureReport() {
   };
 }
 
-function defaultOutPath(endDate) {
+function defaultCsvPath(endDate) {
   const stamp = endDate.replaceAll("-", "");
-  return join(repoRoot, "docs", "gsc-weekly", `gsc-weekly-${stamp}.md`);
+  return join(repoRoot, "data", `gsc-performance-${stamp}.csv`);
 }
 
 function writeReport(outPath, markdown) {
@@ -144,13 +145,19 @@ async function main() {
     queries: report.queries,
     mode: credsHint,
   });
+  const csvPath = defaultCsvPath(endDate);
+  const csv = serializePerformanceCsv(report.queries);
 
   if (dryRun) {
     console.log(md);
+    console.log(`gsc-weekly-report: csv ${csvPath} (dry-run, not written)`);
     return 0;
   }
 
   writeReport(outPath, md);
+  mkdirSync(dirname(csvPath), { recursive: true });
+  writeFileSync(csvPath, csv, "utf8");
+  console.log(`wrote ${csvPath}`);
   return 0;
 }
 

@@ -15,7 +15,7 @@ npm run gsc:weekly-report -- --fixture
 
 - 実装: `scripts/gsc-weekly-report.mjs` / `scripts/gsc/search-analytics.mjs`
 - 認証: 日次検査と同じ `scripts/gsc/auth.mjs`（SA JWT または OAuth）
-- Workflow: `.github/workflows/gsc-weekly-report.yml`（月曜 09:00 JST + `workflow_dispatch`）
+- Workflow: `.github/workflows/gsc-weekly-report.yml`（月曜 09:00 JST + `workflow_dispatch` + `.github/trigger-gsc-weekly-report` push）
 
 ## 必要な Secrets / Vars（値は User が設定。Agent は発明しない）
 
@@ -32,11 +32,16 @@ SA **または** OAuth の三点セットのいずれか一方で可。`GSC_SITE
 ## 出力
 
 - 既定: `docs/gsc-weekly/gsc-weekly-YYYYMMDD.md`（API 接続後。Workflow が main へ commit）
+- Performance CSV: `data/gsc-performance-YYYYMMDD.csv`
+- 11–30 位は `npm run gsc:import-rewrite-queue` で `data/rewrite-queue.csv` へ追記（Workflow が自動実行）
 - `--fixture`: サンプル行のみ（本番数値なし）
 - レポート内容: サイト全体のクリック/表示、上位クエリ、11–30 位のリライト候補
+
+## 手動再実行（Agent 可）
+
+`.github/trigger-gsc-weekly-report` に行を追加して main へマージする（日次検査の `.github/trigger-gsc-inspect` と同じ）。
 
 ## User 作業
 
 1. 日次 GSC 検査と同じ Secrets があれば追加作業なし
-2. Actions → **GSC weekly report** → Run workflow で初回確認
-3. 生成された `docs/gsc-weekly/gsc-weekly-*.md` の数値を GA4 / GSC 画面と突き合わせる
+2. 生成された `docs/gsc-weekly/gsc-weekly-*.md` の数値を GA4 / GSC 画面と突き合わせる
