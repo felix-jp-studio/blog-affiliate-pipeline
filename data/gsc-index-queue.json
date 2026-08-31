@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-08-31T01:58:01.332Z",
+  "updatedAt": "2026-08-31T03:16:49.683Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -2146,6 +2146,12 @@
         "source": "api"
       },
       "indexedAt": "2026-08-31T01:56:14.918Z"
+    },
+    {
+      "slug": "docomo-5g-ahamo-uq-hikaku",
+      "url": "https://sim-hikari-guide.com/articles/docomo-5g-ahamo-uq-hikaku",
+      "mergedAt": "2026-08-31T03:16:49.682Z",
+      "indexed": false
     }
   ]
 }
