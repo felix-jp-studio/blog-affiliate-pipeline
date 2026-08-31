@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
+  buildCycleBatch,
+  buildItems,
+  buildKeywordAppend,
+  cycleBatchPath,
   inferCategory,
   makeLabelFromTitle,
   pickUnusedKeywords,
@@ -41,5 +45,59 @@ describe("visitability lib", () => {
       picks.map((row) => row.keyword),
       ["b"],
     );
+  });
+});
+
+function makeSeed() {
+  const types = ["comparison", "howto", "troubleshoot", "crosssell"];
+  const rows = [];
+  let priority = 1;
+  for (const articleType of types) {
+    for (let i = 0; i < 8; i += 1) {
+      rows.push({
+        keyword: `${articleType}-kw-${i}`,
+        articleType,
+        priority: priority++,
+      });
+    }
+  }
+  return rows;
+}
+
+describe("visitability plan helpers", () => {
+  it("appends up to 10 unused keywords across types", () => {
+    const used = new Set();
+    const append = buildKeywordAppend(makeSeed(), used, 100);
+    assert.equal(append.length, 10);
+    assert.equal(append[0].priority, 101);
+    assert.equal(new Set(append.map((row) => row.keyword)).size, 10);
+  });
+
+  it("builds template items or reports insufficient keywords", () => {
+    const ok = buildItems("howto_x2_trouble", makeSeed(), new Set(), 200);
+    assert.equal(ok.ok, true);
+    assert.equal(ok.items.length, 3);
+    assert.equal(ok.items[0].articleType, "howto");
+    assert.ok(ok.items[0].category);
+
+    const empty = buildItems(
+      "howto_x2_trouble",
+      [{ keyword: "only-cmp", articleType: "comparison", priority: 1 }],
+      new Set(),
+      200,
+    );
+    assert.equal(empty.ok, false);
+    assert.match(empty.reason, /Insufficient unused howto/);
+  });
+
+  it("builds the Plan/Act batch payload", () => {
+    const batch = buildCycleBatch({
+      cycleNumber: 37,
+      template: "howto_x2_trouble",
+      items: [{ keyword: "x", articleType: "howto" }],
+    });
+    assert.equal(batch.description, "Cycle 37 — auto PDCA (howto_x2_trouble)");
+    assert.equal(batch.items.length, 1);
+    assert.match(cycleBatchPath(37), /batch-cycle37-auto\.json$/);
   });
 });

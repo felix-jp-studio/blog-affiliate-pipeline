@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-24T09:51:32.784Z",
+  "updatedAt": "2026-08-31T07:30:00.000Z",
   "tasks": [
     {
       "id": "dedupe-e2e-utils",
@@ -37,7 +37,8 @@
         "scripts/visitability/lib.mjs"
       ],
       "acceptance": ["npm run test:visitability", "npm run format:check"],
-      "status": "pending"
+      "status": "done",
+      "completedAt": "2026-08-31T07:30:00.000Z"
     },
     {
       "id": "rewrite-weekly-lib",

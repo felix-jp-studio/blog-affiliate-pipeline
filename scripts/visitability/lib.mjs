@@ -197,3 +197,83 @@ export function serializeKeywordSeed(rows) {
   }
   return `${lines.join("\n")}\n`;
 }
+
+export function cycleBatchPath(cycleNumber) {
+  return join(repoRoot, `config/batch-cycle${cycleNumber}-auto.json`);
+}
+
+/** Shared Plan/Act payload for `config/batch-cycleN-auto.json`. */
+export function buildCycleBatch(brief) {
+  return {
+    description: `Cycle ${brief.cycleNumber} — auto PDCA (${brief.template})`,
+    items: brief.items,
+  };
+}
+
+const KEYWORD_APPEND_TYPES = ["comparison", "howto", "troubleshoot", "crosssell"];
+
+export function buildKeywordAppend(seedRows, usedKeywords, startPriority) {
+  const append = [];
+  let priority = startPriority;
+
+  for (const articleType of KEYWORD_APPEND_TYPES) {
+    const picks = pickUnusedKeywords(seedRows, usedKeywords, articleType, 3);
+    for (const pick of picks) {
+      if (append.some((row) => row.keyword === pick.keyword)) continue;
+      append.push({
+        keyword: pick.keyword,
+        articleType,
+        priority: ++priority,
+      });
+      usedKeywords.add(pick.keyword);
+    }
+  }
+
+  while (append.length < 10) {
+    priority += 1;
+    const fillerType = KEYWORD_APPEND_TYPES[append.length % KEYWORD_APPEND_TYPES.length];
+    const picks = pickUnusedKeywords(seedRows, usedKeywords, fillerType, 1);
+    if (picks.length === 0) break;
+    append.push({
+      keyword: picks[0].keyword,
+      articleType: fillerType,
+      priority,
+    });
+    usedKeywords.add(picks[0].keyword);
+  }
+
+  return append.slice(0, 10);
+}
+
+export function buildItems(templateName, seedRows, usedKeywords, startPriority) {
+  const slots = TEMPLATES[templateName] ?? TEMPLATES.howto_x2_trouble;
+  const items = [];
+  let priority = startPriority;
+
+  for (const slot of slots) {
+    const picks = pickUnusedKeywords(
+      seedRows,
+      usedKeywords,
+      slot.articleType,
+      slot.count,
+    );
+    if (picks.length < slot.count) {
+      return {
+        ok: false,
+        reason: `Insufficient unused ${slot.articleType} keywords (${picks.length}/${slot.count})`,
+      };
+    }
+    for (const pick of picks) {
+      priority += 1;
+      items.push({
+        keyword: pick.keyword,
+        articleType: pick.articleType,
+        category: inferCategory(pick.keyword, pick.articleType),
+        priority,
+      });
+      usedKeywords.add(pick.keyword);
+    }
+  }
+
+  return { ok: true, items };
+}

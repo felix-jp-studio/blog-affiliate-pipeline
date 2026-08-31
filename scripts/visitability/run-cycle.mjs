@@ -14,6 +14,8 @@ import { repoRoot } from "../e2e/e2e-utils.mjs";
 import {
   PATHS,
   appendKeywordRows,
+  buildCycleBatch,
+  cycleBatchPath,
   inferCategory,
   loadKeywordSeed,
   makeLabelFromTitle,
@@ -80,7 +82,7 @@ function main() {
   }
 
   const cycleNumber = brief.cycleNumber;
-  const batchPath = join(repoRoot, `config/batch-cycle${cycleNumber}-auto.json`);
+  const batchPath = cycleBatchPath(cycleNumber);
 
   if (dryRun) {
     console.log(
@@ -101,10 +103,7 @@ function main() {
 
   appendKeywordsToSeed(brief.keywordAppend ?? []);
 
-  writeJson(batchPath, {
-    description: `Cycle ${cycleNumber} — auto PDCA (${brief.template})`,
-    items: brief.items,
-  });
+  writeJson(batchPath, buildCycleBatch(brief));
 
   let generatorOutput;
   try {

@@ -1,11 +1,11 @@
 {
-  "cycleNumber": 2,
-  "taskId": "gsc-queue-shared-module",
-  "title": "GSC queue 操作の共通モジュール化",
+  "cycleNumber": 3,
+  "taskId": "visitability-plan-split",
+  "title": "plan-cycle / plan-visitability-act の共通化",
   "execution": "agent",
-  "reason": "priority 88 pending task",
-  "targetPaths": ["scripts/gsc/", "scripts/print-gsc-inspection-batch.mjs"],
-  "acceptance": ["npm run test:gsc", "npm run format:check"],
-  "agentPrompt": null,
-  "createdAt": "2026-08-20T10:58:00.000Z"
+  "reason": "backlog priority 85",
+  "targetPaths": ["scripts/visitability/plan-cycle.mjs", "scripts/visitability/lib.mjs"],
+  "acceptance": ["npm run test:visitability", "npm run format:check"],
+  "agentPrompt": "Refactor PDCA Cycle 3: plan-cycle / plan-visitability-act の共通化\n\nVisitability Plan ロジックの shared 関数を lib.mjs に抽出。",
+  "createdAt": "2026-08-31T06:49:02.945Z"
 }
