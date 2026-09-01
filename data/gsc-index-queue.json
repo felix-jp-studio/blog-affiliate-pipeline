@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-01T02:20:35.963Z",
+  "updatedAt": "2026-09-01T03:20:35.755Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -2176,6 +2176,12 @@
         "source": "api"
       },
       "indexedAt": "2026-09-01T02:17:51.093Z"
+    },
+    {
+      "slug": "povo-topping-kaiyaku-houhou",
+      "url": "https://sim-hikari-guide.com/articles/povo-topping-kaiyaku-houhou",
+      "mergedAt": "2026-09-01T03:20:35.754Z",
+      "indexed": false
     }
   ]
 }
