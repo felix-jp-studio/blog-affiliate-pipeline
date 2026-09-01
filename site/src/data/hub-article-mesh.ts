@@ -308,6 +308,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "docomo-5g-ahamo-uq-hikaku",
         label: "docomo 5G ahamo UQ 比較",
       },
+      {
+        slug: "povo-topping-kaiyaku-houhou",
+        label: "povo トッピング 解約 方法の手順",
+      },
     ],
   },
   hikari: {

@@ -1,10 +1,11 @@
 {
-  "last_run": "2026-08-31",
-  "next_scheduled": "2026-09-01",
+  "last_run": "2026-09-01",
+  "next_scheduled": "2026-09-02",
   "week_id": "2026-W36",
-  "runs_this_week": 1,
+  "runs_this_week": 2,
   "type_counts": {
-    "comparison": 1
+    "comparison": 1,
+    "howto": 1
   },
   "history": [
     {
@@ -205,6 +206,11 @@
     {
       "date": "2026-08-31",
       "keywords": ["docomo 5G ahamo UQ 比較"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-09-01",
+      "keywords": ["povo トッピング 解約 方法"],
       "ok_count": 1
     }
   ]
