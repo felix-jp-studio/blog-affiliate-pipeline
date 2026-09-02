@@ -612,6 +612,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "rakuten-mobile-kengai-daigae",
         label: "楽天モバイル 圏外 代替の原因と7つの対処法",
       },
+      {
+        slug: "ahamo-oomori-option-fuyou",
+        label: "ahamo 大盛り オプション 不要の原因と…",
+      },
     ],
   },
   cost: {
