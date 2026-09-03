@@ -312,6 +312,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "povo-topping-kaiyaku-houhou",
         label: "povo トッピング 解約 方法の手順",
       },
+      {
+        slug: "senior-smartphone-sim-hikaku-2026",
+        label: "シニア スマホ 格安SIM 比較 2026",
+      },
     ],
   },
   hikari: {
