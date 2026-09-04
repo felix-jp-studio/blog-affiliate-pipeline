@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-03T02:45:37.365Z",
+  "updatedAt": "2026-09-04T01:47:50.871Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -220,18 +220,19 @@
       "slug": "rakuten-mobile-switch",
       "url": "https://sim-hikari-guide.com/articles/rakuten-mobile-switch",
       "mergedAt": "2026-07-29T10:29:40.306Z",
-      "indexed": false,
-      "lastInspectedAt": "2026-09-03T01:45:17.500Z",
+      "indexed": true,
+      "lastInspectedAt": "2026-09-04T01:46:02.565Z",
       "inspection": {
-        "verdict": "NEUTRAL",
-        "coverageState": "URL が Google に認識されていません",
-        "indexingState": "INDEXING_STATE_UNSPECIFIED",
-        "lastCrawlTime": null,
-        "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-        "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-        "indexed": false,
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-09-03T11:34:08Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
         "source": "api"
-      }
+      },
+      "indexedAt": "2026-09-04T01:46:02.565Z"
     },
     {
       "slug": "rakuten-mobile-uq-mobile-hikaku",
@@ -256,7 +257,7 @@
       "url": "https://sim-hikari-guide.com/articles/sim-20gb-osusume",
       "mergedAt": "2026-07-29T10:29:40.306Z",
       "indexed": false,
-      "lastInspectedAt": "2026-09-03T01:45:17.500Z",
+      "lastInspectedAt": "2026-09-04T01:46:02.565Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -398,18 +399,19 @@
       "slug": "sim-tuuwa-teigaku-hikaku",
       "url": "https://sim-hikari-guide.com/articles/sim-tuuwa-teigaku-hikaku",
       "mergedAt": "2026-07-29T10:29:40.306Z",
-      "indexed": false,
-      "lastInspectedAt": "2026-09-03T01:45:17.500Z",
+      "indexed": true,
+      "lastInspectedAt": "2026-09-04T01:46:02.565Z",
       "inspection": {
-        "verdict": "NEUTRAL",
-        "coverageState": "クロール済み - インデックス未登録",
-        "indexingState": "INDEXING_STATE_UNSPECIFIED",
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
         "lastCrawlTime": "2026-09-03T01:42:27Z",
         "pageFetchState": "SUCCESSFUL",
         "robotsTxtState": "ALLOWED",
-        "indexed": false,
+        "indexed": true,
         "source": "api"
-      }
+      },
+      "indexedAt": "2026-09-04T01:46:02.565Z"
     },
     {
       "slug": "sim-unlimited-data",
@@ -560,7 +562,7 @@
       "url": "https://sim-hikari-guide.com/articles/sim-fukukaisen-osusume",
       "mergedAt": "2026-08-03T02:27:04.533Z",
       "indexed": false,
-      "lastInspectedAt": "2026-09-03T01:45:17.500Z",
+      "lastInspectedAt": "2026-09-04T01:46:02.565Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -792,18 +794,19 @@
       "slug": "sim-tethering-settei-houhou",
       "url": "https://sim-hikari-guide.com/articles/sim-tethering-settei-houhou",
       "mergedAt": "2026-08-09T04:28:11.948Z",
-      "indexed": false,
-      "lastInspectedAt": "2026-09-03T01:45:17.500Z",
+      "indexed": true,
+      "lastInspectedAt": "2026-09-04T01:46:02.565Z",
       "inspection": {
-        "verdict": "NEUTRAL",
-        "coverageState": "検出 - インデックス未登録",
-        "indexingState": "INDEXING_STATE_UNSPECIFIED",
-        "lastCrawlTime": null,
-        "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-        "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-        "indexed": false,
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-09-03T14:47:08Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
         "source": "api"
-      }
+      },
+      "indexedAt": "2026-09-04T01:46:02.565Z"
     },
     {
       "slug": "rakuten-mobile-mnp-tejun",
@@ -882,7 +885,7 @@
       "url": "https://sim-hikari-guide.com/articles/iijmio-kaituu-dekinai-fix",
       "mergedAt": "2026-08-09T04:28:39.421Z",
       "indexed": false,
-      "lastInspectedAt": "2026-09-03T01:45:17.500Z",
+      "lastInspectedAt": "2026-09-04T01:46:02.565Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -1259,7 +1262,7 @@
       "url": "https://sim-hikari-guide.com/articles/povo-kaiyaku-tejun",
       "mergedAt": "2026-08-09T05:12:09.895Z",
       "indexed": false,
-      "lastInspectedAt": "2026-09-03T01:45:17.500Z",
+      "lastInspectedAt": "2026-09-04T01:46:02.565Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "URL が Google に認識されていません",
@@ -2194,7 +2197,7 @@
       "url": "https://sim-hikari-guide.com/articles/povo-topping-kaiyaku-houhou",
       "mergedAt": "2026-09-01T03:20:35.754Z",
       "indexed": false,
-      "lastInspectedAt": "2026-09-03T01:45:17.500Z",
+      "lastInspectedAt": "2026-09-04T01:46:02.565Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -2211,7 +2214,7 @@
       "url": "https://sim-hikari-guide.com/articles/ahamo-oomori-option-fuyou",
       "mergedAt": "2026-09-02T02:38:18.395Z",
       "indexed": false,
-      "lastInspectedAt": "2026-09-03T01:45:17.500Z",
+      "lastInspectedAt": "2026-09-04T01:46:02.565Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -2227,7 +2230,18 @@
       "slug": "senior-smartphone-sim-hikaku-2026",
       "url": "https://sim-hikari-guide.com/articles/senior-smartphone-sim-hikaku-2026",
       "mergedAt": "2026-09-03T02:45:37.364Z",
-      "indexed": false
+      "indexed": false,
+      "lastInspectedAt": "2026-09-04T01:46:02.565Z",
+      "inspection": {
+        "verdict": "NEUTRAL",
+        "coverageState": "検出 - インデックス未登録",
+        "indexingState": "INDEXING_STATE_UNSPECIFIED",
+        "lastCrawlTime": null,
+        "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+        "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+        "indexed": false,
+        "source": "api"
+      }
     }
   ]
 }
