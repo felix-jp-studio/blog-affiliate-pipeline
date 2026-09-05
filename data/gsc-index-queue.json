@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-05T01:43:07.400Z",
+  "updatedAt": "2026-09-05T02:43:33.575Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -2266,6 +2266,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "hikari-router-henkou-houhou",
+      "url": "https://sim-hikari-guide.com/articles/hikari-router-henkou-houhou",
+      "mergedAt": "2026-09-05T02:43:33.575Z",
+      "indexed": false
     }
   ]
 }
