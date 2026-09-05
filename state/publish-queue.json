@@ -1,11 +1,11 @@
 {
-  "last_run": "2026-09-03",
-  "next_scheduled": "2026-09-04",
+  "last_run": "2026-09-05",
+  "next_scheduled": "2026-09-06",
   "week_id": "2026-W36",
-  "runs_this_week": 4,
+  "runs_this_week": 5,
   "type_counts": {
     "comparison": 2,
-    "howto": 1,
+    "howto": 2,
     "troubleshoot": 1
   },
   "history": [
@@ -222,6 +222,11 @@
     {
       "date": "2026-09-03",
       "keywords": ["シニア スマホ 格安SIM 比較 2026"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-09-05",
+      "keywords": ["光回線 ルーター 変更 方法"],
       "ok_count": 1
     }
   ]

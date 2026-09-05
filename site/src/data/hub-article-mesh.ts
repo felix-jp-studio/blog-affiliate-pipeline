@@ -452,6 +452,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "wimax-home-router-osusume",
         label: "WiMAX ホームルーター おすすめ",
       },
+      {
+        slug: "hikari-router-henkou-houhou",
+        label: "光回線 ルーター 変更 方法の手順",
+      },
     ],
   },
   trouble: {
