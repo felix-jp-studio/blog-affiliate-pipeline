@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-05T02:43:33.575Z",
+  "updatedAt": "2026-09-06T01:35:26.171Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -257,10 +257,10 @@
       "url": "https://sim-hikari-guide.com/articles/sim-20gb-osusume",
       "mergedAt": "2026-07-29T10:29:40.306Z",
       "indexed": false,
-      "lastInspectedAt": "2026-09-05T01:39:50.953Z",
+      "lastInspectedAt": "2026-09-06T01:33:43.693Z",
       "inspection": {
         "verdict": "NEUTRAL",
-        "coverageState": "URL が Google に認識されていません",
+        "coverageState": "検出 - インデックス未登録",
         "indexingState": "INDEXING_STATE_UNSPECIFIED",
         "lastCrawlTime": null,
         "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
@@ -562,7 +562,7 @@
       "url": "https://sim-hikari-guide.com/articles/sim-fukukaisen-osusume",
       "mergedAt": "2026-08-03T02:27:04.533Z",
       "indexed": false,
-      "lastInspectedAt": "2026-09-05T01:39:50.953Z",
+      "lastInspectedAt": "2026-09-06T01:33:43.693Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -885,7 +885,7 @@
       "url": "https://sim-hikari-guide.com/articles/iijmio-kaituu-dekinai-fix",
       "mergedAt": "2026-08-09T04:28:39.421Z",
       "indexed": false,
-      "lastInspectedAt": "2026-09-05T01:39:50.953Z",
+      "lastInspectedAt": "2026-09-06T01:33:43.693Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -1262,7 +1262,7 @@
       "url": "https://sim-hikari-guide.com/articles/povo-kaiyaku-tejun",
       "mergedAt": "2026-08-09T05:12:09.895Z",
       "indexed": false,
-      "lastInspectedAt": "2026-09-05T01:39:50.953Z",
+      "lastInspectedAt": "2026-09-06T01:33:43.693Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -1351,7 +1351,7 @@
       "url": "https://sim-hikari-guide.com/articles/rakuten-mobile-esim-settei-tejun",
       "mergedAt": "2026-08-09T05:18:43.703Z",
       "indexed": false,
-      "lastInspectedAt": "2026-09-05T01:39:50.953Z",
+      "lastInspectedAt": "2026-09-06T01:33:43.693Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -1547,7 +1547,19 @@
       "slug": "sim-20gb-hikaku-2026",
       "url": "https://sim-hikari-guide.com/articles/sim-20gb-hikaku-2026",
       "mergedAt": "2026-08-09T05:32:58.811Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-09-06T01:33:43.693Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-08-10T14:04:16Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-09-06T01:33:43.693Z"
     },
     {
       "slug": "nuro-hikari-hyoban-demerit-2026",
@@ -2221,7 +2233,7 @@
       "url": "https://sim-hikari-guide.com/articles/povo-topping-kaiyaku-houhou",
       "mergedAt": "2026-09-01T03:20:35.754Z",
       "indexed": false,
-      "lastInspectedAt": "2026-09-05T01:39:50.953Z",
+      "lastInspectedAt": "2026-09-06T01:33:43.693Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -2238,10 +2250,10 @@
       "url": "https://sim-hikari-guide.com/articles/ahamo-oomori-option-fuyou",
       "mergedAt": "2026-09-02T02:38:18.395Z",
       "indexed": false,
-      "lastInspectedAt": "2026-09-05T01:39:50.953Z",
+      "lastInspectedAt": "2026-09-06T01:33:43.693Z",
       "inspection": {
         "verdict": "NEUTRAL",
-        "coverageState": "URL が Google に認識されていません",
+        "coverageState": "検出 - インデックス未登録",
         "indexingState": "INDEXING_STATE_UNSPECIFIED",
         "lastCrawlTime": null,
         "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
@@ -2255,7 +2267,7 @@
       "url": "https://sim-hikari-guide.com/articles/senior-smartphone-sim-hikaku-2026",
       "mergedAt": "2026-09-03T02:45:37.364Z",
       "indexed": false,
-      "lastInspectedAt": "2026-09-05T01:39:50.953Z",
+      "lastInspectedAt": "2026-09-06T01:33:43.693Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -2271,7 +2283,18 @@
       "slug": "hikari-router-henkou-houhou",
       "url": "https://sim-hikari-guide.com/articles/hikari-router-henkou-houhou",
       "mergedAt": "2026-09-05T02:43:33.575Z",
-      "indexed": false
+      "indexed": false,
+      "lastInspectedAt": "2026-09-06T01:33:43.693Z",
+      "inspection": {
+        "verdict": "NEUTRAL",
+        "coverageState": "検出 - インデックス未登録",
+        "indexingState": "INDEXING_STATE_UNSPECIFIED",
+        "lastCrawlTime": null,
+        "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+        "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+        "indexed": false,
+        "source": "api"
+      }
     }
   ]
 }
