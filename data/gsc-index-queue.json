@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-06T01:35:26.171Z",
+  "updatedAt": "2026-09-06T02:40:29.690Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -2295,6 +2295,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "au-tsushin-denki-set",
+      "url": "https://sim-hikari-guide.com/articles/au-tsushin-denki-set",
+      "mergedAt": "2026-09-06T02:40:29.689Z",
+      "indexed": false
     }
   ]
 }
