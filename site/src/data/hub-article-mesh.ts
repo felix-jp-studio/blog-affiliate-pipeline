@@ -316,6 +316,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "senior-smartphone-sim-hikaku-2026",
         label: "シニア スマホ 格安SIM 比較 2026",
       },
+      {
+        slug: "60-sim-osusume-hikaku",
+        label: "60代 格安SIM おすすめ 比較",
+      },
     ],
   },
   hikari: {

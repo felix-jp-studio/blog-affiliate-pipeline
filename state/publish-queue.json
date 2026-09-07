@@ -1,13 +1,10 @@
 {
-  "last_run": "2026-09-06",
-  "next_scheduled": "2026-09-07",
-  "week_id": "2026-W36",
-  "runs_this_week": 6,
+  "last_run": "2026-09-07",
+  "next_scheduled": "2026-09-08",
+  "week_id": "2026-W37",
+  "runs_this_week": 1,
   "type_counts": {
-    "comparison": 2,
-    "howto": 2,
-    "troubleshoot": 1,
-    "crosssell": 1
+    "comparison": 1
   },
   "history": [
     {
@@ -233,6 +230,11 @@
     {
       "date": "2026-09-06",
       "keywords": ["au 通信 電気 セット"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-09-07",
+      "keywords": ["60代 格安SIM おすすめ 比較"],
       "ok_count": 1
     }
   ]
