@@ -460,6 +460,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "hikari-router-henkou-houhou",
         label: "光回線 ルーター 変更 方法の手順",
       },
+      {
+        slug: "wimax-norikae-tejun",
+        label: "WiMAX 乗り換え 手順の手順",
+      },
     ],
   },
   trouble: {
