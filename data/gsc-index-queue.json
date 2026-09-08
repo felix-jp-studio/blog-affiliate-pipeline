@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-08T01:45:11.572Z",
+  "updatedAt": "2026-09-08T02:51:43.692Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -2329,6 +2329,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "wimax-norikae-tejun",
+      "url": "https://sim-hikari-guide.com/articles/wimax-norikae-tejun",
+      "mergedAt": "2026-09-08T02:51:43.691Z",
+      "indexed": false
     }
   ]
 }
