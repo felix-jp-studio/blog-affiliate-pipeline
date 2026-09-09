@@ -632,6 +632,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "ahamo-oomori-option-fuyou",
         label: "ahamo 大盛り オプション 不要の原因と…",
       },
+      {
+        slug: "wimax-kaiyaku-iyakukin",
+        label: "WiMAX 解約 違約金の原因と7つの対処法",
+      },
     ],
   },
   cost: {
