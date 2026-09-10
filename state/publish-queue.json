@@ -1,10 +1,10 @@
 {
-  "last_run": "2026-09-09",
-  "next_scheduled": "2026-09-10",
+  "last_run": "2026-09-10",
+  "next_scheduled": "2026-09-11",
   "week_id": "2026-W37",
-  "runs_this_week": 3,
+  "runs_this_week": 4,
   "type_counts": {
-    "comparison": 1,
+    "comparison": 2,
     "howto": 1,
     "troubleshoot": 1
   },
@@ -247,6 +247,11 @@
     {
       "date": "2026-09-09",
       "keywords": ["WiMAX 解約 違約金"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-09-10",
+      "keywords": ["シニア 格安SIM かけ放題 比較"],
       "ok_count": 1
     }
   ]

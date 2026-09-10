@@ -320,6 +320,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "60-sim-osusume-hikaku",
         label: "60代 格安SIM おすすめ 比較",
       },
+      {
+        slug: "senior-sim-kakehoudai-hikaku",
+        label: "シニア 格安SIM かけ放題 比較",
+      },
     ],
   },
   hikari: {
