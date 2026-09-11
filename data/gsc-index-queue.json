@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-11T01:47:39.069Z",
+  "updatedAt": "2026-09-11T02:45:35.401Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -2380,6 +2380,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "home-router-norikae-tejun",
+      "url": "https://sim-hikari-guide.com/articles/home-router-norikae-tejun",
+      "mergedAt": "2026-09-11T02:45:35.400Z",
+      "indexed": false
     }
   ]
 }
