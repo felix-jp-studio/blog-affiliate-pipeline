@@ -1,11 +1,11 @@
 {
-  "last_run": "2026-09-10",
-  "next_scheduled": "2026-09-11",
+  "last_run": "2026-09-11",
+  "next_scheduled": "2026-09-12",
   "week_id": "2026-W37",
-  "runs_this_week": 4,
+  "runs_this_week": 5,
   "type_counts": {
     "comparison": 2,
-    "howto": 1,
+    "howto": 2,
     "troubleshoot": 1
   },
   "history": [
@@ -252,6 +252,11 @@
     {
       "date": "2026-09-10",
       "keywords": ["シニア 格安SIM かけ放題 比較"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-09-11",
+      "keywords": ["ホームルーター 乗り換え 手順"],
       "ok_count": 1
     }
   ]

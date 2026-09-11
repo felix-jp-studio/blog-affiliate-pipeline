@@ -468,6 +468,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "wimax-norikae-tejun",
         label: "WiMAX 乗り換え 手順の手順",
       },
+      {
+        slug: "home-router-norikae-tejun",
+        label: "ホームルーター 乗り換え 手順の手順",
+      },
     ],
   },
   trouble: {
