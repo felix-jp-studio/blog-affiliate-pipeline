@@ -644,6 +644,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "wimax-kaiyaku-iyakukin",
         label: "WiMAX 解約 違約金の原因と7つの対処法",
       },
+      {
+        slug: "sim-onsei-tuwa-dekinai-genin",
+        label: "格安SIM 音声通話 できない 原因の原因と…",
+      },
     ],
   },
   cost: {
