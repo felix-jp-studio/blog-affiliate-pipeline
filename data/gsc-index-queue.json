@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-12T01:51:30.488Z",
+  "updatedAt": "2026-09-12T02:55:59.085Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -2397,6 +2397,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "sim-onsei-tuwa-dekinai-genin",
+      "url": "https://sim-hikari-guide.com/articles/sim-onsei-tuwa-dekinai-genin",
+      "mergedAt": "2026-09-12T02:55:59.084Z",
+      "indexed": false
     }
   ]
 }
