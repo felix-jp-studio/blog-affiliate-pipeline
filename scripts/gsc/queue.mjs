@@ -48,11 +48,19 @@ export function queueStats(entries) {
   };
 }
 
+/**
+ * 検査対象を返す。
+ *
+ * indexed === false のものに加えて、**一度も URL Inspection されていないもの**も含める。
+ * 過去に indexed: true を一括手動マークしたエントリが 28 件あり、
+ * それらは検査歴ゼロのまま永久に対象外になっていた（= インデックス状態が不明なまま）。
+ * 検査に通れば indexed が確定して対象から外れるので、対象が増え続けることはない。
+ */
 export function loadPending(entries, { weekFirst = false } = {}) {
   const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
 
   const pending = entries
-    .filter((entry) => entry.indexed === false)
+    .filter((entry) => entry.indexed === false || !entry.inspection)
     .map((entry) => ({
       ...entry,
       mergedThisWeek: new Date(entry.mergedAt).getTime() >= weekAgo,

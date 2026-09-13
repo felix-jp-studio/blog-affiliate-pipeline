@@ -25,11 +25,37 @@ describe("gsc queue", () => {
     const pending = loadPending([
       { slug: "newer", indexed: false, mergedAt: "2026-08-10T00:00:00.000Z" },
       { slug: "older", indexed: false, mergedAt: "2026-08-01T00:00:00.000Z" },
-      { slug: "done", indexed: true, mergedAt: "2026-08-01T00:00:00.000Z" },
+      {
+        slug: "done",
+        indexed: true,
+        mergedAt: "2026-08-01T00:00:00.000Z",
+        inspection: { verdict: "PASS" },
+      },
     ]);
     assert.deepEqual(
       pending.map((entry) => entry.slug),
       ["older", "newer"],
+    );
+  });
+
+  it("includes entries marked indexed but never inspected", () => {
+    // 過去の一括手動マークでインデックス状態が未検証のまま固定されたエントリ
+    const pending = loadPending([
+      {
+        slug: "verified",
+        indexed: true,
+        mergedAt: "2026-08-01T00:00:00.000Z",
+        inspection: { verdict: "PASS" },
+      },
+      {
+        slug: "marked-without-evidence",
+        indexed: true,
+        mergedAt: "2026-08-02T00:00:00.000Z",
+      },
+    ]);
+    assert.deepEqual(
+      pending.map((entry) => entry.slug),
+      ["marked-without-evidence"],
     );
   });
 
