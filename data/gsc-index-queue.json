@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-13T01:43:48.553Z",
+  "updatedAt": "2026-09-13T02:54:23.217Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -2416,6 +2416,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "hikkoshi-internet-denki",
+      "url": "https://sim-hikari-guide.com/articles/hikkoshi-internet-denki",
+      "mergedAt": "2026-09-13T02:54:23.216Z",
+      "indexed": false
     }
   ]
 }
