@@ -9,47 +9,18 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { loadPublishedArticles, repoRoot } from "./e2e/e2e-utils.mjs";
+import { REWRITE_QUEUE_HEADERS, parseQueue, serializeQueue } from "./rewrite/queue.mjs";
 
 const queuePath = join(repoRoot, "data/rewrite-queue.csv");
 const dryRun = process.argv.includes("--dry-run");
 const limitArg = process.argv.find((arg) => arg.startsWith("--limit="));
 const limit = limitArg ? Number.parseInt(limitArg.slice("--limit=".length), 10) : 8;
 
-const headers = ["slug", "query", "position", "priority", "status", "notes"];
-
-function parseCsv(text) {
-  const lines = text
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter((line) => line.length > 0);
-
-  if (lines.length === 0) {
-    return { headers, rows: [] };
-  }
-
-  const parsedHeaders = lines[0].split(",").map((header) => header.trim());
-  const rows = lines.slice(1).map((line) => {
-    const values = line.split(",").map((value) => value.trim());
-    return Object.fromEntries(
-      parsedHeaders.map((header, index) => [header, values[index] ?? ""]),
-    );
-  });
-
-  return { headers: parsedHeaders, rows };
-}
-
-function serializeCsv(parsedHeaders, rows) {
-  const body = rows.map((row) =>
-    parsedHeaders.map((header) => row[header] ?? "").join(","),
-  );
-  return `${[parsedHeaders.join(","), ...body].join("\n")}\n`;
-}
-
 function loadQueue() {
   if (!existsSync(queuePath)) {
-    return { headers, rows: [] };
+    return { headers: REWRITE_QUEUE_HEADERS, rows: [] };
   }
-  return parseCsv(readFileSync(queuePath, "utf8"));
+  return parseQueue(readFileSync(queuePath, "utf8"));
 }
 
 const published = loadPublishedArticles().filter((article) => !article.draft);
@@ -96,5 +67,5 @@ if (dryRun) {
   process.exit(0);
 }
 
-writeFileSync(queuePath, serializeCsv(queueHeaders, nextRows), "utf8");
+writeFileSync(queuePath, serializeQueue(queueHeaders, nextRows), "utf8");
 console.log(`seed-rewrite-queue: wrote ${queuePath}`);
