@@ -110,6 +110,24 @@ for (const filePath of listArticleFiles()) {
   }
 }
 
+// 有料記事がある場合、特定商取引法に基づく表記の事業者情報が必要。
+// 値は PUBLIC_TOKUSHOHO_* 環境変数（public リポジトリに個人情報を置かないため）なので、
+// ここでは検証できない。実際の担保は本番 smoke テスト（smoke-production.mjs）が行う。
+const paywalledSlugs = [];
+for (const filePath of listArticleFiles()) {
+  const { slug, parsed } = readArticleMarkdown(filePath);
+  if (!parsed.error && parsed.fields.paywallPrice !== undefined) {
+    paywalledSlugs.push(slug);
+  }
+}
+
+if (paywalledSlugs.length > 0) {
+  warnings.push(
+    `paywalled articles (${paywalledSlugs.join(", ")}): PUBLIC_TOKUSHOHO_* が Vercel に設定済みか確認すること` +
+      " — 未設定のまま公開すると /tokushoho が未記入になり、post-deploy smoke が失敗する",
+  );
+}
+
 // 有料本文は public リポジトリに入れてはいけない（KV にだけ置く）。
 try {
   const tracked = execFileSync("git", ["ls-files", "--", "drafts/premium"], {
