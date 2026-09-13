@@ -16,6 +16,7 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { repoRoot } from "./e2e/e2e-utils.mjs";
+import { REWRITE_QUEUE_HEADERS, parseQueue, serializeQueue } from "./rewrite/queue.mjs";
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
@@ -39,35 +40,11 @@ function loadJson(path) {
   return JSON.parse(readFileSync(path, "utf8"));
 }
 
-function parseCsv(text) {
-  const lines = text
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter((line) => line.length > 0);
-  if (lines.length === 0) {
-    return { headers: [], rows: [] };
-  }
-  const headers = lines[0].split(",").map((h) => h.trim());
-  const rows = lines.slice(1).map((line) => {
-    const values = line.split(",").map((v) => v.trim());
-    return Object.fromEntries(headers.map((h, i) => [h, values[i] ?? ""]));
-  });
-  return { headers, rows };
-}
-
-function serializeCsv(headers, rows) {
-  const body = rows.map((row) => headers.map((h) => row[h] ?? "").join(","));
-  return `${[headers.join(","), ...body].join("\n")}\n`;
-}
-
 function loadQueue() {
   if (!existsSync(queuePath)) {
-    return {
-      headers: ["slug", "query", "position", "priority", "status", "notes"],
-      rows: [],
-    };
+    return { headers: REWRITE_QUEUE_HEADERS, rows: [] };
   }
-  return parseCsv(readFileSync(queuePath, "utf8"));
+  return parseQueue(readFileSync(queuePath, "utf8"));
 }
 
 function priceFingerprint(provider) {
@@ -196,7 +173,7 @@ function main() {
   if (dryRun) {
     console.log("dry-run — would append slugs:", added.join(", "));
     console.log(
-      serializeCsv(
+      serializeQueue(
         headers,
         rows.filter((r) => added.includes(r.slug)),
       ),
@@ -204,7 +181,7 @@ function main() {
     return 0;
   }
 
-  writeFileSync(queuePath, serializeCsv(headers, rows), "utf8");
+  writeFileSync(queuePath, serializeQueue(headers, rows), "utf8");
   console.log(`updated ${queuePath} (+${added.length} row(s))`);
 
   // Promote current → previous for next run when using default paths
