@@ -18,8 +18,17 @@ jobs:
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            site/package-lock.json
 
       - run: npm ci
+
+      # npm test は site の unit テストも回すので、先に site の依存を入れておく
+      - name: Install site dependencies
+        working-directory: site
+        run: npm ci
+
       - run: npm run format:check
       - run: npm test
 
@@ -36,7 +45,6 @@ jobs:
       - name: Build site
         working-directory: site
         run: |
-          npm ci
           npm run format:check
           npm run build
 
