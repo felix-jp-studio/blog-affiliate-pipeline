@@ -2,31 +2,13 @@
  * GSC Performance CSV → rewrite-queue candidate collection.
  * Query rows match published keywords; page rows match /articles/{slug}.
  */
+import { parseCsv as parseCsvBase } from "../lib/csv.mjs";
 
+export { serializeCsv } from "../lib/csv.mjs";
+
+/** GSC exports may carry `#` comment lines, so they are stripped here. */
 export function parseCsv(text) {
-  const lines = text
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter((line) => line.length > 0 && !line.startsWith("#"));
-
-  if (lines.length === 0) {
-    return { headers: [], rows: [] };
-  }
-
-  const headers = lines[0].split(",").map((header) => header.trim());
-  const rows = lines.slice(1).map((line) => {
-    const values = line.split(",").map((value) => value.trim());
-    return Object.fromEntries(
-      headers.map((header, index) => [header, values[index] ?? ""]),
-    );
-  });
-
-  return { headers, rows };
-}
-
-export function serializeCsv(headers, rows) {
-  const body = rows.map((row) => headers.map((header) => row[header] ?? "").join(","));
-  return `${[headers.join(","), ...body].join("\n")}\n`;
+  return parseCsvBase(text, { skipComments: true });
 }
 
 export function normalizeQuery(value) {
