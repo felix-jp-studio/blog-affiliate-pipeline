@@ -64,6 +64,12 @@ OAuth 代替: `GSC_OAUTH_CLIENT_ID` / `GSC_OAUTH_CLIENT_SECRET` / `GSC_OAUTH_REF
 
 ### 2. Playwright セッション（UI）
 
+> **現状: UI 自動化は使えません（2026-09-13 時点）。**
+> Google は codegen で起動した Chrome でもログインを拒否します（使い捨てプロファイル +
+> `--remote-debugging-pipe` が自動操作として検出されるため）。
+> このため日次バッチは `--api-only` で運用し、**インデックス登録リクエストは GSC UI から手動**で行います。
+> 以下の手順は、Google 側の挙動が変わった場合の参考として残しています。
+
 Google は Playwright スクリプト起動の Chrome でログインを拒否することがあります（「安全でない可能性があります」）。**codegen 方式**を使ってください。
 
 ```bash
@@ -77,6 +83,7 @@ base64 -i gsc-playwright-auth.json | tr -d '\n'  # → GSC_PLAYWRIGHT_STORAGE_ST
 | ------------------------------------------ | ------------------------------------------------------------------------------ |
 | メール入力後「安全でない可能性があります」 | `gsc:auth:login:legacy` ではなく **`npm run gsc:auth:login`**（codegen）を使う |
 | verify-ui が FAILED                        | ログイン後に URL Inspection 画面まで進んでから Chrome を閉じる                 |
+| codegen でもログインできない               | 現状の既定。UI 自動化は諦め、`--api-only` 運用 + 手動リクエストに切り替える    |
 
 セッション失効時は上記を再実行して Secret を更新する。
 
@@ -114,3 +121,28 @@ base64 -i gsc-playwright-auth.json | tr -d '\n'  # → GSC_PLAYWRIGHT_STORAGE_ST
 - 手動バッチメモ（旧）: `docs/operations/gsc-inspection-batch-*.md`
 - 週次サマリー: `.github/workflows/gsc-inspection-weekly.yml`
 - 公開後キュー投入: `.github/workflows/post-publish-index-queue.yml`
+
+## インデックス登録リクエスト（手動運用）
+
+UI 自動化がブロックされているため、未登録のまま滞留している記事は GSC UI から手動でリクエストします。
+
+対象の洗い出し（`data/gsc-index-queue.json` の URL Inspection 実測を使う）:
+
+```bash
+node -e '
+const d=require("./data/gsc-index-queue.json");
+const now=Date.now();
+d.entries
+  .filter(e=>e.inspection&&e.inspection.verdict!=="PASS")
+  .map(e=>({slug:e.slug,url:e.url,days:Math.floor((now-Date.parse(e.mergedAt))/86400000),state:e.inspection.coverageState}))
+  .filter(e=>e.days>=27)
+  .sort((a,b)=>b.days-a.days)
+  .forEach(e=>console.log(`${e.days}日	${e.slug}	${e.state}`));
+'
+```
+
+公開から27日未満の「検出 - インデックス未登録」は新規 URL の正常な通過状態なので、対処不要です。
+30日以上滞留しているものだけを対象にしてください。手動リクエストは1日10件程度が上限の目安です。
+
+> 手動リクエストはインデックス登録を保証しません。「検出 - インデックス未登録」は
+> Google 側の品質・クロール予算の判断であり、リクエストだけでは動かないことが多い点に注意してください。

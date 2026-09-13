@@ -99,10 +99,12 @@ jobs:
             API_ONLY="${{ inputs.api_only }}"
           elif [ "${{ github.event_name }}" = "push" ]; then
             LIMIT="3"
-            API_ONLY="false"
+            # Google が自動操作ブラウザでのログインを拒否するため UI 経路は使えない。
+            # インデックス登録リクエストは GSC UI から手動で行う運用に変更した。
+            API_ONLY="true"
           else
             LIMIT="${GSC_DAILY_LIMIT:-10}"
-            API_ONLY="false"
+            API_ONLY="true"
           fi
           ARGS=(--week-first --limit="$LIMIT" --write-note --commit)
           if [ "$API_ONLY" = "true" ]; then
