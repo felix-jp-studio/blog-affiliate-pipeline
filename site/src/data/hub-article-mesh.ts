@@ -732,6 +732,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "au-tsushin-denki-set",
         label: "au 通信 電気 セットで固定費を見直す",
       },
+      {
+        slug: "hikkoshi-internet-denki",
+        label: "引越し インターネット 電気で固定費を見直す",
+      },
     ],
   },
 };
