@@ -9,7 +9,7 @@
   "scripts": {
     "wp:ping": "npm run wp:ping -w @blog-affiliate/publisher",
     "wp:post": "npm run wp:post -w @blog-affiliate/publisher",
-    "test": "npm run test -w @blog-affiliate/publisher && npm run test:generator && npm run test:affiliate && npm run test:comments && npm run test:gsc",
+    "test": "npm run test -w @blog-affiliate/publisher && npm run test:generator && npm run test:affiliate && npm run test:comments && npm run test:gsc && npm run test:rewrite",
     "test:generator": "cd packages/generator && PYTHONPATH=. python3 -m unittest discover -s tests -q",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -59,6 +59,7 @@
     "test:comments": "npm run test:unit --prefix site",
     "paywall": "npm run paywall --prefix site --",
     "test:gsc": "node --test scripts/gsc/*.test.mjs",
+    "test:rewrite": "node --test scripts/rewrite/*.test.mjs",
     "test:visitability": "node --test scripts/visitability/*.test.mjs",
     "test:refactor-pdca": "node --test scripts/refactor-pdca/*.test.mjs",
     "visitability:metrics": "node scripts/visitability/collect-metrics.mjs",
