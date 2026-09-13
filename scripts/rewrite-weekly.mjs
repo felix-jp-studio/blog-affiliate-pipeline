@@ -14,47 +14,26 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { repoRoot } from "./e2e/e2e-utils.mjs";
+import {
+  REWRITE_QUEUE_HEADERS,
+  markRowDone,
+  parseQueue,
+  selectNextPending,
+  serializeQueue,
+  withDateModified,
+} from "./rewrite/queue.mjs";
 
 const queuePath = join(repoRoot, "data/rewrite-queue.csv");
 const articlesDir = join(repoRoot, "site/src/content/articles");
 const dryRun = process.argv.includes("--dry-run");
 const createPr = process.argv.includes("--create-pr");
 
-function parseCsv(text) {
-  const lines = text
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter((line) => line.length > 0);
-
-  if (lines.length === 0) {
-    return { headers: [], rows: [] };
-  }
-
-  const headers = lines[0].split(",").map((header) => header.trim());
-  const rows = lines.slice(1).map((line) => {
-    const values = line.split(",").map((value) => value.trim());
-    return Object.fromEntries(
-      headers.map((header, index) => [header, values[index] ?? ""]),
-    );
-  });
-
-  return { headers, rows };
-}
-
-function serializeCsv(headers, rows) {
-  const body = rows.map((row) => headers.map((header) => row[header] ?? "").join(","));
-  return `${[headers.join(","), ...body].join("\n")}\n`;
-}
-
 function loadQueue() {
   if (!existsSync(queuePath)) {
-    return {
-      headers: ["slug", "query", "position", "priority", "status", "notes"],
-      rows: [],
-    };
+    return { headers: REWRITE_QUEUE_HEADERS, rows: [] };
   }
 
-  return parseCsv(readFileSync(queuePath, "utf8"));
+  return parseQueue(readFileSync(queuePath, "utf8"));
 }
 
 function saveQueue(headers, rows) {
@@ -62,7 +41,7 @@ function saveQueue(headers, rows) {
     console.log("rewrite-weekly: dry-run — queue not written");
     return;
   }
-  writeFileSync(queuePath, serializeCsv(headers, rows), "utf8");
+  writeFileSync(queuePath, serializeQueue(headers, rows), "utf8");
 }
 
 function touchDateModified(slug) {
@@ -72,29 +51,18 @@ function touchDateModified(slug) {
   }
 
   const today = new Date().toISOString().slice(0, 10);
-  let text = readFileSync(path, "utf8");
-  const frontmatterMatch = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-  if (!frontmatterMatch) {
+  let updated;
+  try {
+    updated = withDateModified(readFileSync(path, "utf8"), today);
+  } catch {
     throw new Error(`frontmatter missing: ${path}`);
   }
 
-  const frontmatter = frontmatterMatch[1];
-  let updatedFrontmatter = frontmatter;
-  if (/^dateModified:/m.test(frontmatter)) {
-    updatedFrontmatter = frontmatter.replace(
-      /^dateModified:.*$/m,
-      `dateModified: ${today}`,
-    );
-  } else {
-    updatedFrontmatter = `${frontmatter}\ndateModified: ${today}`;
-  }
-
-  if (updatedFrontmatter === frontmatter) {
+  if (updated === null) {
     return false;
   }
 
-  text = text.replace(frontmatterMatch[1], updatedFrontmatter);
-  writeFileSync(path, text, "utf8");
+  writeFileSync(path, updated, "utf8");
   return true;
 }
 
@@ -111,10 +79,6 @@ function runMetaBackfill(slug) {
   return output;
 }
 
-function markRowDone(headers, rows, slug) {
-  return rows.map((row) => (row.slug === slug ? { ...row, status: "done" } : row));
-}
-
 function runGh(args) {
   return execFileSync("./scripts/gh-user.sh", args, {
     cwd: repoRoot,
@@ -124,19 +88,13 @@ function runGh(args) {
 }
 
 const { headers, rows } = loadQueue();
-const pending = rows
-  .filter((row) => {
-    const status = (row.status ?? "").toLowerCase();
-    return status === "" || status === "pending";
-  })
-  .sort((a, b) => Number(a.priority || 999) - Number(b.priority || 999));
+const next = selectNextPending(rows);
 
-if (pending.length === 0) {
+if (!next) {
   console.log("rewrite-weekly: queue empty — nothing to rewrite (exit 0)");
   process.exit(0);
 }
 
-const next = pending[0];
 const slug = next.slug?.trim();
 if (!slug) {
   console.error("rewrite-weekly: next row missing slug");
@@ -175,7 +133,7 @@ if (touchedDate) {
   console.log(`rewrite-weekly: dateModified updated for ${slug}`);
 }
 
-const updatedRows = markRowDone(headers, rows, slug);
+const updatedRows = markRowDone(rows, slug);
 saveQueue(headers, updatedRows);
 
 if (!createPr) {
