@@ -11,7 +11,7 @@
  * Output: gsc-playwright-auth.json (gitignored)
  */
 import { spawnSync } from "node:child_process";
-import { existsSync } from "node:fs";
+import { existsSync, statSync } from "node:fs";
 import { siteUrlFromEnv } from "./auth.mjs";
 import { defaultStoragePath } from "./playwright-storage.mjs";
 
@@ -49,12 +49,20 @@ function main() {
     process.exit(install.status ?? 1);
   }
 
+  // 既存ファイルの更新時刻を控える。codegen が何もしなかった場合に
+  // 古いセッションを「保存できた」と誤判定しないため。
+  const before = existsSync(defaultStoragePath)
+    ? statSync(defaultStoragePath).mtimeMs
+    : null;
+
+  // Chrome は --browser ではなく --channel で指定する。
+  // --browser=chrome は使用法を表示して exit 0 で終わるため、エラー検知をすり抜ける。
   const codegen = spawnSync(
     "npx",
     [
       "playwright",
       "codegen",
-      "--browser=chrome",
+      "--channel=chrome",
       `--save-storage=${defaultStoragePath}`,
       startUrl,
     ],
@@ -69,6 +77,16 @@ function main() {
     console.error("");
     console.error(`Expected output missing: ${defaultStoragePath}`);
     console.error("Close the Chrome window after login to save the session.");
+    process.exit(1);
+  }
+
+  if (before !== null && statSync(defaultStoragePath).mtimeMs === before) {
+    console.error("");
+    console.error("Session file was not updated — login did not complete.");
+    console.error(
+      `The existing ${defaultStoragePath} is unchanged (still the old session).`,
+    );
+    console.error("Log in inside the Chrome window, then close it.");
     process.exit(1);
   }
 
