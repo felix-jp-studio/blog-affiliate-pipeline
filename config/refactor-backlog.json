@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-31T07:30:00.000Z",
+  "updatedAt": "2026-09-13T06:50:00.000Z",
   "tasks": [
     {
       "id": "dedupe-e2e-utils",
@@ -49,7 +49,8 @@
       "execution": "agent",
       "targetPaths": ["scripts/rewrite-weekly.mjs"],
       "acceptance": ["npm run format:check"],
-      "status": "pending"
+      "status": "done",
+      "completedAt": "2026-09-13T06:50:00.000Z"
     },
     {
       "id": "generator-batch-validation",
