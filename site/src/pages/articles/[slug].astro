@@ -9,6 +9,7 @@ import RelatedArticles from "../../components/RelatedArticles.astro";
 import ArticleBackToTop from "../../components/ArticleBackToTop.astro";
 import ArticleCuratedLinks from "../../components/ArticleCuratedLinks.astro";
 import ArticleComments from "../../components/ArticleComments.astro";
+import ArticlePaywall from "../../components/ArticlePaywall.astro";
 import SitePublisherBox from "../../components/SitePublisherBox.astro";
 import { categoryMeta } from "../../data/category-meta";
 import { buildBreadcrumbs } from "../../data/site-nav";
@@ -143,6 +144,17 @@ const jsonLd = [articleJsonLd, breadcrumbJsonLd, faqJsonLd, howToJsonLd].filter(
         <Content />
       </div>
     </div>
+    {
+      entry.data.paywallPrice && (
+        <div class="article-paywall-slot">
+          <ArticlePaywall
+            slug={slug}
+            price={entry.data.paywallPrice}
+            teaser={entry.data.paywallTeaser}
+          />
+        </div>
+      )
+    }
     <ArticleCuratedLinks category={entry.data.category} currentSlug={slug} />
     <SitePublisherBox />
     <ArticleComments slug={slug} articleTitle={entry.data.title} />
@@ -189,6 +201,10 @@ const jsonLd = [articleJsonLd, breadcrumbJsonLd, faqJsonLd, howToJsonLd].filter(
     margin-inline: 2.25rem;
   }
 
+  .article-paywall-slot {
+    padding-inline: 2.25rem;
+  }
+
   @media (min-width: 1024px) {
     .article-content {
       grid-template-columns: 220px minmax(0, 1fr);
@@ -198,6 +214,7 @@ const jsonLd = [articleJsonLd, breadcrumbJsonLd, faqJsonLd, howToJsonLd].filter(
   @media (max-width: 640px) {
     .article-shell :global(.affiliate-disclosure),
     .article-content,
+    .article-paywall-slot,
     .article-shell :global(.related-articles) {
       padding-inline: 1.25rem;
     }

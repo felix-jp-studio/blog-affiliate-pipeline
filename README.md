@@ -69,6 +69,8 @@ npm run wp:ping
 | `npm run wp:post -- --file drafts/article.md --publish --status draft` | 下書きを WP に投稿                          |
 | `npm test`                                                             | publisher テスト                            |
 | `npm run format:check`                                                 | Prettier                                    |
+| `npm run paywall -- push <slug>`                                       | 有料記事の本文を Vercel KV へ反映           |
+| `npm run paywall -- list`                                              | 有料記事の一覧                              |
 | `npm run test:e2e:visual:docker`                                       | Visual regression（Linux Docker / CI 同等） |
 | `npm run test:e2e:visual:update:docker`                                | Visual baseline 更新                        |
 

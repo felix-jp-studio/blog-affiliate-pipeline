@@ -12,14 +12,22 @@
     "test:e2e:visual": "playwright test",
     "test:e2e:visual:update": "playwright test --update-snapshots",
     "test:e2e:visual:ui": "playwright test --ui",
-    "test:unit": "node --experimental-strip-types --test tests/comments-validation.test.mjs tests/article-structured-data.test.mjs tests/article-date-meta.test.mjs tests/hub-article-mesh.test.mjs tests/site-jsonld.test.mjs tests/breadcrumb-jsonld.test.mjs tests/cta-placement.test.mjs tests/rss-feed.test.mjs tests/article-type-ratio.test.mjs tests/article-curated-links.test.mjs",
-    "comments:moderate": "node scripts/comments-moderate.mjs"
+    "test:unit": "node --experimental-strip-types --test tests/comments-validation.test.mjs tests/article-structured-data.test.mjs tests/article-date-meta.test.mjs tests/hub-article-mesh.test.mjs tests/site-jsonld.test.mjs tests/breadcrumb-jsonld.test.mjs tests/cta-placement.test.mjs tests/rss-feed.test.mjs tests/article-type-ratio.test.mjs tests/article-curated-links.test.mjs tests/paywall-tokens.test.mjs tests/paywall-session.test.mjs tests/paywall-render.test.mjs tests/paywall-webhook.test.mjs",
+    "comments:moderate": "node scripts/comments-moderate.mjs",
+    "paywall": "node scripts/paywall-push.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
     "@astrojs/vercel": "^8.1.4",
     "@vercel/kv": "^3.0.0",
     "astro": "^5.7.10",
+    "rehype-raw": "^7.0.0",
+    "rehype-stringify": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "stripe": "^22.6.1",
+    "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
