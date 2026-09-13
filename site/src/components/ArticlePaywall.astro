@@ -1,0 +1,235 @@
+---
+interface Props {
+  slug: string;
+  price: number;
+  teaser?: string;
+}
+
+const { slug, price, teaser } = Astro.props;
+const enabled = import.meta.env.PUBLIC_PAYWALL_ENABLED === "true";
+const priceLabel = `${price.toLocaleString("ja-JP")}円`;
+---
+
+{
+  enabled && (
+    <section
+      class="article-paywall"
+      data-article-paywall
+      data-article-slug={slug}
+      aria-labelledby="article-paywall-heading"
+    >
+      <div class="paywall-lock" data-paywall-lock>
+        <p class="paywall-fade" aria-hidden="true" />
+        <h2 id="article-paywall-heading" class="paywall-heading">
+          ここから先は有料パートです
+        </h2>
+        <p class="paywall-teaser">
+          {teaser ??
+            "続きでは、この記事の結論と具体的な手順をまとめて公開しています。"}
+        </p>
+
+        <p class="paywall-price">
+          <span class="paywall-price__amount">{priceLabel}</span>
+          <span class="paywall-price__note">買い切り / 追加費用なし</span>
+        </p>
+
+        <button type="button" class="paywall-buy" data-paywall-buy>
+          {priceLabel}で続きを読む
+        </button>
+
+        <p
+          class="paywall-status"
+          role="status"
+          aria-live="polite"
+          data-paywall-status
+          hidden
+        />
+
+        <details class="paywall-restore">
+          <summary>購入済みの方（別の端末・ブラウザから読む）</summary>
+          <form class="paywall-restore__form" data-paywall-restore novalidate>
+            <label for={`restore-code-${slug}`}>復元コード</label>
+            <input
+              id={`restore-code-${slug}`}
+              name="code"
+              type="text"
+              inputmode="text"
+              autocomplete="off"
+              placeholder="XXXX-XXXX-XXXX"
+              maxlength="20"
+              required
+            />
+            <button type="submit">購入を復元する</button>
+          </form>
+        </details>
+      </div>
+
+      <div class="paywall-unlocked" data-paywall-unlocked hidden>
+        <div class="prose" data-paywall-body />
+        <details class="paywall-receipt" data-paywall-receipt hidden>
+          <summary>復元コード</summary>
+          <p>
+            別の端末やブラウザで読むときに使います。スクリーンショット等で保存してください。
+          </p>
+          <code data-paywall-code />
+        </details>
+      </div>
+    </section>
+  )
+}
+
+{enabled && <script src="./article-paywall-client.ts" />}
+
+<style>
+  .article-paywall {
+    margin: 2rem 0 0;
+  }
+
+  .paywall-lock {
+    position: relative;
+    margin-top: -3rem;
+    padding: 4rem 1.5rem 1.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-subtle);
+    text-align: center;
+  }
+
+  /* 無料パートの末尾を自然に途切れさせる */
+  .paywall-fade {
+    position: absolute;
+    inset: -5rem 0 auto;
+    height: 5rem;
+    margin: 0;
+    background: linear-gradient(to bottom, transparent, var(--bg-article));
+    pointer-events: none;
+  }
+
+  .paywall-heading {
+    font-size: 1.1875rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .paywall-teaser {
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+    margin: 0 auto 1.25rem;
+    max-width: 34rem;
+    text-align: left;
+  }
+
+  .paywall-price {
+    margin: 0 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    align-items: center;
+  }
+
+  .paywall-price__amount {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .paywall-price__note {
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+  }
+
+  .paywall-buy {
+    min-height: var(--cta-min-height);
+    padding: var(--cta-padding-y) var(--cta-padding-x);
+    border: 0;
+    border-radius: var(--cta-radius);
+    background: var(--accent);
+    color: var(--text-on-accent);
+    font-size: var(--cta-font-size);
+    font-weight: var(--cta-font-weight);
+    cursor: pointer;
+    transition: var(--cta-transition);
+  }
+
+  .paywall-buy:hover:not(:disabled) {
+    background: var(--accent-hover);
+  }
+
+  .paywall-buy:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+
+  .paywall-status {
+    margin: 1rem auto 0;
+    max-width: 34rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    background: var(--callout-error-bg);
+    color: var(--callout-error-text);
+    font-size: 0.9375rem;
+  }
+
+  .paywall-restore {
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    text-align: left;
+  }
+
+  .paywall-restore > summary {
+    cursor: pointer;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .paywall-restore__form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.75rem;
+  }
+
+  .paywall-restore__form input {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+  }
+
+  .paywall-restore__form button {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .paywall-receipt {
+    margin-top: 2rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--callout-success-border);
+    border-radius: var(--radius-sm);
+    background: var(--callout-success-bg);
+    color: var(--callout-success-text);
+  }
+
+  .paywall-receipt > summary {
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  .paywall-receipt p {
+    margin: 0.5rem 0;
+    font-size: 0.875rem;
+  }
+
+  .paywall-receipt code {
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+</style>

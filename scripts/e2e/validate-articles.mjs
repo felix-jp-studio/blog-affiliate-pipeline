@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 import { findHardcodedAspUrls, readAspUrls } from "../affiliate/lib.mjs";
 import {
   FORBIDDEN_SLUG_PATTERN,
@@ -11,6 +12,7 @@ import {
   missingAffiliatePatterns,
   pass,
   readArticleMarkdown,
+  repoRoot,
 } from "./e2e-utils.mjs";
 
 const MIN_DESCRIPTION_LENGTH = 50;
@@ -65,6 +67,17 @@ for (const filePath of listArticleFiles()) {
   if (fields.dateModified && Number.isNaN(Date.parse(fields.dateModified))) {
     errors.push(`${slug}: invalid dateModified "${fields.dateModified}"`);
   }
+  if (fields.paywallPrice !== undefined) {
+    const price = Number(fields.paywallPrice);
+    if (!Number.isInteger(price) || price < 100 || price > 50000) {
+      errors.push(
+        `${slug}: paywallPrice must be an integer between 100 and 50000 (got "${fields.paywallPrice}")`,
+      );
+    }
+  }
+  if (fields.paywallTeaser && fields.paywallTeaser.length > 200) {
+    errors.push(`${slug}: paywallTeaser too long (${fields.paywallTeaser.length} > 200)`);
+  }
   if (fields.description && fields.description.length < MIN_DESCRIPTION_LENGTH) {
     errors.push(
       `${slug}: description too short (${fields.description.length} < ${MIN_DESCRIPTION_LENGTH})`,
@@ -95,6 +108,39 @@ for (const filePath of listArticleFiles()) {
       `${slug}: hardcoded ASP URL(s) at line(s) ${hardcodedAspUrls.map((item) => item.line).join(", ")} — use {AFFILIATE:program-id}`,
     );
   }
+}
+
+// 有料記事がある場合、特定商取引法に基づく表記の事業者情報が必要。
+// 値は PUBLIC_TOKUSHOHO_* 環境変数（public リポジトリに個人情報を置かないため）なので、
+// ここでは検証できない。実際の担保は本番 smoke テスト（smoke-production.mjs）が行う。
+const paywalledSlugs = [];
+for (const filePath of listArticleFiles()) {
+  const { slug, parsed } = readArticleMarkdown(filePath);
+  if (!parsed.error && parsed.fields.paywallPrice !== undefined) {
+    paywalledSlugs.push(slug);
+  }
+}
+
+if (paywalledSlugs.length > 0) {
+  warnings.push(
+    `paywalled articles (${paywalledSlugs.join(", ")}): PUBLIC_TOKUSHOHO_* が Vercel に設定済みか確認すること` +
+      " — 未設定のまま公開すると /tokushoho が未記入になり、post-deploy smoke が失敗する",
+  );
+}
+
+// 有料本文は public リポジトリに入れてはいけない（KV にだけ置く）。
+try {
+  const tracked = execFileSync("git", ["ls-files", "--", "drafts/premium"], {
+    cwd: repoRoot,
+    encoding: "utf8",
+  }).trim();
+  if (tracked) {
+    errors.push(
+      `premium bodies must never be committed (this repo is public): ${tracked.split("\n").join(", ")}`,
+    );
+  }
+} catch {
+  // git が使えない環境ではスキップする
 }
 
 if (warnings.length > 0) {

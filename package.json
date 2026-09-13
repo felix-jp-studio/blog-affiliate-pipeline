@@ -57,6 +57,7 @@
     "test:e2e:visual:update:docker": "bash scripts/e2e/update-visual-baselines-docker.sh update",
     "test:e2e:all": "npm run test:e2e && npm run test:e2e:visual",
     "test:comments": "npm run test:unit --prefix site",
+    "paywall": "npm run paywall --prefix site --",
     "test:gsc": "node --test scripts/gsc/*.test.mjs",
     "test:visitability": "node --test scripts/visitability/*.test.mjs",
     "test:refactor-pdca": "node --test scripts/refactor-pdca/*.test.mjs",

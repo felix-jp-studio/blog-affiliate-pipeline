@@ -11,6 +11,7 @@ npm run docs:design-html   # docs/*-design.md → *.html
 - [ASP URL レジストリ](./asp-urls.md) — トラッキング URL・管理画面 URL の更新手順
 - [IndexNow 連携](./indexnow.md) — 記事マージ後の Bing/Yandex 通知
 - [Visual Regression 運用](./visual-regression-operations.md) — Playwright hybrid E2E・baseline 更新・PR コメント
+- [有料記事（ペイウォール）運用](./paywall-operations.md) — Stripe 買い切り販売・有料本文の KV 反映手順
 
 ## 設計書（HTML）
 

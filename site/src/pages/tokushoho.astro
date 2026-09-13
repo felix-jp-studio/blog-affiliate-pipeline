@@ -1,0 +1,104 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import {
+  isSellerInfoComplete,
+  SELLER_UNSET_MARKER,
+  seller,
+  tokushohoRows,
+} from "../data/tokushoho";
+
+const sellerRows = [
+  { term: "販売事業者", body: seller.name },
+  { term: "運営統括責任者", body: seller.representative },
+  { term: "所在地", body: seller.address },
+  { term: "電話番号", body: seller.phone },
+  { term: "メールアドレス", body: seller.email },
+];
+
+const complete = isSellerInfoComplete();
+---
+
+<BaseLayout
+  title="特定商取引法に基づく表記"
+  description="SIM・光回線ガイドの有料記事販売に関する特定商取引法に基づく表記"
+>
+  <h1>特定商取引法に基づく表記</h1>
+
+  {
+    !complete && (
+      <p class="tokushoho-notice">
+        事業者情報が未設定です。有料記事の販売を開始する前に
+        <code>PUBLIC_TOKUSHOHO_*</code> の環境変数を設定してください。
+      </p>
+    )
+  }
+
+  <dl class="tokushoho">
+    {
+      sellerRows.map((row) => (
+        <>
+          <dt>{row.term}</dt>
+          <dd>{row.body || SELLER_UNSET_MARKER}</dd>
+        </>
+      ))
+    }
+    {
+      tokushohoRows.map((row) => (
+        <>
+          <dt>{row.term}</dt>
+          <dd>{row.body}</dd>
+        </>
+      ))
+    }
+    <dt>お問い合わせ</dt>
+    <dd>
+      購入に関するお問い合わせは<a href="/contact">お問い合わせページ</a
+      >よりご連絡ください。
+    </dd>
+  </dl>
+</BaseLayout>
+
+<style>
+  .tokushoho-notice {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--callout-error-border);
+    border-radius: var(--radius-sm);
+    background: var(--callout-error-bg);
+    color: var(--callout-error-text);
+  }
+
+  .tokushoho {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin: 1.5rem 0 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .tokushoho dt {
+    font-weight: 700;
+    padding: 1rem 0 0.25rem;
+  }
+
+  .tokushoho dd {
+    margin: 0;
+    padding: 0 0 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-body);
+  }
+
+  @media (min-width: 768px) {
+    .tokushoho {
+      grid-template-columns: 14rem minmax(0, 1fr);
+    }
+
+    .tokushoho dt {
+      padding: 1rem 1rem 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tokushoho dd {
+      padding: 1rem 0;
+    }
+  }
+</style>

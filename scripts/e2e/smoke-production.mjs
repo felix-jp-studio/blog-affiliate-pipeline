@@ -181,12 +181,40 @@ async function checkSitemapSlugs() {
   }
 }
 
+/**
+ * 有料記事を公開しているなら、特定商取引法に基づく表記が埋まっていること。
+ * 事業者情報は PUBLIC_TOKUSHOHO_* 環境変数から来るので、リポジトリ側では検証できない。
+ * 本番に反映されているかをここで担保する。
+ */
+async function checkTokushoho() {
+  const hasPaywalledArticle = loadPublishedArticles().some(
+    (article) => !article.error && article.fields?.paywallPrice !== undefined,
+  );
+  if (!hasPaywalledArticle) {
+    return;
+  }
+
+  checksRun += 1;
+  const body = await fetchWithRetry(`${baseUrl}/tokushoho`, "tokushoho");
+  if (!body) {
+    return;
+  }
+
+  if (body.includes("（未設定）")) {
+    errors.push(
+      "tokushoho: 事業者情報が未設定のまま有料記事を公開している" +
+        " — Vercel の PUBLIC_TOKUSHOHO_NAME / REPRESENTATIVE / ADDRESS / PHONE / EMAIL を設定して再デプロイすること",
+    );
+  }
+}
+
 console.log(`Production smoke: ${baseUrl}`);
 console.log(`Smoke slugs: ${smokeSlugs.join(", ")}`);
 
 await checkStaticPages();
 await checkArticles();
 await checkSitemapSlugs();
+await checkTokushoho();
 
 if (errors.length > 0) {
   fail(errors);
