@@ -1,7 +1,7 @@
 {
-  "cycleNumber": 5,
-  "lastRunAt": "2026-08-27T07:22:00.000Z",
-  "lastOutcome": "in_progress",
+  "cycleNumber": 6,
+  "lastRunAt": "2026-09-13T06:50:00.000Z",
+  "lastOutcome": "success",
   "lastTaskId": "hub-comparison-table-mobile",
   "paused": false,
   "metrics": {

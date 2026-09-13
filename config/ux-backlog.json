@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-27T07:22:00.000Z",
+  "updatedAt": "2026-09-13T06:50:00.000Z",
   "tasks": [
     {
       "id": "hub-card-layout",
@@ -104,7 +104,8 @@
         "npm run format:check --prefix site",
         "npm run test:e2e:visual --prefix site"
       ],
-      "status": "in_progress"
+      "status": "completed",
+      "completedAt": "2026-08-27T07:22:00.000Z"
     },
     {
       "id": "affiliate-cta-spacing",

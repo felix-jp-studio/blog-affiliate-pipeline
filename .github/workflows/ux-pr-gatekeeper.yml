@@ -114,6 +114,25 @@ jobs:
           gh pr comment "${{ steps.pr.outputs.number }}" --repo "${{ github.repository }}" \
             --body "## UX PR gatekeeper: **Pass → merged**"
 
+      - name: Close the UX cycle
+        if: >
+          steps.pr.outputs.found == 'true' &&
+          fromJson(steps.gate.outputs.json).verdict == 'pass'
+        run: |
+          set -euo pipefail
+          node scripts/ux-pdca/bump-cycle-state.mjs
+          npx --yes prettier --write config/ux-pdca-state.json config/ux-backlog.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add config/ux-pdca-state.json config/ux-backlog.json
+          if git diff --cached --quiet; then
+            echo "No UX cycle state change to push."
+            exit 0
+          fi
+          git commit -m "chore(ux-pdca): close cycle after #${{ steps.pr.outputs.number }} merge"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
       - name: Comment after repair push
         if: >
           steps.pr.outputs.found == 'true' &&
