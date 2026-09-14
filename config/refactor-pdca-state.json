@@ -1,10 +1,17 @@
 {
   "cycleNumber": 5,
-  "lastRunAt": "2026-09-13T06:50:00.000Z",
-  "lastOutcome": "success",
-  "lastTaskId": "rewrite-weekly-lib",
+  "lastRunAt": "2026-09-14T05:56:36.343Z",
+  "lastOutcome": "planned",
+  "lastTaskId": "generator-batch-validation",
   "paused": false,
-  "metrics": null,
+  "metrics": {
+    "collectedAt": "2026-09-14T05:56:36.343Z",
+    "backlogPending": 6,
+    "backlogTotal": 10,
+    "formatDriftFiles": 0,
+    "todoCommentCount": 0,
+    "openRefactorPrs": 0
+  },
   "blockers": [],
   "consecutiveFailures": 0
 }
