@@ -324,6 +324,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "senior-sim-kakehoudai-hikaku",
         label: "シニア 格安SIM かけ放題 比較",
       },
+      {
+        slug: "kodomo-sim-keiyaku-hikaku",
+        label: "子供 格安SIM 契約 比較",
+      },
     ],
   },
   hikari: {
