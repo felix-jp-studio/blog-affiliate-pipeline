@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-14T02:00:30.377Z",
+  "updatedAt": "2026-09-14T03:08:59.514Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3081,6 +3081,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "kodomo-sim-keiyaku-hikaku",
+      "url": "https://sim-hikari-guide.com/articles/kodomo-sim-keiyaku-hikaku",
+      "mergedAt": "2026-09-14T03:08:59.513Z",
+      "indexed": false
     }
   ]
 }
