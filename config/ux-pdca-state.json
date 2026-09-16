@@ -1,18 +1,28 @@
 {
   "cycleNumber": 6,
-  "lastRunAt": "2026-09-13T06:50:00.000Z",
-  "lastOutcome": "success",
+  "lastRunAt": "2026-09-16T05:32:43.333Z",
+  "lastOutcome": "planned",
   "lastTaskId": "hub-comparison-table-mobile",
   "paused": false,
   "metrics": {
-    "collectedAt": "2026-08-27T07:22:00.000Z",
-    "backlogPending": 3,
+    "collectedAt": "2026-09-16T05:32:43.333Z",
+    "backlogPending": 4,
     "backlogTotal": 10,
-    "openUxPrs": 1,
+    "openUxPrs": 0,
     "cwvRegression": false,
-    "visualTestStatus": "pending"
+    "cwvRegressionReason": null,
+    "cwvLatest": {
+      "week": "2026-08-01",
+      "url": "`/articles/sim-osusume-hikaku-2026`",
+      "perf": 0.55,
+      "lcp": 21323,
+      "cls": 0,
+      "tbt": 0
+    },
+    "visualTestStatus": "skipped",
+    "visualTestsFailed": 0
   },
   "blockers": [],
   "consecutiveFailures": 0,
-  "nextTaskId": null
+  "nextTaskId": "affiliate-cta-spacing"
 }

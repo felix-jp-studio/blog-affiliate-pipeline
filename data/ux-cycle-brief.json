@@ -1,18 +1,23 @@
 {
-  "cycleNumber": 5,
-  "taskId": "hub-comparison-table-mobile",
-  "title": "HubComparisonTable のモバイル横スクロール UX",
+  "cycleNumber": 6,
+  "taskId": "affiliate-cta-spacing",
+  "title": "AffiliateButton / HubAspCtaSection の余白・タップ領域",
   "execution": "agent",
   "scope": {
-    "allow": ["site/src/components/HubComparisonTable.astro"],
+    "allow": [
+      "site/src/components/AffiliateButton.astro",
+      "site/src/components/HubAspCtaSection.astro",
+      "site/src/styles/prose.css"
+    ],
     "deny": ["site/src/content/articles/", "data/", "config/keywords"]
   },
   "maxDiffLines": 400,
   "maxFiles": 15,
-  "visualPages": ["/sim", "/hikari"],
+  "visualPages": ["/articles/au-denki-setwari"],
   "acceptance": [
     "npm run format:check --prefix site",
     "npm run test:e2e:visual --prefix site"
   ],
-  "createdAt": "2026-08-27T07:22:00.000Z"
+  "agentPrompt": "UX PDCA Cycle 6: AffiliateButton / HubAspCtaSection の余白・タップ領域\n\n## 目的\nCTA ボタンの min-height 44px・モバイル縦積みを prose.css / コンポーネントで統一。\n\n## 対象パス\n- `site/src/components/AffiliateButton.astro`\n- `site/src/components/HubAspCtaSection.astro`\n- `site/src/styles/prose.css`\n\n## 禁止パス\n- `site/src/content/articles/`\n- `data/`\n- `config/keywords`\n\n## Visual 確認ページ\n- /articles/au-denki-setwari\n\n## 完了条件\nnpm run format:check --prefix site\nnpm run test:e2e:visual --prefix site\n\n## PR\n- ブランチ: `feature/ux-pdca-6`\n- ラベル: `ux-pdca-auto`\n- タイトル: UX PDCA Cycle 6: AffiliateButton / HubAspCtaSection の余白・タップ領域",
+  "createdAt": "2026-09-16T05:32:44.160Z"
 }
