@@ -656,6 +656,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "sim-onsei-tuwa-dekinai-genin",
         label: "格安SIM 音声通話 できない 原因の原因と…",
       },
+      {
+        slug: "mnp-yoyaku-bangou-error-fix",
+        label: "MNP 予約番号 エラー 対処の原因と7つの…",
+      },
     ],
   },
   cost: {
