@@ -332,6 +332,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "sim-kakehoudai-kaiyaku-houhou",
         label: "格安SIM かけ放題 解約 方法の手順",
       },
+      {
+        slug: "sim-gakusei-20gb-hikaku",
+        label: "格安SIM 学生 20GB 比較",
+      },
     ],
   },
   hikari: {
