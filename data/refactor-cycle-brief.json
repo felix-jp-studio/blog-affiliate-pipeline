@@ -7,5 +7,5 @@
   "targetPaths": ["scripts/", "config/batch-cycle"],
   "acceptance": ["npm run test:generator", "npm run format:check"],
   "agentPrompt": "Refactor PDCA Cycle 5: batch-cycle JSON のスキーマ検証\n\nconfig/batch-cycle*.json を検証する軽量スクリプトを追加。\n\n## 対象パス\n- `scripts/`\n- `config/batch-cycle`\n\n## 禁止パス\n- `site/src/content/articles/`\n- `site/src/components/`\n- `site/src/styles/`\n- `data/keywords.seed.csv`\n- `data/gsc-index-queue.json`\n- `.env`\n\n## 完了条件\nnpm run test:generator\nnpm run format:check\n\n## PR\n- ブランチ: `feature/refactor-pdca-5`\n- ラベル: `refactor-pdca-auto`\n- タイトル: Refactor PDCA Cycle 5: batch-cycle JSON のスキーマ検証\n- diff 上限: 300 行 / 15 ファイル",
-  "createdAt": "2026-09-14T05:56:37.750Z"
+  "createdAt": "2026-09-17T05:40:42.463Z"
 }
