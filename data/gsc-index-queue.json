@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-17T02:03:55.668Z",
+  "updatedAt": "2026-09-17T03:11:22.946Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3134,6 +3134,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "sim-gakusei-20gb-hikaku",
+      "url": "https://sim-hikari-guide.com/articles/sim-gakusei-20gb-hikaku",
+      "mergedAt": "2026-09-17T03:11:22.945Z",
+      "indexed": false
     }
   ]
 }
