@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-18T01:52:28.731Z",
+  "updatedAt": "2026-09-18T02:58:40.793Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3151,6 +3151,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "povo-2-0-tsukaikata",
+      "url": "https://sim-hikari-guide.com/articles/povo-2-0-tsukaikata",
+      "mergedAt": "2026-09-18T02:58:40.792Z",
+      "indexed": false
     }
   ]
 }
