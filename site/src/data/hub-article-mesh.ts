@@ -336,6 +336,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "sim-gakusei-20gb-hikaku",
         label: "格安SIM 学生 20GB 比較",
       },
+      {
+        slug: "povo-2-0-tsukaikata",
+        label: "povo 2.0 使い方の手順",
+      },
     ],
   },
   hikari: {

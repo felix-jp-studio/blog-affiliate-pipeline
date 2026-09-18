@@ -1,19 +1,14 @@
 {
-  "last_run": "2026-09-17",
-  "next_scheduled": "2026-09-18",
+  "last_run": "2026-09-18",
+  "next_scheduled": "2026-09-19",
   "week_id": "2026-W38",
-  "runs_this_week": 4,
+  "runs_this_week": 5,
   "type_counts": {
     "comparison": 2,
-    "howto": 1,
+    "howto": 2,
     "troubleshoot": 1
   },
   "history": [
-    {
-      "date": "2026-07-23",
-      "keywords": ["光回線 開通 いつ"],
-      "ok_count": 1
-    },
     {
       "date": "2026-07-24",
       "keywords": ["格安SIM 5G 対応 比較"],
@@ -267,6 +262,11 @@
     {
       "date": "2026-09-17",
       "keywords": ["格安SIM 学生 20GB 比較"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-09-18",
+      "keywords": ["povo 2.0 使い方"],
       "ok_count": 1
     }
   ]
