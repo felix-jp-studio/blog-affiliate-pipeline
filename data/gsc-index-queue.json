@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-19T01:56:31.169Z",
+  "updatedAt": "2026-09-19T02:56:41.394Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3168,6 +3168,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "esim-kaituu-dekinai-fix",
+      "url": "https://sim-hikari-guide.com/articles/esim-kaituu-dekinai-fix",
+      "mergedAt": "2026-09-19T02:56:41.393Z",
+      "indexed": false
     }
   ]
 }
