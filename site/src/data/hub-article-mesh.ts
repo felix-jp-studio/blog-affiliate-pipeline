@@ -668,6 +668,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "mnp-yoyaku-bangou-error-fix",
         label: "MNP 予約番号 エラー 対処の原因と7つの…",
       },
+      {
+        slug: "esim-kaituu-dekinai-fix",
+        label: "eSIM 開通 できない 対処の原因と7つの…",
+      },
     ],
   },
   cost: {
