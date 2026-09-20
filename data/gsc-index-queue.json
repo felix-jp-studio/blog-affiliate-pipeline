@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-20T01:59:10.436Z",
+  "updatedAt": "2026-09-20T03:09:09.312Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3186,6 +3186,12 @@
         "source": "api"
       },
       "indexedAt": "2026-09-20T01:57:56.326Z"
+    },
+    {
+      "slug": "nuro-hikari-rakuten-denki",
+      "url": "https://sim-hikari-guide.com/articles/nuro-hikari-rakuten-denki",
+      "mergedAt": "2026-09-20T03:09:09.311Z",
+      "indexed": false
     }
   ]
 }
