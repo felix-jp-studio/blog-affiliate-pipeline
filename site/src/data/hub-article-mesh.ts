@@ -340,6 +340,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "povo-2-0-tsukaikata",
         label: "povo 2.0 使い方の手順",
       },
+      {
+        slug: "kodomo-sim-family-hikaku",
+        label: "子供 格安SIM 家族 比較",
+      },
     ],
   },
   hikari: {

@@ -1,20 +1,12 @@
 {
-  "last_run": "2026-09-20",
-  "next_scheduled": "2026-09-21",
-  "week_id": "2026-W38",
-  "runs_this_week": 7,
+  "last_run": "2026-09-21",
+  "next_scheduled": "2026-09-22",
+  "week_id": "2026-W39",
+  "runs_this_week": 1,
   "type_counts": {
-    "comparison": 2,
-    "howto": 2,
-    "troubleshoot": 2,
-    "crosssell": 1
+    "comparison": 1
   },
   "history": [
-    {
-      "date": "2026-07-26",
-      "keywords": ["楽天でんき 楽天モバイル"],
-      "ok_count": 1
-    },
     {
       "date": "2026-07-27",
       "keywords": ["格安SIM シニア おすすめ"],
@@ -268,6 +260,11 @@
     {
       "date": "2026-09-20",
       "keywords": ["NURO光 楽天でんき"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-09-21",
+      "keywords": ["子供 格安SIM 家族 比較"],
       "ok_count": 1
     }
   ]
