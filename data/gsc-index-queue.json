@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-22T02:07:08.349Z",
+  "updatedAt": "2026-09-22T03:05:57.182Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3221,6 +3221,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "rakuten-mobile-esim-settei-houhou",
+      "url": "https://sim-hikari-guide.com/articles/rakuten-mobile-esim-settei-houhou",
+      "mergedAt": "2026-09-22T03:05:57.181Z",
+      "indexed": false
     }
   ]
 }
