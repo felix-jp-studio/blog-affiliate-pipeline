@@ -344,6 +344,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "kodomo-sim-family-hikaku",
         label: "子供 格安SIM 家族 比較",
       },
+      {
+        slug: "rakuten-mobile-esim-settei-houhou",
+        label: "楽天モバイル eSIM 設定 方法の手順",
+      },
     ],
   },
   hikari: {
