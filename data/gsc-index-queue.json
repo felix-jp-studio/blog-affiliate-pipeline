@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-23T02:05:50.095Z",
+  "updatedAt": "2026-09-23T03:05:26.406Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3239,6 +3239,12 @@
         "source": "api"
       },
       "indexedAt": "2026-09-23T02:04:32.785Z"
+    },
+    {
+      "slug": "ahamo-tsunagaranai-fix",
+      "url": "https://sim-hikari-guide.com/articles/ahamo-tsunagaranai-fix",
+      "mergedAt": "2026-09-23T03:05:26.405Z",
+      "indexed": false
     }
   ]
 }
