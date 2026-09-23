@@ -1,12 +1,12 @@
 {
   "cycleNumber": 6,
-  "lastRunAt": "2026-09-16T05:32:43.333Z",
+  "lastRunAt": "2026-09-23T05:25:01.047Z",
   "lastOutcome": "planned",
   "lastTaskId": "hub-comparison-table-mobile",
   "paused": false,
   "metrics": {
-    "collectedAt": "2026-09-16T05:32:43.333Z",
-    "backlogPending": 4,
+    "collectedAt": "2026-09-23T05:25:01.047Z",
+    "backlogPending": 3,
     "backlogTotal": 10,
     "openUxPrs": 0,
     "cwvRegression": false,
