@@ -680,6 +680,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "esim-kaituu-dekinai-fix",
         label: "eSIM 開通 できない 対処の原因と7つの…",
       },
+      {
+        slug: "ahamo-tsunagaranai-fix",
+        label: "ahamo 繋がらない 対処の原因と7つの対処法",
+      },
     ],
   },
   cost: {
