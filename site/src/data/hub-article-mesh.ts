@@ -348,6 +348,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "rakuten-mobile-esim-settei-houhou",
         label: "楽天モバイル eSIM 設定 方法の手順",
       },
+      {
+        slug: "fukukaisen-esim-sim-hikaku",
+        label: "副回線 eSIM 格安SIM 比較",
+      },
     ],
   },
   hikari: {
