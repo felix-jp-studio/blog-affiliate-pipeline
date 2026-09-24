@@ -32,6 +32,12 @@ jobs:
         with:
           python-version: "3.12"
 
+      # これが無いと --create-pr の git commit が Author identity unknown で失敗する
+      - name: Configure git author
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Run rewrite queue
         env:
           GH_TOKEN: ${{ github.token }}
