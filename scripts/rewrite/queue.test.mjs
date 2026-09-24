@@ -4,6 +4,7 @@ import { parseCsv } from "../lib/csv.mjs";
 import {
   REWRITE_QUEUE_HEADERS,
   markRowDone,
+  markRowStatus,
   parseQueue,
   pendingRows,
   selectNextPending,
@@ -87,5 +88,43 @@ describe("withDateModified", () => {
 
   it("throws when frontmatter is missing", () => {
     assert.throws(() => withDateModified("body only\n", "2026-09-13"));
+  });
+});
+
+describe("markRowStatus", () => {
+  const rows = [
+    { slug: "a", status: "pending", notes: "" },
+    { slug: "b", status: "pending", notes: "keep" },
+  ];
+
+  it("メタ変更がない行は done ではなく skipped にする", () => {
+    const out = markRowStatus(rows, "a", "skipped", "meta already matches template");
+    assert.equal(out[0].status, "skipped");
+    assert.equal(out[0].notes, "meta already matches template");
+  });
+
+  it("対象外の行は変更しない", () => {
+    const out = markRowStatus(rows, "a", "skipped", "x");
+    assert.deepEqual(out[1], rows[1]);
+  });
+
+  it("notes を省略すると既存の notes を保持する", () => {
+    const out = markRowStatus(rows, "b", "skipped");
+    assert.equal(out[1].status, "skipped");
+    assert.equal(out[1].notes, "keep");
+  });
+
+  it("markRowDone は done を設定し notes を触らない", () => {
+    const out = markRowDone(rows, "b");
+    assert.equal(out[1].status, "done");
+    assert.equal(out[1].notes, "keep");
+  });
+
+  it("skipped は pending として再選択されない", () => {
+    const out = markRowStatus(rows, "a", "skipped", "x");
+    assert.deepEqual(
+      pendingRows(out).map((r) => r.slug),
+      ["b"],
+    );
   });
 });
