@@ -30,7 +30,21 @@ export function selectNextPending(rows) {
 }
 
 export function markRowDone(rows, slug) {
-  return rows.map((row) => (row.slug === slug ? { ...row, status: "done" } : row));
+  return markRowStatus(rows, slug, "done");
+}
+
+/**
+ * 行のステータスを更新する。
+ *
+ * メタが既にテンプレートと一致していて書き換えが発生しない場合は "skipped" を使う。
+ * "done" にすると「リライトした」ことになってしまい、実態と合わない。
+ */
+export function markRowStatus(rows, slug, status, notes) {
+  return rows.map((row) =>
+    row.slug === slug
+      ? { ...row, status, ...(notes === undefined ? {} : { notes }) }
+      : row,
+  );
 }
 
 /**

@@ -17,8 +17,9 @@ import { repoRoot } from "./e2e/e2e-utils.mjs";
 import {
   REWRITE_QUEUE_HEADERS,
   markRowDone,
+  markRowStatus,
   parseQueue,
-  selectNextPending,
+  pendingRows,
   serializeQueue,
   withDateModified,
 } from "./rewrite/queue.mjs";
@@ -87,42 +88,75 @@ function runGh(args) {
   });
 }
 
-const { headers, rows } = loadQueue();
-const next = selectNextPending(rows);
-
-if (!next) {
-  console.log("rewrite-weekly: queue empty — nothing to rewrite (exit 0)");
-  process.exit(0);
-}
-
-const slug = next.slug?.trim();
-if (!slug) {
-  console.error("rewrite-weekly: next row missing slug");
-  process.exit(1);
-}
-
-console.log(
-  `rewrite-weekly: next slug=${slug} query=${next.query || "-"} position=${next.position || "-"}`,
-);
-
-if (dryRun) {
-  execFileSync(
+/** メタバックフィルが実際に書き換えを起こすかを、書き込まずに判定する。 */
+function wouldChangeMeta(slug) {
+  const output = execFileSync(
     "python3",
     ["scripts/backfill-meta-titles.py", "--slug", slug, "--dry-run"],
     {
       cwd: repoRoot,
-      stdio: "inherit",
+      encoding: "utf8",
       env: { ...process.env, PYTHONPATH: "packages/generator" },
     },
   );
-  console.log("rewrite-weekly: dry-run — no files or queue updated");
+  return /Updated:\s*[1-9]/.test(output);
+}
+
+const { headers, rows } = loadQueue();
+
+// pending を順に見て「実際にメタが変わる行」を探す。
+// 既にテンプレートと一致している行を done にして dateModified を更新すると、
+// 中身が変わっていないのに「更新した」という偽の鮮度シグナルを
+// Article JSON-LD とメタタグに出すことになるため、skipped にして飛ばす。
+const updates = new Map();
+let target = null;
+
+for (const row of pendingRows(rows)) {
+  const candidate = row.slug?.trim();
+
+  if (!candidate) {
+    console.log("rewrite-weekly: row without slug, skipping");
+    updates.set(row, { status: "skipped", notes: "missing slug" });
+    continue;
+  }
+
+  if (!existsSync(join(articlesDir, `${candidate}.md`))) {
+    console.log(`rewrite-weekly: ${candidate} — article file missing, skipping`);
+    updates.set(row, { status: "skipped", notes: "article not found" });
+    continue;
+  }
+
+  if (wouldChangeMeta(candidate)) {
+    target = row;
+    break;
+  }
+
+  console.log(`rewrite-weekly: ${candidate} — meta already matches template, skipping`);
+  updates.set(row, { status: "skipped", notes: "meta already matches template" });
+}
+
+const workingRows = rows.map((row) =>
+  updates.has(row) ? { ...row, ...updates.get(row) } : row,
+);
+
+if (updates.size > 0) {
+  console.log(`rewrite-weekly: skipped ${updates.size} row(s) with no meta change`);
+}
+
+if (!target) {
+  saveQueue(headers, workingRows);
+  console.log("rewrite-weekly: no row needs a meta rewrite — nothing to do (exit 0)");
   process.exit(0);
 }
 
-const articlePath = join(articlesDir, `${slug}.md`);
-if (!existsSync(articlePath)) {
-  console.error(`rewrite-weekly: article missing for slug=${slug}`);
-  process.exit(1);
+const slug = target.slug.trim();
+console.log(
+  `rewrite-weekly: next slug=${slug} query=${target.query || "-"} position=${target.position || "-"}`,
+);
+
+if (dryRun) {
+  console.log("rewrite-weekly: dry-run — no files or queue updated");
+  process.exit(0);
 }
 
 const backfillOutput = runMetaBackfill(slug);
@@ -133,7 +167,7 @@ if (touchedDate) {
   console.log(`rewrite-weekly: dateModified updated for ${slug}`);
 }
 
-const updatedRows = markRowDone(rows, slug);
+const updatedRows = markRowDone(workingRows, slug);
 saveQueue(headers, updatedRows);
 
 if (!createPr) {
