@@ -352,6 +352,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "fukukaisen-esim-sim-hikaku",
         label: "副回線 eSIM 格安SIM 比較",
       },
+      {
+        slug: "mnp-norikae-tejun-shoshinsha",
+        label: "MNP 乗り換え 手順 初心者の手順",
+      },
     ],
   },
   hikari: {
