@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-25T02:11:35.062Z",
+  "updatedAt": "2026-09-25T03:13:14.381Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3273,6 +3273,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "mnp-norikae-tejun-shoshinsha",
+      "url": "https://sim-hikari-guide.com/articles/mnp-norikae-tejun-shoshinsha",
+      "mergedAt": "2026-09-25T03:13:14.380Z",
+      "indexed": false
     }
   ]
 }
