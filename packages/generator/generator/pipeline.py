@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from generator.affiliate import inject_affiliates
+from generator.batch_config import load_batch_config
 from generator.config import load_prompt, resolve_mode
 from generator.groq_client import GroqError, chat_completion
 from generator.internal_links import inject_internal_links
@@ -31,8 +32,8 @@ def run_batch(
     mode: str = "auto",
     count: int | None = None,
 ) -> list[RunResult]:
-    batch = json.loads(batch_path.read_text(encoding="utf-8"))
-    items = batch.get("items", [])
+    batch = load_batch_config(batch_path)
+    items = batch["items"]
     if count is not None:
         items = items[:count]
 
