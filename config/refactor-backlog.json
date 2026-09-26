@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-24T05:47:41.429Z",
+  "updatedAt": "2026-09-26T08:35:57.591Z",
   "tasks": [
     {
       "id": "dedupe-e2e-utils",
@@ -61,7 +61,8 @@
       "execution": "agent",
       "targetPaths": ["scripts/", "config/batch-cycle"],
       "acceptance": ["npm run test:generator", "npm run format:check"],
-      "status": "in_progress"
+      "status": "done",
+      "completedAt": "2026-09-26T08:35:57.591Z"
     },
     {
       "id": "root-prettier-scripts-drift",
