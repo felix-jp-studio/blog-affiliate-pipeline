@@ -162,13 +162,13 @@
   background: var(--bg-table-hover);
 }
 
-.prose a.affiliate-link {
+/* Shared CTA surface: article prose / CategoryHub / AffiliateButton で共通 */
+a.affiliate-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: var(--cta-min-height);
   padding: var(--cta-padding-y) var(--cta-padding-x);
-  margin: 0.25rem 0;
   border-radius: var(--cta-radius);
   background: var(--accent);
   color: var(--text-on-accent);
@@ -178,9 +178,13 @@
   transition: var(--cta-transition);
 }
 
-.prose a.affiliate-link:hover {
+a.affiliate-link:hover {
   background: var(--accent-hover);
   text-decoration: none;
+}
+
+.prose a.affiliate-link {
+  margin: 0.25rem 0;
 }
 
 .prose .callout-summary {
@@ -203,13 +207,12 @@
   margin-bottom: 0;
 }
 
-.prose .affiliate-cta-block {
+.affiliate-cta-block {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin: 1.5rem 0;
   padding: 1.1rem 1.25rem;
   background: var(--bg-accent-soft);
   border: 1px solid var(--border);
@@ -217,27 +220,34 @@
   border-radius: var(--radius-md);
 }
 
-.prose .affiliate-cta-block__content {
+.affiliate-cta-block__content {
   flex: 1 1 220px;
   min-width: 0;
 }
 
-.prose .affiliate-cta-block__title {
+.affiliate-cta-block__title {
   margin: 0 0 0.35rem;
   font-size: 1rem;
   font-weight: 700;
   color: var(--text-primary);
 }
 
-.prose .affiliate-cta-block__desc {
+.affiliate-cta-block__desc {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.6;
   color: var(--text-secondary);
 }
 
-.prose a.affiliate-link.affiliate-cta-block__action {
+a.affiliate-link.affiliate-cta-block__action {
   flex-shrink: 0;
+}
+
+.prose .affiliate-cta-block {
+  margin: 1.5rem 0;
+}
+
+.prose a.affiliate-link.affiliate-cta-block__action {
   margin: 0;
 }
 
@@ -254,19 +264,18 @@
     font-size: 1.0625rem;
   }
 
-  .prose .affiliate-cta-block {
+  .affiliate-cta-block {
     flex-direction: column;
     align-items: stretch;
     gap: 0.85rem;
   }
 
-  .prose .affiliate-cta-block__content {
+  .affiliate-cta-block__content {
     flex-basis: auto;
   }
 
-  .prose a.affiliate-link.affiliate-cta-block__action {
+  a.affiliate-link.affiliate-cta-block__action {
     width: 100%;
-    justify-content: center;
     text-align: center;
   }
 }
