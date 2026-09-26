@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-23T05:25:01.876Z",
+  "updatedAt": "2026-09-26T09:24:56.728Z",
   "tasks": [
     {
       "id": "hub-card-layout",
@@ -124,7 +124,8 @@
         "npm run format:check --prefix site",
         "npm run test:e2e:visual --prefix site"
       ],
-      "status": "in_progress"
+      "status": "completed",
+      "completedAt": "2026-09-26T09:24:56.604Z"
     },
     {
       "id": "breadcrumb-mobile",
