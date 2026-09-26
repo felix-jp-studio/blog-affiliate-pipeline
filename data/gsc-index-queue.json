@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-26T02:16:26.701Z",
+  "updatedAt": "2026-09-26T03:17:09.244Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3290,6 +3290,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "hikari-slow-genin-fix",
+      "url": "https://sim-hikari-guide.com/articles/hikari-slow-genin-fix",
+      "mergedAt": "2026-09-26T03:17:09.243Z",
+      "indexed": false
     }
   ]
 }
