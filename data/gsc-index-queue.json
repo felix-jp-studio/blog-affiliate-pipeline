@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-09-27T02:10:04.363Z",
+  "updatedAt": "2026-09-27T03:24:34.409Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3307,6 +3307,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "docomo-denki-set",
+      "url": "https://sim-hikari-guide.com/articles/docomo-denki-set",
+      "mergedAt": "2026-09-27T03:24:34.408Z",
+      "indexed": false
     }
   ]
 }
