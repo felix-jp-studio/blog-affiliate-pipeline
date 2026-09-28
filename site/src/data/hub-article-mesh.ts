@@ -356,6 +356,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "mnp-norikae-tejun-shoshinsha",
         label: "MNP 乗り換え 手順 初心者の手順",
       },
+      {
+        slug: "sim-fukukaisen-osusume-hikaku",
+        label: "デュアルSIM 副回線 おすすめ 比較",
+      },
     ],
   },
   hikari: {

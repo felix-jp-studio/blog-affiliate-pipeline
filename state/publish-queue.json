@@ -1,20 +1,12 @@
 {
-  "last_run": "2026-09-27",
-  "next_scheduled": "2026-09-28",
-  "week_id": "2026-W39",
-  "runs_this_week": 7,
+  "last_run": "2026-09-28",
+  "next_scheduled": "2026-09-29",
+  "week_id": "2026-W40",
+  "runs_this_week": 1,
   "type_counts": {
-    "comparison": 2,
-    "howto": 2,
-    "troubleshoot": 2,
-    "crosssell": 1
+    "comparison": 1
   },
   "history": [
-    {
-      "date": "2026-08-02",
-      "keywords": ["auでんき 料金 比較"],
-      "ok_count": 1
-    },
     {
       "date": "2026-08-03",
       "keywords": ["格安SIM 副回線 おすすめ"],
@@ -268,6 +260,11 @@
     {
       "date": "2026-09-27",
       "keywords": ["ドコモ 電気 セット"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-09-28",
+      "keywords": ["デュアルSIM 副回線 おすすめ 比較"],
       "ok_count": 1
     }
   ]
