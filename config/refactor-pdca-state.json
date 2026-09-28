@@ -1,11 +1,11 @@
 {
   "cycleNumber": 6,
-  "lastRunAt": "2026-09-26T08:35:57.591Z",
-  "lastOutcome": "success",
-  "lastTaskId": "generator-batch-validation",
+  "lastRunAt": "2026-09-28T06:29:34.410Z",
+  "lastOutcome": "planned",
+  "lastTaskId": "e2e-changed-slugs-test",
   "paused": false,
   "metrics": {
-    "collectedAt": "2026-09-24T05:47:39.495Z",
+    "collectedAt": "2026-09-28T06:29:34.410Z",
     "backlogPending": 5,
     "backlogTotal": 10,
     "formatDriftFiles": 0,

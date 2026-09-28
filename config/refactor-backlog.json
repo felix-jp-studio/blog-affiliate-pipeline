@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-26T08:35:57.591Z",
+  "updatedAt": "2026-09-28T06:29:35.633Z",
   "tasks": [
     {
       "id": "dedupe-e2e-utils",
@@ -117,7 +117,7 @@
       "execution": "agent",
       "targetPaths": ["scripts/e2e/changed-slugs.mjs", "scripts/e2e/"],
       "acceptance": ["node --test scripts/e2e/*.test.mjs", "npm run format:check"],
-      "status": "pending"
+      "status": "in_progress"
     }
   ]
 }
