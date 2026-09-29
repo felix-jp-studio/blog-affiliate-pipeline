@@ -1,17 +1,13 @@
 {
-  "last_run": "2026-09-28",
-  "next_scheduled": "2026-09-29",
+  "last_run": "2026-09-29",
+  "next_scheduled": "2026-09-30",
   "week_id": "2026-W40",
-  "runs_this_week": 1,
+  "runs_this_week": 2,
   "type_counts": {
-    "comparison": 1
+    "comparison": 1,
+    "howto": 1
   },
   "history": [
-    {
-      "date": "2026-08-03",
-      "keywords": ["格安SIM 副回線 おすすめ"],
-      "ok_count": 1
-    },
     {
       "date": "2026-08-04",
       "keywords": ["povo データ容量 追加 方法"],
@@ -265,6 +261,11 @@
     {
       "date": "2026-09-28",
       "keywords": ["デュアルSIM 副回線 おすすめ 比較"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-09-29",
+      "keywords": ["格安SIM 開通 手順"],
       "ok_count": 1
     }
   ]
