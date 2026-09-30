@@ -1,11 +1,11 @@
 {
   "cycleNumber": 7,
-  "lastRunAt": "2026-09-26T09:24:56.729Z",
-  "lastOutcome": "success",
+  "lastRunAt": "2026-09-30T06:12:50.364Z",
+  "lastOutcome": "planned",
   "lastTaskId": "affiliate-cta-spacing",
   "paused": false,
   "metrics": {
-    "collectedAt": "2026-09-23T05:25:01.047Z",
+    "collectedAt": "2026-09-30T06:12:50.364Z",
     "backlogPending": 3,
     "backlogTotal": 10,
     "openUxPrs": 0,
@@ -24,5 +24,5 @@
   },
   "blockers": [],
   "consecutiveFailures": 0,
-  "nextTaskId": null
+  "nextTaskId": "breadcrumb-mobile"
 }
