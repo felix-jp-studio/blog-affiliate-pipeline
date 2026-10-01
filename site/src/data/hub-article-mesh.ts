@@ -364,6 +364,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "sim-kaituu-tejun",
         label: "格安SIM 開通 手順の手順",
       },
+      {
+        slug: "docomo-fukukaisen-sim-hikaku",
+        label: "ドコモ 副回線 格安SIM 比較",
+      },
     ],
   },
   hikari: {
