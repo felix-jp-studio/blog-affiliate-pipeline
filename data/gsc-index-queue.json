@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-01T02:46:01.590Z",
+  "updatedAt": "2026-10-01T03:53:31.308Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3376,6 +3376,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "docomo-fukukaisen-sim-hikaku",
+      "url": "https://sim-hikari-guide.com/articles/docomo-fukukaisen-sim-hikaku",
+      "mergedAt": "2026-10-01T03:53:31.307Z",
+      "indexed": false
     }
   ]
 }
