@@ -1,12 +1,12 @@
 {
   "cycleNumber": 6,
-  "lastRunAt": "2026-09-28T06:29:34.410Z",
+  "lastRunAt": "2026-10-01T06:46:20.102Z",
   "lastOutcome": "planned",
   "lastTaskId": "e2e-changed-slugs-test",
   "paused": false,
   "metrics": {
-    "collectedAt": "2026-09-28T06:29:34.410Z",
-    "backlogPending": 5,
+    "collectedAt": "2026-10-01T06:46:20.102Z",
+    "backlogPending": 4,
     "backlogTotal": 10,
     "formatDriftFiles": 0,
     "todoCommentCount": 0,
