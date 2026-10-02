@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-01T03:53:31.308Z",
+  "updatedAt": "2026-10-02T02:50:11.091Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -565,10 +565,10 @@
       "url": "https://sim-hikari-guide.com/articles/sim-20gb-osusume",
       "mergedAt": "2026-07-29T10:29:40.306Z",
       "indexed": false,
-      "lastInspectedAt": "2026-10-01T02:44:47.289Z",
+      "lastInspectedAt": "2026-10-02T02:48:54.789Z",
       "inspection": {
         "verdict": "NEUTRAL",
-        "coverageState": "URL が Google に認識されていません",
+        "coverageState": "検出 - インデックス未登録",
         "indexingState": "INDEXING_STATE_UNSPECIFIED",
         "lastCrawlTime": null,
         "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
@@ -870,10 +870,10 @@
       "url": "https://sim-hikari-guide.com/articles/sim-fukukaisen-osusume",
       "mergedAt": "2026-08-03T02:27:04.533Z",
       "indexed": false,
-      "lastInspectedAt": "2026-10-01T02:44:47.289Z",
+      "lastInspectedAt": "2026-10-02T02:48:54.789Z",
       "inspection": {
         "verdict": "NEUTRAL",
-        "coverageState": "検出 - インデックス未登録",
+        "coverageState": "URL が Google に認識されていません",
         "indexingState": "INDEXING_STATE_UNSPECIFIED",
         "lastCrawlTime": null,
         "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
@@ -1193,7 +1193,7 @@
       "url": "https://sim-hikari-guide.com/articles/iijmio-kaituu-dekinai-fix",
       "mergedAt": "2026-08-09T04:28:39.421Z",
       "indexed": false,
-      "lastInspectedAt": "2026-10-01T02:44:47.289Z",
+      "lastInspectedAt": "2026-10-02T02:48:54.789Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -1570,7 +1570,7 @@
       "url": "https://sim-hikari-guide.com/articles/povo-kaiyaku-tejun",
       "mergedAt": "2026-08-09T05:12:09.895Z",
       "indexed": false,
-      "lastInspectedAt": "2026-09-29T02:58:56.938Z",
+      "lastInspectedAt": "2026-10-02T02:48:54.789Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -3279,7 +3279,7 @@
       "url": "https://sim-hikari-guide.com/articles/mnp-norikae-tejun-shoshinsha",
       "mergedAt": "2026-09-25T03:13:14.380Z",
       "indexed": false,
-      "lastInspectedAt": "2026-10-01T02:44:47.289Z",
+      "lastInspectedAt": "2026-10-02T02:48:54.789Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -3296,7 +3296,7 @@
       "url": "https://sim-hikari-guide.com/articles/hikari-slow-genin-fix",
       "mergedAt": "2026-09-26T03:17:09.243Z",
       "indexed": false,
-      "lastInspectedAt": "2026-10-01T02:44:47.289Z",
+      "lastInspectedAt": "2026-10-02T02:48:54.789Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -3313,7 +3313,7 @@
       "url": "https://sim-hikari-guide.com/articles/docomo-denki-set",
       "mergedAt": "2026-09-27T03:24:34.408Z",
       "indexed": false,
-      "lastInspectedAt": "2026-10-01T02:44:47.289Z",
+      "lastInspectedAt": "2026-10-02T02:48:54.789Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -3347,41 +3347,55 @@
       "slug": "sim-kaituu-tejun",
       "url": "https://sim-hikari-guide.com/articles/sim-kaituu-tejun",
       "mergedAt": "2026-09-29T03:59:26.606Z",
-      "indexed": false,
-      "lastInspectedAt": "2026-10-01T02:44:47.289Z",
+      "indexed": true,
+      "lastInspectedAt": "2026-10-02T02:48:54.789Z",
       "inspection": {
-        "verdict": "NEUTRAL",
-        "coverageState": "URL が Google に認識されていません",
-        "indexingState": "INDEXING_STATE_UNSPECIFIED",
-        "lastCrawlTime": null,
-        "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-        "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-        "indexed": false,
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-10-01T16:39:48Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
         "source": "api"
-      }
+      },
+      "indexedAt": "2026-10-02T02:48:54.789Z"
     },
     {
       "slug": "hikari-tsunagaranai-fix",
       "url": "https://sim-hikari-guide.com/articles/hikari-tsunagaranai-fix",
       "mergedAt": "2026-09-30T03:46:47.780Z",
-      "indexed": false,
-      "lastInspectedAt": "2026-10-01T02:44:47.289Z",
+      "indexed": true,
+      "lastInspectedAt": "2026-10-02T02:48:54.789Z",
       "inspection": {
-        "verdict": "NEUTRAL",
-        "coverageState": "URL が Google に認識されていません",
-        "indexingState": "INDEXING_STATE_UNSPECIFIED",
-        "lastCrawlTime": null,
-        "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-        "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-        "indexed": false,
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-10-01T06:00:39Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
         "source": "api"
-      }
+      },
+      "indexedAt": "2026-10-02T02:48:54.789Z"
     },
     {
       "slug": "docomo-fukukaisen-sim-hikaku",
       "url": "https://sim-hikari-guide.com/articles/docomo-fukukaisen-sim-hikaku",
       "mergedAt": "2026-10-01T03:53:31.307Z",
-      "indexed": false
+      "indexed": true,
+      "lastInspectedAt": "2026-10-02T02:48:54.789Z",
+      "inspection": {
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-10-01T05:55:43Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
+        "source": "api"
+      },
+      "indexedAt": "2026-10-02T02:48:54.789Z"
     }
   ]
 }
