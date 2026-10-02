@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-02T02:50:11.091Z",
+  "updatedAt": "2026-10-02T03:50:46.555Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3396,6 +3396,12 @@
         "source": "api"
       },
       "indexedAt": "2026-10-02T02:48:54.789Z"
+    },
+    {
+      "slug": "sim-sashikae-houhou-iphone",
+      "url": "https://sim-hikari-guide.com/articles/sim-sashikae-houhou-iphone",
+      "mergedAt": "2026-10-02T03:50:46.554Z",
+      "indexed": false
     }
   ]
 }
