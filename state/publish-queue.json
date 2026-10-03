@@ -1,19 +1,14 @@
 {
-  "last_run": "2026-10-02",
-  "next_scheduled": "2026-10-03",
+  "last_run": "2026-10-03",
+  "next_scheduled": "2026-10-04",
   "week_id": "2026-W40",
-  "runs_this_week": 5,
+  "runs_this_week": 6,
   "type_counts": {
     "comparison": 2,
     "howto": 2,
-    "troubleshoot": 1
+    "troubleshoot": 2
   },
   "history": [
-    {
-      "date": "2026-08-07",
-      "keywords": ["ahamo 大盛り オプション 申し込み 手順"],
-      "ok_count": 1
-    },
     {
       "date": "2026-08-08",
       "keywords": ["IIJmio 速度 遅い 対処"],
@@ -267,6 +262,11 @@
     {
       "date": "2026-10-02",
       "keywords": ["SIM 差し替え 方法 iPhone"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-10-03",
+      "keywords": ["NURO 光 開通 遅い 原因"],
       "ok_count": 1
     }
   ]

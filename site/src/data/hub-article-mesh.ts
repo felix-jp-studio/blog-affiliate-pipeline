@@ -716,6 +716,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "hikari-tsunagaranai-fix",
         label: "光回線 繋がらない 対処の原因と7つの対処法",
       },
+      {
+        slug: "nuro-hikari-kaituu-slow-genin",
+        label: "NURO 光 開通 遅い 原因の原因と7つの…",
+      },
     ],
   },
   cost: {
