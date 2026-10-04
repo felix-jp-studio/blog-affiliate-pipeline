@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-04T03:07:58.328Z",
+  "updatedAt": "2026-10-04T04:04:57.587Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3432,6 +3432,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "ahamo-setwari-hikari-kakunin",
+      "url": "https://sim-hikari-guide.com/articles/ahamo-setwari-hikari-kakunin",
+      "mergedAt": "2026-10-04T04:04:57.586Z",
+      "indexed": false
     }
   ]
 }
