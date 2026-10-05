@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-05T02:41:03.888Z",
+  "updatedAt": "2026-10-05T03:49:01.029Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3450,6 +3450,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "mnp-norikae-campaign-hikaku-2026",
+      "url": "https://sim-hikari-guide.com/articles/mnp-norikae-campaign-hikaku-2026",
+      "mergedAt": "2026-10-05T03:49:01.028Z",
+      "indexed": false
     }
   ]
 }
