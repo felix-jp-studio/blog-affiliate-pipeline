@@ -1,20 +1,12 @@
 {
-  "last_run": "2026-10-04",
-  "next_scheduled": "2026-10-05",
-  "week_id": "2026-W40",
-  "runs_this_week": 7,
+  "last_run": "2026-10-05",
+  "next_scheduled": "2026-10-06",
+  "week_id": "2026-W41",
+  "runs_this_week": 1,
   "type_counts": {
-    "comparison": 2,
-    "howto": 2,
-    "troubleshoot": 2,
-    "crosssell": 1
+    "comparison": 1
   },
   "history": [
-    {
-      "date": "2026-08-09",
-      "keywords": ["楽天でんき 料金"],
-      "ok_count": 1
-    },
     {
       "date": "2026-08-13",
       "keywords": ["光回線 セット割 料金 比較"],
@@ -268,6 +260,11 @@
     {
       "date": "2026-10-04",
       "keywords": ["ahamo セット割 光回線 確認"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-10-05",
+      "keywords": ["MNP 乗り換え キャンペーン 比較 2026"],
       "ok_count": 1
     }
   ]
