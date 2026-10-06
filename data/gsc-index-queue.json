@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-06T03:34:01.837Z",
+  "updatedAt": "2026-10-06T04:37:39.657Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3467,6 +3467,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "android-sim-settei-houhou",
+      "url": "https://sim-hikari-guide.com/articles/android-sim-settei-houhou",
+      "mergedAt": "2026-10-06T04:37:39.656Z",
+      "indexed": false
     }
   ]
 }
