@@ -376,6 +376,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "mnp-norikae-campaign-hikaku-2026",
         label: "MNP 乗り換え キャンペーン 比較 2026",
       },
+      {
+        slug: "android-sim-settei-houhou",
+        label: "Android 格安SIM 設定 方法の手順",
+      },
     ],
   },
   hikari: {
