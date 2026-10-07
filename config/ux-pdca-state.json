@@ -1,12 +1,12 @@
 {
   "cycleNumber": 7,
-  "lastRunAt": "2026-09-30T06:12:50.364Z",
+  "lastRunAt": "2026-10-07T06:45:31.995Z",
   "lastOutcome": "planned",
   "lastTaskId": "affiliate-cta-spacing",
   "paused": false,
   "metrics": {
-    "collectedAt": "2026-09-30T06:12:50.364Z",
-    "backlogPending": 3,
+    "collectedAt": "2026-10-07T06:45:31.995Z",
+    "backlogPending": 2,
     "backlogTotal": 10,
     "openUxPrs": 0,
     "cwvRegression": false,
