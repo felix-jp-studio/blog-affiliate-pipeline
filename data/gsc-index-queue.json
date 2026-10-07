@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-07T02:59:57.966Z",
+  "updatedAt": "2026-10-07T04:02:30.167Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3484,6 +3484,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "au-hikari-kouji-chien-kakunin",
+      "url": "https://sim-hikari-guide.com/articles/au-hikari-kouji-chien-kakunin",
+      "mergedAt": "2026-10-07T04:02:30.166Z",
+      "indexed": false
     }
   ]
 }
