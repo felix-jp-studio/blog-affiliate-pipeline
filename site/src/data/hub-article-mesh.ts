@@ -728,6 +728,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "nuro-hikari-kaituu-slow-genin",
         label: "NURO 光 開通 遅い 原因の原因と7つの…",
       },
+      {
+        slug: "au-hikari-kouji-chien-kakunin",
+        label: "au ひかり 工事 遅延 確認の原因と7つの…",
+      },
     ],
   },
   cost: {

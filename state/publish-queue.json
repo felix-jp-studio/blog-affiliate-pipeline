@@ -1,18 +1,14 @@
 {
-  "last_run": "2026-10-06",
-  "next_scheduled": "2026-10-07",
+  "last_run": "2026-10-07",
+  "next_scheduled": "2026-10-08",
   "week_id": "2026-W41",
-  "runs_this_week": 2,
+  "runs_this_week": 3,
   "type_counts": {
     "comparison": 1,
-    "howto": 1
+    "howto": 1,
+    "troubleshoot": 1
   },
   "history": [
-    {
-      "date": "2026-08-14",
-      "keywords": ["UQモバイル eSIM 設定 方法"],
-      "ok_count": 1
-    },
     {
       "date": "2026-08-15",
       "keywords": ["au ひかり 繋がらない 対処"],
@@ -266,6 +262,11 @@
     {
       "date": "2026-10-06",
       "keywords": ["Android 格安SIM 設定 方法"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-10-07",
+      "keywords": ["au ひかり 工事 遅延 確認"],
       "ok_count": 1
     }
   ]
