@@ -1,19 +1,14 @@
 {
-  "last_run": "2026-10-07",
-  "next_scheduled": "2026-10-08",
+  "last_run": "2026-10-08",
+  "next_scheduled": "2026-10-09",
   "week_id": "2026-W41",
-  "runs_this_week": 3,
+  "runs_this_week": 4,
   "type_counts": {
-    "comparison": 1,
+    "comparison": 2,
     "howto": 1,
     "troubleshoot": 1
   },
   "history": [
-    {
-      "date": "2026-08-15",
-      "keywords": ["au ひかり 繋がらない 対処"],
-      "ok_count": 1
-    },
     {
       "date": "2026-08-16",
       "keywords": ["引越し 光回線 電気 セット"],
@@ -267,6 +262,11 @@
     {
       "date": "2026-10-07",
       "keywords": ["au ひかり 工事 遅延 確認"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-10-08",
+      "keywords": ["格安SIM 乗り換え キャリア 比較"],
       "ok_count": 1
     }
   ]

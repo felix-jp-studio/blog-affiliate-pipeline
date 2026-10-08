@@ -380,6 +380,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "android-sim-settei-houhou",
         label: "Android 格安SIM 設定 方法の手順",
       },
+      {
+        slug: "sim-norikae-carrier-hikaku",
+        label: "格安SIM 乗り換え キャリア 比較",
+      },
     ],
   },
   hikari: {
