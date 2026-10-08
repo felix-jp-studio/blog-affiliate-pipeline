@@ -7,5 +7,5 @@
   "targetPaths": ["scripts/e2e/changed-slugs.mjs", "scripts/e2e/"],
   "acceptance": ["node --test scripts/e2e/*.test.mjs", "npm run format:check"],
   "agentPrompt": "Refactor PDCA Cycle 6: changed-slugs.mjs の unit test 追加\n\nscripts/e2e/changed-slugs.mjs の pure 関数をテスト。\n\n## 対象パス\n- `scripts/e2e/changed-slugs.mjs`\n- `scripts/e2e/`\n\n## 禁止パス\n- `site/src/content/articles/`\n- `site/src/components/`\n- `site/src/styles/`\n- `data/keywords.seed.csv`\n- `data/gsc-index-queue.json`\n- `.env`\n\n## 完了条件\nnode --test scripts/e2e/*.test.mjs\nnpm run format:check\n\n## PR\n- ブランチ: `feature/refactor-pdca-6`\n- ラベル: `refactor-pdca-auto`\n- タイトル: Refactor PDCA Cycle 6: changed-slugs.mjs の unit test 追加\n- diff 上限: 300 行 / 15 ファイル",
-  "createdAt": "2026-10-05T06:40:17.393Z"
+  "createdAt": "2026-10-08T06:57:00.134Z"
 }
