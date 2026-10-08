@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-08T03:16:15.575Z",
+  "updatedAt": "2026-10-08T04:16:24.321Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3504,6 +3504,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "sim-norikae-carrier-hikaku",
+      "url": "https://sim-hikari-guide.com/articles/sim-norikae-carrier-hikaku",
+      "mergedAt": "2026-10-08T04:16:24.320Z",
+      "indexed": false
     }
   ]
 }
