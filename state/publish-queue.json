@@ -1,19 +1,14 @@
 {
-  "last_run": "2026-10-08",
-  "next_scheduled": "2026-10-09",
+  "last_run": "2026-10-09",
+  "next_scheduled": "2026-10-10",
   "week_id": "2026-W41",
-  "runs_this_week": 4,
+  "runs_this_week": 5,
   "type_counts": {
     "comparison": 2,
-    "howto": 1,
+    "howto": 2,
     "troubleshoot": 1
   },
   "history": [
-    {
-      "date": "2026-08-16",
-      "keywords": ["引越し 光回線 電気 セット"],
-      "ok_count": 1
-    },
     {
       "date": "2026-08-17",
       "keywords": ["NURO 光 解約金 比較"],
@@ -267,6 +262,11 @@
     {
       "date": "2026-10-08",
       "keywords": ["格安SIM 乗り換え キャリア 比較"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-10-09",
+      "keywords": ["MNP ワンストップ 手順"],
       "ok_count": 1
     }
   ]
