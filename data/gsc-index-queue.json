@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-09T04:21:26.956Z",
+  "updatedAt": "2026-10-10T04:05:32.280Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3526,6 +3526,12 @@
       "slug": "mnp-one-stop-tejun",
       "url": "https://sim-hikari-guide.com/articles/mnp-one-stop-tejun",
       "mergedAt": "2026-10-09T04:21:26.955Z",
+      "indexed": false
+    },
+    {
+      "slug": "wimax-speed-slow-kaizen",
+      "url": "https://sim-hikari-guide.com/articles/wimax-speed-slow-kaizen",
+      "mergedAt": "2026-10-10T04:05:32.280Z",
       "indexed": false
     }
   ]
