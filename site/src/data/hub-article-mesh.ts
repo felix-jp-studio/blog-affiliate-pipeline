@@ -740,6 +740,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "au-hikari-kouji-chien-kakunin",
         label: "au ひかり 工事 遅延 確認の原因と7つの…",
       },
+      {
+        slug: "wimax-speed-slow-kaizen",
+        label: "WiMAX 速度 遅い 改善の原因と7つの対処法",
+      },
     ],
   },
   cost: {
