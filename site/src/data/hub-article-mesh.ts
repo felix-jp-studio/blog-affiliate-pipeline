@@ -844,6 +844,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "ahamo-setwari-hikari-kakunin",
         label: "ahamo セット割 光回線 確認で固定費を…",
       },
+      {
+        slug: "wimax-hikari-norikae-koteihi",
+        label: "WiMAX 光回線 乗り換え 固定費で固定費…",
+      },
     ],
   },
 };
