@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-11T02:32:00.505Z",
+  "updatedAt": "2026-10-11T03:42:25.376Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3555,6 +3555,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "wimax-hikari-norikae-koteihi",
+      "url": "https://sim-hikari-guide.com/articles/wimax-hikari-norikae-koteihi",
+      "mergedAt": "2026-10-11T03:42:25.375Z",
+      "indexed": false
     }
   ]
 }
