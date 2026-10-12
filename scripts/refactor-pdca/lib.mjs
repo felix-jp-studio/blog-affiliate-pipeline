@@ -93,6 +93,58 @@ export function countFormatDrift() {
   }
 }
 
+/**
+ * Open agent issues for this loop. A cycle keeps its backlog task `in_progress`
+ * until its PR merges, and pendingTasks() still selects such a task, so without
+ * this guard every scheduled run files another issue for the same cycle.
+ */
+/**
+ * A cycle is still in flight while its issue or PR is open; planning again then
+ * just refiles the same work. Returns the skip reason, or null to go ahead.
+ */
+/** The open agent issue already filed for this exact title, if there is one. */
+export function findOpenIssueByTitle(issues, title) {
+  return issues.find((issue) => issue.title === title) ?? null;
+}
+
+export function openWorkSkipReason(metrics = {}) {
+  if (metrics.openRefactorPrs > 0) return `open PRs: ${metrics.openRefactorPrs}`;
+  if (metrics.openAgentIssues > 0) {
+    return `open agent issues: ${metrics.openAgentIssues}`;
+  }
+  return null;
+}
+
+export function countOpenAgentIssues() {
+  if (!process.env.GH_TOKEN && !process.env.GITHUB_TOKEN) return 0;
+  try {
+    const output = execFileSync(
+      "gh",
+      [
+        "issue",
+        "list",
+        "--state",
+        "open",
+        "--label",
+        "refactor-pdca-auto",
+        "--json",
+        "number",
+      ],
+      {
+        cwd: repoRoot,
+        encoding: "utf8",
+        env: {
+          ...process.env,
+          GH_TOKEN: process.env.GH_TOKEN ?? process.env.GITHUB_TOKEN,
+        },
+      },
+    );
+    return JSON.parse(output).length;
+  } catch {
+    return 0;
+  }
+}
+
 export function countOpenRefactorPrs() {
   if (!process.env.GH_TOKEN && !process.env.GITHUB_TOKEN) return 0;
   try {

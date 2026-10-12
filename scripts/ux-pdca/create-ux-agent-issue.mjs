@@ -8,11 +8,37 @@
  */
 import { execFileSync } from "node:child_process";
 import { writeFileSync, appendFileSync, existsSync } from "node:fs";
-import { PATHS, readJson } from "./lib.mjs";
+import { PATHS, findOpenIssueByTitle, readJson } from "./lib.mjs";
 import { repoRoot } from "../e2e/e2e-utils.mjs";
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
+const REPO = process.env.GITHUB_REPOSITORY ?? "felix-jp-studio/blog-affiliate-pipeline";
+
+/** Open issues this loop has already filed, so a replanned cycle is not refiled. */
+function listOpenAgentIssues() {
+  try {
+    const output = execFileSync(
+      "gh",
+      [
+        "issue",
+        "list",
+        "--repo",
+        REPO,
+        "--state",
+        "open",
+        "--label",
+        "ux-pdca-auto",
+        "--json",
+        "number,title,url",
+      ],
+      { cwd: repoRoot, encoding: "utf8" },
+    );
+    return JSON.parse(output);
+  } catch {
+    return [];
+  }
+}
 
 function appendLog(entry) {
   const header = existsSync(PATHS.pdcaLog)
@@ -66,15 +92,22 @@ function main() {
     process.exit(2);
   }
 
+  const title = `UX PDCA Cycle ${brief.cycleNumber}: ${brief.title}`;
+  const existing = findOpenIssueByTitle(listOpenAgentIssues(), title);
+  if (existing) {
+    console.log(`Issue already open for this cycle: ${existing.url}`);
+    return;
+  }
+
   const issueUrl = execFileSync(
     "gh",
     [
       "issue",
       "create",
       "--repo",
-      process.env.GITHUB_REPOSITORY ?? "felix-jp-studio/blog-affiliate-pipeline",
+      REPO,
       "--title",
-      `UX PDCA Cycle ${brief.cycleNumber}: ${brief.title}`,
+      title,
       "--label",
       "ux-pdca-auto",
       "--body",

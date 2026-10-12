@@ -50,6 +50,23 @@ export function saveBacklog(tasks) {
   });
 }
 
+/**
+ * A cycle is still in flight while its issue or PR is open; planning again then
+ * just refiles the same work. Returns the skip reason, or null to go ahead.
+ */
+/** The open agent issue already filed for this exact title, if there is one. */
+export function findOpenIssueByTitle(issues, title) {
+  return issues.find((issue) => issue.title === title) ?? null;
+}
+
+export function openWorkSkipReason(metrics = {}) {
+  if (metrics.openUxPrs > 0) return `Open UX PRs: ${metrics.openUxPrs}`;
+  if (metrics.openAgentIssues > 0) {
+    return `Open UX agent issues: ${metrics.openAgentIssues}`;
+  }
+  return null;
+}
+
 export function pendingTasks(tasks) {
   return tasks
     .filter((task) => task.status === "pending" || task.status === "in_progress")
