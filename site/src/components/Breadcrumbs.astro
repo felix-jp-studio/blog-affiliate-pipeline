@@ -6,13 +6,6 @@ interface Props {
 }
 
 const { items } = Astro.props;
-
-const MAX_CURRENT_LABEL = 28;
-
-function truncateLabel(label: string, maxLength: number): string {
-  if (label.length <= maxLength) return label;
-  return `${label.slice(0, maxLength)}…`;
-}
 ---
 
 <nav aria-label="パンくずリスト" class="breadcrumbs">
@@ -28,15 +21,9 @@ function truncateLabel(label: string, maxLength: number): string {
               <span
                 aria-current={isLast ? "page" : undefined}
                 class={isLast ? "breadcrumbs__current" : undefined}
-                title={
-                  isLast && item.label.length > MAX_CURRENT_LABEL
-                    ? item.label
-                    : undefined
-                }
+                title={isLast ? item.label : undefined}
               >
-                {isLast
-                  ? truncateLabel(item.label, MAX_CURRENT_LABEL)
-                  : item.label}
+                {item.label}
               </span>
             )}
           </li>
@@ -56,10 +43,19 @@ function truncateLabel(label: string, maxLength: number): string {
   ol {
     display: flex;
     flex-wrap: wrap;
+    align-items: baseline;
     gap: 0.35rem;
     list-style: none;
     margin: 0;
     padding: 0;
+  }
+
+  /* min-width lets a long crumb shrink below its text width so it can ellipsize
+     instead of pushing the row past the viewport. */
+  li {
+    display: flex;
+    align-items: baseline;
+    min-width: 0;
   }
 
   li:not(:last-child)::after {
@@ -80,16 +76,19 @@ function truncateLabel(label: string, maxLength: number): string {
     color: var(--text);
   }
 
+  /* The current page is the only crumb that can be long: clip it to whatever the
+     row has left rather than to a fixed character count. */
   .breadcrumbs__current {
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: min(100%, 16rem);
+    max-width: 100%;
   }
 
   @media (min-width: 640px) {
     .breadcrumbs__current {
-      max-width: none;
+      overflow: visible;
       white-space: normal;
     }
   }
