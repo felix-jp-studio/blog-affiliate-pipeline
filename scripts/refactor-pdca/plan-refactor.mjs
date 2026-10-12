@@ -6,6 +6,7 @@ import {
   PATHS,
   buildAgentPrompt,
   loadBacklog,
+  openWorkSkipReason,
   readJson,
   saveBacklog,
   selectTask,
@@ -31,15 +32,12 @@ function planRefactor() {
   const metrics = state.metrics ?? {
     formatDriftFiles: 0,
     openRefactorPrs: 0,
+    openAgentIssues: 0,
     backlogPending: 0,
   };
-  if (metrics.openRefactorPrs > 0) {
-    return {
-      action: "skip",
-      reason: `open PRs: ${metrics.openRefactorPrs}`,
-      state,
-      metrics,
-    };
+  const skipReason = openWorkSkipReason(metrics);
+  if (skipReason) {
+    return { action: "skip", reason: skipReason, state, metrics };
   }
 
   const { task, reason } = selectTask(metrics);

@@ -5,6 +5,8 @@ import {
   parseCwvBaseline,
   pendingTasks,
   buildAgentPrompt,
+  findOpenIssueByTitle,
+  openWorkSkipReason,
 } from "./lib.mjs";
 
 describe("ux-pdca lib", () => {
@@ -46,5 +48,33 @@ describe("ux-pdca lib", () => {
     );
     assert.match(prompt, /feature\/ux-pdca-3/);
     assert.match(prompt, /Test task/);
+  });
+});
+
+describe("openWorkSkipReason", () => {
+  it("plans when nothing is in flight", () => {
+    assert.equal(openWorkSkipReason({ openUxPrs: 0, openAgentIssues: 0 }), null);
+    assert.equal(openWorkSkipReason(), null);
+  });
+
+  it("skips while a PR or an agent issue is still open", () => {
+    assert.match(openWorkSkipReason({ openUxPrs: 2 }), /Open UX PRs: 2/);
+    assert.match(openWorkSkipReason({ openAgentIssues: 3 }), /Open UX agent issues: 3/);
+  });
+});
+
+describe("findOpenIssueByTitle", () => {
+  const issues = [
+    { number: 1, title: "UX PDCA Cycle 6: a", url: "u1" },
+    { number: 2, title: "UX PDCA Cycle 7: b", url: "u2" },
+  ];
+
+  it("finds the issue already filed for a title", () => {
+    assert.equal(findOpenIssueByTitle(issues, "UX PDCA Cycle 7: b").number, 2);
+  });
+
+  it("returns null for a new title or an empty list", () => {
+    assert.equal(findOpenIssueByTitle(issues, "UX PDCA Cycle 8: c"), null);
+    assert.equal(findOpenIssueByTitle([], "anything"), null);
   });
 });

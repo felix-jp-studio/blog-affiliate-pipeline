@@ -36,6 +36,25 @@ function countOpenUxPrs() {
   }
 }
 
+/**
+ * Open agent issues for this loop. A cycle keeps its backlog task `in_progress`
+ * until its PR merges, and pendingTasks() still selects such a task, so without
+ * this guard every scheduled run files another issue for the same cycle.
+ */
+function countOpenAgentIssues() {
+  if (!process.env.GH_TOKEN && !process.env.GITHUB_TOKEN) return 0;
+  try {
+    const output = execFileSync(
+      "gh",
+      ["issue", "list", "--state", "open", "--label", "ux-pdca-auto", "--json", "number"],
+      { cwd: repoRoot, encoding: "utf8" },
+    );
+    return JSON.parse(output).length;
+  } catch {
+    return 0;
+  }
+}
+
 function visualTestStatus() {
   try {
     execFileSync("npm", ["run", "test:e2e:visual", "--prefix", "site"], {
@@ -69,6 +88,7 @@ function collectMetrics() {
     backlogPending: pending,
     backlogTotal: tasks.length,
     openUxPrs: countOpenUxPrs(),
+    openAgentIssues: countOpenAgentIssues(),
     cwvRegression: cwv.regression,
     cwvRegressionReason: cwv.reason,
     cwvLatest: cwvRows.at(-1) ?? null,
@@ -100,6 +120,7 @@ function main() {
   console.log(`UX metrics (${metrics.collectedAt})`);
   console.log(`Backlog pending: ${metrics.backlogPending}/${metrics.backlogTotal}`);
   console.log(`Open UX PRs: ${metrics.openUxPrs}`);
+  console.log(`Open UX agent issues: ${metrics.openAgentIssues}`);
   console.log(
     `CWV regression: ${metrics.cwvRegression}${metrics.cwvRegressionReason ? ` (${metrics.cwvRegressionReason})` : ""}`,
   );

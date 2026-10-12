@@ -5,6 +5,7 @@
 import {
   PATHS,
   countFormatDrift,
+  countOpenAgentIssues,
   countOpenRefactorPrs,
   countTodoComments,
   loadBacklog,
@@ -25,6 +26,7 @@ function collectMetrics() {
     formatDriftFiles: countFormatDrift(),
     todoCommentCount: countTodoComments(),
     openRefactorPrs: countOpenRefactorPrs(),
+    openAgentIssues: countOpenAgentIssues(),
   };
 }
 
@@ -46,7 +48,7 @@ function main() {
     return;
   }
   console.log(
-    `Refactor metrics: drift=${metrics.formatDriftFiles} todos=${metrics.todoCommentCount} openPRs=${metrics.openRefactorPrs}`,
+    `Refactor metrics: drift=${metrics.formatDriftFiles} todos=${metrics.todoCommentCount} openPRs=${metrics.openRefactorPrs} openIssues=${metrics.openAgentIssues}`,
   );
 }
 

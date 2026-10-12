@@ -13,6 +13,7 @@ import {
   MAX_FILES,
   buildAgentPrompt,
   loadBacklog,
+  openWorkSkipReason,
   pendingTasks,
   readJson,
   saveBacklog,
@@ -70,13 +71,9 @@ function planCycle() {
     visualTestStatus: "skipped",
   };
 
-  if (metrics.openUxPrs > 0) {
-    return {
-      action: "skip",
-      reason: `Open UX PRs: ${metrics.openUxPrs}`,
-      state,
-      metrics,
-    };
+  const skipReason = openWorkSkipReason(metrics);
+  if (skipReason) {
+    return { action: "skip", reason: skipReason, state, metrics };
   }
 
   const task = selectTask(metrics, state);
