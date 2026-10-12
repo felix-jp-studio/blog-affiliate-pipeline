@@ -7,6 +7,7 @@ import {
   MAX_FILES,
   buildAgentPrompt,
   findOpenIssueByTitle,
+  isPathAllowed,
   openWorkSkipReason,
   pendingTasks,
   selectTask,
@@ -80,5 +81,26 @@ describe("findOpenIssueByTitle", () => {
   it("returns null for a new title or an empty list", () => {
     assert.equal(findOpenIssueByTitle(issues, "Refactor PDCA Cycle 8: c"), null);
     assert.equal(findOpenIssueByTitle([], "anything"), null);
+  });
+});
+
+describe("isPathAllowed", () => {
+  it("allows the loop's own files and ALLOW_SCOPE", () => {
+    assert.equal(isPathAllowed("scripts/e2e/changed-slugs.mjs"), true);
+    assert.equal(isPathAllowed("scripts/refactor-pdca/lib.mjs"), true);
+    assert.equal(isPathAllowed(".github/workflows/refactor-pr-gatekeeper.yml"), true);
+  });
+
+  it("rejects paths outside the scope unless the brief declares them", () => {
+    assert.equal(isPathAllowed("package.json"), false);
+    assert.equal(isPathAllowed("docs/pipeline-flow.md"), false);
+    const targets = ["package.json", "docs/pipeline-flow.md"];
+    assert.equal(isPathAllowed("package.json", targets), true);
+    assert.equal(isPathAllowed("docs/pipeline-flow.md", targets), true);
+  });
+
+  it("keeps DENY_SCOPE winning over a brief that asks for it", () => {
+    assert.equal(isPathAllowed("site/src/content/articles/a.md", ["site/src/"]), false);
+    assert.equal(isPathAllowed(".env", [".env"]), false);
   });
 });

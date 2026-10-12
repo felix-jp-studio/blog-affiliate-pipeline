@@ -3,7 +3,14 @@
  * Evaluate Refactor PDCA PRs for gatekeeper.
  */
 import { execFileSync } from "node:child_process";
-import { ALLOW_SCOPE, DENY_SCOPE, MAX_DIFF_LINES, MAX_FILES } from "./lib.mjs";
+import {
+  DENY_SCOPE,
+  MAX_DIFF_LINES,
+  MAX_FILES,
+  PATHS,
+  isPathAllowed,
+  readJson,
+} from "./lib.mjs";
 
 const PR_NUMBER = process.env.PR_NUMBER;
 const REPO = process.env.GITHUB_REPOSITORY;
@@ -30,17 +37,6 @@ function isRefactorPr(pr) {
   if (/^feature\/refactor-pdca/i.test(branch)) return true;
   if (/^Refactor PDCA Cycle \d+/i.test(pr.title ?? "")) return true;
   return false;
-}
-
-function isAllowed(path) {
-  if (DENY_SCOPE.some((p) => path.startsWith(p))) return false;
-  if (path.startsWith("scripts/refactor-pdca/")) return true;
-  if (path.startsWith("config/refactor-")) return true;
-  if (path.startsWith("data/refactor-cycle-brief.json")) return true;
-  if (path.startsWith("docs/refactor-pdca-automation-design.html")) return true;
-  if (path.startsWith("docs/operations/refactor-pdca-log.md")) return true;
-  if (path.startsWith(".github/workflows/refactor-")) return true;
-  return ALLOW_SCOPE.some((p) => path.startsWith(p));
 }
 
 function main() {
@@ -73,7 +69,8 @@ function main() {
     emit({ verdict: "fail", reason: `Forbidden: ${forbidden.join(", ")}` });
     return;
   }
-  const disallowed = files.filter((f) => !isAllowed(f));
+  const briefTargets = readJson(PATHS.brief, {})?.targetPaths ?? [];
+  const disallowed = files.filter((f) => !isPathAllowed(f, briefTargets));
   if (disallowed.length) {
     emit({ verdict: "fail", reason: `Disallowed: ${disallowed.join(", ")}` });
     return;
