@@ -1,11 +1,11 @@
 {
   "cycleNumber": 7,
-  "lastRunAt": "2026-10-12T05:32:13.840Z",
-  "lastOutcome": "success",
-  "lastTaskId": "e2e-changed-slugs-test",
+  "lastRunAt": "2026-10-12T07:05:56.781Z",
+  "lastOutcome": "planned",
+  "lastTaskId": "npm-scripts-doc-sync",
   "paused": false,
   "metrics": {
-    "collectedAt": "2026-10-08T06:56:58.193Z",
+    "collectedAt": "2026-10-12T07:05:56.781Z",
     "backlogPending": 4,
     "backlogTotal": 10,
     "formatDriftFiles": 0,
