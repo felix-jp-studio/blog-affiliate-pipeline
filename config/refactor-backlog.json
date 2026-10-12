@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-12T07:05:59.255Z",
+  "updatedAt": "2026-10-12T09:11:00.045Z",
   "tasks": [
     {
       "id": "dedupe-e2e-utils",
@@ -84,7 +84,8 @@
       "execution": "agent",
       "targetPaths": ["package.json", "docs/pipeline-flow.md"],
       "acceptance": ["npm run format:check"],
-      "status": "in_progress"
+      "status": "done",
+      "completedAt": "2026-10-12T09:11:00.045Z"
     },
     {
       "id": "publisher-workspace-types",
