@@ -44,6 +44,10 @@ const issues = JSON.parse(
   ]),
 );
 
+// An empty list here usually means the workflow token lacks `issues: read`,
+// which otherwise looks exactly like "nothing to close".
+console.log(`Found ${issues.length} open ${LABEL} issue(s)`);
+
 const closed = closeIssuesForPr({
   issues,
   prTitle: pr.title,
