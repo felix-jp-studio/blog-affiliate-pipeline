@@ -11,20 +11,22 @@
  */
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
+import { loadE2eConfig, repoRoot, articlesPathPrefix } from "./e2e-utils.mjs";
 import {
-  isArticleMarkdownPath,
-  loadE2eConfig,
-  repoRoot,
-  slugFromArticlePath,
-  articlesPathPrefix,
-} from "./e2e-utils.mjs";
+  articlePathsFromDiff,
+  formatSlugs,
+  parseArgs,
+  resolveRange,
+  selectOutputSlugs,
+  slugsFromPaths,
+} from "./changed-slugs-lib.mjs";
 
-const args = process.argv.slice(2);
-const formatArg = args.find((arg) => arg.startsWith("--format="));
-const baseArg = args.find((arg) => arg.startsWith("--base="));
-const headArg = args.find((arg) => arg.startsWith("--head="));
-const noFallback = args.includes("--no-fallback");
-const format = formatArg?.split("=")[1] ?? "lines";
+const {
+  format,
+  base: baseArg,
+  head: headArg,
+  noFallback,
+} = parseArgs(process.argv.slice(2));
 
 function runGit(argsList) {
   return execFileSync("git", argsList, {
@@ -32,43 +34,6 @@ function runGit(argsList) {
     encoding: "utf8",
     stdio: ["ignore", "pipe", "pipe"],
   }).trim();
-}
-
-function resolveRange() {
-  if (baseArg && headArg) {
-    return {
-      base: baseArg.split("=")[1],
-      head: headArg.split("=")[1],
-    };
-  }
-
-  const eventName = process.env.GITHUB_EVENT_NAME;
-  const eventPath = process.env.GITHUB_EVENT_PATH;
-
-  if (eventName === "pull_request" && eventPath) {
-    const event = JSON.parse(readFileSync(eventPath, "utf8"));
-    return {
-      base: event.pull_request.base.sha,
-      head: event.pull_request.head.sha,
-    };
-  }
-
-  if (eventName === "push" && eventPath) {
-    const event = JSON.parse(readFileSync(eventPath, "utf8"));
-    const before = event.before;
-    const after = event.after ?? "HEAD";
-    if (before && before !== "0000000000000000000000000000000000000000") {
-      return { base: before, head: after };
-    }
-  }
-
-  const baseRef =
-    process.env.GITHUB_BASE_REF ??
-    process.env.GITHUB_EVENT_PULL_REQUEST_BASE_SHA ??
-    "origin/main";
-  const headRef = process.env.GITHUB_SHA ?? "HEAD";
-
-  return { base: baseRef, head: headRef };
 }
 
 function changedArticlePaths(base, head) {
@@ -89,19 +54,16 @@ function changedArticlePaths(base, head) {
     }
   }
 
-  return diffOutput
-    .split("\n")
-    .map((line) => line.trim())
-    .filter((line) => line && isArticleMarkdownPath(line));
+  return articlePathsFromDiff(diffOutput);
 }
 
 function resolveChangedSlugs() {
-  const { base, head } = resolveRange();
-  const paths = changedArticlePaths(base, head);
-  const slugs = [
-    ...new Set(paths.map((path) => slugFromArticlePath(path)).filter(Boolean)),
-  ];
-  return { base, head, slugs };
+  const { base, head } = resolveRange(
+    { base: baseArg, head: headArg },
+    process.env,
+    (path) => JSON.parse(readFileSync(path, "utf8")),
+  );
+  return { base, head, slugs: slugsFromPaths(changedArticlePaths(base, head)) };
 }
 
 function fallbackSlugs() {
@@ -109,29 +71,16 @@ function fallbackSlugs() {
   return config.smokeSlugs ?? [];
 }
 
-function formatOutput(slugs) {
-  switch (format) {
-    case "comma":
-      process.stdout.write(slugs.join(","));
-      break;
-    case "env":
-      process.stdout.write(`E2E_SMOKE_SLUGS=${slugs.join(",")}`);
-      break;
-    case "json":
-      process.stdout.write(JSON.stringify(slugs));
-      break;
-    default:
-      for (const slug of slugs) {
-        console.log(slug);
-      }
-  }
-}
-
 const { base, head, slugs } = resolveChangedSlugs();
-const outputSlugs = slugs.length > 0 ? slugs : noFallback ? [] : fallbackSlugs();
+// Only read the e2e config when the fallback can actually be used.
+const needsFallback = slugs.length === 0 && !noFallback;
+const outputSlugs = selectOutputSlugs(slugs, {
+  noFallback,
+  fallbackSlugs: needsFallback ? fallbackSlugs() : [],
+});
 
 if (format === "lines") {
   console.error(`changed-slugs: base=${base} head=${head} count=${outputSlugs.length}`);
 }
 
-formatOutput(outputSlugs);
+process.stdout.write(formatSlugs(outputSlugs, format));
