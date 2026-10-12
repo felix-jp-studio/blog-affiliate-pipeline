@@ -103,6 +103,26 @@ export function countFormatDrift() {
  * just refiles the same work. Returns the skip reason, or null to go ahead.
  */
 /** The open agent issue already filed for this exact title, if there is one. */
+/**
+ * Paths a refactor PR may touch: the loop's own files, ALLOW_SCOPE, and the
+ * targetPaths the current brief declares — a backlog task that legitimately
+ * needs package.json or a doc would otherwise be rejected by its own gate.
+ */
+export function isPathAllowed(path, briefTargets = []) {
+  if (DENY_SCOPE.some((prefix) => path.startsWith(prefix))) return false;
+  if (briefTargets.some((prefix) => path.startsWith(prefix))) return true;
+  const loopPaths = [
+    "scripts/refactor-pdca/",
+    "config/refactor-",
+    "data/refactor-cycle-brief.json",
+    "docs/refactor-pdca-automation-design.html",
+    "docs/operations/refactor-pdca-log.md",
+    ".github/workflows/refactor-",
+  ];
+  if (loopPaths.some((prefix) => path.startsWith(prefix))) return true;
+  return ALLOW_SCOPE.some((prefix) => path.startsWith(prefix));
+}
+
 export function findOpenIssueByTitle(issues, title) {
   return issues.find((issue) => issue.title === title) ?? null;
 }

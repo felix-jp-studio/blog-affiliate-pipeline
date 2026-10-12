@@ -102,8 +102,13 @@ jobs:
         if: >
           steps.pr.outputs.found == 'true' &&
           fromJson(steps.gate.outputs.json).verdict == 'pass'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
+          node scripts/refactor-pdca/close-cycle-issues.mjs || true
           node scripts/refactor-pdca/bump-cycle-state.mjs
           npx --yes prettier --write config/refactor-pdca-state.json \
             config/refactor-backlog.json

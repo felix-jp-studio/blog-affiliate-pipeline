@@ -118,8 +118,13 @@ jobs:
         if: >
           steps.pr.outputs.found == 'true' &&
           fromJson(steps.gate.outputs.json).verdict == 'pass'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
+          node scripts/ux-pdca/close-cycle-issues.mjs || true
           node scripts/ux-pdca/bump-cycle-state.mjs
           npx --yes prettier --write config/ux-pdca-state.json config/ux-backlog.json
           git config user.name "github-actions[bot]"
