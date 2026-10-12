@@ -388,6 +388,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "mnp-one-stop-tejun",
         label: "MNP ワンストップ 手順の手順",
       },
+      {
+        slug: "sim-norikae-mnp-hikaku",
+        label: "格安SIM 乗り換え MNP 比較",
+      },
     ],
   },
   hikari: {
