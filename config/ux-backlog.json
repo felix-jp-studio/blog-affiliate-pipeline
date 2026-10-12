@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-07T06:45:32.770Z",
+  "updatedAt": "2026-10-12T05:44:00.284Z",
   "tasks": [
     {
       "id": "hub-card-layout",
@@ -140,7 +140,8 @@
         "npm run format:check --prefix site",
         "npm run test:e2e:visual --prefix site"
       ],
-      "status": "in_progress"
+      "status": "completed",
+      "completedAt": "2026-10-12T05:44:00.274Z"
     },
     {
       "id": "site-prettier-drift",
