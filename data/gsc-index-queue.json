@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-13T04:11:46.855Z",
+  "updatedAt": "2026-10-13T05:15:49.920Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3589,6 +3589,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "mnp-yoyaku-bangou-yukokigen-kakunin",
+      "url": "https://sim-hikari-guide.com/articles/mnp-yoyaku-bangou-yukokigen-kakunin",
+      "mergedAt": "2026-10-13T05:15:49.919Z",
+      "indexed": false
     }
   ]
 }
