@@ -392,6 +392,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "sim-norikae-mnp-hikaku",
         label: "格安SIM 乗り換え MNP 比較",
       },
+      {
+        slug: "mnp-yoyaku-bangou-yukokigen-kakunin",
+        label: "MNP 予約番号 有効期限 確認の手順",
+      },
     ],
   },
   hikari: {
