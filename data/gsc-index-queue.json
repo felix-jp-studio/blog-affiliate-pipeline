@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-14T02:25:16.097Z",
+  "updatedAt": "2026-10-14T03:21:44.768Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3606,6 +3606,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "home-router-tsunagaranai-fix",
+      "url": "https://sim-hikari-guide.com/articles/home-router-tsunagaranai-fix",
+      "mergedAt": "2026-10-14T03:21:44.767Z",
+      "indexed": false
     }
   ]
 }
