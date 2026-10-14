@@ -1,18 +1,14 @@
 {
-  "last_run": "2026-10-13",
-  "next_scheduled": "2026-10-14",
+  "last_run": "2026-10-14",
+  "next_scheduled": "2026-10-15",
   "week_id": "2026-W42",
-  "runs_this_week": 2,
+  "runs_this_week": 3,
   "type_counts": {
     "comparison": 1,
-    "howto": 1
+    "howto": 1,
+    "troubleshoot": 1
   },
   "history": [
-    {
-      "date": "2026-08-22",
-      "keywords": ["LINEMO eSIM 設定 方法"],
-      "ok_count": 1
-    },
     {
       "date": "2026-08-23",
       "keywords": ["ソフトバンク でんき"],
@@ -266,6 +262,11 @@
     {
       "date": "2026-10-13",
       "keywords": ["MNP 予約番号 有効期限 確認"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-10-14",
+      "keywords": ["ホームルーター 繋がらない 対処"],
       "ok_count": 1
     }
   ]

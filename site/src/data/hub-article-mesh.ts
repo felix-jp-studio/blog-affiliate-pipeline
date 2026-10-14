@@ -752,6 +752,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "wimax-speed-slow-kaizen",
         label: "WiMAX 速度 遅い 改善の原因と7つの対処法",
       },
+      {
+        slug: "home-router-tsunagaranai-fix",
+        label: "ホームルーター 繋がらない 対処の原因と7つ…",
+      },
     ],
   },
   cost: {
