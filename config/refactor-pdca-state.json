@@ -1,16 +1,17 @@
 {
   "cycleNumber": 8,
-  "lastRunAt": "2026-10-12T09:11:00.046Z",
-  "lastOutcome": "success",
-  "lastTaskId": "npm-scripts-doc-sync",
+  "lastRunAt": "2026-10-15T05:30:02.764Z",
+  "lastOutcome": "planned",
+  "lastTaskId": "publisher-workspace-types",
   "paused": false,
   "metrics": {
-    "collectedAt": "2026-10-12T07:05:56.781Z",
-    "backlogPending": 4,
+    "collectedAt": "2026-10-15T05:30:02.764Z",
+    "backlogPending": 3,
     "backlogTotal": 10,
     "formatDriftFiles": 0,
     "todoCommentCount": 0,
-    "openRefactorPrs": 0
+    "openRefactorPrs": 0,
+    "openAgentIssues": 0
   },
   "blockers": [],
   "consecutiveFailures": 0
