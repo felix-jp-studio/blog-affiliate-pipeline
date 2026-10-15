@@ -544,6 +544,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "home-router-norikae-tejun",
         label: "ホームルーター 乗り換え 手順の手順",
       },
+      {
+        slug: "au-setwari-hikari-sim-hikaku",
+        label: "au セット割 光回線 格安SIM 比較",
+      },
     ],
   },
   trouble: {

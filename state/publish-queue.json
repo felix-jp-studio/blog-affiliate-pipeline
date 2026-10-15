@@ -1,19 +1,14 @@
 {
-  "last_run": "2026-10-14",
-  "next_scheduled": "2026-10-15",
+  "last_run": "2026-10-15",
+  "next_scheduled": "2026-10-16",
   "week_id": "2026-W42",
-  "runs_this_week": 3,
+  "runs_this_week": 4,
   "type_counts": {
-    "comparison": 1,
+    "comparison": 2,
     "howto": 1,
     "troubleshoot": 1
   },
   "history": [
-    {
-      "date": "2026-08-23",
-      "keywords": ["ソフトバンク でんき"],
-      "ok_count": 1
-    },
     {
       "date": "2026-08-24",
       "keywords": ["5G 格安SIM 速度 比較"],
@@ -267,6 +262,11 @@
     {
       "date": "2026-10-14",
       "keywords": ["ホームルーター 繋がらない 対処"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-10-15",
+      "keywords": ["au セット割 光回線 格安SIM 比較"],
       "ok_count": 1
     }
   ]
