@@ -396,6 +396,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "mnp-yoyaku-bangou-yukokigen-kakunin",
         label: "MNP 予約番号 有効期限 確認の手順",
       },
+      {
+        slug: "sim-kakehoudai-tsuika-houhou",
+        label: "格安SIM かけ放題 追加 方法の手順",
+      },
     ],
   },
   hikari: {
