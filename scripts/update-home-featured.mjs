@@ -9,11 +9,13 @@
  */
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import * as prettier from "prettier";
 import { hubArticleMesh } from "../site/src/data/hub-article-mesh.ts";
 import { homeFeaturedSlugs } from "../site/src/data/home-featured.ts";
 import { loadPublishedArticles, repoRoot } from "./e2e/e2e-utils.mjs";
 import {
   aggregatePageMetrics,
+  describeSources,
   latestPagesCsvNames,
   renderHomeFeaturedModule,
   selectHomeFeatured,
@@ -49,9 +51,16 @@ const picks = selectHomeFeatured({
 const updatedAt = new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Tokyo" }).format(
   new Date(),
 );
-const content = renderHomeFeaturedModule({ picks, updatedAt, sources });
+// Format with the site's Prettier options (site format:check covers this file).
+// The site config's astro plugin is irrelevant to a .ts file and lives in site/node_modules.
+const { plugins: _plugins, ...prettierOptions } =
+  (await prettier.resolveConfig(outputPath)) ?? {};
+const content = await prettier.format(
+  renderHomeFeaturedModule({ picks, updatedAt, sources }),
+  { ...prettierOptions, filepath: outputPath },
+);
 
-console.log(`update-home-featured: based on ${sources.join(", ") || "no GSC data"}`);
+console.log(`update-home-featured: based on ${describeSources(sources)}`);
 for (const [category, slugs] of Object.entries(picks)) {
   const before = homeFeaturedSlugs[category] ?? [];
   const changed = slugs.join() !== before.join() ? " (changed)" : "";
