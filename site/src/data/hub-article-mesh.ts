@@ -764,6 +764,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "home-router-tsunagaranai-fix",
         label: "ホームルーター 繋がらない 対処の原因と7つ…",
       },
+      {
+        slug: "tethering-dekinai-sim",
+        label: "テザリング できない 格安SIMの原因と7つ…",
+      },
     ],
   },
   cost: {

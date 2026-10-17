@@ -1,19 +1,14 @@
 {
-  "last_run": "2026-10-16",
-  "next_scheduled": "2026-10-17",
+  "last_run": "2026-10-17",
+  "next_scheduled": "2026-10-18",
   "week_id": "2026-W42",
-  "runs_this_week": 5,
+  "runs_this_week": 6,
   "type_counts": {
     "comparison": 2,
     "howto": 2,
-    "troubleshoot": 1
+    "troubleshoot": 2
   },
   "history": [
-    {
-      "date": "2026-08-25",
-      "keywords": ["mineo eSIM 設定 方法"],
-      "ok_count": 1
-    },
     {
       "date": "2026-08-26",
       "keywords": ["ドコモ光 速度 遅い 対処"],
@@ -267,6 +262,11 @@
     {
       "date": "2026-10-16",
       "keywords": ["格安SIM かけ放題 追加 方法"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-10-17",
+      "keywords": ["テザリング できない 格安SIM"],
       "ok_count": 1
     }
   ]
