@@ -3,6 +3,7 @@ import { describe, it } from "node:test";
 import {
   aggregatePageMetrics,
   latestPagesCsvNames,
+  describeSources,
   renderHomeFeaturedModule,
   selectHomeFeatured,
   slugFromPageUrl,
@@ -101,6 +102,16 @@ describe("selectHomeFeatured", () => {
   });
 });
 
+describe("describeSources", () => {
+  it("summarises the CSV date range", () => {
+    assert.equal(
+      describeSources(["gsc-pages-20260918.csv", "gsc-pages-20261009.csv"]),
+      "gsc-pages 20260918-20261009 (2 weeks)",
+    );
+    assert.equal(describeSources([]), "no GSC data");
+  });
+});
+
 describe("renderHomeFeaturedModule", () => {
   it("writes a TS module with the picks and basis", () => {
     const content = renderHomeFeaturedModule({
@@ -109,7 +120,10 @@ describe("renderHomeFeaturedModule", () => {
       sources: ["gsc-pages-20261026.csv"],
     });
     assert.match(content, /homeFeaturedUpdatedAt = "2026-11-01";/);
-    assert.match(content, /homeFeaturedBasis = "gsc-pages-20261026.csv";/);
+    assert.match(
+      content,
+      /homeFeaturedBasis = "gsc-pages 20261026-20261026 \(1 week\)";/,
+    );
     assert.match(content, /\n {2}sim: \["s1", "s2"\],\n {2}cost: \["c1"\],\n\};/);
   });
 });
