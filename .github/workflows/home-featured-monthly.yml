@@ -48,9 +48,11 @@ jobs:
       - name: Validate
         if: steps.changes.outputs.changed == 'true'
         run: |
+          # npm test includes the site unit tests, which need site dependencies.
+          (cd site && npm ci)
           npm run format:check
           npm test
-          cd site && npm ci && npm run format:check && npm run build
+          cd site && npm run format:check && npm run build
           node ../scripts/e2e/validate-dist.mjs
 
       - name: Install Playwright browsers
