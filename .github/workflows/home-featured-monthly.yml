@@ -1,0 +1,97 @@
+name: Home featured monthly
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 1st of each month 10:30 JST = UTC 01:30 (after scheduled-articles at 09:00 JST)
+    - cron: "30 1 1 * *"
+
+jobs:
+  update-home-featured:
+    runs-on: ubuntu-latest
+    # Shares the group with scheduled-articles: both push homepage visual snapshots to main.
+    concurrency:
+      group: scheduled-articles
+      cancel-in-progress: false
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Re-select homepage featured articles
+        run: npm run update:home-featured | tee /tmp/home-featured-out.txt
+
+      - name: Check for pick changes
+        id: changes
+        run: |
+          if git diff --quiet -I '^export const homeFeatured(UpdatedAt|Basis) =' -- site/src/data/home-featured.ts; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Picks unchanged; skipping commit."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git diff -- site/src/data/home-featured.ts
+          fi
+
+      - name: Validate
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          npm run format:check
+          npm test
+          cd site && npm ci && npm run format:check && npm run build
+          node ../scripts/e2e/validate-dist.mjs
+
+      - name: Install Playwright browsers
+        if: steps.changes.outputs.changed == 'true'
+        working-directory: site
+        run: npx playwright install --with-deps chromium
+
+      - name: Update Playwright visual snapshots
+        if: steps.changes.outputs.changed == 'true'
+        working-directory: site
+        env:
+          CI: true
+          PUBLIC_CONTACT_FORM_ACTION: ""
+        run: |
+          npm run test:e2e:visual:update
+          npm run test:e2e:visual
+
+      - name: Commit and push to main
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          RUN_MONTH=$(TZ=Asia/Tokyo date +%Y-%m)
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add site/src/data/home-featured.ts
+          git add site/tests/visual/*-snapshots/
+          git commit -m "chore: refresh homepage featured articles ${RUN_MONTH}"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Write job summary
+        if: always()
+        run: |
+          {
+            echo "## Home featured monthly"
+            echo ""
+            echo "- changed: ${{ steps.changes.outputs.changed }}"
+            echo "- selection: last 4 weekly \`data/gsc-pages-*.csv\`, 2 per category (clicks → impressions → position)"
+            echo ""
+            if [ -f /tmp/home-featured-out.txt ]; then
+              echo '```'
+              cat /tmp/home-featured-out.txt
+              echo '```'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

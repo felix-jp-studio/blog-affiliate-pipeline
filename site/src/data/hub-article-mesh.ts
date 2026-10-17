@@ -1,4 +1,5 @@
 import type { CategorySlug } from "./category-meta";
+import { homeFeaturedSlugs } from "./home-featured.ts";
 
 export type HubFeaturedArticle = {
   slug: string;
@@ -854,14 +855,6 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
       },
     ],
   },
-};
-
-/** Homepage picks: 2 per category, howto/troubleshoot prioritized where available. */
-const homeFeaturedSlugs: Partial<Record<CategorySlug, string[]>> = {
-  sim: ["sim-osusume-hikaku-2026", "sim-20gb-hikaku-2026"],
-  hikari: ["nuro-hikari-hyoban-demerit-2026", "hikari-switch-osusume"],
-  trouble: ["mnp-error-fix", "ahamo-speed-slow-fix"],
-  cost: ["hikkoshi-tsushin-osusume", "au-denki-setwari"],
 };
 
 export function getHubArticleMesh(

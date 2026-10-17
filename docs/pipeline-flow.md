@@ -53,16 +53,17 @@ keywords.seed.csv
 
 ### サイト運用・監査
 
-| script                      | 内容                                       |
-| --------------------------- | ------------------------------------------ |
-| `audit:orphans`             | どこからもリンクされていない記事を検出     |
-| `audit:hub-mesh`            | ハブ ↔ 記事の相互リンク網羅率を監査        |
-| `sync:hub-mesh`             | 記事側の情報からハブのメッシュ定義を更新   |
-| `backfill:date-modified`    | frontmatter の dateModified を補完         |
-| `backfill:internal-links`   | 記事本文に内部リンクを補完                 |
-| `post-publish:onboard`      | 公開直後の記事をインデックスキュー等に登録 |
-| `report:article-type-ratio` | 記事タイプ比率のレポート                   |
-| `indexnow:ping`             | IndexNow に更新を通知                      |
+| script                      | 内容                                            |
+| --------------------------- | ----------------------------------------------- |
+| `audit:orphans`             | どこからもリンクされていない記事を検出          |
+| `audit:hub-mesh`            | ハブ ↔ 記事の相互リンク網羅率を監査             |
+| `sync:hub-mesh`             | 記事側の情報からハブのメッシュ定義を更新        |
+| `update:home-featured`      | トップのおすすめ記事を GSC 実績で再選定（月次） |
+| `backfill:date-modified`    | frontmatter の dateModified を補完              |
+| `backfill:internal-links`   | 記事本文に内部リンクを補完                      |
+| `post-publish:onboard`      | 公開直後の記事をインデックスキュー等に登録      |
+| `report:article-type-ratio` | 記事タイプ比率のレポート                        |
+| `indexnow:ping`             | IndexNow に更新を通知                           |
 
 ### Google Search Console
 
@@ -133,6 +134,7 @@ keywords.seed.csv
 | `test:refactor-pdca`            | scripts/refactor-pdca のテスト                              |
 | `test:ux-pdca`                  | scripts/ux-pdca のテスト                                    |
 | `test:visitability`             | scripts/visitability のテスト                               |
+| `test:home-featured`            | scripts/home-featured のテスト                              |
 | `test:e2e`                      | 記事検証 → site ビルド → 出力検証                           |
 | `test:e2e:local`                | ローカル一括 E2E（template モード）                         |
 | `test:e2e:articles`             | 記事 Markdown の検証                                        |
