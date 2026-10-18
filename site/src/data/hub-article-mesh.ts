@@ -873,6 +873,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "wimax-hikari-norikae-koteihi",
         label: "WiMAX 光回線 乗り換え 固定費で固定費…",
       },
+      {
+        slug: "rakuten-mobile-hikari-setwari-kakunin",
+        label: "楽天モバイル 光回線 セット割 確認で固定費…",
+      },
     ],
   },
 };
