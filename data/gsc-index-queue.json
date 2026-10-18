@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-18T01:49:11.161Z",
+  "updatedAt": "2026-10-18T02:50:02.743Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3678,6 +3678,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "rakuten-mobile-hikari-setwari-kakunin",
+      "url": "https://sim-hikari-guide.com/articles/rakuten-mobile-hikari-setwari-kakunin",
+      "mergedAt": "2026-10-18T02:50:02.741Z",
+      "indexed": false
     }
   ]
 }
