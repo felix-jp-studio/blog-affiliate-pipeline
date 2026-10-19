@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-19T02:07:13.377Z",
+  "updatedAt": "2026-10-19T03:03:59.329Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3695,6 +3695,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "au-smart-value-setwari-hikaku",
+      "url": "https://sim-hikari-guide.com/articles/au-smart-value-setwari-hikaku",
+      "mergedAt": "2026-10-19T03:03:59.327Z",
+      "indexed": false
     }
   ]
 }
