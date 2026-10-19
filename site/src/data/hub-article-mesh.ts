@@ -401,6 +401,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "sim-kakehoudai-tsuika-houhou",
         label: "格安SIM かけ放題 追加 方法の手順",
       },
+      {
+        slug: "au-smart-value-setwari-hikaku",
+        label: "au スマートバリュー セット割 比較",
+      },
     ],
   },
   hikari: {
