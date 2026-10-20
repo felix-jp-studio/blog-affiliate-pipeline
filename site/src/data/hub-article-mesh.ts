@@ -557,6 +557,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "au-setwari-hikari-sim-hikaku",
         label: "au セット割 光回線 格安SIM 比較",
       },
+      {
+        slug: "nuro-hikari-moushikomi-tejun",
+        label: "NURO 光 申し込み 手順の手順",
+      },
     ],
   },
   trouble: {
