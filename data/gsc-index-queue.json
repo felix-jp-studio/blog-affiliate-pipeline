@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-21T02:16:12.861Z",
+  "updatedAt": "2026-10-21T03:08:33.502Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3730,6 +3730,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "sim-chakushin-dekinai-fix",
+      "url": "https://sim-hikari-guide.com/articles/sim-chakushin-dekinai-fix",
+      "mergedAt": "2026-10-21T03:08:33.501Z",
+      "indexed": false
     }
   ]
 }
