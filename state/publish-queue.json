@@ -1,18 +1,14 @@
 {
-  "last_run": "2026-10-20",
-  "next_scheduled": "2026-10-21",
+  "last_run": "2026-10-21",
+  "next_scheduled": "2026-10-22",
   "week_id": "2026-W43",
-  "runs_this_week": 2,
+  "runs_this_week": 3,
   "type_counts": {
     "comparison": 1,
-    "howto": 1
+    "howto": 1,
+    "troubleshoot": 1
   },
   "history": [
-    {
-      "date": "2026-08-29",
-      "keywords": ["楽天モバイル 圏外 代替"],
-      "ok_count": 1
-    },
     {
       "date": "2026-08-30",
       "keywords": ["光回線 電気 セット割"],
@@ -266,6 +262,11 @@
     {
       "date": "2026-10-20",
       "keywords": ["NURO 光 申し込み 手順"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-10-21",
+      "keywords": ["格安SIM 着信 できない 対処"],
       "ok_count": 1
     }
   ]

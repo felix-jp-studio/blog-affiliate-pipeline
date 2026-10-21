@@ -777,6 +777,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "tethering-dekinai-sim",
         label: "テザリング できない 格安SIMの原因と7つ…",
       },
+      {
+        slug: "sim-chakushin-dekinai-fix",
+        label: "格安SIM 着信 できない 対処の原因と7つ…",
+      },
     ],
   },
   cost: {
