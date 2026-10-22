@@ -7,5 +7,5 @@
   "targetPaths": ["packages/publisher/"],
   "acceptance": ["npm test", "npm run format:check"],
   "agentPrompt": "Refactor PDCA Cycle 8: packages/publisher の型整理\n\npublisher パッケージの未使用 export を整理。\n\n## 対象パス\n- `packages/publisher/`\n\n## 禁止パス\n- `site/src/content/articles/`\n- `site/src/components/`\n- `site/src/styles/`\n- `data/keywords.seed.csv`\n- `data/gsc-index-queue.json`\n- `.env`\n\n## 完了条件\nnpm test\nnpm run format:check\n\n## PR\n- ブランチ: `feature/refactor-pdca-8`\n- ラベル: `refactor-pdca-auto`\n- タイトル: Refactor PDCA Cycle 8: packages/publisher の型整理\n- diff 上限: 300 行 / 15 ファイル",
-  "createdAt": "2026-10-19T05:53:14.503Z"
+  "createdAt": "2026-10-22T05:41:42.471Z"
 }
