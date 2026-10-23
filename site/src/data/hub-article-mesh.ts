@@ -561,6 +561,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "nuro-hikari-moushikomi-tejun",
         label: "NURO 光 申し込み 手順の手順",
       },
+      {
+        slug: "docomo-setwari-hikari-fee-hikaku",
+        label: "ドコモ セット割 光回線 料金 比較",
+      },
     ],
   },
   trouble: {

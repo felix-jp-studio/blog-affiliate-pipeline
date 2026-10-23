@@ -1,19 +1,14 @@
 {
-  "last_run": "2026-10-21",
-  "next_scheduled": "2026-10-22",
+  "last_run": "2026-10-23",
+  "next_scheduled": "2026-10-24",
   "week_id": "2026-W43",
-  "runs_this_week": 3,
+  "runs_this_week": 4,
   "type_counts": {
-    "comparison": 1,
+    "comparison": 2,
     "howto": 1,
     "troubleshoot": 1
   },
   "history": [
-    {
-      "date": "2026-08-30",
-      "keywords": ["光回線 電気 セット割"],
-      "ok_count": 1
-    },
     {
       "date": "2026-08-31",
       "keywords": ["docomo 5G ahamo UQ 比較"],
@@ -267,6 +262,11 @@
     {
       "date": "2026-10-21",
       "keywords": ["格安SIM 着信 できない 対処"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-10-23",
+      "keywords": ["ドコモ セット割 光回線 料金 比較"],
       "ok_count": 1
     }
   ]
