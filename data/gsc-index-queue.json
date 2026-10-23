@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-23T02:15:50.213Z",
+  "updatedAt": "2026-10-23T03:10:01.918Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3752,6 +3752,12 @@
         "source": "api"
       },
       "indexedAt": "2026-10-22T02:10:16.888Z"
+    },
+    {
+      "slug": "docomo-setwari-hikari-fee-hikaku",
+      "url": "https://sim-hikari-guide.com/articles/docomo-setwari-hikari-fee-hikaku",
+      "mergedAt": "2026-10-23T03:10:01.918Z",
+      "indexed": false
     }
   ]
 }
