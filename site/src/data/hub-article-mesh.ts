@@ -565,6 +565,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "docomo-setwari-hikari-fee-hikaku",
         label: "ドコモ セット割 光回線 料金 比較",
       },
+      {
+        slug: "au-hikari-norikae-tejun",
+        label: "au ひかり 乗り換え 手順の手順",
+      },
     ],
   },
   trouble: {
