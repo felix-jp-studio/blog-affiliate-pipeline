@@ -897,6 +897,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "rakuten-mobile-hikari-setwari-kakunin",
         label: "楽天モバイル 光回線 セット割 確認で固定費…",
       },
+      {
+        slug: "uq-mobile-au-denki-setwari",
+        label: "UQモバイル auでんき セット割で固定費を…",
+      },
     ],
   },
 };
