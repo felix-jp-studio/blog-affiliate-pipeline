@@ -569,6 +569,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "au-hikari-norikae-tejun",
         label: "au ひかり 乗り換え 手順の手順",
       },
+      {
+        slug: "hikari-kaiyaku-kin-hikaku-2026",
+        label: "光回線 解約金 比較 2026",
+      },
     ],
   },
   trouble: {
