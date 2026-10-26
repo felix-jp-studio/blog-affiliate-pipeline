@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-26T02:03:06.122Z",
+  "updatedAt": "2026-10-26T02:59:14.052Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3806,6 +3806,12 @@
         "source": "api"
       },
       "indexedAt": "2026-10-26T02:01:50.772Z"
+    },
+    {
+      "slug": "hikari-kaiyaku-kin-hikaku-2026",
+      "url": "https://sim-hikari-guide.com/articles/hikari-kaiyaku-kin-hikaku-2026",
+      "mergedAt": "2026-10-26T02:59:14.051Z",
+      "indexed": false
     }
   ]
 }
