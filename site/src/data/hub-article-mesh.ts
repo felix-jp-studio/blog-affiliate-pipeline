@@ -573,6 +573,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "hikari-kaiyaku-kin-hikaku-2026",
         label: "光回線 解約金 比較 2026",
       },
+      {
+        slug: "hikari-provider-henkou-houhou",
+        label: "光回線 プロバイダ 変更 方法の手順",
+      },
     ],
   },
   trouble: {
