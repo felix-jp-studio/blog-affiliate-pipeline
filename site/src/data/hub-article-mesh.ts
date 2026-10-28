@@ -797,6 +797,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "sim-chakushin-dekinai-fix",
         label: "格安SIM 着信 できない 対処の原因と7つ…",
       },
+      {
+        slug: "hikari-ipv6-taiou-kakunin-houhou",
+        label: "光回線 IPv6 対応 確認 方法の原因と7…",
+      },
     ],
   },
   cost: {
