@@ -577,6 +577,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "hikari-provider-henkou-houhou",
         label: "光回線 プロバイダ 変更 方法の手順",
       },
+      {
+        slug: "au-hikari-kaiyaku-kin-iyakukin-hikaku",
+        label: "au ひかり 解約金 違約金 比較",
+      },
     ],
   },
   trouble: {
