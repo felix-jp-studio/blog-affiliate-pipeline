@@ -581,6 +581,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "au-hikari-kaiyaku-kin-iyakukin-hikaku",
         label: "au ひかり 解約金 違約金 比較",
       },
+      {
+        slug: "hikari-hikkoshi-norikae-tejun",
+        label: "光回線 引っ越し 乗り換え 手順の手順",
+      },
     ],
   },
   trouble: {
