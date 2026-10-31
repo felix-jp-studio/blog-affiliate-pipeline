@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-10-31T02:59:31.294Z",
+  "updatedAt": "2026-10-31T03:53:50.933Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -3896,6 +3896,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "smartphone-setwari-hanei-sarenai",
+      "url": "https://sim-hikari-guide.com/articles/smartphone-setwari-hanei-sarenai",
+      "mergedAt": "2026-10-31T03:53:50.932Z",
+      "indexed": false
     }
   ]
 }
