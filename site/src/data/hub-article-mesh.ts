@@ -809,6 +809,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "hikari-ipv6-taiou-kakunin-houhou",
         label: "光回線 IPv6 対応 確認 方法の原因と7…",
       },
+      {
+        slug: "smartphone-setwari-hanei-sarenai",
+        label: "スマホ セット割 反映 されないの原因と7つ…",
+      },
     ],
   },
   cost: {
