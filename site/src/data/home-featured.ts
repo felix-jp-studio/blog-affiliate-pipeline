@@ -2,13 +2,13 @@
 import type { CategorySlug } from "./category-meta";
 
 /** Last selection date (JST) and the range of GSC page CSVs it was based on. */
-export const homeFeaturedUpdatedAt = "2026-10-17";
-export const homeFeaturedBasis = "gsc-pages 20260918-20261009 (4 weeks)";
+export const homeFeaturedUpdatedAt = "2026-11-01";
+export const homeFeaturedBasis = "gsc-pages 20261002-20261023 (4 weeks)";
 
 /** Homepage picks: 2 per category, ranked by GSC clicks / impressions. */
 export const homeFeaturedSlugs: Partial<Record<CategorySlug, string[]>> = {
-  sim: ["povo-data-yoryou-tsuika-houhou", "povo-esim-settei-tejun"],
+  sim: ["sim-fukukaisen-osusume-hikaku", "povo-data-yoryou-tsuika-houhou"],
   hikari: ["biglobe-hikari-kaiyaku-tejun", "mobareco-air-wimax-hikaku"],
-  trouble: ["povo-seikyu-kingaku-awanai-fix", "povo-kaituu-dekinai-fix"],
-  cost: ["au-smart-value-denki", "rakuten-denki-rakuten-mobile"],
+  trouble: ["iijmio-speed-slow-fix", "uq-mobile-speed-slow-fix"],
+  cost: ["au-smart-value-denki", "au-denki-fee-hikaku"],
 };
