@@ -925,6 +925,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "uq-mobile-au-denki-setwari",
         label: "UQモバイル auでんき セット割で固定費を…",
       },
+      {
+        slug: "iijmio-hikari-koteihi-minaoshi",
+        label: "IIJmio 光回線 固定費 見直しで固定費…",
+      },
     ],
   },
 };
