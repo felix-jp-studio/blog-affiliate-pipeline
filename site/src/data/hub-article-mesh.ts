@@ -585,6 +585,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "hikari-hikkoshi-norikae-tejun",
         label: "光回線 引っ越し 乗り換え 手順の手順",
       },
+      {
+        slug: "softbank-hikari-kaiyaku-kin-hikaku",
+        label: "ソフトバンク光 解約金 比較",
+      },
     ],
   },
   trouble: {
