@@ -589,6 +589,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "softbank-hikari-kaiyaku-kin-hikaku",
         label: "ソフトバンク光 解約金 比較",
       },
+      {
+        slug: "wimax-moushikomi-tejun",
+        label: "WiMAX 申し込み 手順の手順",
+      },
     ],
   },
   trouble: {
