@@ -821,6 +821,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "smartphone-setwari-hanei-sarenai",
         label: "スマホ セット割 反映 されないの原因と7つ…",
       },
+      {
+        slug: "sim-kaiyaku-ato-tsukaenai-fix",
+        label: "格安SIM 解約 後 使えない 対処の原因と…",
+      },
     ],
   },
   cost: {
