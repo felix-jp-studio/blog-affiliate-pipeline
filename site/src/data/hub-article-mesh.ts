@@ -405,6 +405,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "au-smart-value-setwari-hikaku",
         label: "au スマートバリュー セット割 比較",
       },
+      {
+        slug: "sim-kaiyaku-iyakukin-hikaku",
+        label: "格安SIM 解約 違約金 比較",
+      },
     ],
   },
   hikari: {
