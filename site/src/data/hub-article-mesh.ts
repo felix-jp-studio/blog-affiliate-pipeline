@@ -597,6 +597,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "wimax-moushikomi-tejun",
         label: "WiMAX 申し込み 手順の手順",
       },
+      {
+        slug: "home-router-settei-houhou",
+        label: "ホームルーター 設定 方法の手順",
+      },
     ],
   },
   trouble: {
