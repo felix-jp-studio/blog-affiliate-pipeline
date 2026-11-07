@@ -833,6 +833,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "sim-kaiyaku-ato-tsukaenai-fix",
         label: "格安SIM 解約 後 使えない 対処の原因と…",
       },
+      {
+        slug: "uq-mobile-tsunagaranai-fix",
+        label: "UQモバイル 繋がらない 対処の原因と7つの…",
+      },
     ],
   },
   cost: {
