@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-11-08T02:58:25.585Z",
+  "updatedAt": "2026-11-08T04:08:13.097Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -4037,6 +4037,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "hikkoshi-sim-hikari-setwari",
+      "url": "https://sim-hikari-guide.com/articles/hikkoshi-sim-hikari-setwari",
+      "mergedAt": "2026-11-08T04:08:13.096Z",
+      "indexed": false
     }
   ]
 }
