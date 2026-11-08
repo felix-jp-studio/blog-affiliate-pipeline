@@ -953,6 +953,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "iijmio-hikari-koteihi-minaoshi",
         label: "IIJmio 光回線 固定費 見直しで固定費…",
       },
+      {
+        slug: "hikkoshi-sim-hikari-setwari",
+        label: "引越し 格安SIM 光回線 セット割で固定費…",
+      },
     ],
   },
 };
