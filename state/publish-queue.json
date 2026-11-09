@@ -1,20 +1,12 @@
 {
-  "last_run": "2026-11-08",
-  "next_scheduled": "2026-11-09",
-  "week_id": "2026-W45",
-  "runs_this_week": 7,
+  "last_run": "2026-11-09",
+  "next_scheduled": "2026-11-10",
+  "week_id": "2026-W46",
+  "runs_this_week": 1,
   "type_counts": {
-    "comparison": 2,
-    "howto": 2,
-    "troubleshoot": 2,
-    "crosssell": 1
+    "comparison": 1
   },
   "history": [
-    {
-      "date": "2026-09-17",
-      "keywords": ["格安SIM 学生 20GB 比較"],
-      "ok_count": 1
-    },
     {
       "date": "2026-09-18",
       "keywords": ["povo 2.0 使い方"],
@@ -268,6 +260,11 @@
     {
       "date": "2026-11-08",
       "keywords": ["引越し 格安SIM 光回線 セット割"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-11-09",
+      "keywords": ["WiMAX 5G ホームルーター 比較 2026"],
       "ok_count": 1
     }
   ]

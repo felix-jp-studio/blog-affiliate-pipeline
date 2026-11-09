@@ -601,6 +601,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "home-router-settei-houhou",
         label: "ホームルーター 設定 方法の手順",
       },
+      {
+        slug: "wimax-5g-home-router-hikaku-2026",
+        label: "WiMAX 5G ホームルーター 比較 2026",
+      },
     ],
   },
   trouble: {
