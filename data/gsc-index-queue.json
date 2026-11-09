@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-11-09T03:19:41.095Z",
+  "updatedAt": "2026-11-09T04:24:08.773Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -4054,6 +4054,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "wimax-5g-home-router-hikaku-2026",
+      "url": "https://sim-hikari-guide.com/articles/wimax-5g-home-router-hikaku-2026",
+      "mergedAt": "2026-11-09T04:24:08.772Z",
+      "indexed": false
     }
   ]
 }
