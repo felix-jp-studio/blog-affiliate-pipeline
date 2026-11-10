@@ -409,6 +409,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "sim-kaiyaku-iyakukin-hikaku",
         label: "格安SIM 解約 違約金 比較",
       },
+      {
+        slug: "rakuten-mobile-kazokuwari-kanyuu-houhou",
+        label: "楽天モバイル 家族割 加入 方法の手順",
+      },
     ],
   },
   hikari: {
