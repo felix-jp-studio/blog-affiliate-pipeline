@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-11-10T04:59:02.955Z",
+  "updatedAt": "2026-11-10T05:47:46.218Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -4071,6 +4071,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "rakuten-mobile-kazokuwari-kanyuu-houhou",
+      "url": "https://sim-hikari-guide.com/articles/rakuten-mobile-kazokuwari-kanyuu-houhou",
+      "mergedAt": "2026-11-10T05:47:46.217Z",
+      "indexed": false
     }
   ]
 }
