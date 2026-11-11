@@ -845,6 +845,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "uq-mobile-tsunagaranai-fix",
         label: "UQモバイル 繋がらない 対処の原因と7つの…",
       },
+      {
+        slug: "iijmio-tsunagaranai-fix",
+        label: "IIJmio 繋がらない 対処の原因と7つの…",
+      },
     ],
   },
   cost: {

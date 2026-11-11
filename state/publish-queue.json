@@ -1,18 +1,14 @@
 {
-  "last_run": "2026-11-10",
-  "next_scheduled": "2026-11-11",
+  "last_run": "2026-11-11",
+  "next_scheduled": "2026-11-12",
   "week_id": "2026-W46",
-  "runs_this_week": 2,
+  "runs_this_week": 3,
   "type_counts": {
     "comparison": 1,
-    "howto": 1
+    "howto": 1,
+    "troubleshoot": 1
   },
   "history": [
-    {
-      "date": "2026-09-19",
-      "keywords": ["eSIM 開通 できない 対処"],
-      "ok_count": 1
-    },
     {
       "date": "2026-09-20",
       "keywords": ["NURO光 楽天でんき"],
@@ -266,6 +262,11 @@
     {
       "date": "2026-11-10",
       "keywords": ["楽天モバイル 家族割 加入 方法"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-11-11",
+      "keywords": ["IIJmio 繋がらない 対処"],
       "ok_count": 1
     }
   ]
