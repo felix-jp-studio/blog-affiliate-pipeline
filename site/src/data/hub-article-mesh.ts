@@ -609,6 +609,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "wimax-5g-home-router-hikaku-2026",
         label: "WiMAX 5G ホームルーター 比較 2026",
       },
+      {
+        slug: "wimax-tethering-hikaku-2026",
+        label: "WiMAX テザリング 比較 2026",
+      },
     ],
   },
   trouble: {
