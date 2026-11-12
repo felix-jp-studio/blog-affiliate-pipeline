@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-11-12T04:37:33.875Z",
+  "updatedAt": "2026-11-12T05:35:27.765Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -4105,6 +4105,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "wimax-tethering-hikaku-2026",
+      "url": "https://sim-hikari-guide.com/articles/wimax-tethering-hikaku-2026",
+      "mergedAt": "2026-11-12T05:35:27.764Z",
+      "indexed": false
     }
   ]
 }
