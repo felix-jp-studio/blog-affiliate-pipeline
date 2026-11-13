@@ -413,6 +413,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "rakuten-mobile-kazokuwari-kanyuu-houhou",
         label: "楽天モバイル 家族割 加入 方法の手順",
       },
+      {
+        slug: "linemo-norikae-tejun",
+        label: "LINEMO 乗り換え 手順の手順",
+      },
     ],
   },
   hikari: {
