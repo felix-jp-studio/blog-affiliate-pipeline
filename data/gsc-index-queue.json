@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-11-14T03:49:04.161Z",
+  "updatedAt": "2026-11-14T04:45:56.841Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -4143,6 +4143,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "docomo-hikari-speed-slow-kaizen",
+      "url": "https://sim-hikari-guide.com/articles/docomo-hikari-speed-slow-kaizen",
+      "mergedAt": "2026-11-14T04:45:56.840Z",
+      "indexed": false
     }
   ]
 }
