@@ -981,6 +981,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "hikkoshi-sim-hikari-setwari",
         label: "引越し 格安SIM 光回線 セット割で固定費…",
       },
+      {
+        slug: "linemo-softbank-hikari-setwari",
+        label: "LINEMO ソフトバンク光 セット割で固定…",
+      },
     ],
   },
 };
