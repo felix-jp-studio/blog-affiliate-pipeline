@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-11-15T03:29:05.523Z",
+  "updatedAt": "2026-11-15T04:36:41.937Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -4160,6 +4160,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "linemo-softbank-hikari-setwari",
+      "url": "https://sim-hikari-guide.com/articles/linemo-softbank-hikari-setwari",
+      "mergedAt": "2026-11-15T04:36:41.936Z",
+      "indexed": false
     }
   ]
 }
