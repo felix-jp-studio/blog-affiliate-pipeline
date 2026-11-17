@@ -417,6 +417,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "linemo-norikae-tejun",
         label: "LINEMO 乗り換え 手順の手順",
       },
+      {
+        slug: "ahamo-norikae-tejun",
+        label: "ahamo 乗り換え 手順の手順",
+      },
     ],
   },
   hikari: {
