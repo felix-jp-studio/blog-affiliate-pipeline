@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-11-18T04:55:29.824Z",
+  "updatedAt": "2026-11-18T05:45:10.982Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -4211,6 +4211,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "wimax-kaituu-dekinai-fix",
+      "url": "https://sim-hikari-guide.com/articles/wimax-kaituu-dekinai-fix",
+      "mergedAt": "2026-11-18T05:45:10.982Z",
+      "indexed": false
     }
   ]
 }
