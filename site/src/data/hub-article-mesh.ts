@@ -869,6 +869,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "docomo-hikari-speed-slow-kaizen",
         label: "ドコモ光 速度 遅い 改善の原因と7つの対処法",
       },
+      {
+        slug: "wimax-kaituu-dekinai-fix",
+        label: "WiMAX 開通 できない 対処の原因と7つ…",
+      },
     ],
   },
   cost: {
