@@ -625,6 +625,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "uq-wimax-wimax-hikaku",
         label: "UQ WiMAX カシモWiMAX 比較",
       },
+      {
+        slug: "wimax-kouji-fuyou-hikaku",
+        label: "WiMAX 工事 不要 比較",
+      },
     ],
   },
   trouble: {
