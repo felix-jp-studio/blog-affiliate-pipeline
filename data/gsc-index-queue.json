@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-11-18T05:45:10.982Z",
+  "updatedAt": "2026-11-19T04:47:11.656Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -565,10 +565,10 @@
       "url": "https://sim-hikari-guide.com/articles/sim-20gb-osusume",
       "mergedAt": "2026-07-29T10:29:40.306Z",
       "indexed": false,
-      "lastInspectedAt": "2026-11-18T04:54:13.173Z",
+      "lastInspectedAt": "2026-11-19T04:45:56.107Z",
       "inspection": {
         "verdict": "NEUTRAL",
-        "coverageState": "検出 - インデックス未登録",
+        "coverageState": "URL が Google に認識されていません",
         "indexingState": "INDEXING_STATE_UNSPECIFIED",
         "lastCrawlTime": null,
         "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
@@ -870,10 +870,10 @@
       "url": "https://sim-hikari-guide.com/articles/sim-fukukaisen-osusume",
       "mergedAt": "2026-08-03T02:27:04.533Z",
       "indexed": false,
-      "lastInspectedAt": "2026-11-18T04:54:13.173Z",
+      "lastInspectedAt": "2026-11-19T04:45:56.107Z",
       "inspection": {
         "verdict": "NEUTRAL",
-        "coverageState": "検出 - インデックス未登録",
+        "coverageState": "URL が Google に認識されていません",
         "indexingState": "INDEXING_STATE_UNSPECIFIED",
         "lastCrawlTime": null,
         "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
@@ -1193,7 +1193,7 @@
       "url": "https://sim-hikari-guide.com/articles/iijmio-kaituu-dekinai-fix",
       "mergedAt": "2026-08-09T04:28:39.421Z",
       "indexed": false,
-      "lastInspectedAt": "2026-11-18T04:54:13.173Z",
+      "lastInspectedAt": "2026-11-19T04:45:56.107Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -4115,7 +4115,7 @@
       "url": "https://sim-hikari-guide.com/articles/wimax-tethering-hikaku-2026",
       "mergedAt": "2026-11-12T05:35:27.764Z",
       "indexed": false,
-      "lastInspectedAt": "2026-11-18T04:54:13.173Z",
+      "lastInspectedAt": "2026-11-19T04:45:56.107Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -4132,7 +4132,7 @@
       "url": "https://sim-hikari-guide.com/articles/linemo-norikae-tejun",
       "mergedAt": "2026-11-13T04:52:11.263Z",
       "indexed": false,
-      "lastInspectedAt": "2026-11-18T04:54:13.173Z",
+      "lastInspectedAt": "2026-11-19T04:45:56.107Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -4149,7 +4149,7 @@
       "url": "https://sim-hikari-guide.com/articles/docomo-hikari-speed-slow-kaizen",
       "mergedAt": "2026-11-14T04:45:56.840Z",
       "indexed": false,
-      "lastInspectedAt": "2026-11-18T04:54:13.173Z",
+      "lastInspectedAt": "2026-11-19T04:45:56.107Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -4165,25 +4165,26 @@
       "slug": "linemo-softbank-hikari-setwari",
       "url": "https://sim-hikari-guide.com/articles/linemo-softbank-hikari-setwari",
       "mergedAt": "2026-11-15T04:36:41.936Z",
-      "indexed": false,
-      "lastInspectedAt": "2026-11-18T04:54:13.173Z",
+      "indexed": true,
+      "lastInspectedAt": "2026-11-19T04:45:56.107Z",
       "inspection": {
-        "verdict": "NEUTRAL",
-        "coverageState": "検出 - インデックス未登録",
-        "indexingState": "INDEXING_STATE_UNSPECIFIED",
-        "lastCrawlTime": null,
-        "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
-        "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
-        "indexed": false,
+        "verdict": "PASS",
+        "coverageState": "送信して登録されました",
+        "indexingState": "INDEXING_ALLOWED",
+        "lastCrawlTime": "2026-11-18T10:30:55Z",
+        "pageFetchState": "SUCCESSFUL",
+        "robotsTxtState": "ALLOWED",
+        "indexed": true,
         "source": "api"
-      }
+      },
+      "indexedAt": "2026-11-19T04:45:56.107Z"
     },
     {
       "slug": "uq-wimax-wimax-hikaku",
       "url": "https://sim-hikari-guide.com/articles/uq-wimax-wimax-hikaku",
       "mergedAt": "2026-11-16T04:33:08.143Z",
       "indexed": false,
-      "lastInspectedAt": "2026-11-18T04:54:13.173Z",
+      "lastInspectedAt": "2026-11-19T04:45:56.107Z",
       "inspection": {
         "verdict": "NEUTRAL",
         "coverageState": "検出 - インデックス未登録",
@@ -4200,10 +4201,10 @@
       "url": "https://sim-hikari-guide.com/articles/ahamo-norikae-tejun",
       "mergedAt": "2026-11-17T06:20:40.515Z",
       "indexed": false,
-      "lastInspectedAt": "2026-11-18T04:54:13.173Z",
+      "lastInspectedAt": "2026-11-19T04:45:56.107Z",
       "inspection": {
         "verdict": "NEUTRAL",
-        "coverageState": "URL が Google に認識されていません",
+        "coverageState": "検出 - インデックス未登録",
         "indexingState": "INDEXING_STATE_UNSPECIFIED",
         "lastCrawlTime": null,
         "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
@@ -4216,7 +4217,18 @@
       "slug": "wimax-kaituu-dekinai-fix",
       "url": "https://sim-hikari-guide.com/articles/wimax-kaituu-dekinai-fix",
       "mergedAt": "2026-11-18T05:45:10.982Z",
-      "indexed": false
+      "indexed": false,
+      "lastInspectedAt": "2026-11-19T04:45:56.107Z",
+      "inspection": {
+        "verdict": "NEUTRAL",
+        "coverageState": "検出 - インデックス未登録",
+        "indexingState": "INDEXING_STATE_UNSPECIFIED",
+        "lastCrawlTime": null,
+        "pageFetchState": "PAGE_FETCH_STATE_UNSPECIFIED",
+        "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+        "indexed": false,
+        "source": "api"
+      }
     }
   ]
 }
