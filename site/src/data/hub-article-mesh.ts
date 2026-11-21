@@ -881,6 +881,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "wimax-kaituu-dekinai-fix",
         label: "WiMAX 開通 できない 対処の原因と7つ…",
       },
+      {
+        slug: "sim-esim-settei-dekinai",
+        label: "格安SIM eSIM 設定 できないの原因と…",
+      },
     ],
   },
   cost: {
