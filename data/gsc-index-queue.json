@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-11-21T04:32:21.080Z",
+  "updatedAt": "2026-11-21T05:26:34.180Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -4266,6 +4266,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "sim-esim-settei-dekinai",
+      "url": "https://sim-hikari-guide.com/articles/sim-esim-settei-dekinai",
+      "mergedAt": "2026-11-21T05:26:34.179Z",
+      "indexed": false
     }
   ]
 }
