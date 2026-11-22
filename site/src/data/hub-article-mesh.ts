@@ -1009,6 +1009,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "linemo-softbank-hikari-setwari",
         label: "LINEMO ソフトバンク光 セット割で固定…",
       },
+      {
+        slug: "nuro-hikari-au-denki-setwari",
+        label: "NURO 光 auでんき セット割で固定費を…",
+      },
     ],
   },
 };
