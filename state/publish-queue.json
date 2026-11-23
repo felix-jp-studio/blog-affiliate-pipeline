@@ -1,20 +1,12 @@
 {
-  "last_run": "2026-11-22",
-  "next_scheduled": "2026-11-23",
-  "week_id": "2026-W47",
-  "runs_this_week": 7,
+  "last_run": "2026-11-23",
+  "next_scheduled": "2026-11-24",
+  "week_id": "2026-W48",
+  "runs_this_week": 1,
   "type_counts": {
-    "comparison": 2,
-    "howto": 2,
-    "troubleshoot": 2,
-    "crosssell": 1
+    "comparison": 1
   },
   "history": [
-    {
-      "date": "2026-10-01",
-      "keywords": ["ドコモ 副回線 格安SIM 比較"],
-      "ok_count": 1
-    },
     {
       "date": "2026-10-02",
       "keywords": ["SIM 差し替え 方法 iPhone"],
@@ -268,6 +260,11 @@
     {
       "date": "2026-11-22",
       "keywords": ["NURO 光 auでんき セット割"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-11-23",
+      "keywords": ["ahamo UQモバイル 比較 2026"],
       "ok_count": 1
     }
   ]
