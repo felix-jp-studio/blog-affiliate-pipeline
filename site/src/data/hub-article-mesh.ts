@@ -429,6 +429,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "ahamo-uq-mobile-hikaku-2026",
         label: "ahamo UQモバイル 比較 2026",
       },
+      {
+        slug: "iijmio-norikae-tejun",
+        label: "IIJmio 乗り換え 手順の手順",
+      },
     ],
   },
   hikari: {
