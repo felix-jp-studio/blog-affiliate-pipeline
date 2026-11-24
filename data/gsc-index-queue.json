@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-11-24T07:19:47.732Z",
+  "updatedAt": "2026-11-24T08:10:28.478Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -4319,6 +4319,12 @@
         "source": "api"
       },
       "indexedAt": "2026-11-24T07:18:31.566Z"
+    },
+    {
+      "slug": "iijmio-norikae-tejun",
+      "url": "https://sim-hikari-guide.com/articles/iijmio-norikae-tejun",
+      "mergedAt": "2026-11-24T08:10:28.477Z",
+      "indexed": false
     }
   ]
 }
