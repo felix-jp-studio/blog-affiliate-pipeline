@@ -893,6 +893,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "sim-esim-settei-dekinai",
         label: "格安SIM eSIM 設定 できないの原因と…",
       },
+      {
+        slug: "mnp-one-stop-error-fix",
+        label: "MNP ワンストップ エラー 対処の原因と7…",
+      },
     ],
   },
   cost: {
