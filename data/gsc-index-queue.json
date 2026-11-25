@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-11-25T05:52:49.854Z",
+  "updatedAt": "2026-11-25T06:48:33.015Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -4337,6 +4337,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "mnp-one-stop-error-fix",
+      "url": "https://sim-hikari-guide.com/articles/mnp-one-stop-error-fix",
+      "mergedAt": "2026-11-25T06:48:33.013Z",
+      "indexed": false
     }
   ]
 }
