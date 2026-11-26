@@ -1,19 +1,14 @@
 {
-  "last_run": "2026-11-25",
-  "next_scheduled": "2026-11-26",
+  "last_run": "2026-11-26",
+  "next_scheduled": "2026-11-27",
   "week_id": "2026-W48",
-  "runs_this_week": 3,
+  "runs_this_week": 4,
   "type_counts": {
-    "comparison": 1,
+    "comparison": 2,
     "howto": 1,
     "troubleshoot": 1
   },
   "history": [
-    {
-      "date": "2026-10-04",
-      "keywords": ["ahamo セット割 光回線 確認"],
-      "ok_count": 1
-    },
     {
       "date": "2026-10-05",
       "keywords": ["MNP 乗り換え キャンペーン 比較 2026"],
@@ -267,6 +262,11 @@
     {
       "date": "2026-11-25",
       "keywords": ["MNP ワンストップ エラー 対処"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-11-26",
+      "keywords": ["ahamo 大盛り オプション 比較"],
       "ok_count": 1
     }
   ]
