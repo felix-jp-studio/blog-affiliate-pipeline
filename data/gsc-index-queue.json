@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-11-26T05:43:43.278Z",
+  "updatedAt": "2026-11-26T06:40:18.199Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -4358,6 +4358,12 @@
         "source": "api"
       },
       "indexedAt": "2026-11-26T05:42:26.628Z"
+    },
+    {
+      "slug": "ahamo-oomori-option-hikaku",
+      "url": "https://sim-hikari-guide.com/articles/ahamo-oomori-option-hikaku",
+      "mergedAt": "2026-11-26T06:40:18.198Z",
+      "indexed": false
     }
   ]
 }
