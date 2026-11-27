@@ -1,19 +1,14 @@
 {
-  "last_run": "2026-11-26",
-  "next_scheduled": "2026-11-27",
+  "last_run": "2026-11-27",
+  "next_scheduled": "2026-11-28",
   "week_id": "2026-W48",
-  "runs_this_week": 4,
+  "runs_this_week": 5,
   "type_counts": {
     "comparison": 2,
-    "howto": 1,
+    "howto": 2,
     "troubleshoot": 1
   },
   "history": [
-    {
-      "date": "2026-10-05",
-      "keywords": ["MNP 乗り換え キャンペーン 比較 2026"],
-      "ok_count": 1
-    },
     {
       "date": "2026-10-06",
       "keywords": ["Android 格安SIM 設定 方法"],
@@ -267,6 +262,11 @@
     {
       "date": "2026-11-26",
       "keywords": ["ahamo 大盛り オプション 比較"],
+      "ok_count": 1
+    },
+    {
+      "date": "2026-11-27",
+      "keywords": ["テザリング 設定 方法 格安SIM"],
       "ok_count": 1
     }
   ]

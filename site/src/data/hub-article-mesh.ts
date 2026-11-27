@@ -437,6 +437,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "ahamo-oomori-option-hikaku",
         label: "ahamo 大盛り オプション 比較",
       },
+      {
+        slug: "tethering-settei-houhou-sim",
+        label: "テザリング 設定 方法 格安SIMの手順",
+      },
     ],
   },
   hikari: {
