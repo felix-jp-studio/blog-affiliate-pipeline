@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-11-27T05:37:44.105Z",
+  "updatedAt": "2026-11-27T06:29:43.988Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -4376,6 +4376,12 @@
         "indexed": false,
         "source": "api"
       }
+    },
+    {
+      "slug": "tethering-settei-houhou-sim",
+      "url": "https://sim-hikari-guide.com/articles/tethering-settei-houhou-sim",
+      "mergedAt": "2026-11-27T06:29:43.987Z",
+      "indexed": false
     }
   ]
 }
