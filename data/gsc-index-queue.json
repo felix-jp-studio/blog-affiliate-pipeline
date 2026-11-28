@@ -1,6 +1,6 @@
 {
   "siteUrl": "https://sim-hikari-guide.com",
-  "updatedAt": "2026-11-28T05:14:49.239Z",
+  "updatedAt": "2026-11-28T06:05:28.384Z",
   "entries": [
     {
       "slug": "esim-norikae-sokujitsu",
@@ -4395,6 +4395,12 @@
         "source": "api"
       },
       "indexedAt": "2026-11-28T05:13:32.943Z"
+    },
+    {
+      "slug": "home-router-speed-slow-kaizen",
+      "url": "https://sim-hikari-guide.com/articles/home-router-speed-slow-kaizen",
+      "mergedAt": "2026-11-28T06:05:28.382Z",
+      "indexed": false
     }
   ]
 }
