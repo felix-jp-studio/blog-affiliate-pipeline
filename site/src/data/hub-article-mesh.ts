@@ -905,6 +905,10 @@ export const hubArticleMesh: Partial<Record<CategorySlug, HubArticleMesh>> = {
         slug: "mnp-one-stop-error-fix",
         label: "MNP ワンストップ エラー 対処の原因と7…",
       },
+      {
+        slug: "home-router-speed-slow-kaizen",
+        label: "ホームルーター 速度 遅い 改善の原因と7つ…",
+      },
     ],
   },
   cost: {
